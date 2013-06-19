@@ -1,0 +1,60 @@
+
+configurations {
+    natives
+}
+
+task extractNatives (type: Copy) {
+    dependsOn configurations.natives
+    from {
+        configurations.natives.collect {
+            zipTree(it)
+        }
+    }
+    into "$buildDir/natives/"
+    exclude 'META-INF/'
+}
+
+task distribution (type: Zip) {
+    dependsOn build
+    dependsOn extractNatives
+    dependsOn startScripts
+
+    version = System.env['BUILD_NUMBER'] ?: '0'
+
+    from(project.file('src/dist'))
+
+    into('lib') {
+        from(jar)
+        from(project.configurations.runtime)
+    }
+
+    into('bin') {
+        from(startScripts)
+        fileMode = 0755
+    }
+
+    into('natives') {
+        from("$buildDir/natives")
+    }
+}
+
+startScripts {
+    dependsOn extractNatives
+}
+
+startScripts << {
+    unixScript.text = unixScript.text.replace('DEFAULT_JVM_OPTS=""', 'DEFAULT_JVM_OPTS="-Djava.library.path=$(dirname $0)/../natives/"')
+    windowsScript.text = windowsScript.text.replace('DEFAULT_JVM_OPTS=', 'DEFAULT_JVM_OPTS=-Djava.library.path=%~dp0\\..\\natives\\')
+}
+
+eclipseClasspath {
+    dependsOn extractNatives
+    eclipse.classpath.file.withXml {
+        it.asNode().each {
+            if( it.attribute("kind").equals("lib") ){
+                def attributes = it.appendNode('attributes')
+                attributes.appendNode('attribute', [name: 'org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY', value: "$buildDir/natives/"])
+            }
+        }
+    }
+}
