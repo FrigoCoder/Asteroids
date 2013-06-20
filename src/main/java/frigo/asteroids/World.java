@@ -15,6 +15,10 @@ public class World {
         entities.add(entity);
     }
 
+    public Set<Entity> getEntities () {
+        return entities;
+    }
+
     public void addUpdater (Updater updater) {
         updaters.add(updater);
     }
@@ -23,10 +27,6 @@ public class World {
         for( Updater updater : updaters ){
             updater.update(this);
         }
-    }
-
-    public Set<Entity> getEntities () {
-        return entities;
     }
 
 }

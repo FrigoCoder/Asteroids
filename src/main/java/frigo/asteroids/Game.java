@@ -25,7 +25,7 @@ public class Game {
     private void addBalls () {
         for( int i = 0; i < 10; i++ ){
             Entity ball = new Entity();
-            ball.add(new Speed(random(-1, 1), random(-1, 1)));
+            ball.add(new Speed(random(-0.01, 0.01), random(-0.01, 0.01)));
             ball.add(new Position(random(-1, 1), random(-1, 1)));
             world.addEntity(ball);
         }

@@ -8,7 +8,7 @@ public class MovementSystem extends Updater {
         for( Entity entity : world.getEntities() ){
             Speed speed = entity.getComponent(Speed.class);
             Position position = entity.getComponent(Position.class);
-
+            position.add(speed);
         }
     }
 }

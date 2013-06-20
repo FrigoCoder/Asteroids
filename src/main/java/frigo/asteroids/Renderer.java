@@ -34,6 +34,7 @@ public class Renderer extends Updater {
     @Override
     public void update (World world) {
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
+
         GL11.glMatrixMode(GL11.GL_MODELVIEW);
         GL11.glLoadIdentity();
 
