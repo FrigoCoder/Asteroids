@@ -22,11 +22,6 @@ dependencies {
     natives group: 'org.lwjgl.lwjgl', name: 'lwjgl-platform', version: 'latest.release', classifier: 'natives-windows'
     compile group: 'org.lwjgl.lwjgl', name: 'lwjgl', version: 'latest.release'
 
-    natives group: 'net.java.dev.jogl', name: 'jogl-macosx-universal', version: 'latest.release'
-    natives group: 'net.java.dev.jogl', name: 'jogl-linux-i586', version: 'latest.release'
-    natives group: 'net.java.dev.jogl', name: 'jogl-windows-i586', version: 'latest.release'
-    compile group: 'net.java.dev.jogl', name: 'jogl', version: 'latest.release'
-
     compile group: 'com.google.guava', name: 'guava', version: 'latest.release'
 
     compile group: 'org.apache.commons', name: 'commons-lang3', version: 'latest.release'
@@ -62,5 +57,12 @@ sonarRunner {
 test {
     jacoco {
         enabled = true
+    }
+}
+
+eclipse {
+    classpath {
+        containers.clear();
+        containers.add("org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7");
     }
 }
