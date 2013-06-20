@@ -23,6 +23,12 @@ public class World {
         updaters.add(updater);
     }
 
+    public void init () {
+        for( Updater updater : updaters ){
+            updater.init(this);
+        }
+    }
+
     public void update () {
         for( Updater updater : updaters ){
             updater.update(this);

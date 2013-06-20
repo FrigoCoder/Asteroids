@@ -10,15 +10,15 @@ import org.lwjgl.opengl.GL11;
 
 public class Renderer extends Updater {
 
-    private int width = 1024;
-    private int height = 768;
-
-    public Renderer () {
-        Display.setVSyncEnabled(false);
+    @Override
+    public void init (World world) {
+        int width = 1024;
+        int height = 768;
         try{
             DisplayMode displayMode = new DisplayMode(width, height);
             Display.setDisplayMode(displayMode);
             Display.create();
+            // Display.makeCurrent();
         }catch( LWJGLException e ){
             throw unchecked(e);
         }

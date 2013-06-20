@@ -1,21 +1,26 @@
 
 package frigo.asteroids;
 
-import static frigo.asteroids.Rethrow.unchecked;
-
 import java.util.Random;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 
 import org.lwjgl.opengl.Display;
 
-public class Game {
+public class Game implements Runnable {
 
-    public static void main (String[] args) {
+    public static void main (String[] args) throws InterruptedException, ExecutionException {
         Game game = new Game();
         game.start();
     }
 
     private World world = new World();
     private Random random = new Random();
+    private ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
+    private boolean initialized;
 
     public Game () {
         addBalls();
@@ -40,20 +45,21 @@ public class Game {
         world.addUpdater(new Renderer());
     }
 
-    public void start () {
-        while( !Display.isCloseRequested() ){
-            run();
-        }
+    public void start () throws InterruptedException, ExecutionException {
+        ScheduledFuture<?> future = executor.scheduleAtFixedRate(this, 0, 10, TimeUnit.MILLISECONDS);
+        future.get();
     }
 
+    @Override
     public void run () {
-        world.update();
-        try{
-            Thread.sleep(10);
-        }catch( InterruptedException e ){
-            throw unchecked(e);
+        if( !initialized ){
+            world.init();
+            initialized = true;
         }
-
+        world.update();
+        if( Display.isCloseRequested() ){
+            executor.shutdown();
+        }
     }
 
 }

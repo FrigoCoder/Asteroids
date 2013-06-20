@@ -1,6 +1,6 @@
 
 package frigo.asteroids;
 
-public class Component {
+public abstract class Component {
 
 }
