@@ -1,5 +1,5 @@
 
-package frigo.asteroids;
+package frigo.asteroids.util;
 
 public class Rethrow {
 

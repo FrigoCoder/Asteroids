@@ -1,5 +1,11 @@
 
-package frigo.asteroids;
+package frigo.asteroids.logics;
+
+import frigo.asteroids.components.Position;
+import frigo.asteroids.components.Speed;
+import frigo.asteroids.core.Entity;
+import frigo.asteroids.core.Logic;
+import frigo.asteroids.core.World;
 
 public class MovementSystem extends Logic {
 

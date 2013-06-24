@@ -1,5 +1,5 @@
 
-package frigo.asteroids;
+package frigo.asteroids.core;
 
 import org.junit.Test;
 

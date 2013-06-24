@@ -1,7 +1,7 @@
 
 package frigo.asteroids;
 
-import static frigo.asteroids.Rethrow.unchecked;
+import static frigo.asteroids.util.Rethrow.unchecked;
 
 import java.util.Random;
 import java.util.concurrent.CancellationException;
@@ -13,6 +13,14 @@ import java.util.concurrent.TimeUnit;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import frigo.asteroids.components.Position;
+import frigo.asteroids.components.Speed;
+import frigo.asteroids.core.Entity;
+import frigo.asteroids.core.World;
+import frigo.asteroids.logics.MovementSystem;
+import frigo.asteroids.logics.Renderer;
+import frigo.asteroids.util.BooleanLatch;
 
 public class Game implements Runnable {
 

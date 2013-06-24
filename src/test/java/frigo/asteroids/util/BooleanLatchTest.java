@@ -1,5 +1,5 @@
 
-package frigo.asteroids;
+package frigo.asteroids.util;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
@@ -13,6 +13,8 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.Timeout;
+
+import frigo.asteroids.util.BooleanLatch;
 
 public class BooleanLatchTest {
 

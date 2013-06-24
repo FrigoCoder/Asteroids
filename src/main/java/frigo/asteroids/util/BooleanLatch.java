@@ -1,7 +1,7 @@
 
-package frigo.asteroids;
+package frigo.asteroids.util;
 
-import static frigo.asteroids.Rethrow.unchecked;
+import static frigo.asteroids.util.Rethrow.unchecked;
 
 import java.util.concurrent.CountDownLatch;
 

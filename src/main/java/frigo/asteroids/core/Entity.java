@@ -1,8 +1,9 @@
 
-package frigo.asteroids;
+package frigo.asteroids.core;
 
 import java.util.HashMap;
 import java.util.Map;
+
 
 public class Entity {
 

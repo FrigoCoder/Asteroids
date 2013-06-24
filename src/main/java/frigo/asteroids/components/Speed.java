@@ -1,5 +1,7 @@
 
-package frigo.asteroids;
+package frigo.asteroids.components;
+
+import frigo.asteroids.core.Component;
 
 public class Speed extends Component {
 

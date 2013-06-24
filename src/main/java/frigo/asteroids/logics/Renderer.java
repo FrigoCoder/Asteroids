@@ -1,12 +1,17 @@
 
-package frigo.asteroids;
+package frigo.asteroids.logics;
 
-import static frigo.asteroids.Rethrow.unchecked;
+import static frigo.asteroids.util.Rethrow.unchecked;
 
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
+
+import frigo.asteroids.components.Position;
+import frigo.asteroids.core.Entity;
+import frigo.asteroids.core.Logic;
+import frigo.asteroids.core.World;
 
 public class Renderer extends Logic {
 

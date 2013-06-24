@@ -1,5 +1,6 @@
 
-package frigo.asteroids;
+package frigo.asteroids.core;
+
 
 public abstract class Logic {
 
