@@ -36,7 +36,6 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: 'latest.release'
     testCompile group: 'org.hamcrest', name: 'hamcrest-all', version: 'latest.release'
     testCompile group: 'org.mockito', name: 'mockito-core', version: 'latest.release'
-
 }
 
 configurations {

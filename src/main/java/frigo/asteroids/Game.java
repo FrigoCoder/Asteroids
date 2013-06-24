@@ -1,16 +1,22 @@
 
 package frigo.asteroids;
 
+import static frigo.asteroids.Rethrow.unchecked;
+
 import java.util.Random;
+import java.util.concurrent.CancellationException;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
-import org.lwjgl.opengl.Display;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Game implements Runnable {
+
+    private static final Logger logger = LoggerFactory.getLogger(Game.class);
 
     public static void main (String[] args) throws InterruptedException, ExecutionException {
         Game game = new Game();
@@ -21,6 +27,7 @@ public class Game implements Runnable {
     private Random random = new Random();
     private ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
     private boolean initialized;
+    private BooleanLatch finished = new BooleanLatch();
 
     public Game () {
         addBalls();
@@ -47,19 +54,26 @@ public class Game implements Runnable {
 
     public void start () throws InterruptedException, ExecutionException {
         ScheduledFuture<?> future = executor.scheduleAtFixedRate(this, 0, 10, TimeUnit.MILLISECONDS);
-        future.get();
+        finished.await();
+        executor.shutdown();
+        executor.awaitTermination(Long.MAX_VALUE, TimeUnit.DAYS);
+        try{
+            future.get();
+        }catch( CancellationException e ){
+        }
     }
 
     @Override
     public void run () {
-        if( !initialized ){
-            world.init();
-            initialized = true;
-        }
-        world.update();
-        if( Display.isCloseRequested() ){
-            executor.shutdown();
+        try{
+            if( !initialized ){
+                world.init();
+                initialized = true;
+            }
+            world.update();
+        }catch( Exception e ){
+            finished.release();
+            throw unchecked(e);
         }
     }
-
 }

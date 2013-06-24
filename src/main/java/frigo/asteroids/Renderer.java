@@ -18,7 +18,6 @@ public class Renderer extends Updater {
             DisplayMode displayMode = new DisplayMode(width, height);
             Display.setDisplayMode(displayMode);
             Display.create();
-            // Display.makeCurrent();
         }catch( LWJGLException e ){
             throw unchecked(e);
         }
@@ -47,5 +46,10 @@ public class Renderer extends Updater {
         GL11.glEnd();
 
         Display.update();
+
+        if( Display.isCloseRequested() ){
+            Display.destroy();
+            throw new RuntimeException("End of game");
+        }
     }
 }
