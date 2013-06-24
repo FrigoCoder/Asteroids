@@ -8,7 +8,7 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
 
-public class Renderer extends Updater {
+public class Renderer extends Logic {
 
     @Override
     public void init (World world) {

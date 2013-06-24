@@ -9,7 +9,7 @@ import java.util.Set;
 public class World {
 
     private Set<Entity> entities = new HashSet<>();
-    private List<Updater> updaters = new LinkedList<>();
+    private List<Logic> updaters = new LinkedList<>();
 
     public void addEntity (Entity entity) {
         entities.add(entity);
@@ -19,18 +19,18 @@ public class World {
         return entities;
     }
 
-    public void addUpdater (Updater updater) {
+    public void addUpdater (Logic updater) {
         updaters.add(updater);
     }
 
     public void init () {
-        for( Updater updater : updaters ){
+        for( Logic updater : updaters ){
             updater.init(this);
         }
     }
 
     public void update () {
-        for( Updater updater : updaters ){
+        for( Logic updater : updaters ){
             updater.update(this);
         }
     }

@@ -1,7 +1,7 @@
 
 package frigo.asteroids;
 
-public class MovementSystem extends Updater {
+public class MovementSystem extends Logic {
 
     @Override
     public void init (World world) {
