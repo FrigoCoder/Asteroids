@@ -31,7 +31,7 @@ public class Game implements Runnable {
 
     public Game () {
         addBalls();
-        addUpdaters();
+        addLogics();
     }
 
     private void addBalls () {
@@ -47,9 +47,9 @@ public class Game implements Runnable {
         return low + random.nextDouble() * (high - low);
     }
 
-    private void addUpdaters () {
-        world.addUpdater(new MovementSystem());
-        world.addUpdater(new Renderer());
+    private void addLogics () {
+        world.addLogic(new MovementSystem());
+        world.addLogic(new Renderer());
     }
 
     public void start () throws InterruptedException, ExecutionException {
