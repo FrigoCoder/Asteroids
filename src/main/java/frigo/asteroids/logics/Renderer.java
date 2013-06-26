@@ -9,11 +9,15 @@ import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
 
 import frigo.asteroids.components.Position;
+import frigo.asteroids.components.Renderable;
+import frigo.asteroids.core.Aspect;
 import frigo.asteroids.core.Entity;
 import frigo.asteroids.core.Logic;
 import frigo.asteroids.core.World;
 
 public class Renderer extends Logic {
+
+    private Aspect aspect = Aspect.all(Position.class, Renderable.class);
 
     @Override
     public void init (World world) {
@@ -44,7 +48,7 @@ public class Renderer extends Logic {
 
         GL11.glPointSize(10.0f);
         GL11.glBegin(GL11.GL_POINTS);
-        for( Entity entity : world.getEntities() ){
+        for( Entity entity : world.getEntitiesFor(aspect) ){
             Position position = entity.getComponent(Position.class);
             GL11.glVertex2d(position.x, position.y);
         }
@@ -57,4 +61,5 @@ public class Renderer extends Logic {
             throw new RuntimeException("End of game");
         }
     }
+
 }

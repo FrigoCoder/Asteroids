@@ -6,7 +6,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-
 public class World {
 
     private Set<Entity> entities = new HashSet<>();
@@ -18,6 +17,16 @@ public class World {
 
     public Set<Entity> getEntities () {
         return entities;
+    }
+
+    public Set<Entity> getEntitiesFor (Aspect aspect) {
+        Set<Entity> result = new HashSet<>();
+        for( Entity entity : entities ){
+            if( aspect.matches(entity) ){
+                result.add(entity);
+            }
+        }
+        return result;
     }
 
     public void addLogic (Logic logic) {

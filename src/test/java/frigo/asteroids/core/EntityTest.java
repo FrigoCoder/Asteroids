@@ -25,7 +25,7 @@ public class EntityTest {
     @Before
     public void setUp () {
         entity = new Entity();
-        position = new Position(1.0, 1.0);
+        position = new Position(1, 1);
     }
 
     @Test
@@ -50,4 +50,5 @@ public class EntityTest {
     public void not_added_component_can_be_checked_for_presence () {
         assertThat(entity.hasComponent(Position.class), is(false));
     }
+
 }

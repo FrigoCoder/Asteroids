@@ -1,7 +1,6 @@
 
 package frigo.asteroids.core;
 
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -9,9 +8,12 @@ public class Aspect {
 
     private Set<Class<? extends Component>> components = new HashSet<>();
 
-    public static Aspect all (Collection<Class<? extends Component>> types) {
+    @SafeVarargs
+    public static Aspect all (Class<? extends Component>... types) {
         Aspect aspect = new Aspect();
-        aspect.components.addAll(types);
+        for( Class<? extends Component> type : types ){
+            aspect.components.add(type);
+        }
         return aspect;
     }
 
