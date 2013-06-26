@@ -5,7 +5,6 @@ import static frigo.asteroids.util.Rethrow.unchecked;
 
 import java.util.Random;
 import java.util.concurrent.CancellationException;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
@@ -25,12 +24,7 @@ import frigo.asteroids.util.BooleanLatch;
 
 public class Game implements Runnable {
 
-    private static final Logger logger = LoggerFactory.getLogger(Game.class);
-
-    public static void main (String[] args) throws InterruptedException, ExecutionException {
-        Game game = new Game();
-        game.start();
-    }
+    private static final Logger LOGGER = LoggerFactory.getLogger(Game.class);
 
     private World world = new World();
     private Random random = new Random();
@@ -46,14 +40,14 @@ public class Game implements Runnable {
     private void addBalls () {
         for( int i = 0; i < 10; i++ ){
             Entity ball = new Entity();
-            ball.add(new Speed(random(-0.01, 0.01), random(-0.01, 0.01)));
-            ball.add(new Position(random(-1, 1), random(-1, 1)));
+            ball.add(new Speed(getRandom(-0.01, 0.01), getRandom(-0.01, 0.01)));
+            ball.add(new Position(getRandom(-1, 1), getRandom(-1, 1)));
             ball.add(new Renderable());
             world.addEntity(ball);
         }
     }
 
-    private double random (double low, double high) {
+    private double getRandom (double low, double high) {
         return low + random.nextDouble() * (high - low);
     }
 
@@ -62,7 +56,7 @@ public class Game implements Runnable {
         world.addLogic(new Renderer());
     }
 
-    public void start () throws InterruptedException, ExecutionException {
+    public void start () throws Exception {
         ScheduledFuture<?> future = executor.scheduleAtFixedRate(this, 0, 10, TimeUnit.MILLISECONDS);
         finished.await();
         executor.shutdown();
@@ -70,6 +64,7 @@ public class Game implements Runnable {
         try{
             future.get();
         }catch( CancellationException e ){
+            LOGGER.info("Cancelled: ", e);
         }
     }
 
@@ -86,4 +81,10 @@ public class Game implements Runnable {
             throw unchecked(e);
         }
     }
+
+    public static void main (String[] args) throws Exception {
+        Game game = new Game();
+        game.start();
+    }
+
 }
