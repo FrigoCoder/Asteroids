@@ -8,7 +8,7 @@ import frigo.asteroids.core.Entity;
 import frigo.asteroids.core.Logic;
 import frigo.asteroids.core.World;
 
-public class MovementSystem extends Logic {
+public class MovementSystem implements Logic {
 
     private Aspect aspect = Aspect.all(Speed.class, Position.class);
 

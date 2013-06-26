@@ -15,7 +15,7 @@ import frigo.asteroids.core.Entity;
 import frigo.asteroids.core.Logic;
 import frigo.asteroids.core.World;
 
-public class Renderer extends Logic {
+public class Renderer implements Logic {
 
     private Aspect aspect = Aspect.all(Position.class, Renderable.class);
 

@@ -3,7 +3,7 @@ package frigo.asteroids.components;
 
 import frigo.asteroids.core.Component;
 
-public class Speed extends Component {
+public class Speed implements Component {
 
     public double dx;
     public double dy;

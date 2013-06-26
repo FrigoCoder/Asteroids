@@ -1,10 +1,10 @@
 
 package frigo.asteroids.core;
 
-public abstract class Logic {
+public interface Logic {
 
-    public abstract void init (World world);
+    void init (World world);
 
-    public abstract void update (World world);
+    void update (World world);
 
 }

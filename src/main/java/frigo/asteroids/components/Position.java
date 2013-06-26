@@ -3,8 +3,7 @@ package frigo.asteroids.components;
 
 import frigo.asteroids.core.Component;
 
-
-public class Position extends Component {
+public class Position implements Component {
 
     public double x;
     public double y;
