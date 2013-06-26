@@ -15,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import frigo.asteroids.components.Position;
+import frigo.asteroids.components.Renderable;
 import frigo.asteroids.components.Speed;
 import frigo.asteroids.core.Entity;
 import frigo.asteroids.core.World;
@@ -47,6 +48,7 @@ public class Game implements Runnable {
             Entity ball = new Entity();
             ball.add(new Speed(random(-0.01, 0.01), random(-0.01, 0.01)));
             ball.add(new Position(random(-1, 1), random(-1, 1)));
+            ball.add(new Renderable());
             world.addEntity(ball);
         }
     }

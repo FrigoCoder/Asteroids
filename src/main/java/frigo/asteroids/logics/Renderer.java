@@ -27,6 +27,7 @@ public class Renderer extends Logic {
             DisplayMode displayMode = new DisplayMode(width, height);
             Display.setDisplayMode(displayMode);
             Display.create();
+            Display.makeCurrent();
         }catch( LWJGLException e ){
             throw unchecked(e);
         }
