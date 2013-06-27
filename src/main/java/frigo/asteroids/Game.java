@@ -33,17 +33,27 @@ public class Game implements Runnable {
     private BooleanLatch finished = new BooleanLatch();
 
     public Game () {
-        addBalls();
+        addAsteroids();
+        addStaticAsteroids();
         addLogics();
     }
 
-    private void addBalls () {
+    private void addAsteroids () {
         for( int i = 0; i < 10; i++ ){
-            Entity ball = new Entity();
-            ball.add(new Speed(getRandom(-0.01, 0.01), getRandom(-0.01, 0.01)));
-            ball.add(new Position(getRandom(-1, 1), getRandom(-1, 1)));
-            ball.add(new Renderable());
-            world.addEntity(ball);
+            Entity asteroid = new Entity();
+            asteroid.add(new Speed(getRandom(-0.01, 0.01), getRandom(-0.01, 0.01)));
+            asteroid.add(new Position(getRandom(-1, 1), getRandom(-1, 1)));
+            asteroid.add(new Renderable());
+            world.addEntity(asteroid);
+        }
+    }
+
+    private void addStaticAsteroids () {
+        for( int i = 0; i < 10; i++ ){
+            Entity asteroid = new Entity();
+            asteroid.add(new Position(getRandom(-1, 1), getRandom(-1, 1)));
+            asteroid.add(new Renderable());
+            world.addEntity(asteroid);
         }
     }
 
