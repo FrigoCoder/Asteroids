@@ -7,7 +7,6 @@ import static org.junit.Assert.assertThat;
 
 import java.util.NoSuchElementException;
 
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -19,14 +18,8 @@ public class EntityTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private Entity entity;
-    private Position position;
-
-    @Before
-    public void setUp () {
-        entity = new Entity();
-        position = new Position(1, 1);
-    }
+    private Entity entity = new Entity();
+    private Position position = new Position(1, 1);
 
     @Test
     public void added_component_can_be_retrieved () {
