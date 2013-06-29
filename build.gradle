@@ -22,6 +22,14 @@ dependencies {
     natives group: 'org.lwjgl.lwjgl', name: 'lwjgl-platform', version: 'latest.release', classifier: 'natives-windows'
     compile group: 'org.lwjgl.lwjgl', name: 'lwjgl', version: 'latest.release'
 
+    natives group: 'org.jogamp.gluegen', name: 'gluegen-rt', version: 'latest.stable', classifier: 'natives-windows-amd64'
+    compile group: 'org.jogamp.gluegen', name: 'gluegen-rt', version: 'latest.stable', classifier: 'natives-windows-amd64'
+    compile group: 'org.jogamp.gluegen', name: 'gluegen-rt', version: 'latest.stable'
+
+    natives group: 'org.jogamp.jogl', name: 'jogl-all', version: 'latest.stable', classifier: 'natives-windows-amd64'
+    compile group: 'org.jogamp.jogl', name: 'jogl-all', version: 'latest.stable', classifier: 'natives-windows-amd64'
+    compile group: 'org.jogamp.jogl', name: 'jogl-all', version: 'latest.stable'
+
     compile group: 'com.google.guava', name: 'guava', version: 'latest.release'
 
     compile group: 'org.apache.commons', name: 'commons-lang3', version: 'latest.release'
@@ -36,12 +44,6 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: 'latest.release'
     testCompile group: 'org.hamcrest', name: 'hamcrest-all', version: 'latest.release'
     testCompile group: 'org.mockito', name: 'mockito-core', version: 'latest.release'
-}
-
-configurations {
-    configurations.natives.files {
-        compile.exclude group: it.getGroup(), module: it.getName()
-    }
 }
 
 sonarRunner {
