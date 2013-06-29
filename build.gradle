@@ -23,11 +23,9 @@ dependencies {
     compile group: 'org.lwjgl.lwjgl', name: 'lwjgl', version: 'latest.release'
 
     natives group: 'org.jogamp.gluegen', name: 'gluegen-rt', version: 'latest.stable', classifier: 'natives-windows-amd64'
-    compile group: 'org.jogamp.gluegen', name: 'gluegen-rt', version: 'latest.stable', classifier: 'natives-windows-amd64'
     compile group: 'org.jogamp.gluegen', name: 'gluegen-rt', version: 'latest.stable'
 
     natives group: 'org.jogamp.jogl', name: 'jogl-all', version: 'latest.stable', classifier: 'natives-windows-amd64'
-    compile group: 'org.jogamp.jogl', name: 'jogl-all', version: 'latest.stable', classifier: 'natives-windows-amd64'
     compile group: 'org.jogamp.jogl', name: 'jogl-all', version: 'latest.stable'
 
     compile group: 'com.google.guava', name: 'guava', version: 'latest.release'
