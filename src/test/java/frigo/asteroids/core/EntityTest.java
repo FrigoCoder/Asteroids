@@ -11,7 +11,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import frigo.asteroids.components.Position;
+import frigo.asteroids.component.Position;
 
 public class EntityTest {
 
@@ -24,24 +24,24 @@ public class EntityTest {
     @Test
     public void added_component_can_be_retrieved () {
         entity.add(position);
-        assertThat(entity.getComponent(Position.class), sameInstance(position));
+        assertThat(entity.get(Position.class), sameInstance(position));
     }
 
     @Test
     public void not_added_component_retrieval_throws_exception () {
         thrown.expect(NoSuchElementException.class);
-        entity.getComponent(Position.class);
+        entity.get(Position.class);
     }
 
     @Test
     public void added_component_can_be_checked_for_presence () {
         entity.add(position);
-        assertThat(entity.hasComponent(Position.class), is(true));
+        assertThat(entity.has(Position.class), is(true));
     }
 
     @Test
     public void not_added_component_can_be_checked_for_presence () {
-        assertThat(entity.hasComponent(Position.class), is(false));
+        assertThat(entity.has(Position.class), is(false));
     }
 
 }

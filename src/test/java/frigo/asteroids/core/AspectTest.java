@@ -6,9 +6,9 @@ import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
 
-import frigo.asteroids.components.Position;
-import frigo.asteroids.components.Renderable;
-import frigo.asteroids.components.Speed;
+import frigo.asteroids.component.Position;
+import frigo.asteroids.component.Renderable;
+import frigo.asteroids.component.Speed;
 
 public class AspectTest {
 

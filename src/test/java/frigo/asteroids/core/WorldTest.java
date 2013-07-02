@@ -13,8 +13,8 @@ import java.util.Set;
 
 import org.junit.Test;
 
-import frigo.asteroids.components.Position;
-import frigo.asteroids.components.Speed;
+import frigo.asteroids.component.Position;
+import frigo.asteroids.component.Speed;
 
 public class WorldTest {
 

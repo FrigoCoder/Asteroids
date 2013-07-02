@@ -19,7 +19,7 @@ public class Aspect {
 
     public boolean matches (Entity entity) {
         for( Class<? extends Component> component : components ){
-            if( !entity.hasComponent(component) ){
+            if( !entity.has(component) ){
                 return false;
             }
         }

@@ -13,13 +13,13 @@ import java.util.concurrent.TimeUnit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import frigo.asteroids.components.Position;
-import frigo.asteroids.components.Renderable;
-import frigo.asteroids.components.Speed;
+import frigo.asteroids.component.Position;
+import frigo.asteroids.component.Renderable;
+import frigo.asteroids.component.Speed;
 import frigo.asteroids.core.Entity;
 import frigo.asteroids.core.World;
-import frigo.asteroids.logics.MovementSystem;
-import frigo.asteroids.logics.Renderer;
+import frigo.asteroids.logic.MovementSystem;
+import frigo.asteroids.logic.Renderer;
 import frigo.asteroids.util.BooleanLatch;
 
 public class Game implements Runnable {

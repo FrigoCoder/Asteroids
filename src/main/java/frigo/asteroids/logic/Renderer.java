@@ -1,5 +1,5 @@
 
-package frigo.asteroids.logics;
+package frigo.asteroids.logic;
 
 import static frigo.asteroids.util.Rethrow.unchecked;
 
@@ -8,8 +8,8 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
 
-import frigo.asteroids.components.Position;
-import frigo.asteroids.components.Renderable;
+import frigo.asteroids.component.Position;
+import frigo.asteroids.component.Renderable;
 import frigo.asteroids.core.Aspect;
 import frigo.asteroids.core.Entity;
 import frigo.asteroids.core.Logic;
@@ -50,7 +50,7 @@ public class Renderer implements Logic {
         GL11.glPointSize(10.0f);
         GL11.glBegin(GL11.GL_POINTS);
         for( Entity entity : world.getEntitiesFor(aspect) ){
-            Position position = entity.getComponent(Position.class);
+            Position position = entity.get(Position.class);
             GL11.glVertex2d(position.x, position.y);
         }
         GL11.glEnd();

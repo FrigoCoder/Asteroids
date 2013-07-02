@@ -13,7 +13,7 @@ public final class Entity {
         components.put(component.getClass(), component);
     }
 
-    public <T extends Component> T getComponent (Class<T> type) {
+    public <T extends Component> T get (Class<T> type) {
         T component = (T) components.get(type);
         if( component == null ){
             throw new NoSuchElementException();
@@ -21,7 +21,7 @@ public final class Entity {
         return component;
     }
 
-    public boolean hasComponent (Class<? extends Component> type) {
+    public boolean has (Class<? extends Component> type) {
         return components.containsKey(type);
     }
 

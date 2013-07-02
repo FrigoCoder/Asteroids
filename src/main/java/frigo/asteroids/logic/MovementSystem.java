@@ -1,8 +1,8 @@
 
-package frigo.asteroids.logics;
+package frigo.asteroids.logic;
 
-import frigo.asteroids.components.Position;
-import frigo.asteroids.components.Speed;
+import frigo.asteroids.component.Position;
+import frigo.asteroids.component.Speed;
 import frigo.asteroids.core.Aspect;
 import frigo.asteroids.core.Entity;
 import frigo.asteroids.core.Logic;
@@ -19,8 +19,8 @@ public class MovementSystem implements Logic {
     @Override
     public void update (World world) {
         for( Entity entity : world.getEntitiesFor(aspect) ){
-            Speed speed = entity.getComponent(Speed.class);
-            Position position = entity.getComponent(Position.class);
+            Speed speed = entity.get(Speed.class);
+            Position position = entity.get(Position.class);
             position.add(speed);
         }
     }
