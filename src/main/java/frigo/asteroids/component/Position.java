@@ -5,34 +5,27 @@ import frigo.asteroids.core.Component;
 
 public class Position implements Component {
 
-    public double x;
-    public double y;
+    public final double x;
+    public final double y;
 
     public Position (double x, double y) {
-        this.x = x;
-        this.y = y;
-        wrap();
+        this.x = wrap(x, -1, 1);
+        this.y = wrap(y, -1, 1);
     }
 
-    public void add (Speed speed) {
-        x += speed.dx;
-        y += speed.dy;
-        wrap();
+    private double wrap (double value, double low, double high) {
+        double result = value;
+        while( result < low ){
+            result += high - low;
+        }
+        while( result >= high ){
+            result -= high - low;
+        }
+        return result;
     }
 
-    private void wrap () {
-        while( x < -1 ){
-            x += 2;
-        }
-        while( x >= 1 ){
-            x -= 2;
-        }
-        while( y < -1 ){
-            y += 2;
-        }
-        while( y >= 1 ){
-            y -= 2;
-        }
+    public Position add (Speed speed) {
+        return new Position(x + speed.dx, y + speed.dy);
     }
 
 }

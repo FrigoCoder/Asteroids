@@ -21,7 +21,7 @@ public class MovementSystem implements Logic {
         for( Entity entity : world.getEntitiesFor(aspect) ){
             Speed speed = entity.get(Speed.class);
             Position position = entity.get(Position.class);
-            position.add(speed);
+            entity.add(position.add(speed));
         }
     }
 
