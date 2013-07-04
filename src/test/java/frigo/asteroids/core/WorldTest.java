@@ -41,26 +41,26 @@ public class WorldTest {
 
         Set<Entity> expected = new HashSet<>(asList(entity));
         assertThat(world.getEntitiesFor(aspect), is(expected));
-
     }
 
     @Test
     public void logic_is_initialized_at_init_call () {
-        // given
         world.addLogic(logic);
-        // when
         world.init();
-        // then
         verify(logic).init(world);
     }
 
     @Test
     public void logic_is_updated_at_update_call () {
-        // given
         world.addLogic(logic);
-        // when
-        world.update();
-        // then
-        verify(logic).update(world);
+        world.update(1);
+        verify(logic).update(world, 1);
+    }
+
+    @Test
+    public void logic_is_updated_by_the_elapsed_seconds () {
+        world.addLogic(logic);
+        world.update(0.01);
+        verify(logic).update(world, 0.01);
     }
 }

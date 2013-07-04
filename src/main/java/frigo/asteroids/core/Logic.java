@@ -5,6 +5,6 @@ public interface Logic {
 
     void init (World world);
 
-    void update (World world);
+    void update (World world, double elapsedSeconds);
 
 }

@@ -17,11 +17,11 @@ public class MovementSystem implements Logic {
     }
 
     @Override
-    public void update (World world) {
+    public void update (World world, double elapsedSeconds) {
         for( Entity entity : world.getEntitiesFor(aspect) ){
             Speed speed = entity.get(Speed.class);
             Position position = entity.get(Position.class);
-            entity.add(position.add(speed));
+            entity.add(position.add(speed.mul(elapsedSeconds)));
         }
     }
 

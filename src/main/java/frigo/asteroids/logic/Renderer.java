@@ -41,7 +41,7 @@ public class Renderer implements Logic {
     }
 
     @Override
-    public void update (World world) {
+    public void update (World world, double elapsedSeconds) {
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
 
         GL11.glMatrixMode(GL11.GL_MODELVIEW);

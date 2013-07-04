@@ -19,13 +19,13 @@ public class MovementSystemTest {
     private Entity entity = new Entity();
 
     @Test
-    public void update_updates_entities_with_speed_and_position () {
-        entity.add(new Speed(0.1, 0.1));
+    public void update_updates_entities_with_speed_and_position_and_elapsed_seconds () {
+        entity.add(new Speed(10.0, 10.0));
         entity.add(new Position(0.0, 0.1));
         world.addEntity(entity);
 
         movementSystem.init(world);
-        movementSystem.update(world);
+        movementSystem.update(world, 0.01);
 
         Position position = entity.get(Position.class);
         assertThat(position.x, is(0.1));
@@ -38,7 +38,7 @@ public class MovementSystemTest {
         world.addEntity(entity);
 
         movementSystem.init(world);
-        movementSystem.update(world);
+        movementSystem.update(world, 1);
 
         Position position = entity.get(Position.class);
         assertThat(position.x, is(0.0));

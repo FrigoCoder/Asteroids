@@ -13,4 +13,8 @@ public class Speed implements Component {
         this.dy = dy;
     }
 
+    public Speed mul (double elapsed) {
+        return new Speed(dx * elapsed, dy * elapsed);
+    }
+
 }

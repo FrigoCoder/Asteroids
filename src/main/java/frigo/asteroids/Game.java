@@ -26,6 +26,9 @@ public class Game implements Runnable {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Game.class);
 
+    private static final int FPS = 100;
+    private static final int DELAY = 1000 / FPS;
+
     private World world = new World();
     private Random random = new Random();
     private ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
@@ -41,7 +44,7 @@ public class Game implements Runnable {
     private void addAsteroids () {
         for( int i = 0; i < 10; i++ ){
             Entity asteroid = new Entity();
-            asteroid.add(new Speed(getRandom(-0.01, 0.01), getRandom(-0.01, 0.01)));
+            asteroid.add(new Speed(getRandom(-1, 1), getRandom(-1, 1)));
             asteroid.add(new Position(getRandom(-1, 1), getRandom(-1, 1)));
             asteroid.add(new Renderable());
             world.addEntity(asteroid);
@@ -67,7 +70,7 @@ public class Game implements Runnable {
     }
 
     public void start () throws Exception {
-        ScheduledFuture<?> future = executor.scheduleAtFixedRate(this, 0, 10, TimeUnit.MILLISECONDS);
+        ScheduledFuture<?> future = executor.scheduleAtFixedRate(this, 0, DELAY, TimeUnit.MILLISECONDS);
         finished.await();
         executor.shutdown();
         executor.awaitTermination(Long.MAX_VALUE, TimeUnit.DAYS);
@@ -85,7 +88,7 @@ public class Game implements Runnable {
                 world.init();
                 initialized = true;
             }
-            world.update();
+            world.update(DELAY / 1000.0);
         }catch( Exception e ){
             finished.release();
             throw unchecked(e);

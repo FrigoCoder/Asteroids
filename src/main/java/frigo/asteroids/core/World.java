@@ -39,9 +39,9 @@ public class World {
         }
     }
 
-    public void update () {
+    public void update (double elapsedSeconds) {
         for( Logic logic : logics ){
-            logic.update(this);
+            logic.update(this, elapsedSeconds);
         }
     }
 
