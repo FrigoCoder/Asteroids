@@ -28,8 +28,7 @@ public class MovementSystemTest {
         movementSystem.update(world, 0.01);
 
         Position position = entity.get(Position.class);
-        assertThat(position.x, is(0.1));
-        assertThat(position.y, is(0.2));
+        assertThat(position, is(new Position(0.1, 0.2)));
     }
 
     @Test
@@ -41,8 +40,7 @@ public class MovementSystemTest {
         movementSystem.update(world, 1);
 
         Position position = entity.get(Position.class);
-        assertThat(position.x, is(0.0));
-        assertThat(position.y, is(0.1));
+        assertThat(position, is(new Position(0.0, 0.1)));
 
     }
 

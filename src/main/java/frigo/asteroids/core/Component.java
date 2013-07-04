@@ -1,6 +1,6 @@
 
 package frigo.asteroids.core;
 
-public interface Component {
+public class Component extends Value {
 
 }
