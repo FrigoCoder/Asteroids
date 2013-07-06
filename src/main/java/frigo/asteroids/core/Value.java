@@ -9,7 +9,7 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.SerializationUtils;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
-public class Value implements Serializable {
+public class Value implements Serializable, Cloneable {
 
     @Override
     public boolean equals (Object that) {
