@@ -13,11 +13,13 @@ import java.util.concurrent.TimeUnit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import frigo.asteroids.component.PlayerControllable;
 import frigo.asteroids.component.Position;
 import frigo.asteroids.component.Renderable;
 import frigo.asteroids.component.Speed;
 import frigo.asteroids.core.Entity;
 import frigo.asteroids.core.World;
+import frigo.asteroids.logic.InputSystem;
 import frigo.asteroids.logic.MovementSystem;
 import frigo.asteroids.logic.Renderer;
 import frigo.asteroids.util.BooleanLatch;
@@ -36,9 +38,19 @@ public class Game implements Runnable {
     private BooleanLatch finished = new BooleanLatch();
 
     public Game () {
+        addShip();
         addAsteroids();
         addStaticAsteroids();
         addLogics();
+    }
+
+    private void addShip () {
+        Entity ship = new Entity();
+        ship.add(new PlayerControllable());
+        ship.add(new Speed(0, 0));
+        ship.add(new Position(0, 0));
+        ship.add(new Renderable());
+        world.addEntity(ship);
     }
 
     private void addAsteroids () {
@@ -65,6 +77,7 @@ public class Game implements Runnable {
     }
 
     private void addLogics () {
+        world.addLogic(new InputSystem());
         world.addLogic(new MovementSystem());
         world.addLogic(new Renderer());
     }
