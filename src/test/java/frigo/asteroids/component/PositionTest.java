@@ -34,7 +34,7 @@ public class PositionTest {
 
     @Test
     public void coordinates_are_added_properly () {
-        Position position = new Position(0.5, 0.5).add(new Speed(0.1, -0.1));
+        Position position = new Position(0.5, 0.5).add(new Velocity(0.1, -0.1));
         assertThat(position, is(new Position(0.6, 0.4)));
     }
 }

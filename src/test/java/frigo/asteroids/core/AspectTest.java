@@ -8,17 +8,17 @@ import org.junit.Test;
 
 import frigo.asteroids.component.Position;
 import frigo.asteroids.component.Renderable;
-import frigo.asteroids.component.Speed;
+import frigo.asteroids.component.Velocity;
 
 public class AspectTest {
 
-    private Aspect aspect = Aspect.all(Position.class, Speed.class);
+    private Aspect aspect = Aspect.all(Position.class, Velocity.class);
     private Entity entity = new Entity();
 
     @Test
     public void aspect_all_matches_entities_having_all_components () {
         entity.add(new Position(1, 1));
-        entity.add(new Speed(0.1, 0.1));
+        entity.add(new Velocity(0.1, 0.1));
         assertThat(aspect.matches(entity), is(true));
     }
 
@@ -31,7 +31,7 @@ public class AspectTest {
     @Test
     public void aspect_all_matches_entities_having_more_components () {
         entity.add(new Position(1, 1));
-        entity.add(new Speed(0.1, 0.1));
+        entity.add(new Velocity(0.1, 0.1));
         entity.add(new Renderable());
         assertThat(aspect.matches(entity), is(true));
     }

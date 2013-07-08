@@ -6,12 +6,12 @@ import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
 
-public class SpeedTest {
+public class VelocityTest {
 
     @Test
     public void speed_multiplied_result_in_multiplied_coordinates () {
-        Speed speed = new Speed(1.0, 2.0);
-        assertThat(speed.mul(0.5), is(new Speed(0.5, 1.0)));
+        Velocity velocity = new Velocity(1.0, 2.0);
+        assertThat(velocity.mul(0.5), is(new Velocity(0.5, 1.0)));
     }
 
 }

@@ -24,8 +24,8 @@ public class Position extends Component {
         return result;
     }
 
-    public Position add (Speed speed) {
-        return new Position(x + speed.dx, y + speed.dy);
+    public Position add (Velocity velocity) {
+        return new Position(x + velocity.dx, y + velocity.dy);
     }
 
 }

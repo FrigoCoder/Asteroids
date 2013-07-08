@@ -13,10 +13,11 @@ import java.util.concurrent.TimeUnit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import frigo.asteroids.component.Acceleration;
 import frigo.asteroids.component.PlayerControllable;
 import frigo.asteroids.component.Position;
 import frigo.asteroids.component.Renderable;
-import frigo.asteroids.component.Speed;
+import frigo.asteroids.component.Velocity;
 import frigo.asteroids.core.Entity;
 import frigo.asteroids.core.World;
 import frigo.asteroids.logic.InputSystem;
@@ -47,7 +48,8 @@ public class Game implements Runnable {
     private void addShip () {
         Entity ship = new Entity();
         ship.add(new PlayerControllable());
-        ship.add(new Speed(0, 0));
+        ship.add(new Acceleration(0, 0));
+        ship.add(new Velocity(0, 0));
         ship.add(new Position(0, 0));
         ship.add(new Renderable());
         world.addEntity(ship);
@@ -56,7 +58,7 @@ public class Game implements Runnable {
     private void addAsteroids () {
         for( int i = 0; i < 10; i++ ){
             Entity asteroid = new Entity();
-            asteroid.add(new Speed(getRandom(-1, 1), getRandom(-1, 1)));
+            asteroid.add(new Velocity(getRandom(-1, 1), getRandom(-1, 1)));
             asteroid.add(new Position(getRandom(-1, 1), getRandom(-1, 1)));
             asteroid.add(new Renderable());
             world.addEntity(asteroid);

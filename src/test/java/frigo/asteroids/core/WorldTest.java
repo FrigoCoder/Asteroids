@@ -14,7 +14,7 @@ import java.util.Set;
 import org.junit.Test;
 
 import frigo.asteroids.component.Position;
-import frigo.asteroids.component.Speed;
+import frigo.asteroids.component.Velocity;
 
 public class WorldTest {
 
@@ -31,13 +31,13 @@ public class WorldTest {
     @Test
     public void entities_matching_aspect_are_returned () {
         entity.add(new Position(1, 1));
-        entity.add(new Speed(1, 1));
+        entity.add(new Velocity(1, 1));
         world.addEntity(entity);
 
         Entity empty = new Entity();
         world.addEntity(empty);
 
-        Aspect aspect = Aspect.all(Position.class, Speed.class);
+        Aspect aspect = Aspect.all(Position.class, Velocity.class);
 
         Set<Entity> expected = new HashSet<>(asList(entity));
         assertThat(world.getEntitiesFor(aspect), is(expected));

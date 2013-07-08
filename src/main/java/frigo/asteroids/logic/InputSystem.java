@@ -8,8 +8,8 @@ import java.util.Set;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Keyboard;
 
+import frigo.asteroids.component.Acceleration;
 import frigo.asteroids.component.PlayerControllable;
-import frigo.asteroids.component.Speed;
 import frigo.asteroids.core.Aspect;
 import frigo.asteroids.core.Entity;
 import frigo.asteroids.core.Logic;
@@ -38,16 +38,16 @@ public class InputSystem implements Logic {
             int key = Keyboard.getEventKey();
             switch( key ){
                 case Keyboard.KEY_UP:
-                    entity.add(new Speed(0.0, -1.0));
+                    entity.add(new Acceleration(0.0, -1.0));
                     break;
                 case Keyboard.KEY_DOWN:
-                    entity.add(new Speed(0.0, 1.0));
+                    entity.add(new Acceleration(0.0, 1.0));
                     break;
                 case Keyboard.KEY_LEFT:
-                    entity.add(new Speed(-1.0, 0.0));
+                    entity.add(new Acceleration(-1.0, 0.0));
                     break;
                 case Keyboard.KEY_RIGHT:
-                    entity.add(new Speed(1.0, 0.0));
+                    entity.add(new Acceleration(1.0, 0.0));
                     break;
                 default:
                     break;
