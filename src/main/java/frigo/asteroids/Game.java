@@ -53,8 +53,9 @@ public class Game implements Runnable {
 
     private void addPlanet () {
         Entity planet = new Entity();
-        double size = 50;
-        planet.set(new Mass(pow(size, 3) * PI));
+        double size = 100;
+        double density = 1000;
+        planet.set(new Mass(PI * 4 / 3 * pow(size, 3) * density));
         planet.set(new Acceleration(0, 0));
         planet.set(new Velocity(0, 0));
         planet.set(new Position(0, 0));
@@ -65,8 +66,9 @@ public class Game implements Runnable {
     private void addShip () {
         Entity ship = new Entity();
         double size = 10;
-        ship.set(new Mass(pow(size, 3) * PI));
+        double density = 1000;
         ship.set(new PlayerControllable());
+        ship.set(new Mass(PI * 4 / 3 * pow(size, 3) * density));
         ship.set(new Acceleration(0, 0));
         ship.set(new Velocity(0, 0));
         ship.set(new Position(0, 0.5));
@@ -79,7 +81,8 @@ public class Game implements Runnable {
             Entity asteroid = new Entity();
             double size = 5;
             double speed = 0.2;
-            asteroid.set(new Mass(pow(size, 3) * PI));
+            double density = 1000;
+            asteroid.set(new Mass(PI * 4 / 3 * pow(size, 3) * density));
             asteroid.set(new Acceleration(0, 0));
             asteroid.set(new Velocity(getRandom(-speed, speed), getRandom(-speed, speed)));
             asteroid.set(new Position(getRandom(-1, 1), getRandom(-1, 1)));

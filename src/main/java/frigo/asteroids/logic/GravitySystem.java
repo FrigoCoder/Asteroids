@@ -36,7 +36,8 @@ public class GravitySystem implements Logic {
                 double m2 = attractor.get(Mass.class).mass;
                 double r = vector.length();
                 double F = r == 0 ? 0 : G * m1 * m2 / r;
-                affected.set(affected.get(Acceleration.class).add(vector.mul(F)));
+                double a = F / m1;
+                affected.set(affected.get(Acceleration.class).add(vector.mul(a)));
             }
         }
     }
