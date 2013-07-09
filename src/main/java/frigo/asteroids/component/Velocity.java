@@ -14,11 +14,15 @@ public class Velocity extends Component {
     }
 
     public Velocity add (Acceleration acceleration) {
-        return new Velocity(dx + acceleration.ddx, dy + acceleration.ddy);
+        return add(acceleration, 1.0);
     }
 
     public Velocity mul (double elapsed) {
         return new Velocity(dx * elapsed, dy * elapsed);
+    }
+
+    public Velocity add (Acceleration acceleration, double elapsed) {
+        return new Velocity(dx + acceleration.ddx * elapsed, dy + acceleration.ddy * elapsed);
     }
 
 }
