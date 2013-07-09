@@ -21,8 +21,8 @@ public class MovementSystemTest {
 
     @Test
     public void updates_velocity_of_entities_by_acceleration_and_elapsed_seconds () {
-        entity.add(new Acceleration(1.0, 1.0));
-        entity.add(new Velocity(1.0, -1.0));
+        entity.set(new Acceleration(1.0, 1.0));
+        entity.set(new Velocity(1.0, -1.0));
         world.addEntity(entity);
 
         movementSystem.init(world);
@@ -34,7 +34,7 @@ public class MovementSystemTest {
 
     @Test
     public void does_not_update_velocity_of_entities_without_acceleration () {
-        entity.add(new Velocity(1.0, -1.0));
+        entity.set(new Velocity(1.0, -1.0));
         world.addEntity(entity);
 
         movementSystem.init(world);
@@ -46,8 +46,8 @@ public class MovementSystemTest {
 
     @Test
     public void updates_position_of_entities_by_velocity_and_elapsed_seconds () {
-        entity.add(new Velocity(1.0, 1.0));
-        entity.add(new Position(0.0, 0.1));
+        entity.set(new Velocity(1.0, 1.0));
+        entity.set(new Position(0.0, 0.1));
         world.addEntity(entity);
 
         movementSystem.init(world);
@@ -59,7 +59,7 @@ public class MovementSystemTest {
 
     @Test
     public void does_not_update_position_of_entities_without_speed () {
-        entity.add(new Position(0.0, 0.1));
+        entity.set(new Position(0.0, 0.1));
         world.addEntity(entity);
 
         movementSystem.init(world);

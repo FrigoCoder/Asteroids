@@ -34,22 +34,22 @@ public class InputSystem implements Logic {
         }
         Set<Entity> entities = world.getEntitiesFor(aspect);
         Entity entity = entities.iterator().next();
-        
-        double speed = 1.0;
+
+        double speed = 10.0;
         while( Keyboard.next() ){
             int key = Keyboard.getEventKey();
             boolean pressed = Keyboard.getEventKeyState();
-            if((key==Keyboard.KEY_UP && pressed) || (key==Keyboard.KEY_DOWN && !pressed)){ 
-                entity.add(entity.get(Acceleration.class).add(0.0, -speed));
+            if( key == Keyboard.KEY_UP && pressed ){
+                entity.set(entity.get(Acceleration.class).add(0.0, -speed));
             }
-            if((key==Keyboard.KEY_UP && !pressed) || (key==Keyboard.KEY_DOWN && pressed)){ 
-                entity.add(entity.get(Acceleration.class).add(0.0, speed));
+            if( key == Keyboard.KEY_DOWN && pressed ){
+                entity.set(entity.get(Acceleration.class).add(0.0, speed));
             }
-            if((key==Keyboard.KEY_LEFT && pressed) || (key==Keyboard.KEY_RIGHT && !pressed)){
-                entity.add(entity.get(Acceleration.class).add(-speed, 0.0));
+            if( key == Keyboard.KEY_LEFT && pressed ){
+                entity.set(entity.get(Acceleration.class).add(-speed, 0.0));
             }
-            if((key==Keyboard.KEY_LEFT && !pressed) || (key==Keyboard.KEY_RIGHT && pressed)){
-                entity.add(entity.get(Acceleration.class).add(speed, 0.0));
+            if( key == Keyboard.KEY_RIGHT && pressed ){
+                entity.set(entity.get(Acceleration.class).add(speed, 0.0));
             }
         }
     }

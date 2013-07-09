@@ -23,7 +23,7 @@ public class EntityTest {
 
     @Test
     public void added_component_can_be_retrieved () {
-        entity.add(position);
+        entity.set(position);
         assertThat(entity.get(Position.class), sameInstance(position));
     }
 
@@ -35,7 +35,7 @@ public class EntityTest {
 
     @Test
     public void added_component_can_be_checked_for_presence () {
-        entity.add(position);
+        entity.set(position);
         assertThat(entity.has(Position.class), is(true));
     }
 

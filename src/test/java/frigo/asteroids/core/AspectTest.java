@@ -17,22 +17,22 @@ public class AspectTest {
 
     @Test
     public void aspect_all_matches_entities_having_all_components () {
-        entity.add(new Position(1, 1));
-        entity.add(new Velocity(0.1, 0.1));
+        entity.set(new Position(1, 1));
+        entity.set(new Velocity(0.1, 0.1));
         assertThat(aspect.matches(entity), is(true));
     }
 
     @Test
     public void aspect_all_does_not_match_entities_not_having_all_components () {
-        entity.add(new Position(1, 1));
+        entity.set(new Position(1, 1));
         assertThat(aspect.matches(entity), is(false));
     }
 
     @Test
     public void aspect_all_matches_entities_having_more_components () {
-        entity.add(new Position(1, 1));
-        entity.add(new Velocity(0.1, 0.1));
-        entity.add(new Renderable(1.0));
+        entity.set(new Position(1, 1));
+        entity.set(new Velocity(0.1, 0.1));
+        entity.set(new Renderable(1.0));
         assertThat(aspect.matches(entity), is(true));
     }
 

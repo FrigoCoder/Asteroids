@@ -28,4 +28,8 @@ public class Position extends Component {
         return new Position(x + velocity.dx * elapsed, y + velocity.dy * elapsed);
     }
 
+    public Vector sub (Position substrahend) {
+        return new Vector(x - substrahend.x, y - substrahend.y);
+    }
+
 }

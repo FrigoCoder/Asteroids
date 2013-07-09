@@ -9,7 +9,7 @@ public final class Entity {
 
     private Map<Class<? extends Component>, Component> components = new HashMap<>();
 
-    public void add (Component component) {
+    public void set (Component component) {
         components.put(component.getClass(), component);
     }
 

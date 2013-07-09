@@ -29,7 +29,7 @@ public class MovementSystem implements Logic {
             Acceleration acceleration = entity.get(Acceleration.class);
             Velocity velocity = entity.get(Velocity.class);
             Velocity newVelocity = velocity.add(acceleration, elapsedSeconds);
-            entity.add(newVelocity);
+            entity.set(newVelocity);
         }
     }
 
@@ -38,7 +38,7 @@ public class MovementSystem implements Logic {
             Velocity velocity = entity.get(Velocity.class);
             Position position = entity.get(Position.class);
             Position newPosition = position.add(velocity, elapsedSeconds);
-            entity.add(newPosition);
+            entity.set(newPosition);
         }
     }
 

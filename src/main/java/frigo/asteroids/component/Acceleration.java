@@ -13,8 +13,11 @@ public class Acceleration extends Component {
         this.ddy = ddy;
     }
 
-    public Acceleration add (double x, double y){
-    	return new Acceleration(ddx +x , ddy+y);
+    public Acceleration add (double x, double y) {
+        return new Acceleration(ddx + x, ddy + y);
     }
-    
+
+    public Acceleration add (Vector vector) {
+        return new Acceleration(ddx + vector.x, ddy + vector.y);
+    }
 }
