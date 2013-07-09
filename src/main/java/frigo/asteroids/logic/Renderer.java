@@ -47,13 +47,14 @@ public class Renderer implements Logic {
         GL11.glMatrixMode(GL11.GL_MODELVIEW);
         GL11.glLoadIdentity();
 
-        GL11.glPointSize(10.0f);
-        GL11.glBegin(GL11.GL_POINTS);
         for( Entity entity : world.getEntitiesFor(aspect) ){
             Position position = entity.get(Position.class);
+            Renderable renderable = entity.get(Renderable.class);
+            GL11.glPointSize(renderable.size);
+            GL11.glBegin(GL11.GL_POINTS);
             GL11.glVertex2d(position.x, position.y);
+            GL11.glEnd();
         }
-        GL11.glEnd();
 
         Display.update();
 

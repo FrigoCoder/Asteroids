@@ -34,20 +34,22 @@ public class InputSystem implements Logic {
         }
         Set<Entity> entities = world.getEntitiesFor(aspect);
         Entity entity = entities.iterator().next();
+        entity.add(new Acceleration(0.0, 0.0));
+        double speed = 10.0;
         while( Keyboard.next() ){
             int key = Keyboard.getEventKey();
             switch( key ){
                 case Keyboard.KEY_UP:
-                    entity.add(new Acceleration(0.0, -1.0));
+                    entity.add(new Acceleration(0.0, -speed));
                     break;
                 case Keyboard.KEY_DOWN:
-                    entity.add(new Acceleration(0.0, 1.0));
+                    entity.add(new Acceleration(0.0, speed));
                     break;
                 case Keyboard.KEY_LEFT:
-                    entity.add(new Acceleration(-1.0, 0.0));
+                    entity.add(new Acceleration(-speed, 0.0));
                     break;
                 case Keyboard.KEY_RIGHT:
-                    entity.add(new Acceleration(1.0, 0.0));
+                    entity.add(new Acceleration(speed, 0.0));
                     break;
                 default:
                     break;

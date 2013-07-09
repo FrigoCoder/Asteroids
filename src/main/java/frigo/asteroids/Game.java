@@ -29,7 +29,7 @@ public class Game implements Runnable {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Game.class);
 
-    private static final int FPS = 100;
+    private static final int FPS = 1000;
     private static final int DELAY = 1000 / FPS;
 
     private World world = new World();
@@ -51,7 +51,7 @@ public class Game implements Runnable {
         ship.add(new Acceleration(0, 0));
         ship.add(new Velocity(0, 0));
         ship.add(new Position(0, 0));
-        ship.add(new Renderable());
+        ship.add(new Renderable(20));
         world.addEntity(ship);
     }
 
@@ -96,14 +96,19 @@ public class Game implements Runnable {
         }
     }
 
+    private double lastMillis;
+    
     @Override
     public void run () {
         try{
             if( !initialized ){
+            	lastMillis = System.nanoTime();
                 world.init();
                 initialized = true;
             }
-            world.update(DELAY / 1000.0);
+            double currentMillis = System.nanoTime();
+            world.update((currentMillis - lastMillis) / 1_000_000_000.0);
+            lastMillis = currentMillis;
         }catch( Exception e ){
             finished.release();
             throw unchecked(e);
