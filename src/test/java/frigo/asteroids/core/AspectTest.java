@@ -32,7 +32,7 @@ public class AspectTest {
     public void aspect_all_matches_entities_having_more_components () {
         entity.add(new Position(1, 1));
         entity.add(new Velocity(0.1, 0.1));
-        entity.add(new Renderable());
+        entity.add(new Renderable(1.0));
         assertThat(aspect.matches(entity), is(true));
     }
 
