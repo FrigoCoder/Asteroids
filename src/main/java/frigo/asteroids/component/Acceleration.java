@@ -13,8 +13,4 @@ public class Acceleration extends Component {
         this.ddy = ddy;
     }
 
-    public Acceleration mul (double elapsed) {
-        return new Acceleration(ddx * elapsed, ddy * elapsed);
-    }
-
 }

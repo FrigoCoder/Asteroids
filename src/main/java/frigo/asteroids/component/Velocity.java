@@ -13,14 +13,6 @@ public class Velocity extends Component {
         this.dy = dy;
     }
 
-    public Velocity add (Acceleration acceleration) {
-        return add(acceleration, 1.0);
-    }
-
-    public Velocity mul (double elapsed) {
-        return new Velocity(dx * elapsed, dy * elapsed);
-    }
-
     public Velocity add (Acceleration acceleration, double elapsed) {
         return new Velocity(dx + acceleration.ddx * elapsed, dy + acceleration.ddy * elapsed);
     }

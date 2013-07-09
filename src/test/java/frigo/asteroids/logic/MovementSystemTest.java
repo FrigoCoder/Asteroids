@@ -6,6 +6,7 @@ import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
 
+import frigo.asteroids.component.Acceleration;
 import frigo.asteroids.component.Position;
 import frigo.asteroids.component.Velocity;
 import frigo.asteroids.core.Entity;
@@ -19,25 +20,50 @@ public class MovementSystemTest {
     private Entity entity = new Entity();
 
     @Test
-    public void update_updates_entities_with_speed_and_position_and_elapsed_seconds () {
-        entity.add(new Velocity(10.0, 10.0));
+    public void updates_velocity_of_entities_by_acceleration_and_elapsed_seconds () {
+        entity.add(new Acceleration(1.0, 1.0));
+        entity.add(new Velocity(1.0, -1.0));
+        world.addEntity(entity);
+
+        movementSystem.init(world);
+        movementSystem.update(world, 0.1);
+
+        Velocity velocity = entity.get(Velocity.class);
+        assertThat(velocity, is(new Velocity(1.1, -0.9)));
+    }
+
+    @Test
+    public void does_not_update_velocity_of_entities_without_acceleration () {
+        entity.add(new Velocity(1.0, -1.0));
+        world.addEntity(entity);
+
+        movementSystem.init(world);
+        movementSystem.update(world, 0.1);
+
+        Velocity velocity = entity.get(Velocity.class);
+        assertThat(velocity, is(new Velocity(1.0, -1.0)));
+    }
+
+    @Test
+    public void updates_position_of_entities_by_velocity_and_elapsed_seconds () {
+        entity.add(new Velocity(1.0, 1.0));
         entity.add(new Position(0.0, 0.1));
         world.addEntity(entity);
 
         movementSystem.init(world);
-        movementSystem.update(world, 0.01);
+        movementSystem.update(world, 0.1);
 
         Position position = entity.get(Position.class);
         assertThat(position, is(new Position(0.1, 0.2)));
     }
 
     @Test
-    public void update_does_not_update_entities_without_speed () {
+    public void does_not_update_position_of_entities_without_speed () {
         entity.add(new Position(0.0, 0.1));
         world.addEntity(entity);
 
         movementSystem.init(world);
-        movementSystem.update(world, 1);
+        movementSystem.update(world, 0.1);
 
         Position position = entity.get(Position.class);
         assertThat(position, is(new Position(0.0, 0.1)));

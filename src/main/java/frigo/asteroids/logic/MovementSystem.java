@@ -28,7 +28,7 @@ public class MovementSystem implements Logic {
         for( Entity entity : world.getEntitiesFor(velocityUpdate) ){
             Acceleration acceleration = entity.get(Acceleration.class);
             Velocity velocity = entity.get(Velocity.class);
-            Velocity newVelocity = velocity.add(acceleration.mul(elapsedSeconds));
+            Velocity newVelocity = velocity.add(acceleration, elapsedSeconds);
             entity.add(newVelocity);
         }
     }
@@ -37,7 +37,7 @@ public class MovementSystem implements Logic {
         for( Entity entity : world.getEntitiesFor(positionUpdate) ){
             Velocity velocity = entity.get(Velocity.class);
             Position position = entity.get(Position.class);
-            Position newPosition = position.add(velocity.mul(elapsedSeconds));
+            Position newPosition = position.add(velocity, elapsedSeconds);
             entity.add(newPosition);
         }
     }
