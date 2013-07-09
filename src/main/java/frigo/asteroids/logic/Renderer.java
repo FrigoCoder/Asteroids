@@ -50,7 +50,7 @@ public class Renderer implements Logic {
         for( Entity entity : world.getEntitiesFor(aspect) ){
             Position position = entity.get(Position.class);
             Renderable renderable = entity.get(Renderable.class);
-            GL11.glPointSize(renderable.size);
+            GL11.glPointSize((float) renderable.size);
             GL11.glBegin(GL11.GL_POINTS);
             GL11.glVertex2d(position.x, position.y);
             GL11.glEnd();

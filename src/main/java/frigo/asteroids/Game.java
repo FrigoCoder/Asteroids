@@ -29,7 +29,7 @@ public class Game implements Runnable {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Game.class);
 
-    private static final int FPS = 1000;
+    private static final int FPS = 100;
     private static final int DELAY = 1000 / FPS;
 
     private World world = new World();
@@ -41,7 +41,7 @@ public class Game implements Runnable {
     public Game () {
         addShip();
         addAsteroids();
-        addStaticAsteroids();
+        addStars();
         addLogics();
     }
 
@@ -60,16 +60,16 @@ public class Game implements Runnable {
             Entity asteroid = new Entity();
             asteroid.add(new Velocity(getRandom(-1, 1), getRandom(-1, 1)));
             asteroid.add(new Position(getRandom(-1, 1), getRandom(-1, 1)));
-            asteroid.add(new Renderable());
+            asteroid.add(new Renderable(10));
             world.addEntity(asteroid);
         }
     }
 
-    private void addStaticAsteroids () {
-        for( int i = 0; i < 10; i++ ){
+    private void addStars () {
+        for( int i = 0; i < 100; i++ ){
             Entity asteroid = new Entity();
             asteroid.add(new Position(getRandom(-1, 1), getRandom(-1, 1)));
-            asteroid.add(new Renderable());
+            asteroid.add(new Renderable(1));
             world.addEntity(asteroid);
         }
     }

@@ -5,13 +5,9 @@ import frigo.asteroids.core.Component;
 
 public class Renderable extends Component {
 
-	public float size;
+	public double size;
 
-	public Renderable () {
-		this(10.0f);
-	}
-
-	public Renderable(float size) {
+	public Renderable(double size) {
 		this.size = size;
 	}
 	
