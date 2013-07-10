@@ -13,7 +13,6 @@ public class AccelerationNullerSystem implements Logic {
 
     @Override
     public void init (World world) {
-
     }
 
     @Override
