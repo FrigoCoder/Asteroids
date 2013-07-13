@@ -51,6 +51,7 @@ public class Renderer implements Logic {
             Position position = entity.get(Position.class);
             Renderable renderable = entity.get(Renderable.class);
             GL11.glPointSize((float) renderable.size);
+            GL11.glColor3d(renderable.r, renderable.g, renderable.b);
             GL11.glBegin(GL11.GL_POINTS);
             GL11.glVertex2d(position.x, position.y);
             GL11.glEnd();

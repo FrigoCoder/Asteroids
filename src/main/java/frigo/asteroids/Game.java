@@ -44,11 +44,15 @@ public class Game implements Runnable {
     private BooleanLatch finished = new BooleanLatch();
 
     public Game () {
+        addEntities();
+        addLogics();
+    }
+
+    private void addEntities () {
         addPlanet();
         addShip();
         addAsteroids();
         addStars();
-        addLogics();
     }
 
     private void addPlanet () {
@@ -72,7 +76,7 @@ public class Game implements Runnable {
         ship.set(new Acceleration(0, 0));
         ship.set(new Velocity(0, 0));
         ship.set(new Position(0, 0.5));
-        ship.set(new Renderable(size));
+        ship.set(new Renderable(size, 1.0, 0.0, 0.0));
         world.addEntity(ship);
     }
 
