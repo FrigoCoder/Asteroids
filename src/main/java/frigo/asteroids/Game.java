@@ -63,7 +63,7 @@ public class Game implements Runnable {
         planet.set(new Acceleration(0, 0));
         planet.set(new Velocity(0, 0));
         planet.set(new Position(0, 0));
-        planet.set(new Renderable(size));
+        planet.set(new Renderable(size, 0.58, 0.29, 0.0));
         world.addEntity(planet);
     }
 
@@ -90,7 +90,7 @@ public class Game implements Runnable {
             asteroid.set(new Acceleration(0, 0));
             asteroid.set(new Velocity(getRandom(-speed, speed), getRandom(-speed, speed)));
             asteroid.set(new Position(getRandom(-1, 1), getRandom(-1, 1)));
-            asteroid.set(new Renderable(size));
+            asteroid.set(new Renderable(size, 0.75, 0.75, 0.75));
             world.addEntity(asteroid);
         }
     }
