@@ -6,11 +6,11 @@ import static java.lang.Math.pow;
 import java.util.Set;
 
 import frigo.asteroids.component.Acceleration;
+import frigo.asteroids.component.Attractable;
 import frigo.asteroids.component.Attractor;
 import frigo.asteroids.component.Mass;
 import frigo.asteroids.component.Position;
 import frigo.asteroids.component.Vector;
-import frigo.asteroids.components.Attractable;
 import frigo.asteroids.core.Aspect;
 import frigo.asteroids.core.Entity;
 import frigo.asteroids.core.Logic;
