@@ -1,19 +1,10 @@
 
 package frigo.asteroids;
 
-import static frigo.asteroids.util.Rethrow.unchecked;
 import static java.lang.Math.PI;
 import static java.lang.Math.pow;
 
 import java.util.Random;
-import java.util.concurrent.CancellationException;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledFuture;
-import java.util.concurrent.TimeUnit;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import frigo.asteroids.component.Acceleration;
 import frigo.asteroids.component.Attractable;
@@ -27,23 +18,12 @@ import frigo.asteroids.core.Entity;
 import frigo.asteroids.core.World;
 import frigo.asteroids.logic.AccelerationNullerSystem;
 import frigo.asteroids.logic.GravitySystem;
-import frigo.asteroids.logic.InputSystem;
 import frigo.asteroids.logic.MovementSystem;
-import frigo.asteroids.logic.Renderer;
-import frigo.asteroids.util.BooleanLatch;
 
-public class Game implements Runnable {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(Game.class);
-
-    private static final int FPS = 100;
-    private static final int DELAY = 1000 / FPS;
+public class Game {
 
     private World world = new World();
     private Random random = new Random();
-    private ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
-    private boolean initialized;
-    private BooleanLatch finished = new BooleanLatch();
 
     public Game () {
         addEntities();
@@ -101,6 +81,14 @@ public class Game implements Runnable {
     private void addStars () {
         for( int i = 0; i < 5_000; i++ ){
             Entity entity = new Entity();
+            double size = 1;
+            double density = 1000;
+            double speed = 0.2;
+            entity.set(new Attractable());
+            entity.set(new Mass(PI * 4 / 3 * pow(size, 3) * density));
+            entity.set(new Acceleration(0, 0));
+            entity.set(new Velocity(getRandom(-speed, speed), getRandom(-speed, speed)));
+            entity.set(new Position(getRandom(-1, 1), getRandom(-1, 1)));
             entity.set(new Position(getRandom(-1, 1), getRandom(-1, 1)));
             entity.set(new Renderable(1));
             world.addEntity(entity);
@@ -112,47 +100,15 @@ public class Game implements Runnable {
     }
 
     private void addLogics () {
-        world.addLogic(new AccelerationNullerSystem());
-        world.addLogic(new InputSystem());
         world.addLogic(new GravitySystem());
         world.addLogic(new MovementSystem());
-        world.addLogic(new Renderer());
+        world.addLogic(new AccelerationNullerSystem());
     }
 
-    public void start () throws Exception {
-        ScheduledFuture<?> future = executor.scheduleAtFixedRate(this, 0, DELAY, TimeUnit.MILLISECONDS);
-        finished.await();
-        executor.shutdown();
-        executor.awaitTermination(Long.MAX_VALUE, TimeUnit.DAYS);
-        try{
-            future.get();
-        }catch( CancellationException e ){
-            LOGGER.info("Cancelled: ", e);
-        }
-    }
-
-    private double lastMillis;
-
-    @Override
-    public void run () {
-        try{
-            if( !initialized ){
-                lastMillis = System.nanoTime();
-                world.init();
-                initialized = true;
-            }
-            double currentMillis = System.nanoTime();
-            world.update((currentMillis - lastMillis) / 1_000_000_000.0);
-            lastMillis = currentMillis;
-        }catch( Exception e ){
-            finished.release();
-            throw unchecked(e);
-        }
-    }
-
-    public static void main (String[] args) throws Exception {
+    public static void main (String[] args) {
         Game game = new Game();
-        game.start();
+        JOGLRunner loop = new JOGLRunner(game.world);
+        loop.start();
     }
 
 }

@@ -15,14 +15,6 @@ repositories {
 }
 
 dependencies {
-    natives group: 'net.java.jinput', name: 'jinput-platform', version: 'latest.release', classifier: 'natives-linux'
-    natives group: 'net.java.jinput', name: 'jinput-platform', version: 'latest.release', classifier: 'natives-osx'
-    natives group: 'net.java.jinput', name: 'jinput-platform', version: 'latest.release', classifier: 'natives-windows'
-    natives group: 'org.lwjgl.lwjgl', name: 'lwjgl-platform', version: 'latest.release', classifier: 'natives-linux'
-    natives group: 'org.lwjgl.lwjgl', name: 'lwjgl-platform', version: 'latest.release', classifier: 'natives-osx'
-    natives group: 'org.lwjgl.lwjgl', name: 'lwjgl-platform', version: 'latest.release', classifier: 'natives-windows'
-    compile group: 'org.lwjgl.lwjgl', name: 'lwjgl', version: 'latest.release'
-
     natives group: 'org.jogamp.gluegen', name: 'gluegen-rt', version: 'latest.stable', classifier: 'natives-windows-amd64'
     compile group: 'org.jogamp.gluegen', name: 'gluegen-rt', version: 'latest.stable'
 
