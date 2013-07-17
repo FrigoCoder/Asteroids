@@ -1,7 +1,7 @@
 
 package frigo.asteroids;
 
-import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.LinkedBlockingQueue;
 
 import javax.media.opengl.GLCapabilities;
 import javax.media.opengl.GLProfile;
@@ -18,7 +18,7 @@ public class JOGLRunner {
 
     private GLWindow window;
     private FPSAnimator animator;
-    private CopyOnWriteArrayList<KeyEvent> keyEvents = new CopyOnWriteArrayList<>();
+    private LinkedBlockingQueue<KeyEvent> keyEvents = new LinkedBlockingQueue<>();
 
     public JOGLRunner (World world) {
         System.setProperty("jogamp.gluegen.UseTempJarCache", "false");
@@ -29,7 +29,7 @@ public class JOGLRunner {
         window.addKeyListener(new JOGLKeyListener(this, keyEvents));
         window.addWindowListener(new JOGLWindowListener(this));
 
-        // window.setSize(640, 480);
+        window.setSize(1024, 768);
         window.setTitle("Asteroids");
         window.setVisible(true);
 

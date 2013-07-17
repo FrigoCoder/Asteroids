@@ -1,7 +1,8 @@
 
 package frigo.asteroids;
 
-import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.LinkedList;
+import java.util.concurrent.LinkedBlockingQueue;
 
 import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
@@ -24,10 +25,10 @@ public class JOGLGLEventListener implements GLEventListener {
 
     private JOGLRunner runner;
     private World world;
-    private CopyOnWriteArrayList<KeyEvent> keyEvents;
+    private LinkedBlockingQueue<KeyEvent> keyEvents;
     private long lastMillis;
 
-    public JOGLGLEventListener (JOGLRunner joglRunner, World world, CopyOnWriteArrayList<KeyEvent> keyEvents) {
+    public JOGLGLEventListener (JOGLRunner joglRunner, World world, LinkedBlockingQueue<KeyEvent> keyEvents) {
         runner = joglRunner;
         this.world = world;
         this.keyEvents = keyEvents;
@@ -79,7 +80,9 @@ public class JOGLGLEventListener implements GLEventListener {
         Aspect aspect = Aspect.all(PlayerControllable.class, Acceleration.class);
         Entity entity = world.getEntitiesFor(aspect).iterator().next();
         double speed = 10.0;
-        for( KeyEvent event : keyEvents ){
+        LinkedList<KeyEvent> events = new LinkedList<>();
+        keyEvents.drainTo(events);
+        for( KeyEvent event : events ){
             switch( event.getEventType() ){
                 case KeyEvent.EVENT_KEY_PRESSED:
                     switch( event.getKeyCode() ){

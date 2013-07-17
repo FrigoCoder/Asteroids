@@ -40,7 +40,7 @@ public class Game {
     private void addSun () {
         Entity entity = new Entity();
         double size = 100;
-        double density = 1000;
+        double density = 500;
         entity.set(new Attractor());
         entity.set(new Mass(PI * 4 / 3 * pow(size, 3) * density));
         entity.set(new Position(0, 0));
@@ -51,7 +51,7 @@ public class Game {
     private void addShip () {
         Entity entity = new Entity();
         double size = 10;
-        double density = 1000;
+        double density = 500;
         entity.set(new PlayerControllable());
         entity.set(new Attractable());
         entity.set(new Mass(PI * 4 / 3 * pow(size, 3) * density));
@@ -66,8 +66,8 @@ public class Game {
         for( int i = 0; i < 100; i++ ){
             Entity entity = new Entity();
             double size = 10;
-            double density = 1000;
-            double speed = 0.2;
+            double density = 500;
+            double speed = 0.3;
             entity.set(new Attractable());
             entity.set(new Mass(PI * 4 / 3 * pow(size, 3) * density));
             entity.set(new Acceleration(0, 0));
@@ -99,8 +99,8 @@ public class Game {
 
     public static void main (String[] args) {
         Game game = new Game();
-        JOGLRunner loop = new JOGLRunner(game.world);
-        loop.start();
+        JOGLRunner runner = new JOGLRunner(game.world);
+        runner.start();
     }
 
 }

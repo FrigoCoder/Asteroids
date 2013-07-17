@@ -1,7 +1,7 @@
 
 package frigo.asteroids;
 
-import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.LinkedBlockingQueue;
 
 import com.jogamp.newt.event.KeyEvent;
 import com.jogamp.newt.event.KeyListener;
@@ -9,21 +9,29 @@ import com.jogamp.newt.event.KeyListener;
 public class JOGLKeyListener implements KeyListener {
 
     private JOGLRunner joglRunner;
-    private CopyOnWriteArrayList<KeyEvent> keyEvents;
+    private LinkedBlockingQueue<KeyEvent> keyEvents;
 
-    public JOGLKeyListener (JOGLRunner joglRunner, CopyOnWriteArrayList<KeyEvent> keyEvents) {
+    public JOGLKeyListener (JOGLRunner joglRunner, LinkedBlockingQueue<KeyEvent> keyEvents) {
         this.joglRunner = joglRunner;
         this.keyEvents = keyEvents;
     }
 
     @Override
     public void keyPressed (KeyEvent e) {
-        keyEvents.add(e);
+        if( !e.isAutoRepeat() ){
+            keyEvents.add(e);
+            System.out.println(keyEvents.size());
+            System.out.println(e);
+        }
     }
 
     @Override
     public void keyReleased (KeyEvent e) {
-        keyEvents.add(e);
+        if( !e.isAutoRepeat() ){
+            keyEvents.add(e);
+            System.out.println(keyEvents.size());
+            System.out.println(e);
+        }
     }
 
 }
