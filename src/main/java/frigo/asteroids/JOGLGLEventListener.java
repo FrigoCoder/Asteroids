@@ -11,7 +11,6 @@ import javax.media.opengl.GLEventListener;
 import javax.media.opengl.fixedfunc.GLMatrixFunc;
 
 import com.jogamp.newt.event.KeyEvent;
-import com.jogamp.opengl.util.FPSAnimator;
 
 import frigo.asteroids.component.Acceleration;
 import frigo.asteroids.component.PlayerControllable;
@@ -23,15 +22,15 @@ import frigo.asteroids.core.World;
 
 public class JOGLGLEventListener implements GLEventListener {
 
+    private JOGLRunner runner;
     private World world;
-    private long lastMillis;
     private CopyOnWriteArrayList<KeyEvent> keyEvents;
-    private FPSAnimator animator;
+    private long lastMillis;
 
-    public JOGLGLEventListener (World world, CopyOnWriteArrayList<KeyEvent> keyEvents, FPSAnimator animator) {
+    public JOGLGLEventListener (JOGLRunner joglRunner, World world, CopyOnWriteArrayList<KeyEvent> keyEvents) {
+        runner = joglRunner;
         this.world = world;
         this.keyEvents = keyEvents;
-        this.animator = animator;
     }
 
     @Override
@@ -97,7 +96,7 @@ public class JOGLGLEventListener implements GLEventListener {
                             entity.set(entity.get(Acceleration.class).add(speed, 0.0));
                             break;
                         case KeyEvent.VK_F4:
-                            animator.stop();
+                            runner.stop();
                             break;
                         default:
                             break;

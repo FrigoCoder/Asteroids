@@ -81,14 +81,6 @@ public class Game {
     private void addStars () {
         for( int i = 0; i < 5_000; i++ ){
             Entity entity = new Entity();
-            double size = 1;
-            double density = 1000;
-            double speed = 0.2;
-            entity.set(new Attractable());
-            entity.set(new Mass(PI * 4 / 3 * pow(size, 3) * density));
-            entity.set(new Acceleration(0, 0));
-            entity.set(new Velocity(getRandom(-speed, speed), getRandom(-speed, speed)));
-            entity.set(new Position(getRandom(-1, 1), getRandom(-1, 1)));
             entity.set(new Position(getRandom(-1, 1), getRandom(-1, 1)));
             entity.set(new Renderable(1));
             world.addEntity(entity);

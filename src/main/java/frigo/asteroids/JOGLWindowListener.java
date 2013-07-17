@@ -4,14 +4,13 @@ package frigo.asteroids;
 import com.jogamp.newt.event.WindowEvent;
 import com.jogamp.newt.event.WindowListener;
 import com.jogamp.newt.event.WindowUpdateEvent;
-import com.jogamp.opengl.util.FPSAnimator;
 
 public class JOGLWindowListener implements WindowListener {
 
-    private FPSAnimator animator;
+    private JOGLRunner joglRunner;
 
-    public JOGLWindowListener (FPSAnimator animator) {
-        this.animator = animator;
+    public JOGLWindowListener (JOGLRunner joglRunner) {
+        this.joglRunner = joglRunner;
     }
 
     @Override
@@ -24,12 +23,12 @@ public class JOGLWindowListener implements WindowListener {
 
     @Override
     public void windowDestroyNotify (WindowEvent e) {
-        animator.stop();
+        joglRunner.stop();
     }
 
     @Override
     public void windowDestroyed (WindowEvent e) {
-        animator.stop();
+        joglRunner.stop();
     }
 
     @Override

@@ -25,11 +25,11 @@ public class JOGLRunner {
 
         window = GLWindow.create(new GLCapabilities(GLProfile.getDefault()));
 
-        window.addGLEventListener(new JOGLGLEventListener(world, keyEvents, animator));
-        window.addKeyListener(new JOGLKeyListener(keyEvents));
-        window.addWindowListener(new JOGLWindowListener(animator));
+        window.addGLEventListener(new JOGLGLEventListener(this, world, keyEvents));
+        window.addKeyListener(new JOGLKeyListener(this, keyEvents));
+        window.addWindowListener(new JOGLWindowListener(this));
 
-        window.setSize(640, 480);
+        // window.setSize(640, 480);
         window.setTitle("Asteroids");
         window.setVisible(true);
 
@@ -38,6 +38,10 @@ public class JOGLRunner {
 
     public void start () {
         animator.start();
+    }
+
+    public void stop () {
+        animator.stop();
     }
 
 }

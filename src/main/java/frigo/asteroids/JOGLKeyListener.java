@@ -8,9 +8,11 @@ import com.jogamp.newt.event.KeyListener;
 
 public class JOGLKeyListener implements KeyListener {
 
+    private JOGLRunner joglRunner;
     private CopyOnWriteArrayList<KeyEvent> keyEvents;
 
-    public JOGLKeyListener (CopyOnWriteArrayList<KeyEvent> keyEvents) {
+    public JOGLKeyListener (JOGLRunner joglRunner, CopyOnWriteArrayList<KeyEvent> keyEvents) {
+        this.joglRunner = joglRunner;
         this.keyEvents = keyEvents;
     }
 
