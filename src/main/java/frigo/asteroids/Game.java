@@ -16,6 +16,7 @@ import frigo.asteroids.component.Renderable;
 import frigo.asteroids.component.Velocity;
 import frigo.asteroids.core.Entity;
 import frigo.asteroids.core.World;
+import frigo.asteroids.jogl.JOGLRunner;
 import frigo.asteroids.logic.AccelerationNullerSystem;
 import frigo.asteroids.logic.GravitySystem;
 import frigo.asteroids.logic.InputSystem;

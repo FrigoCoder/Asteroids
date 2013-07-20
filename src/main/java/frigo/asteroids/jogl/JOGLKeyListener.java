@@ -1,5 +1,5 @@
 
-package frigo.asteroids;
+package frigo.asteroids.jogl;
 
 import java.util.concurrent.LinkedBlockingQueue;
 

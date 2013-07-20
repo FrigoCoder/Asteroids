@@ -1,5 +1,5 @@
 
-package frigo.asteroids;
+package frigo.asteroids.jogl;
 
 import com.jogamp.newt.event.WindowEvent;
 import com.jogamp.newt.event.WindowListener;
