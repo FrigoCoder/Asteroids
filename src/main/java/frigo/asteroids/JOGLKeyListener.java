@@ -8,29 +8,23 @@ import com.jogamp.newt.event.KeyListener;
 
 public class JOGLKeyListener implements KeyListener {
 
-    private JOGLRunner joglRunner;
     private LinkedBlockingQueue<KeyEvent> keyEvents;
 
-    public JOGLKeyListener (JOGLRunner joglRunner, LinkedBlockingQueue<KeyEvent> keyEvents) {
-        this.joglRunner = joglRunner;
+    public JOGLKeyListener (LinkedBlockingQueue<KeyEvent> keyEvents) {
         this.keyEvents = keyEvents;
     }
 
     @Override
-    public void keyPressed (KeyEvent e) {
-        if( !e.isAutoRepeat() ){
-            keyEvents.add(e);
-            System.out.println(keyEvents.size());
-            System.out.println(e);
+    public void keyPressed (KeyEvent event) {
+        if( !event.isAutoRepeat() ){
+            keyEvents.add(event);
         }
     }
 
     @Override
-    public void keyReleased (KeyEvent e) {
-        if( !e.isAutoRepeat() ){
-            keyEvents.add(e);
-            System.out.println(keyEvents.size());
-            System.out.println(e);
+    public void keyReleased (KeyEvent event) {
+        if( !event.isAutoRepeat() ){
+            keyEvents.add(event);
         }
     }
 

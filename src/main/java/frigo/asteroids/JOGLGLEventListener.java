@@ -1,7 +1,9 @@
 
 package frigo.asteroids;
 
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.concurrent.LinkedBlockingQueue;
 
 import javax.media.opengl.GL;
@@ -13,23 +15,23 @@ import javax.media.opengl.fixedfunc.GLMatrixFunc;
 
 import com.jogamp.newt.event.KeyEvent;
 
-import frigo.asteroids.component.Acceleration;
-import frigo.asteroids.component.PlayerControllable;
 import frigo.asteroids.component.Position;
 import frigo.asteroids.component.Renderable;
 import frigo.asteroids.core.Aspect;
 import frigo.asteroids.core.Entity;
 import frigo.asteroids.core.World;
+import frigo.asteroids.message.KeyHeld;
+import frigo.asteroids.message.KeyPressed;
+import frigo.asteroids.message.KeyReleased;
 
 public class JOGLGLEventListener implements GLEventListener {
 
-    private JOGLRunner runner;
     private World world;
     private LinkedBlockingQueue<KeyEvent> keyEvents;
     private long lastMillis;
+    private Map<Short, KeyEvent> held = new HashMap<>();
 
-    public JOGLGLEventListener (JOGLRunner joglRunner, World world, LinkedBlockingQueue<KeyEvent> keyEvents) {
-        runner = joglRunner;
+    public JOGLGLEventListener (World world, LinkedBlockingQueue<KeyEvent> keyEvents) {
         this.world = world;
         this.keyEvents = keyEvents;
     }
@@ -52,7 +54,7 @@ public class JOGLGLEventListener implements GLEventListener {
     public void display (GLAutoDrawable drawable) {
         long currentMillis = System.nanoTime();
         double elapsedSeconds = (currentMillis - lastMillis) / 1_000_000_000.0;
-        handleInput();
+        injectInputSnapshot();
         world.update(elapsedSeconds);
         render(drawable);
         lastMillis = currentMillis;
@@ -76,39 +78,43 @@ public class JOGLGLEventListener implements GLEventListener {
         }
     }
 
-    private void handleInput () {
-        Aspect aspect = Aspect.all(PlayerControllable.class, Acceleration.class);
-        Entity entity = world.getEntitiesFor(aspect).iterator().next();
-        double speed = 10.0;
+    private void injectInputSnapshot () {
         LinkedList<KeyEvent> events = new LinkedList<>();
         keyEvents.drainTo(events);
+
+        LinkedList<KeyEvent> pressed = new LinkedList<>();
+        LinkedList<KeyEvent> released = new LinkedList<>();
         for( KeyEvent event : events ){
             switch( event.getEventType() ){
                 case KeyEvent.EVENT_KEY_PRESSED:
-                    switch( event.getKeyCode() ){
-                        case KeyEvent.VK_UP:
-                            entity.set(entity.get(Acceleration.class).add(0.0, -speed));
-                            break;
-                        case KeyEvent.VK_DOWN:
-                            entity.set(entity.get(Acceleration.class).add(0.0, speed));
-                            break;
-                        case KeyEvent.VK_LEFT:
-                            entity.set(entity.get(Acceleration.class).add(-speed, 0.0));
-                            break;
-                        case KeyEvent.VK_RIGHT:
-                            entity.set(entity.get(Acceleration.class).add(speed, 0.0));
-                            break;
-                        case KeyEvent.VK_F4:
-                            runner.stop();
-                            break;
-                        default:
-                            break;
-                    }
+                    pressed.add(event);
+                    break;
+                case KeyEvent.EVENT_KEY_RELEASED:
+                    released.add(event);
                     break;
                 default:
-                    break;
+                    throw new IllegalArgumentException();
             }
-            keyEvents.remove(event);
+        }
+
+        for( KeyEvent event : released ){
+            short key = event.getKeyCode();
+            if( held.containsKey(key) ){
+                held.remove(key);
+                world.addMessage(new KeyReleased(key));
+            }
+        }
+
+        for( short key : held.keySet() ){
+            world.addMessage(new KeyHeld(key));
+        }
+
+        for( KeyEvent event : pressed ){
+            short key = event.getKeyCode();
+            if( !held.containsKey(key) ){
+                held.put(key, event);
+                world.addMessage(new KeyPressed(key));
+            }
         }
     }
 

@@ -18,6 +18,7 @@ import frigo.asteroids.core.Entity;
 import frigo.asteroids.core.World;
 import frigo.asteroids.logic.AccelerationNullerSystem;
 import frigo.asteroids.logic.GravitySystem;
+import frigo.asteroids.logic.InputSystem;
 import frigo.asteroids.logic.MovementSystem;
 
 public class Game {
@@ -40,7 +41,7 @@ public class Game {
     private void addSun () {
         Entity entity = new Entity();
         double size = 100;
-        double density = 500;
+        double density = 700;
         entity.set(new Attractor());
         entity.set(new Mass(PI * 4 / 3 * pow(size, 3) * density));
         entity.set(new Position(0, 0));
@@ -52,7 +53,7 @@ public class Game {
         Entity entity = new Entity();
         double size = 10;
         double density = 500;
-        entity.set(new PlayerControllable());
+        entity.set(new PlayerControllable(1));
         entity.set(new Attractable());
         entity.set(new Mass(PI * 4 / 3 * pow(size, 3) * density));
         entity.set(new Acceleration(0, 0));
@@ -67,7 +68,7 @@ public class Game {
             Entity entity = new Entity();
             double size = 10;
             double density = 500;
-            double speed = 0.3;
+            double speed = 0.2;
             entity.set(new Attractable());
             entity.set(new Mass(PI * 4 / 3 * pow(size, 3) * density));
             entity.set(new Acceleration(0, 0));
@@ -92,6 +93,7 @@ public class Game {
     }
 
     private void addLogics () {
+        world.addLogic(new InputSystem());
         world.addLogic(new GravitySystem());
         world.addLogic(new MovementSystem());
         world.addLogic(new AccelerationNullerSystem());

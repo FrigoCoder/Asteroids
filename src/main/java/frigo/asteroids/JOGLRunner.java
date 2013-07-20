@@ -25,8 +25,8 @@ public class JOGLRunner {
 
         window = GLWindow.create(new GLCapabilities(GLProfile.getDefault()));
 
-        window.addGLEventListener(new JOGLGLEventListener(this, world, keyEvents));
-        window.addKeyListener(new JOGLKeyListener(this, keyEvents));
+        window.addGLEventListener(new JOGLGLEventListener(world, keyEvents));
+        window.addKeyListener(new JOGLKeyListener(keyEvents));
         window.addWindowListener(new JOGLWindowListener(this));
 
         window.setSize(1024, 768);

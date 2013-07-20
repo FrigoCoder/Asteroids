@@ -63,4 +63,5 @@ public class WorldTest {
         world.update(0.01);
         verify(logic).update(world, 0.01);
     }
+
 }
