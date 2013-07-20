@@ -1,6 +1,7 @@
 
 package frigo.asteroids.core;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -46,7 +47,7 @@ public class World {
 
     public <T> List<T> getMessages (Class<? extends T> clazz) {
         if( !messages.containsKey(clazz) ){
-            return new LinkedList<>();
+            return Collections.EMPTY_LIST;
         }
         return (List<T>) messages.get(clazz);
     }

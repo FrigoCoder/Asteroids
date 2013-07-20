@@ -3,12 +3,15 @@ package frigo.asteroids.core;
 
 import static java.util.Arrays.asList;
 import static org.hamcrest.Matchers.hasItem;
+import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.sameInstance;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.junit.Test;
@@ -21,6 +24,7 @@ public class WorldTest {
     private World world = new World();
     private Entity entity = new Entity();
     private Logic logic = mock(Logic.class);
+    private Message message = new Message();
 
     @Test
     public void added_entity_is_present () {
@@ -64,4 +68,29 @@ public class WorldTest {
         verify(logic).update(world, 0.01);
     }
 
+    @Test
+    public void added_message_can_be_retrieved () {
+        world.addMessage(message);
+        List<Message> list = world.getMessages(message.getClass());
+        assertThat(list, hasSize(1));
+        assertThat(list.get(0), sameInstance(message));
+    }
+
+    @Test
+    public void two_added_messages_can_be_retrieved () {
+        Message message2 = new Message();
+        world.addMessage(message);
+        world.addMessage(message2);
+        List<Message> list = world.getMessages(message.getClass());
+        assertThat(list, hasSize(2));
+        assertThat(list.get(0), sameInstance(message));
+        assertThat(list.get(1), sameInstance(message2));
+    }
+
+    @Test
+    public void no_added_messages_return_empty_list () {
+        List<Message> list = world.getMessages(Message.class);
+        assertThat(list, hasSize(0));
+
+    }
 }
