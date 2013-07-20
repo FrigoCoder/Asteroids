@@ -7,10 +7,10 @@ import com.jogamp.newt.event.WindowUpdateEvent;
 
 public class JOGLWindowListener implements WindowListener {
 
-    private JOGLRunner joglRunner;
+    private JOGLRunner runner;
 
-    public JOGLWindowListener (JOGLRunner joglRunner) {
-        this.joglRunner = joglRunner;
+    public JOGLWindowListener (JOGLRunner runner) {
+        this.runner = runner;
     }
 
     @Override
@@ -23,12 +23,12 @@ public class JOGLWindowListener implements WindowListener {
 
     @Override
     public void windowDestroyNotify (WindowEvent e) {
-        joglRunner.stop();
+        runner.stop();
     }
 
     @Override
     public void windowDestroyed (WindowEvent e) {
-        joglRunner.stop();
+        runner.stop();
     }
 
     @Override
