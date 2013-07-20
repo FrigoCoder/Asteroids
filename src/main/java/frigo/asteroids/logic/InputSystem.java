@@ -10,6 +10,7 @@ import frigo.asteroids.core.Aspect;
 import frigo.asteroids.core.Entity;
 import frigo.asteroids.core.Logic;
 import frigo.asteroids.core.World;
+import frigo.asteroids.message.KeyHeld;
 import frigo.asteroids.message.KeyPressed;
 
 public class InputSystem implements Logic {
@@ -24,11 +25,13 @@ public class InputSystem implements Logic {
     public void update (World world, double elapsedSeconds) {
         Entity entity = world.getEntitiesFor(aspect).iterator().next();
         PlayerControllable controllable = entity.get(PlayerControllable.class);
-        double continuousThrust = controllable.thrust;
+        double thrust = controllable.thrust;
         Acceleration acceleration = entity.get(Acceleration.class);
         for( KeyPressed event : world.getMessages(KeyPressed.class) ){
-            Vector direction = getDirection(event.key);
-            acceleration = acceleration.add(direction.mul(continuousThrust));
+            acceleration = acceleration.add(getDirection(event.key).mul(thrust));
+        }
+        for( KeyHeld event : world.getMessages(KeyHeld.class) ){
+            acceleration = acceleration.add(getDirection(event.key).mul(thrust));
         }
         entity.set(acceleration);
     }
