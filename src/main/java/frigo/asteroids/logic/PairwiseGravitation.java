@@ -26,20 +26,16 @@ public class PairwiseGravitation {
     }
 
     public Vector getDirectionalAcceleration () {
-        double a = getAcceleration();
-        return direction.mul(a);
+        return direction.mul(getAcceleration());
     }
 
     public double getAcceleration () {
-        double F = getAttractiveForce();
-        double a = F / mAttracted;
-        return a;
+        return getAttractiveForce() / mAttracted;
     }
 
     public double getAttractiveForce () {
         double r = direction.length();
-        double F = r == 0 ? 0 : PairwiseGravitation.G * mAttractor * mAttracted / (r * r);
-        return F;
+        return r == 0 ? 0 : G * mAttractor * mAttracted / (r * r);
     }
 
 }
