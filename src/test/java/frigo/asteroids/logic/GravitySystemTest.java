@@ -15,9 +15,9 @@ import frigo.asteroids.component.Attractor;
 import frigo.asteroids.component.Mass;
 import frigo.asteroids.component.Position;
 import frigo.asteroids.component.Vector;
-import frigo.asteroids.core.Component;
 import frigo.asteroids.core.Entity;
 import frigo.asteroids.core.World;
+import frigo.asteroids.logic.PairwiseGravitation.G;
 
 public class GravitySystemTest {
 
@@ -29,52 +29,11 @@ public class GravitySystemTest {
 
     @Before
     public void setUp () {
-        attractor1 = createAttractor(new Mass(100), new Position(-0.1, 0.0));
-        attracted1 = createattracted(new Mass(10), new Position(0.1, 0.0));
-        attracted2 = createattracted(new Mass(1), new Position(0.0, 0.1));
+        attractor1 = new Entity(new Attractor(), new Mass(100), new Acceleration(0, 0), new Position(-0.1, 0.0));
+        attracted1 = new Entity(new Attractable(), new Mass(10), new Acceleration(0, 0), new Position(0.1, 0.0));
+        attracted2 = new Entity(new Attractable(), new Mass(1), new Acceleration(0, 0), new Position(0.0, 0.1));
+
         gravitySystem.init(world);
-    }
-
-    private Entity createattracted (Mass mass, Position position) {
-        return createEntity(mass, position, new Attractable());
-    }
-
-    private Entity createAttractor (Mass mass, Position position) {
-        return createEntity(mass, position, new Attractor());
-    }
-
-    private Entity createEntity (Mass mass, Position position, Component extra) {
-        Entity attracted = new Entity();
-        attracted.set(mass);
-        attracted.set(new Acceleration(0.0, 0.0));
-        attracted.set(position);
-        attracted.set(extra);
-        return attracted;
-    }
-
-    @Test
-    public void attractive_force_is_calculated_properly () {
-        assertThat(gravitySystem.getAttractiveForce(attractor1, attracted1), closeTo(G * 100 * 10 / 0.04, 1E-21));
-        assertThat(gravitySystem.getAttractiveForce(attractor1, attracted2), closeTo(G * 100 * 1 / 0.02, 1E-21));
-    }
-
-    @Test
-    public void acceleration_is_calculated_properly () {
-        assertThat(gravitySystem.getAcceleration(attractor1, attracted1), closeTo(G * 100 * 10 / 0.04 / 10, 1E-22));
-        assertThat(gravitySystem.getAcceleration(attractor1, attracted2), closeTo(G * 100 * 1 / 0.02 / 1, 1E-21));
-
-    }
-
-    @Test
-    public void directional_acceleration_is_calculated_properly () {
-        assertDirectionalAcceleration(attracted1, new Vector(-0.2, 0.0).mul(G * 100 * 10 / 0.04 / 10));
-        assertDirectionalAcceleration(attracted2, new Vector(-0.1, -0.1).mul(G * 100 * 1 / 0.02 / 1));
-    }
-
-    private void assertDirectionalAcceleration (Entity attracted, Vector expected) {
-        Vector actual = gravitySystem.getDirectionalAcceleration(attractor1, attracted);
-        assertThat(actual.x, closeTo(expected.x, 1E-22));
-        assertThat(actual.y, closeTo(expected.y, 1E-22));
     }
 
     @Test
@@ -96,8 +55,8 @@ public class GravitySystemTest {
 
         gravitySystem.update(world, 1.0);
 
-        assertAcceleration(attracted1, new Vector(-0.2, 0.0).mul(G * 100 * 10 / 0.04 / 10));
-        assertAcceleration(attracted2, new Vector(-0.1, -0.1).mul(G * 100 * 1 / 0.02 / 1));
+        assertAcceleration(attracted1, new Vector(-0.2, 0.0).mul(PairwiseGravitation.G * 100 * 10 / 0.04 / 10));
+        assertAcceleration(attracted2, new Vector(-0.1, -0.1).mul(PairwiseGravitation.G * 100 * 1 / 0.02 / 1));
     }
 
     private void assertAcceleration (Entity attracted, Vector expected) {
