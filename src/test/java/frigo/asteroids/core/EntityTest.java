@@ -11,6 +11,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import frigo.asteroids.component.Attractor;
 import frigo.asteroids.component.Position;
 
 public class EntityTest {
@@ -42,6 +43,14 @@ public class EntityTest {
     @Test
     public void not_added_component_can_be_checked_for_presence () {
         assertThat(entity.has(Position.class), is(false));
+    }
+
+    @Test
+    public void vararg_constructor_adds_all_components () {
+        Attractor attractor = new Attractor();
+        entity = new Entity(position, attractor);
+        assertThat(entity.get(Position.class), sameInstance(position));
+        assertThat(entity.get(Attractor.class), sameInstance(attractor));
     }
 
 }

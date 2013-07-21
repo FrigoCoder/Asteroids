@@ -9,6 +9,15 @@ public final class Entity {
 
     private Map<Class<? extends Component>, Component> components = new HashMap<>();
 
+    public Entity () {
+    }
+
+    public Entity (Component... components) {
+        for( Component component : components ){
+            set(component);
+        }
+    }
+
     public void set (Component component) {
         components.put(component.getClass(), component);
     }
