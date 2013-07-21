@@ -4,7 +4,7 @@ package frigo.asteroids.core;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Aspect {
+public class Aspect extends Value {
 
     private Set<Class<? extends Component>> components = new HashSet<>();
 
@@ -25,4 +25,5 @@ public class Aspect {
         }
         return true;
     }
+
 }
