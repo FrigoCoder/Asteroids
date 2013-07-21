@@ -15,14 +15,19 @@ public class PairwiseGravitation {
     @VisibleForTesting
     static final double G = 6.6738480 * pow(10, -11);
 
-    private Vector direction;
     private double mAttractor;
     private double mAttracted;
+    private Vector direction;
+    private double r2;
 
     public PairwiseGravitation (Entity attractor, Entity attracted) {
-        direction = attractor.get(Position.class).sub(attracted.get(Position.class));
         mAttractor = attractor.get(Mass.class).mass;
         mAttracted = attracted.get(Mass.class).mass;
+        direction = attractor.get(Position.class).sub(attracted.get(Position.class));
+        r2 = direction.x * direction.x + direction.y * direction.y;
+        if( r2 == 0.0 ){
+            r2 = Double.POSITIVE_INFINITY;
+        }
     }
 
     public Vector getDirectionalAcceleration () {
@@ -30,12 +35,11 @@ public class PairwiseGravitation {
     }
 
     public double getAcceleration () {
-        return getAttractiveForce() / mAttracted;
+        return G * mAttractor / r2;
     }
 
     public double getAttractiveForce () {
-        double r = direction.length();
-        return r == 0 ? 0 : G * mAttractor * mAttracted / (r * r);
+        return G * mAttractor * mAttracted / r2;
     }
 
 }
