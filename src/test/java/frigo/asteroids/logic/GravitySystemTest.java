@@ -1,7 +1,7 @@
 
 package frigo.asteroids.logic;
 
-import static frigo.asteroids.logic.GravitySystem.G;
+import static frigo.asteroids.logic.PairwiseGravitation.G;
 import static org.hamcrest.Matchers.closeTo;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
@@ -17,7 +17,6 @@ import frigo.asteroids.component.Position;
 import frigo.asteroids.component.Vector;
 import frigo.asteroids.core.Entity;
 import frigo.asteroids.core.World;
-import frigo.asteroids.logic.PairwiseGravitation.G;
 
 public class GravitySystemTest {
 
@@ -55,8 +54,8 @@ public class GravitySystemTest {
 
         gravitySystem.update(world, 1.0);
 
-        assertAcceleration(attracted1, new Vector(-0.2, 0.0).mul(PairwiseGravitation.G * 100 * 10 / 0.04 / 10));
-        assertAcceleration(attracted2, new Vector(-0.1, -0.1).mul(PairwiseGravitation.G * 100 * 1 / 0.02 / 1));
+        assertAcceleration(attracted1, new Vector(-0.2, 0.0).mul(G * 100 * 10 / 0.04 / 10));
+        assertAcceleration(attracted2, new Vector(-0.1, -0.1).mul(G * 100 * 1 / 0.02 / 1));
     }
 
     private void assertAcceleration (Entity attracted, Vector expected) {
