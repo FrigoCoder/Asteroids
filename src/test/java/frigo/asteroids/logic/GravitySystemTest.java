@@ -54,14 +54,14 @@ public class GravitySystemTest {
 
         gravitySystem.update(world, 1.0);
 
-        assertAcceleration(attracted1, new Vector(-0.2, 0.0).mul(G * 100 * 10 / 0.04 / 10));
-        assertAcceleration(attracted2, new Vector(-0.1, -0.1).mul(G * 100 * 1 / 0.02 / 1));
+        assertAcceleration(attracted1, new Vector(-0.2, 0.0).mul(G * 100 / 0.04));
+        assertAcceleration(attracted2, new Vector(-0.1, -0.1).mul(G * 100 / 0.02));
     }
 
     private void assertAcceleration (Entity attracted, Vector expected) {
         Acceleration acceleration = attracted.get(Acceleration.class);
-        assertThat(acceleration.ddx, closeTo(expected.x, 1E-22));
-        assertThat(acceleration.ddy, closeTo(expected.y, 1E-22));
+        assertThat(acceleration.ddx, closeTo(expected.x, 0));
+        assertThat(acceleration.ddy, closeTo(expected.y, 0));
     }
 
 }

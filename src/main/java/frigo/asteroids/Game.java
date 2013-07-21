@@ -42,7 +42,7 @@ public class Game {
     private void addSun () {
         Entity entity = new Entity();
         double size = 100;
-        double density = 700;
+        double density = 500;
         entity.set(new Attractor());
         entity.set(new Mass(PI * 4 / 3 * pow(size, 3) * density));
         entity.set(new Position(0, 0));
