@@ -15,7 +15,7 @@ import frigo.asteroids.message.KeyPressed;
 
 public class InputSystem implements Logic {
 
-    private Aspect aspect = new Aspect().all(PlayerControllable.class, Acceleration.class);
+    private Aspect aspect = Aspect.allOf(PlayerControllable.class, Acceleration.class);
 
     @Override
     public void init (World world) {

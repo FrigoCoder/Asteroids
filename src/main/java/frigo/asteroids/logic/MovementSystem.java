@@ -23,7 +23,7 @@ public class MovementSystem implements Logic {
     }
 
     private void handleEntitiesWithAllComponents (World world, double elapsedSeconds) {
-        Aspect aspect = new Aspect().all(Acceleration.class, Velocity.class, Position.class);
+        Aspect aspect = Aspect.allOf(Acceleration.class, Velocity.class, Position.class);
         for( Entity entity : world.getEntitiesFor(aspect) ){
             VelocityVerlet verlet =
                 new VelocityVerlet(entity.get(Acceleration.class), entity.get(Velocity.class),
@@ -34,7 +34,7 @@ public class MovementSystem implements Logic {
     }
 
     private void handleEntitiesWithNoAcceleration (World world, double elapsedSeconds) {
-        Aspect aspect = new Aspect().all(Velocity.class, Position.class).none(Acceleration.class);
+        Aspect aspect = Aspect.allOf(Velocity.class, Position.class).andNoneOf(Acceleration.class);
         for( Entity entity : world.getEntitiesFor(aspect) ){
             VelocityVerlet verlet =
                 new VelocityVerlet(new Acceleration(0, 0), entity.get(Velocity.class), entity.get(Position.class));
@@ -45,7 +45,7 @@ public class MovementSystem implements Logic {
     }
 
     private void handleEntitiesWithNoPosition (World world, double elapsedSeconds) {
-        Aspect aspect = new Aspect().all(Acceleration.class, Velocity.class).none(Position.class);
+        Aspect aspect = Aspect.allOf(Acceleration.class, Velocity.class).andNoneOf(Position.class);
         for( Entity entity : world.getEntitiesFor(aspect) ){
             VelocityVerlet verlet =
                 new VelocityVerlet(entity.get(Acceleration.class), entity.get(Velocity.class), new Position(0, 0));

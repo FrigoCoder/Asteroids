@@ -41,7 +41,7 @@ public class WorldTest {
         Entity empty = new Entity();
         world.addEntity(empty);
 
-        Aspect aspect = new Aspect().all(Position.class, Velocity.class);
+        Aspect aspect = Aspect.allOf(Position.class, Velocity.class);
 
         Set<Entity> expected = new HashSet<>(asList(entity));
         assertThat(world.getEntitiesFor(aspect), is(expected));
