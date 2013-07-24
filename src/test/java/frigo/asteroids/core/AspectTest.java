@@ -4,6 +4,7 @@ package frigo.asteroids.core;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import frigo.asteroids.component.Position;
@@ -12,7 +13,7 @@ import frigo.asteroids.component.Velocity;
 
 public class AspectTest {
 
-    private Aspect aspect = Aspect.all(Position.class, Velocity.class);
+    private Aspect aspect = new Aspect().all(Position.class, Velocity.class);
     private Entity entity = new Entity();
 
     @Test
@@ -34,6 +35,11 @@ public class AspectTest {
         entity.set(new Velocity(0.1, 0.1));
         entity.set(new Renderable(1.0));
         assertThat(aspect.matches(entity), is(true));
+    }
+
+    @Ignore
+    @Test
+    public void test_none_matcher () {
     }
 
 }

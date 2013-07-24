@@ -60,8 +60,8 @@ public class GravitySystemTest {
 
     private void assertAcceleration (Entity attracted, Vector expected) {
         Acceleration acceleration = attracted.get(Acceleration.class);
-        assertThat(acceleration.ddx, closeTo(expected.x, 0));
-        assertThat(acceleration.ddy, closeTo(expected.y, 0));
+        assertThat(acceleration.x, closeTo(expected.x, 0));
+        assertThat(acceleration.y, closeTo(expected.y, 0));
     }
 
 }

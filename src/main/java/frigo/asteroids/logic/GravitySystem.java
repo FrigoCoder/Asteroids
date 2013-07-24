@@ -16,8 +16,9 @@ import frigo.asteroids.core.World;
 
 public class GravitySystem implements Logic {
 
-    private Aspect attractorAspect = Aspect.all(Attractor.class, Mass.class, Position.class);
-    private Aspect attractableAspect = Aspect.all(Acceleration.class, Attractable.class, Mass.class, Position.class);
+    private Aspect attractorAspect = new Aspect().all(Attractor.class, Mass.class, Position.class);
+    private Aspect attractableAspect = new Aspect().all(Acceleration.class, Attractable.class, Mass.class,
+        Position.class);
 
     @Override
     public void init (World world) {

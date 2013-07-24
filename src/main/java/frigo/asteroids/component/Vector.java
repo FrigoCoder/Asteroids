@@ -2,9 +2,9 @@
 package frigo.asteroids.component;
 
 import static java.lang.Math.sqrt;
-import frigo.asteroids.core.Value;
+import frigo.asteroids.core.Component;
 
-public class Vector extends Value {
+public class Vector extends Component {
 
     public final double x;
     public final double y;
@@ -16,6 +16,10 @@ public class Vector extends Value {
 
     public double length () {
         return sqrt(x * x + y * y);
+    }
+
+    public Vector add (Vector addend) {
+        return new Vector(x + addend.x, y + addend.y);
     }
 
     public Vector mul (double scalar) {

@@ -11,35 +11,45 @@ import frigo.asteroids.core.World;
 
 public class MovementSystem implements Logic {
 
-    private Aspect velocityUpdate = Aspect.all(Acceleration.class, Velocity.class);
-    private Aspect positionUpdate = Aspect.all(Velocity.class, Position.class);
-
     @Override
     public void init (World world) {
     }
 
     @Override
     public void update (World world, double elapsedSeconds) {
-        updateVelocityWithAcceleration(world, elapsedSeconds);
-        updatePositionWithVelocity(world, elapsedSeconds);
+        handleEntitiesWithAllComponents(world, elapsedSeconds);
+        handleEntitiesWithNoAcceleration(world, elapsedSeconds);
+        handleEntitiesWithNoPosition(world, elapsedSeconds);
     }
 
-    private void updateVelocityWithAcceleration (World world, double elapsedSeconds) {
-        for( Entity entity : world.getEntitiesFor(velocityUpdate) ){
-            Acceleration acceleration = entity.get(Acceleration.class);
-            Velocity velocity = entity.get(Velocity.class);
-            Velocity newVelocity = velocity.add(acceleration, elapsedSeconds);
-            entity.set(newVelocity);
+    private void handleEntitiesWithAllComponents (World world, double elapsedSeconds) {
+        Aspect aspect = new Aspect().all(Acceleration.class, Velocity.class, Position.class);
+        for( Entity entity : world.getEntitiesFor(aspect) ){
+            VelocityVerlet verlet =
+                new VelocityVerlet(entity.get(Acceleration.class), entity.get(Velocity.class),
+                    entity.get(Position.class));
+            entity.set(verlet.getVelocity(elapsedSeconds));
+            entity.set(verlet.getPosition(elapsedSeconds));
         }
     }
 
-    private void updatePositionWithVelocity (World world, double elapsedSeconds) {
-        for( Entity entity : world.getEntitiesFor(positionUpdate) ){
-            Velocity velocity = entity.get(Velocity.class);
-            Position position = entity.get(Position.class);
-            Position newPosition = position.add(velocity, elapsedSeconds);
-            entity.set(newPosition);
+    private void handleEntitiesWithNoAcceleration (World world, double elapsedSeconds) {
+        Aspect aspect = new Aspect().all(Velocity.class, Position.class).none(Acceleration.class);
+        for( Entity entity : world.getEntitiesFor(aspect) ){
+            VelocityVerlet verlet =
+                new VelocityVerlet(new Acceleration(0, 0), entity.get(Velocity.class), entity.get(Position.class));
+            entity.set(verlet.getVelocity(elapsedSeconds));
+            entity.set(verlet.getPosition(elapsedSeconds));
         }
+
     }
 
+    private void handleEntitiesWithNoPosition (World world, double elapsedSeconds) {
+        Aspect aspect = new Aspect().all(Acceleration.class, Velocity.class).none(Position.class);
+        for( Entity entity : world.getEntitiesFor(aspect) ){
+            VelocityVerlet verlet =
+                new VelocityVerlet(entity.get(Acceleration.class), entity.get(Velocity.class), new Position(0, 0));
+            entity.set(verlet.getVelocity(elapsedSeconds));
+        }
+    }
 }

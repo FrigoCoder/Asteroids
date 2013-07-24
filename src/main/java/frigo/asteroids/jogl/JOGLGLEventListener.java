@@ -66,7 +66,7 @@ public class JOGLGLEventListener implements GLEventListener {
         gl.glMatrixMode(GLMatrixFunc.GL_MODELVIEW);
         gl.glLoadIdentity();
 
-        Aspect aspect = Aspect.all(Position.class, Renderable.class);
+        Aspect aspect = new Aspect().all(Position.class, Renderable.class);
         for( Entity entity : world.getEntitiesFor(aspect) ){
             Position position = entity.get(Position.class);
             Renderable renderable = entity.get(Renderable.class);

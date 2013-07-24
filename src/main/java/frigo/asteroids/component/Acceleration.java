@@ -1,19 +1,19 @@
 
 package frigo.asteroids.component;
 
-import frigo.asteroids.core.Component;
-
-public class Acceleration extends Component {
-
-    public final double ddx;
-    public final double ddy;
+public class Acceleration extends Vector {
 
     public Acceleration (double ddx, double ddy) {
-        this.ddx = ddx;
-        this.ddy = ddy;
+        super(ddx, ddy);
     }
 
+    @Override
     public Acceleration add (Vector vector) {
-        return new Acceleration(ddx + vector.x, ddy + vector.y);
+        return new Acceleration(x + vector.x, y + vector.y);
+    }
+
+    @Override
+    public Acceleration mul (double scalar) {
+        return new Acceleration(x * scalar, y * scalar);
     }
 }

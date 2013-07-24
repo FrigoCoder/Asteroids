@@ -14,13 +14,11 @@ import frigo.asteroids.core.World;
 
 public class JOGLRunner {
 
-    private static final int FPS = 100;
-
     private GLWindow window;
     private FPSAnimator animator;
     private LinkedBlockingQueue<KeyEvent> keyEvents = new LinkedBlockingQueue<>();
 
-    public JOGLRunner (World world) {
+    public JOGLRunner (World world, int fps) {
         System.setProperty("jogamp.gluegen.UseTempJarCache", "false");
 
         window = GLWindow.create(new GLCapabilities(GLProfile.getDefault()));
@@ -33,7 +31,7 @@ public class JOGLRunner {
         window.setTitle("Asteroids");
         window.setVisible(true);
 
-        animator = new FPSAnimator(window, FPS, true);
+        animator = new FPSAnimator(window, fps, true);
     }
 
     public void start () {
