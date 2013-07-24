@@ -9,9 +9,6 @@ public final class Entity {
 
     private Map<Class<? extends Component>, Component> components = new HashMap<>();
 
-    public Entity () {
-    }
-
     public Entity (Component... components) {
         for( Component component : components ){
             set(component);

@@ -21,11 +21,11 @@ public class PairwiseGravitation {
     private double r2;
 
     public PairwiseGravitation (Entity attractor, Entity attracted) {
-        mAttractor = attractor.get(Mass.class).mass;
-        mAttracted = attracted.get(Mass.class).mass;
+        mAttractor = attractor.get(Mass.class).kg;
+        mAttracted = attracted.get(Mass.class).kg;
         direction = attractor.get(Position.class).sub(attracted.get(Position.class));
         r2 = direction.x * direction.x + direction.y * direction.y;
-        r2 = Math.sqrt(r2);
+        // r2 = Math.sqrt(r2);
         if( r2 <= 0.0 ){
             r2 = Double.POSITIVE_INFINITY;
         }

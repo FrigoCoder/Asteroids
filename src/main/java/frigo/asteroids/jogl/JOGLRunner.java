@@ -14,14 +14,13 @@ import frigo.asteroids.core.World;
 
 public class JOGLRunner {
 
-    private GLWindow window;
     private FPSAnimator animator;
     private LinkedBlockingQueue<KeyEvent> keyEvents = new LinkedBlockingQueue<>();
 
     public JOGLRunner (World world, int fps) {
         System.setProperty("jogamp.gluegen.UseTempJarCache", "false");
 
-        window = GLWindow.create(new GLCapabilities(GLProfile.getDefault()));
+        GLWindow window = GLWindow.create(new GLCapabilities(GLProfile.getDefault()));
 
         window.addGLEventListener(new JOGLGLEventListener(world, keyEvents));
         window.addKeyListener(new JOGLKeyListener(keyEvents));

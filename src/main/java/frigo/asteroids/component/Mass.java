@@ -5,10 +5,10 @@ import frigo.asteroids.core.Component;
 
 public class Mass extends Component {
 
-    public final double mass;
+    public final double kg;
 
-    public Mass (double mass) {
-        this.mass = mass;
+    public Mass (double kg) {
+        this.kg = kg;
     }
 
 }

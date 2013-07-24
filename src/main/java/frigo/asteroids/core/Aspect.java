@@ -4,10 +4,7 @@ package frigo.asteroids.core;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Aspect extends Value {
-
-    private Set<Class<? extends Component>> all = new HashSet<>();
-    private Set<Class<? extends Component>> none = new HashSet<>();
+public final class Aspect extends Value {
 
     @SafeVarargs
     public static Aspect allOf (Class<? extends Component>... types) {
@@ -18,6 +15,9 @@ public class Aspect extends Value {
     public static Aspect noneOf (Class<? extends Component>... types) {
         return new Aspect().andNoneOf(types);
     }
+
+    private Set<Class<? extends Component>> all = new HashSet<>();
+    private Set<Class<? extends Component>> none = new HashSet<>();
 
     private Aspect () {
     }
