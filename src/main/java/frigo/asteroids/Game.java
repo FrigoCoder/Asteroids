@@ -53,7 +53,7 @@ public class Game {
     private void addShip () {
         double size = 10;
         Entity entity = new Entity();
-        entity.set(new PlayerControllable(1));
+        entity.set(new PlayerControllable(0.3));
         entity.set(new Attractable());
         entity.set(new Mass(PI * 4 / 3 * pow(size, 3) * DENSITY));
         entity.set(new Acceleration(0, 0));

@@ -10,9 +10,6 @@ import frigo.asteroids.component.Position;
 import frigo.asteroids.component.Vector;
 import frigo.asteroids.core.Entity;
 
-/**
- * Fake gravitation, uses
- */
 public class PairwiseGravitation {
 
     @VisibleForTesting
@@ -28,7 +25,7 @@ public class PairwiseGravitation {
         mAttracted = attracted.get(Mass.class).mass;
         direction = attractor.get(Position.class).sub(attracted.get(Position.class));
         r2 = direction.x * direction.x + direction.y * direction.y;
-        // r2 = Math.sqrt(r2);
+        r2 = Math.sqrt(r2);
         if( r2 <= 0.0 ){
             r2 = Double.POSITIVE_INFINITY;
         }
