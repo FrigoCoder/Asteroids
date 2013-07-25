@@ -97,10 +97,10 @@ public class Game {
     }
 
     private void addLogics () {
+        world.addLogic(new AccelerationNullerSystem());
         world.addLogic(new InputSystem());
         world.addLogic(new GravitySystem());
         world.addLogic(new MovementSystem());
-        world.addLogic(new AccelerationNullerSystem());
     }
 
     public static void main (String[] args) {
