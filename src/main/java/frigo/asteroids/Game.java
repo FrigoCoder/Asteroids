@@ -45,6 +45,8 @@ public class Game {
         Entity entity = new Entity();
         entity.set(new Attractor());
         entity.set(new Mass(PI * 4 / 3 * pow(size, 3) * DENSITY));
+        entity.set(new Acceleration(0, 0));
+        entity.set(new Velocity(0, 0));
         entity.set(new Position(0, 0));
         entity.set(new Renderable(size, 1, 1, 0));
         world.addEntity(entity);
@@ -81,14 +83,11 @@ public class Game {
     private void addStars () {
         for( int i = 0; i < 5_000; i++ ){
             double size = 1;
-            double speed = 0;
+            double speed = 0.005;
             Entity entity = new Entity();
-            entity.set(new Attractable());
-            entity.set(new Mass(PI * 4 / 3 * pow(size, 3) * DENSITY));
-            entity.set(new Acceleration(0, 0));
             entity.set(new Velocity(getRandom(-speed, speed), getRandom(-speed, speed)));
             entity.set(new Position(getRandom(-1, 1), getRandom(-1, 1)));
-            entity.set(new Renderable(size));
+            entity.set(new Renderable(size, 1.0, 1.0, 1.0));
             world.addEntity(entity);
         }
     }
