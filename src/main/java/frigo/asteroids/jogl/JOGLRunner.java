@@ -1,12 +1,9 @@
 
 package frigo.asteroids.jogl;
 
-import java.util.concurrent.LinkedBlockingQueue;
-
 import javax.media.opengl.GLCapabilities;
 import javax.media.opengl.GLProfile;
 
-import com.jogamp.newt.event.KeyEvent;
 import com.jogamp.newt.opengl.GLWindow;
 import com.jogamp.opengl.util.FPSAnimator;
 
@@ -20,10 +17,14 @@ public class JOGLRunner {
         System.setProperty("jogamp.gluegen.UseTempJarCache", "false");
 
         GLWindow window = GLWindow.create(new GLCapabilities(GLProfile.getDefault()));
-        LinkedBlockingQueue<KeyEvent> keyEvents = new LinkedBlockingQueue<>();
 
-        window.addGLEventListener(new JOGLGLEventListener(world, keyEvents));
-        window.addKeyListener(new JOGLKeyListener(keyEvents));
+        JOGLKeyListener keyListener = new JOGLKeyListener(world);
+        window.addKeyListener(keyListener);
+
+        window.addGLEventListener(keyListener);
+        window.addGLEventListener(new JOGLWorldUpdater(world));
+        window.addGLEventListener(new JOGLRenderer(world));
+
         window.addWindowListener(new JOGLWindowListener(this));
 
         window.setSize(1024, 768);
