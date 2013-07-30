@@ -4,7 +4,10 @@ package frigo.asteroids.util;
 public class Rethrow {
 
     public static RuntimeException unchecked (Throwable e) {
-        return dirtyGenericTrick(e);
+        if( e instanceof RuntimeException ){
+            return (RuntimeException) e;
+        }
+        return new RuntimeException(e);
     }
 
     @SuppressWarnings("unchecked")

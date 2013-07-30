@@ -13,7 +13,7 @@ public class JOGLRunner {
 
     private FPSAnimator animator;
 
-    public JOGLRunner (World world, int fps) {
+    public JOGLRunner (World world, int xsize, int ysize, int fps) {
         System.setProperty("jogamp.gluegen.UseTempJarCache", "false");
 
         GLWindow window = GLWindow.create(new GLCapabilities(GLProfile.getDefault()));
@@ -27,7 +27,7 @@ public class JOGLRunner {
 
         window.addWindowListener(new JOGLWindowListener(this));
 
-        window.setSize(1024, 768);
+        window.setSize(xsize, ysize);
         window.setTitle("Asteroids");
         window.setVisible(true);
 
