@@ -19,8 +19,9 @@ public class TextureBuffer {
 
     public Texture get (String filename) {
         if( !textures.containsKey(filename) ){
+            File file = new File(ClassLoader.getSystemResource(filename).getFile());
             try{
-                Texture texture = TextureIO.newTexture(new File(filename), true);
+                Texture texture = TextureIO.newTexture(file, true);
                 textures.put(filename, texture);
             }catch( GLException | IOException e ){
                 throw unchecked(e);

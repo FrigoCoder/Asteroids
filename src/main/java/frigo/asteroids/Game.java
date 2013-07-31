@@ -48,7 +48,7 @@ public class Game {
         entity.set(new Acceleration(0, 0));
         entity.set(new Velocity(0, 0));
         entity.set(new Position(0, 0));
-        entity.set(new Renderable(size, "c:/sun_512.png"));
+        entity.set(new Renderable(size, "sun_512.png"));
         world.addEntity(entity);
     }
 
@@ -108,5 +108,4 @@ public class Game {
         JOGLRunner runner = new JOGLRunner(game.world, 800, 800, 100);
         runner.start();
     }
-
 }
