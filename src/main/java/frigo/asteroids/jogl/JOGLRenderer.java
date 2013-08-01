@@ -30,10 +30,6 @@ public class JOGLRenderer implements GLEventListener {
     public void init (GLAutoDrawable drawable) {
         GL2 gl = drawable.getGL().getGL2();
 
-        gl.glMatrixMode(GLMatrixFunc.GL_PROJECTION);
-        gl.glLoadIdentity();
-        gl.glOrtho(-1, 1, -1, 1, -1, 1);
-
         gl.glEnable(GL2ES1.GL_POINT_SMOOTH);
         gl.glHint(GL2ES1.GL_POINT_SMOOTH, GL.GL_NICEST);
 
@@ -65,23 +61,17 @@ public class JOGLRenderer implements GLEventListener {
                 Texture tex = textures.get(texture);
                 tex.enable(gl);
                 tex.bind(gl);
-
                 gl.glBegin(GL2GL3.GL_QUADS);
                 gl.glColor3d(1, 1, 1);
                 gl.glTexCoord2d(0.5 - 0.5, 0.5 - 0.5);
                 gl.glVertex2d(position.x - size / 2, position.y - size / 2);
-
                 gl.glTexCoord2d(0.5 - 0.5, 0.5 + 0.5);
                 gl.glVertex2d(position.x - size / 2, position.y + size / 2);
-
                 gl.glTexCoord2d(0.5 + 0.5, 0.5 + 0.5);
                 gl.glVertex2d(position.x + size / 2, position.y + size / 2);
-
                 gl.glTexCoord2d(0.5 + 0.5, 0.5 - 0.5);
                 gl.glVertex2d(position.x + size / 2, position.y - size / 2);
-
                 gl.glEnd();
-
                 tex.disable(gl);
             }
         }
@@ -93,6 +83,13 @@ public class JOGLRenderer implements GLEventListener {
 
     @Override
     public void reshape (GLAutoDrawable drawable, int x, int y, int width, int height) {
-    }
+        GL2 gl = drawable.getGL().getGL2();
 
+        double ratio = (double) width / height;
+
+        gl.glMatrixMode(GLMatrixFunc.GL_PROJECTION);
+        gl.glLoadIdentity();
+        gl.glOrtho(-ratio, ratio, -1, 1, -1, 1);
+
+    }
 }
