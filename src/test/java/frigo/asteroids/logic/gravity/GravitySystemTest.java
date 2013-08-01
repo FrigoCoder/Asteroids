@@ -1,7 +1,7 @@
 
 package frigo.asteroids.logic.gravity;
 
-import static frigo.asteroids.logic.gravity.PairwiseNewtonianGravitation.G;
+import static frigo.asteroids.logic.gravity.NewtonianGravity.G;
 import static org.hamcrest.Matchers.closeTo;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
