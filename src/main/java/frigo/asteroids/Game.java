@@ -76,7 +76,7 @@ public class Game {
             entity.set(new Acceleration(0, 0));
             entity.set(new Velocity(getRandom(-speed, speed), getRandom(-speed, speed)));
             entity.set(new Position(getRandom(-1, 1), getRandom(-1, 1)));
-            entity.set(new Renderable(size, "vesta_32.png"));
+            entity.set(new Renderable(size, "vesta.png"));
             world.addEntity(entity);
         }
     }
@@ -86,6 +86,9 @@ public class Game {
             double size = 1.0;
             double speed = 0.005;
             Entity entity = new Entity();
+            entity.set(new Attractable());
+            entity.set(new Mass(PI * 4 / 3 * pow(size / 100, 3) * DENSITY));
+            entity.set(new Acceleration(0, 0));
             entity.set(new Velocity(getRandom(-speed, speed), getRandom(-speed, speed)));
             entity.set(new Position(getRandom(-1, 1), getRandom(-1, 1)));
             entity.set(new Renderable(size, 1.0, 1.0, 1.0));
