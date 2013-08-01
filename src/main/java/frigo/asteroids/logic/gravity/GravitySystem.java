@@ -1,5 +1,5 @@
 
-package frigo.asteroids.logic;
+package frigo.asteroids.logic.gravity;
 
 import java.util.Set;
 
@@ -16,8 +16,15 @@ import frigo.asteroids.core.World;
 
 public class GravitySystem implements Logic {
 
-    private Aspect attractorAspect = Aspect.allOf(Attractor.class, Mass.class, Position.class);
-    private Aspect attractableAspect = Aspect.allOf(Acceleration.class, Attractable.class, Mass.class, Position.class);
+    private static final Aspect attractorAspect = Aspect.allOf(Attractor.class, Mass.class, Position.class);
+    private static final Aspect attractableAspect = Aspect.allOf(Acceleration.class, Attractable.class, Mass.class,
+        Position.class);
+    private GravityCalculator calculator;
+
+    public GravitySystem (GravityCalculator calculator) {
+        this.calculator = calculator;
+
+    }
 
     @Override
     public void init (World world) {
@@ -29,7 +36,7 @@ public class GravitySystem implements Logic {
         Set<Entity> attractables = world.getEntitiesFor(attractableAspect);
         for( Entity attractor : attractors ){
             for( Entity attracted : attractables ){
-                Vector acceleration = new PairwiseGravitation(attractor, attracted).getDirectionalAcceleration();
+                Vector acceleration = calculator.getDirectionalAcceleration(attractor, attracted);
                 attracted.set(attracted.get(Acceleration.class).add(acceleration));
             }
         }

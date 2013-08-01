@@ -1,7 +1,7 @@
 
-package frigo.asteroids.logic;
+package frigo.asteroids.logic.gravity;
 
-import static frigo.asteroids.logic.PairwiseGravitation.G;
+import static frigo.asteroids.logic.gravity.PairwiseNewtonianGravitation.G;
 import static org.hamcrest.Matchers.closeTo;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
@@ -21,7 +21,7 @@ import frigo.asteroids.core.World;
 public class GravitySystemTest {
 
     private World world = new World();
-    private GravitySystem gravitySystem = new GravitySystem();
+    private GravitySystem gravitySystem = new GravitySystem(new NewtonianGravity());
     private Entity attractor1;
     private Entity attracted1;
     private Entity attracted2;

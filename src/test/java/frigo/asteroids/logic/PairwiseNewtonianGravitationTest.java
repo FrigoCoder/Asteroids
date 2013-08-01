@@ -1,7 +1,7 @@
 
 package frigo.asteroids.logic;
 
-import static frigo.asteroids.logic.PairwiseGravitation.G;
+import static frigo.asteroids.logic.gravity.PairwiseNewtonianGravitation.G;
 import static org.hamcrest.Matchers.closeTo;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
@@ -16,17 +16,18 @@ import frigo.asteroids.component.Mass;
 import frigo.asteroids.component.Position;
 import frigo.asteroids.component.Vector;
 import frigo.asteroids.core.Entity;
+import frigo.asteroids.logic.gravity.PairwiseNewtonianGravitation;
 
-public class PairwiseGravitationTest {
+public class PairwiseNewtonianGravitationTest {
 
     private Entity attractor1;
     private Entity attracted1;
     private Entity attracted2;
     private Entity attracted3;
 
-    private PairwiseGravitation gravitation1;
-    private PairwiseGravitation gravitation2;
-    private PairwiseGravitation gravitation3;
+    private PairwiseNewtonianGravitation gravitation1;
+    private PairwiseNewtonianGravitation gravitation2;
+    private PairwiseNewtonianGravitation gravitation3;
 
     @Before
     public void setUp () {
@@ -35,9 +36,9 @@ public class PairwiseGravitationTest {
         attracted2 = new Entity(new Attractable(), new Mass(1), new Acceleration(0, 0), new Position(0.0, 0.1));
         attracted3 = new Entity(new Attractable(), new Mass(1), new Acceleration(0, 0), new Position(-0.1, 0.0));
 
-        gravitation1 = new PairwiseGravitation(attractor1, attracted1);
-        gravitation2 = new PairwiseGravitation(attractor1, attracted2);
-        gravitation3 = new PairwiseGravitation(attractor1, attracted3);
+        gravitation1 = new PairwiseNewtonianGravitation(attractor1, attracted1);
+        gravitation2 = new PairwiseNewtonianGravitation(attractor1, attracted2);
+        gravitation3 = new PairwiseNewtonianGravitation(attractor1, attracted3);
     }
 
     @Test

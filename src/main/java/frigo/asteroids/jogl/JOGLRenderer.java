@@ -32,7 +32,7 @@ public class JOGLRenderer implements GLEventListener {
 
         gl.glMatrixMode(GLMatrixFunc.GL_PROJECTION);
         gl.glLoadIdentity();
-        gl.glOrtho(-1, 1, 1, -1, -1, 1);
+        gl.glOrtho(-1, 1, -1, 1, -1, 1);
 
         gl.glEnable(GL2ES1.GL_POINT_SMOOTH);
         gl.glHint(GL2ES1.GL_POINT_SMOOTH, GL.GL_NICEST);

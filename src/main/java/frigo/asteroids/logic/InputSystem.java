@@ -39,9 +39,9 @@ public class InputSystem implements Logic {
     private Vector getDirection (short key) {
         switch( key ){
             case KeyEvent.VK_UP:
-                return new Vector(0, -1);
-            case KeyEvent.VK_DOWN:
                 return new Vector(0, 1);
+            case KeyEvent.VK_DOWN:
+                return new Vector(0, -1);
             case KeyEvent.VK_LEFT:
                 return new Vector(-1, 0);
             case KeyEvent.VK_RIGHT:
