@@ -68,14 +68,18 @@ public class JOGLRenderer implements GLEventListener {
 
                 gl.glBegin(GL2GL3.GL_QUADS);
                 gl.glColor3d(1, 1, 1);
-                gl.glTexCoord2d(0.0, 0.0);
-                gl.glVertex2d(-size / 500, -size / 500);
-                gl.glTexCoord2d(1.0, 0.0);
-                gl.glVertex2d(size / 500, -size / 500);
-                gl.glTexCoord2d(1.0, 1.0);
-                gl.glVertex2d(size / 500, size / 500);
-                gl.glTexCoord2d(0.0, 1.0);
-                gl.glVertex2d(-size / 500, size / 500);
+                gl.glTexCoord2d(0.5 - 0.5, 0.5 - 0.5);
+                gl.glVertex2d(position.x - size / 2, position.y - size / 2);
+
+                gl.glTexCoord2d(0.5 - 0.5, 0.5 + 0.5);
+                gl.glVertex2d(position.x - size / 2, position.y + size / 2);
+
+                gl.glTexCoord2d(0.5 + 0.5, 0.5 + 0.5);
+                gl.glVertex2d(position.x + size / 2, position.y + size / 2);
+
+                gl.glTexCoord2d(0.5 + 0.5, 0.5 - 0.5);
+                gl.glVertex2d(position.x + size / 2, position.y - size / 2);
+
                 gl.glEnd();
 
                 tex.disable(gl);

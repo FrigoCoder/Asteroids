@@ -41,7 +41,7 @@ public class Game {
     }
 
     private void addSun () {
-        double size = 100;
+        double size = 100.0 / 500;
         Entity entity = new Entity();
         entity.set(new Attractor());
         entity.set(new Mass(PI * 4 / 3 * pow(size, 3) * DENSITY));
@@ -53,7 +53,7 @@ public class Game {
     }
 
     private void addShip () {
-        double size = 10;
+        double size = 10.0;
         Entity entity = new Entity();
         entity.set(new PlayerControllable(0.3));
         entity.set(new Attractable());
@@ -67,7 +67,7 @@ public class Game {
 
     private void addAsteroids () {
         for( int i = 0; i < 100; i++ ){
-            double size = 10;
+            double size = 10.0 / 500;
             double speed = 0.2;
             Entity entity = new Entity();
             entity.set(new Attractable());
@@ -75,14 +75,14 @@ public class Game {
             entity.set(new Acceleration(0, 0));
             entity.set(new Velocity(getRandom(-speed, speed), getRandom(-speed, speed)));
             entity.set(new Position(getRandom(-1, 1), getRandom(-1, 1)));
-            entity.set(new Renderable(size, 0.75, 0.75, 0.75));
+            entity.set(new Renderable(size, "vesta_32.png"));
             world.addEntity(entity);
         }
     }
 
     private void addStars () {
         for( int i = 0; i < 5_000; i++ ){
-            double size = 1;
+            double size = 1.0;
             double speed = 0.005;
             Entity entity = new Entity();
             entity.set(new Velocity(getRandom(-speed, speed), getRandom(-speed, speed)));
