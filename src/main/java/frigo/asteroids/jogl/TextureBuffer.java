@@ -1,8 +1,6 @@
 
 package frigo.asteroids.jogl;
 
-import static frigo.asteroids.util.Rethrow.unchecked;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
@@ -10,6 +8,7 @@ import java.util.Map;
 
 import javax.media.opengl.GLException;
 
+import com.google.common.base.Throwables;
 import com.jogamp.opengl.util.texture.Texture;
 import com.jogamp.opengl.util.texture.TextureIO;
 
@@ -24,7 +23,7 @@ public class TextureBuffer {
                 Texture texture = TextureIO.newTexture(file, true);
                 textures.put(filename, texture);
             }catch( GLException | IOException e ){
-                throw unchecked(e);
+                throw Throwables.propagate(e);
             }
         }
         return textures.get(filename);
