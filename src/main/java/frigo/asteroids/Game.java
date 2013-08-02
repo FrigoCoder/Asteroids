@@ -86,9 +86,9 @@ public class Game {
             double size = 1.0;
             double speed = 0.005;
             Entity entity = new Entity();
-            entity.set(new Attractable());
-            entity.set(new Mass(PI * 4 / 3 * pow(size / 100, 3) * DENSITY));
-            entity.set(new Acceleration(0, 0));
+            // entity.set(new Attractable());
+            // entity.set(new Mass(PI * 4 / 3 * pow(size / 100, 3) * DENSITY));
+            // entity.set(new Acceleration(0, 0));
             entity.set(new Velocity(getRandom(-speed, speed), getRandom(-speed, speed)));
             entity.set(new Position(getRandom(-1, 1), getRandom(-1, 1)));
             entity.set(new Renderable(size, 1.0, 1.0, 1.0));
@@ -109,7 +109,7 @@ public class Game {
 
     public static void main (String[] args) {
         Game game = new Game();
-        JOGLRunner runner = new JOGLRunner(game.world, 800, 800, 100);
+        JOGLRunner runner = new JOGLRunner(game.world, 1024, 768, 100);
         runner.start();
     }
 }

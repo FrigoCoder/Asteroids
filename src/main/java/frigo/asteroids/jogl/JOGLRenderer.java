@@ -90,6 +90,5 @@ public class JOGLRenderer implements GLEventListener {
         gl.glMatrixMode(GLMatrixFunc.GL_PROJECTION);
         gl.glLoadIdentity();
         gl.glOrtho(-ratio, ratio, -1, 1, -1, 1);
-
     }
 }

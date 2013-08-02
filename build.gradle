@@ -46,6 +46,7 @@ sonarRunner {
 }
 
 test {
+    ignoreFailures = true
     jacoco {
         enabled = true
     }
