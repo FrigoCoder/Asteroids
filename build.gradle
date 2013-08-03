@@ -7,7 +7,7 @@ apply from: 'natives.gradle'
 
 sourceCompatibility = 1.7
 
-mainClassName = 'frigo.asteroids.Game'
+mainClassName = 'frigo.asteroids.Main'
 
 repositories {
     mavenCentral()

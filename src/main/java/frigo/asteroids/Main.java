@@ -4,7 +4,7 @@ package frigo.asteroids;
 import frigo.asteroids.core.World;
 import frigo.asteroids.jogl.JOGLRunner;
 
-public class Game {
+public class Main {
 
     public static void main (String[] args) {
         World world = new AsteroidsWorldFactory().createWorld();
