@@ -14,9 +14,9 @@ public class NewtonianGravity implements GravityCalculator {
     public Vector getDirectionalAcceleration (Entity attractor, Entity attracted) {
         double m1 = attractor.get(Mass.class).kg;
         Vector direction = attractor.get(Position.class).sub(attracted.get(Position.class));
-        double r = direction.x * direction.x + direction.y * direction.y;
-        r = r <= 0.0 ? Double.MAX_VALUE : r;
-        double acceleration = G * m1 / r;
+        double r2 = direction.x * direction.x + direction.y * direction.y;
+        r2 = r2 <= 0.0 ? Double.MAX_VALUE : r2;
+        double acceleration = G * m1 / r2;
         return direction.mul(acceleration);
     }
 

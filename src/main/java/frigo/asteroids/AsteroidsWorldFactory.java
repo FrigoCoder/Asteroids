@@ -19,12 +19,12 @@ import frigo.asteroids.core.World;
 import frigo.asteroids.logic.AccelerationNullerSystem;
 import frigo.asteroids.logic.InputSystem;
 import frigo.asteroids.logic.MovementSystem;
-import frigo.asteroids.logic.gravity.FunGravity;
 import frigo.asteroids.logic.gravity.GravitySystem;
+import frigo.asteroids.logic.gravity.NewtonianGravity;
 
 public class AsteroidsWorldFactory {
 
-    private static final double DENSITY = 2_000_000_000;
+    private static final double DENSITY = 3_000_000_000.0;
     private Random random = new Random();
 
     public World createWorld () {
@@ -45,18 +45,15 @@ public class AsteroidsWorldFactory {
         }
     }
 
-    private Entity createStar () {
-        double size = 1.0;
-        double speed = 0.005;
-        Entity entity = new Entity();
-        entity.set(new Velocity(getRandom(-speed, speed), getRandom(-speed, speed)));
-        entity.set(new Position(getRandom(-1, 1), getRandom(-1, 1)));
-        entity.set(new Renderable(size, 1.0, 1.0, 1.0));
-        return entity;
+    private void addLogics (World world) {
+        world.addLogic(new AccelerationNullerSystem());
+        world.addLogic(new InputSystem());
+        world.addLogic(new GravitySystem(new NewtonianGravity()));
+        world.addLogic(new MovementSystem());
     }
 
     private Entity createSun () {
-        double size = 0.5;
+        double size = 0.4;
         Entity entity = new Entity();
         entity.set(new Attractor());
         entity.set(new Mass(PI * 4 / 3 * pow(size, 3) * DENSITY));
@@ -74,7 +71,7 @@ public class AsteroidsWorldFactory {
         entity.set(new Attractable());
         entity.set(new Mass(PI * 4 / 3 * pow(size, 3) * DENSITY));
         entity.set(new Acceleration(0, 0));
-        entity.set(new Velocity(0, 0));
+        entity.set(new Velocity(0.2, 0));
         entity.set(new Position(0, 0.5));
         entity.set(new Renderable(size, "spaceship.png"));
         return entity;
@@ -93,15 +90,18 @@ public class AsteroidsWorldFactory {
         return entity;
     }
 
-    private double getRandom (double low, double high) {
-        return low + random.nextDouble() * (high - low);
+    private Entity createStar () {
+        double size = 1.0;
+        double speed = 0.005;
+        Entity entity = new Entity();
+        entity.set(new Velocity(getRandom(-speed, speed), getRandom(-speed, speed)));
+        entity.set(new Position(getRandom(-1, 1), getRandom(-1, 1)));
+        entity.set(new Renderable(size, 1.0, 1.0, 1.0));
+        return entity;
     }
 
-    private void addLogics (World world) {
-        world.addLogic(new AccelerationNullerSystem());
-        world.addLogic(new InputSystem());
-        world.addLogic(new GravitySystem(new FunGravity()));
-        world.addLogic(new MovementSystem());
+    private double getRandom (double low, double high) {
+        return low + random.nextDouble() * (high - low);
     }
 
 }

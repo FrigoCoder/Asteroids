@@ -9,7 +9,7 @@ import frigo.asteroids.core.World;
 
 public class AccelerationNullerSystem implements Logic {
 
-    private Aspect aspect = Aspect.allOf(Acceleration.class);
+    private static final Aspect ACCELERATION_ASPECT = Aspect.allOf(Acceleration.class);
 
     @Override
     public void init (World world) {
@@ -17,7 +17,7 @@ public class AccelerationNullerSystem implements Logic {
 
     @Override
     public void update (World world, double elapsedSeconds) {
-        for( Entity entity : world.getEntitiesFor(aspect) ){
+        for( Entity entity : world.getEntitiesFor(ACCELERATION_ASPECT) ){
             entity.set(new Acceleration(0, 0));
         }
     }

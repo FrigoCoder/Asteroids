@@ -15,7 +15,7 @@ import frigo.asteroids.message.KeyPressed;
 
 public class InputSystem implements Logic {
 
-    private Aspect aspect = Aspect.allOf(PlayerControllable.class, Acceleration.class);
+    private static final Aspect CONTROLLABLE_ASPECT = Aspect.allOf(PlayerControllable.class, Acceleration.class);
 
     @Override
     public void init (World world) {
@@ -23,7 +23,7 @@ public class InputSystem implements Logic {
 
     @Override
     public void update (World world, double elapsedSeconds) {
-        Entity entity = world.getEntitiesFor(aspect).iterator().next();
+        Entity entity = world.getEntitiesFor(CONTROLLABLE_ASPECT).iterator().next();
         PlayerControllable controllable = entity.get(PlayerControllable.class);
         double thrust = controllable.thrust;
         Acceleration acceleration = entity.get(Acceleration.class);
