@@ -61,7 +61,7 @@ public class AsteroidsWorldFactory {
         entity.set(new Acceleration(0, 0));
         entity.set(new Velocity(0, 0));
         entity.set(new Position(0, 0));
-        entity.set(new Renderable(size, "sun_512.png"));
+        entity.set(new Renderable(size, "sun.png"));
         return entity;
     }
 
