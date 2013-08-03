@@ -9,7 +9,7 @@ public final class Entity {
 
     private Map<Class<? extends Component>, Component> components = new HashMap<>();
 
-    public Entity (Component... components) {
+    Entity (Component... components) {
         for( Component component : components ){
             set(component);
         }

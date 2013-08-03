@@ -22,16 +22,15 @@ public class GravitySystemTest {
 
     private World world = new World();
     private GravitySystem gravitySystem = new GravitySystem(new NewtonianGravity());
-    private Entity attractor1;
-    private Entity attracted1;
-    private Entity attracted2;
+    private Entity attractor1 = world.createEntity(new Attractor(), new Mass(100), new Acceleration(0, 0),
+        new Position(-0.1, 0.0));
+    private Entity attracted1 = world.createEntity(new Attractable(), new Mass(10), new Acceleration(0, 0),
+        new Position(0.1, 0.0));
+    private Entity attracted2 = world.createEntity(new Attractable(), new Mass(1), new Acceleration(0, 0),
+        new Position(0.0, 0.1));
 
     @Before
     public void setUp () {
-        attractor1 = new Entity(new Attractor(), new Mass(100), new Acceleration(0, 0), new Position(-0.1, 0.0));
-        attracted1 = new Entity(new Attractable(), new Mass(10), new Acceleration(0, 0), new Position(0.1, 0.0));
-        attracted2 = new Entity(new Attractable(), new Mass(1), new Acceleration(0, 0), new Position(0.0, 0.1));
-
         gravitySystem.init(world);
     }
 

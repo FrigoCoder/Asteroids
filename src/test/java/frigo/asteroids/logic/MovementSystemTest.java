@@ -17,7 +17,7 @@ public class MovementSystemTest {
     private MovementSystem movementSystem = new MovementSystem();
 
     private World world = new World();
-    private Entity entity = new Entity();
+    private Entity entity = world.createEntity();
 
     @Test
     public void updates_velocity_of_entities_by_acceleration_and_elapsed_seconds () {

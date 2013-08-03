@@ -18,8 +18,8 @@ public class EntityTest {
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
-
-    private Entity entity = new Entity();
+    private World world = new World();
+    private Entity entity = world.createEntity();
     private Position position = new Position(1, 1);
 
     @Test
@@ -48,7 +48,7 @@ public class EntityTest {
     @Test
     public void vararg_constructor_adds_all_components () {
         Attractor attractor = new Attractor();
-        entity = new Entity(position, attractor);
+        entity = world.createEntity(position, attractor);
         assertThat(entity.get(Position.class), sameInstance(position));
         assertThat(entity.get(Attractor.class), sameInstance(attractor));
     }

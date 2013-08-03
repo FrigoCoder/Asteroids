@@ -22,7 +22,7 @@ import frigo.asteroids.component.Velocity;
 public class WorldTest {
 
     private World world = new World();
-    private Entity entity = new Entity();
+    private Entity entity = world.createEntity();
     private Logic logic = mock(Logic.class);
     private Message message = new Message();
 
@@ -38,7 +38,7 @@ public class WorldTest {
         entity.set(new Velocity(1, 1));
         world.addEntity(entity);
 
-        Entity empty = new Entity();
+        Entity empty = world.createEntity();
         world.addEntity(empty);
 
         Aspect aspect = Aspect.allOf(Position.class, Velocity.class);

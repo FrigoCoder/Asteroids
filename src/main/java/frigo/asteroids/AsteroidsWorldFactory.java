@@ -26,15 +26,16 @@ public class AsteroidsWorldFactory {
 
     private static final double DENSITY = 3_000_000_000.0;
     private Random random = new Random();
+    private World world;
 
     public World createWorld () {
-        World world = new World();
-        addEntities(world);
-        addLogics(world);
+        world = new World();
+        addEntities();
+        addLogics();
         return world;
     }
 
-    private void addEntities (World world) {
+    private void addEntities () {
         world.addEntity(createSun());
         world.addEntity(createShip());
         for( int i = 0; i < 100; i++ ){
@@ -45,7 +46,7 @@ public class AsteroidsWorldFactory {
         }
     }
 
-    private void addLogics (World world) {
+    private void addLogics () {
         world.addLogic(new AccelerationNullerSystem());
         world.addLogic(new InputSystem());
         world.addLogic(new GravitySystem(new NewtonianGravity()));
@@ -54,7 +55,7 @@ public class AsteroidsWorldFactory {
 
     private Entity createSun () {
         double size = 0.4;
-        Entity entity = new Entity();
+        Entity entity = world.createEntity();
         entity.set(new Attractor());
         entity.set(new Mass(PI * 4 / 3 * pow(size, 3) * DENSITY));
         entity.set(new Acceleration(0, 0));
@@ -66,7 +67,7 @@ public class AsteroidsWorldFactory {
 
     private Entity createShip () {
         double size = 0.1;
-        Entity entity = new Entity();
+        Entity entity = world.createEntity();
         entity.set(new PlayerControllable(0.3));
         entity.set(new Attractable());
         entity.set(new Mass(PI * 4 / 3 * pow(size, 3) * DENSITY));
@@ -80,7 +81,7 @@ public class AsteroidsWorldFactory {
     private Entity createAsteroid () {
         double size = 0.05;
         double speed = 0.2;
-        Entity entity = new Entity();
+        Entity entity = world.createEntity();
         entity.set(new Attractable());
         entity.set(new Mass(PI * 4 / 3 * pow(size, 3) * DENSITY));
         entity.set(new Acceleration(0, 0));
@@ -93,7 +94,7 @@ public class AsteroidsWorldFactory {
     private Entity createStar () {
         double size = 1.0;
         double speed = 0.005;
-        Entity entity = new Entity();
+        Entity entity = world.createEntity();
         entity.set(new Velocity(getRandom(-speed, speed), getRandom(-speed, speed)));
         entity.set(new Position(getRandom(-1, 1), getRandom(-1, 1)));
         entity.set(new Renderable(size, 1.0, 1.0, 1.0));

@@ -15,6 +15,10 @@ public class World {
     private List<Logic> logics = new LinkedList<>();
     private Map<Class<?>, List<Object>> messages = new HashMap<>();
 
+    public Entity createEntity (Component... components) {
+        return new Entity(components);
+    }
+
     public void addEntity (Entity entity) {
         entities.add(entity);
     }

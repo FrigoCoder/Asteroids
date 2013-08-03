@@ -16,7 +16,7 @@ public class AccelerationNullerSystemTest {
     private AccelerationNullerSystem system = new AccelerationNullerSystem();
 
     private World world = new World();
-    private Entity entity = new Entity();
+    private Entity entity = world.createEntity();
 
     @Before
     public void setUp () {

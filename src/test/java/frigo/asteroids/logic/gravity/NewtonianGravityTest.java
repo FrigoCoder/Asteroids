@@ -11,13 +11,15 @@ import frigo.asteroids.component.Mass;
 import frigo.asteroids.component.Position;
 import frigo.asteroids.component.Vector;
 import frigo.asteroids.core.Entity;
+import frigo.asteroids.core.World;
 
 public class NewtonianGravityTest {
 
-    private Entity attractor1 = new Entity(new Mass(100), new Position(-0.1, 0.0));
-    private Entity attracted1 = new Entity(new Mass(10), new Position(0.1, 0.0));
-    private Entity attracted2 = new Entity(new Mass(1), new Position(0.0, 0.1));
-    private Entity attracted3 = new Entity(new Mass(1), new Position(-0.1, 0.0));
+    private World world = new World();
+    private Entity attractor1 = world.createEntity(new Mass(100), new Position(-0.1, 0.0));
+    private Entity attracted1 = world.createEntity(new Mass(10), new Position(0.1, 0.0));
+    private Entity attracted2 = world.createEntity(new Mass(1), new Position(0.0, 0.1));
+    private Entity attracted3 = world.createEntity(new Mass(1), new Position(-0.1, 0.0));
 
     private GravityCalculator gravity = new NewtonianGravity();
 
