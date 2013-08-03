@@ -3,11 +3,11 @@ package frigo.asteroids.jogl;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.media.opengl.GLException;
-
+import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Throwables;
 import com.jogamp.opengl.util.texture.Texture;
 import com.jogamp.opengl.util.texture.TextureIO;
@@ -18,14 +18,28 @@ public class TextureBuffer {
 
     public Texture get (String filename) {
         if( !textures.containsKey(filename) ){
-            File file = new File(ClassLoader.getSystemResource(filename).getFile());
-            try{
-                Texture texture = TextureIO.newTexture(file, true);
-                textures.put(filename, texture);
-            }catch( GLException | IOException e ){
-                throw Throwables.propagate(e);
-            }
+            textures.put(filename, newTexture(getFile(filename)));
         }
         return textures.get(filename);
     }
+
+    @VisibleForTesting
+    File getFile (String filename) {
+        URL resource = getClass().getClassLoader().getResource(filename);
+        if( resource == null ){
+            throw new IllegalArgumentException("File " + filename + " does not exist");
+        }
+        return new File(resource.getFile());
+    }
+
+    @VisibleForTesting
+    Texture newTexture (File file) {
+        try{
+            return TextureIO.newTexture(file, true);
+        }catch( IOException e ){
+            throw Throwables.propagate(e);
+        }
+
+    }
+
 }
