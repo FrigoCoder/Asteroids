@@ -7,9 +7,12 @@ import java.util.NoSuchElementException;
 
 public final class Entity {
 
+    public final long id;
+
     private Map<Class<? extends Component>, Component> components = new HashMap<>();
 
-    Entity (Component... components) {
+    Entity (long id, Component... components) {
+        this.id = id;
         for( Component component : components ){
             set(component);
         }

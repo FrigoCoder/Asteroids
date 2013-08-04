@@ -11,12 +11,13 @@ import java.util.Set;
 
 public class World {
 
+    private long entityId;
     private Set<Entity> entities = new HashSet<>();
     private List<Logic> logics = new LinkedList<>();
     private Map<Class<?>, List<Object>> messages = new HashMap<>();
 
     public Entity createEntity (Component... components) {
-        return new Entity(components);
+        return new Entity(entityId++, components);
     }
 
     public void addEntity (Entity entity) {
