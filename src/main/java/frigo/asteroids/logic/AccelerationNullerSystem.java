@@ -18,7 +18,7 @@ public class AccelerationNullerSystem implements Logic {
     @Override
     public void update (World world, double elapsedSeconds) {
         for( Entity entity : world.getEntitiesFor(ACCELERATION_ASPECT) ){
-            entity.set(new Acceleration(0, 0));
+            world.setComponent(entity, new Acceleration(0, 0));
         }
     }
 

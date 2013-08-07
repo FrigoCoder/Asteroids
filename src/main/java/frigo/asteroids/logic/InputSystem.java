@@ -33,7 +33,7 @@ public class InputSystem implements Logic {
         for( KeyHeld event : world.getMessages(KeyHeld.class) ){
             acceleration = acceleration.add(getDirection(event.key).mul(thrust));
         }
-        entity.set(acceleration);
+        world.setComponent(entity, acceleration);
     }
 
     private Vector getDirection (short key) {

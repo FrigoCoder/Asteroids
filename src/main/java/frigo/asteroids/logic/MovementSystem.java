@@ -32,8 +32,8 @@ public class MovementSystem implements Logic {
             VelocityVerlet verlet =
                 new VelocityVerlet(entity.get(Acceleration.class), entity.get(Velocity.class),
                     entity.get(Position.class));
-            entity.set(verlet.getVelocity(elapsedSeconds));
-            entity.set(verlet.getPosition(elapsedSeconds));
+            world.setComponent(entity, verlet.getVelocity(elapsedSeconds));
+            world.setComponent(entity, verlet.getPosition(elapsedSeconds));
         }
     }
 
@@ -41,8 +41,8 @@ public class MovementSystem implements Logic {
         for( Entity entity : world.getEntitiesFor(NO_ACCELERATION) ){
             VelocityVerlet verlet =
                 new VelocityVerlet(new Acceleration(0, 0), entity.get(Velocity.class), entity.get(Position.class));
-            entity.set(verlet.getVelocity(elapsedSeconds));
-            entity.set(verlet.getPosition(elapsedSeconds));
+            world.setComponent(entity, verlet.getVelocity(elapsedSeconds));
+            world.setComponent(entity, verlet.getPosition(elapsedSeconds));
         }
 
     }
@@ -51,7 +51,7 @@ public class MovementSystem implements Logic {
         for( Entity entity : world.getEntitiesFor(NO_POSITION) ){
             VelocityVerlet verlet =
                 new VelocityVerlet(entity.get(Acceleration.class), entity.get(Velocity.class), new Position(0, 0));
-            entity.set(verlet.getVelocity(elapsedSeconds));
+            world.setComponent(entity, verlet.getVelocity(elapsedSeconds));
         }
     }
 }

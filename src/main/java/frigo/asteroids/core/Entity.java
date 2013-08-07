@@ -11,14 +11,11 @@ public final class Entity {
 
     private Map<Class<? extends Component>, Component> components = new HashMap<>();
 
-    Entity (long id, Component... components) {
+    Entity (long id) {
         this.id = id;
-        for( Component component : components ){
-            set(component);
-        }
     }
 
-    public void set (Component component) {
+    void set (Component component) {
         components.put(component.getClass(), component);
     }
 

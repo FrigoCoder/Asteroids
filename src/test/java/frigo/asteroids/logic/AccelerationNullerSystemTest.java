@@ -26,7 +26,7 @@ public class AccelerationNullerSystemTest {
 
     @Test
     public void update_sets_all_acceleration_to_zero () {
-        entity.set(new Acceleration(1.0, -1.0));
+        world.setComponent(entity, new Acceleration(1.0, -1.0));
         system.update(world, 1.0);
         assertThat(entity.get(Acceleration.class), is(new Acceleration(0.0, 0.0)));
 

@@ -31,7 +31,7 @@ public class EntityTest {
 
     @Test
     public void added_component_can_be_retrieved () {
-        entity.set(position);
+        world.setComponent(entity, position);
         assertThat(entity.get(Position.class), sameInstance(position));
     }
 
@@ -43,7 +43,7 @@ public class EntityTest {
 
     @Test
     public void added_component_can_be_checked_for_presence () {
-        entity.set(position);
+        world.setComponent(entity, position);
         assertThat(entity.has(Position.class), is(true));
     }
 

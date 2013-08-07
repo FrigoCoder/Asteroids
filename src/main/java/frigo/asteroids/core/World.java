@@ -11,13 +11,21 @@ import java.util.Set;
 
 public class World {
 
-    private long entityId;
+    public void setComponent (Entity entity, Component component) {
+        entity.set(component);
+    }
+
+    private long entityCounter;
     private Set<Entity> entities = new HashSet<>();
     private List<Logic> logics = new LinkedList<>();
     private Map<Class<?>, List<Object>> messages = new HashMap<>();
 
     public Entity createEntity (Component... components) {
-        return new Entity(entityId++, components);
+        Entity entity = new Entity(entityCounter++);
+        for( Component component : components ){
+            setComponent(entity, component);
+        }
+        return entity;
     }
 
     public void addEntity (Entity entity) {
