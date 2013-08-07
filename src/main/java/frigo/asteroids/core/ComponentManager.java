@@ -1,13 +1,13 @@
 
 package frigo.asteroids.core;
 
-import java.util.HashMap;
-import java.util.Map;
+import gnu.trove.TLongObjectHashMap;
+
 import java.util.NoSuchElementException;
 
 public class ComponentManager<T extends Component> {
 
-    private Map<Long, T> map = new HashMap<>();
+    private TLongObjectHashMap map = new TLongObjectHashMap();
 
     public boolean has (Entity entity) {
         return map.containsKey(entity.id);
@@ -18,7 +18,7 @@ public class ComponentManager<T extends Component> {
     }
 
     public T get (Entity entity) {
-        T component = map.get(entity.id);
+        T component = (T) map.get(entity.id);
         if( component == null ){
             throw new NoSuchElementException();
         }

@@ -30,6 +30,13 @@ dependencies {
     compile group: 'log4j', name: 'log4j', version: 'latest.release'
     compile group: 'log4j', name: 'apache-log4j-extras', version: 'latest.release'
 
+    compile group: 'colt', name: 'colt', version: 'latest.release'
+    compile group: 'com.carrotsearch', name: 'hppc', version: 'latest.release'
+    compile group: 'fastutil', name: 'fastutil', version: 'latest.release'
+    compile group: 'org.javolution', name: 'javolution', version: 'latest.release'
+    compile group: 'pcj', name: 'pcj', version: 'latest.release'
+    compile group: 'trove', name: 'trove', version: 'latest.release'
+
     testCompile group: 'com.jayway.awaitility', name: 'awaitility', version: 'latest.release'
     testCompile group: 'junit', name: 'junit', version: 'latest.release'
     testCompile group: 'org.hamcrest', name: 'hamcrest-all', version: 'latest.release'
