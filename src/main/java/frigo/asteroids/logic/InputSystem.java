@@ -25,16 +25,16 @@ public class InputSystem implements Logic {
     @Override
     public void update (World world, double elapsedSeconds) {
         Entity entity = world.getEntitiesFor(controllableAspect).iterator().next();
-        PlayerControllable controllable = world.getComponent(entity, PlayerControllable.class);
+        PlayerControllable controllable = world.get(entity, PlayerControllable.class);
         double thrust = controllable.thrust;
-        Acceleration acceleration = world.getComponent(entity, Acceleration.class);
+        Acceleration acceleration = world.get(entity, Acceleration.class);
         for( KeyPressed event : world.getMessages(KeyPressed.class) ){
             acceleration = acceleration.add(getDirection(event.key).mul(thrust));
         }
         for( KeyHeld event : world.getMessages(KeyHeld.class) ){
             acceleration = acceleration.add(getDirection(event.key).mul(thrust));
         }
-        world.setComponent(entity, acceleration);
+        world.set(entity, acceleration);
     }
 
     private Vector getDirection (short key) {

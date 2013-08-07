@@ -56,25 +56,25 @@ public class AsteroidsWorldFactory {
     private Entity createSun () {
         double size = 0.4;
         Entity entity = world.createEntity();
-        world.setComponent(entity, new Attractor());
-        world.setComponent(entity, new Mass(PI * 4 / 3 * pow(size, 3) * DENSITY));
-        world.setComponent(entity, new Acceleration(0, 0));
-        world.setComponent(entity, new Velocity(0, 0));
-        world.setComponent(entity, new Position(0, 0));
-        world.setComponent(entity, new Renderable(size, "sun.png"));
+        world.set(entity, new Attractor());
+        world.set(entity, new Mass(PI * 4 / 3 * pow(size, 3) * DENSITY));
+        world.set(entity, new Acceleration(0, 0));
+        world.set(entity, new Velocity(0, 0));
+        world.set(entity, new Position(0, 0));
+        world.set(entity, new Renderable(size, "sun.png"));
         return entity;
     }
 
     private Entity createShip () {
         double size = 0.1;
         Entity entity = world.createEntity();
-        world.setComponent(entity, new PlayerControllable(0.3));
-        world.setComponent(entity, new Attractable());
-        world.setComponent(entity, new Mass(PI * 4 / 3 * pow(size, 3) * DENSITY));
-        world.setComponent(entity, new Acceleration(0, 0));
-        world.setComponent(entity, new Velocity(0.2, 0));
-        world.setComponent(entity, new Position(0, 0.5));
-        world.setComponent(entity, new Renderable(size, "spaceship.png"));
+        world.set(entity, new PlayerControllable(0.3));
+        world.set(entity, new Attractable());
+        world.set(entity, new Mass(PI * 4 / 3 * pow(size, 3) * DENSITY));
+        world.set(entity, new Acceleration(0, 0));
+        world.set(entity, new Velocity(0.2, 0));
+        world.set(entity, new Position(0, 0.5));
+        world.set(entity, new Renderable(size, "spaceship.png"));
         return entity;
     }
 
@@ -82,12 +82,12 @@ public class AsteroidsWorldFactory {
         double size = 0.05;
         double speed = 0.2;
         Entity entity = world.createEntity();
-        world.setComponent(entity, new Attractable());
-        world.setComponent(entity, new Mass(PI * 4 / 3 * pow(size, 3) * DENSITY));
-        world.setComponent(entity, new Acceleration(0, 0));
-        world.setComponent(entity, new Velocity(getRandom(-speed, speed), getRandom(-speed, speed)));
-        world.setComponent(entity, new Position(getRandom(-1, 1), getRandom(-1, 1)));
-        world.setComponent(entity, new Renderable(size, "vesta.png"));
+        world.set(entity, new Attractable());
+        world.set(entity, new Mass(PI * 4 / 3 * pow(size, 3) * DENSITY));
+        world.set(entity, new Acceleration(0, 0));
+        world.set(entity, new Velocity(getRandom(-speed, speed), getRandom(-speed, speed)));
+        world.set(entity, new Position(getRandom(-1, 1), getRandom(-1, 1)));
+        world.set(entity, new Renderable(size, "vesta.png"));
         return entity;
     }
 
@@ -95,9 +95,9 @@ public class AsteroidsWorldFactory {
         double size = 1.0;
         double speed = 0.005;
         Entity entity = world.createEntity();
-        world.setComponent(entity, new Velocity(getRandom(-speed, speed), getRandom(-speed, speed)));
-        world.setComponent(entity, new Position(getRandom(-1, 1), getRandom(-1, 1)));
-        world.setComponent(entity, new Renderable(size, 1.0, 1.0, 1.0));
+        world.set(entity, new Velocity(getRandom(-speed, speed), getRandom(-speed, speed)));
+        world.set(entity, new Position(getRandom(-1, 1), getRandom(-1, 1)));
+        world.set(entity, new Renderable(size, 1.0, 1.0, 1.0));
         return entity;
     }
 

@@ -19,9 +19,9 @@ public class FunGravity implements GravityCalculator {
 
     @Override
     public Vector getDirectionalAcceleration (Entity attractor, Entity attracted) {
-        double m1 = world.getComponent(attractor, Mass.class).kg;
+        double m1 = world.get(attractor, Mass.class).kg;
         Vector direction =
-            world.getComponent(attractor, Position.class).sub(world.getComponent(attracted, Position.class));
+            world.get(attractor, Position.class).sub(world.get(attracted, Position.class));
         double r = direction.length();
         r = r <= 0.0 ? Double.MAX_VALUE : r;
         double acceleration = G * m1 / r;

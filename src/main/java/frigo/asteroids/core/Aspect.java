@@ -42,12 +42,12 @@ public class Aspect extends Value {
 
     public boolean matches (Entity entity) {
         for( Class<? extends Component> component : all ){
-            if( !world.hasComponent(entity, component) ){
+            if( !world.has(entity, component) ){
                 return false;
             }
         }
         for( Class<? extends Component> component : none ){
-            if( world.hasComponent(entity, component) ){
+            if( world.has(entity, component) ){
                 return false;
             }
         }

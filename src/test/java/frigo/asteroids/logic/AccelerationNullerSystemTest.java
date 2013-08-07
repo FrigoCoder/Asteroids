@@ -27,16 +27,16 @@ public class AccelerationNullerSystemTest {
 
     @Test
     public void update_sets_all_acceleration_to_zero () {
-        world.setComponent(entity, new Acceleration(1.0, -1.0));
+        world.set(entity, new Acceleration(1.0, -1.0));
         world.update(1.0);
-        assertThat(world.getComponent(entity, Acceleration.class), is(new Acceleration(0.0, 0.0)));
+        assertThat(world.get(entity, Acceleration.class), is(new Acceleration(0.0, 0.0)));
 
     }
 
     @Test
     public void update_does_not_do_anything_to_entities_without_acceleration () {
         world.update(1.0);
-        assertThat(world.hasComponent(entity, Acceleration.class), is(false));
+        assertThat(world.has(entity, Acceleration.class), is(false));
     }
 
 }

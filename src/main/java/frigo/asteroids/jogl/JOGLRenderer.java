@@ -46,8 +46,8 @@ public class JOGLRenderer implements GLEventListener {
 
         Aspect aspect = new Aspect(world).allOf(Position.class, Renderable.class);
         for( Entity entity : world.getEntitiesFor(aspect) ){
-            Position position = world.getComponent(entity, Position.class);
-            Renderable renderable = world.getComponent(entity, Renderable.class);
+            Position position = world.get(entity, Position.class);
+            Renderable renderable = world.get(entity, Renderable.class);
             double size = renderable.size;
 
             String texture = renderable.texture;

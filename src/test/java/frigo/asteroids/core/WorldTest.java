@@ -34,8 +34,8 @@ public class WorldTest {
 
     @Test
     public void entities_matching_aspect_are_returned () {
-        world.setComponent(entity, new Position(1, 1));
-        world.setComponent(entity, new Velocity(1, 1));
+        world.set(entity, new Position(1, 1));
+        world.set(entity, new Velocity(1, 1));
         world.addEntity(entity);
 
         Entity empty = world.createEntity();

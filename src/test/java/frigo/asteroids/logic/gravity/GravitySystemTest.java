@@ -41,8 +41,8 @@ public class GravitySystemTest {
 
         gravitySystem.update(world, 1.0);
 
-        assertThat(world.getComponent(attracted1, Acceleration.class), is(new Acceleration(0.0, 0.0)));
-        assertThat(world.getComponent(attracted2, Acceleration.class), is(new Acceleration(0.0, 0.0)));
+        assertThat(world.get(attracted1, Acceleration.class), is(new Acceleration(0.0, 0.0)));
+        assertThat(world.get(attracted2, Acceleration.class), is(new Acceleration(0.0, 0.0)));
     }
 
     @Test
@@ -58,7 +58,7 @@ public class GravitySystemTest {
     }
 
     private void assertAcceleration (Entity attracted, Vector expected) {
-        Acceleration acceleration = world.getComponent(attracted, Acceleration.class);
+        Acceleration acceleration = world.get(attracted, Acceleration.class);
         assertThat(acceleration.x, closeTo(expected.x, 0));
         assertThat(acceleration.y, closeTo(expected.y, 0));
     }

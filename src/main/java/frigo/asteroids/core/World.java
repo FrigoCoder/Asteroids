@@ -11,18 +11,6 @@ import java.util.Set;
 
 public class World {
 
-    public boolean hasComponent (Entity entity, Class<? extends Component> type) {
-        return entity.has(type);
-    }
-
-    public <T extends Component> T getComponent (Entity entity, Class<T> type) {
-        return entity.get(type);
-    }
-
-    public void setComponent (Entity entity, Component component) {
-        entity.set(component);
-    }
-
     private long entityCounter;
     private Set<Entity> entities = new HashSet<>();
     private List<Logic> logics = new LinkedList<>();
@@ -31,9 +19,21 @@ public class World {
     public Entity createEntity (Component... components) {
         Entity entity = new Entity(entityCounter++);
         for( Component component : components ){
-            setComponent(entity, component);
+            set(entity, component);
         }
         return entity;
+    }
+
+    public boolean has (Entity entity, Class<? extends Component> type) {
+        return entity.has(type);
+    }
+
+    public <T extends Component> T get (Entity entity, Class<T> type) {
+        return entity.get(type);
+    }
+
+    public void set (Entity entity, Component component) {
+        entity.set(component);
     }
 
     public void addEntity (Entity entity) {

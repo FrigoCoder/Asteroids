@@ -37,7 +37,7 @@ public class GravitySystem implements Logic {
         for( Entity attractor : attractors ){
             for( Entity attracted : attractables ){
                 Vector acceleration = calculator.getDirectionalAcceleration(attractor, attracted);
-                world.setComponent(attracted, world.getComponent(attracted, Acceleration.class).add(acceleration));
+                world.set(attracted, world.get(attracted, Acceleration.class).add(acceleration));
             }
         }
     }
