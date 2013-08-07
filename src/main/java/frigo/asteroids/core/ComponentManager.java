@@ -3,6 +3,7 @@ package frigo.asteroids.core;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 public class ComponentManager<T extends Component> {
 
@@ -19,7 +20,7 @@ public class ComponentManager<T extends Component> {
     public T get (Entity entity) {
         T component = map.get(entity.id);
         if( component == null ){
-            throw new IllegalArgumentException();
+            throw new NoSuchElementException();
         }
         return component;
     }

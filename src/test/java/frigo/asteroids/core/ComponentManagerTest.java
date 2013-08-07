@@ -5,6 +5,8 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.sameInstance;
 import static org.junit.Assert.assertThat;
 
+import java.util.NoSuchElementException;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -34,7 +36,7 @@ public class ComponentManagerTest {
 
     @Test
     public void get_throws_exception_for_entity_without_component () {
-        thrown.expect(IllegalArgumentException.class);
+        thrown.expect(NoSuchElementException.class);
         manager.get(entity);
     }
 
