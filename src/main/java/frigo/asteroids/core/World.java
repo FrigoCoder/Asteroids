@@ -15,6 +15,14 @@ public class World {
     private Set<Entity> entities = new HashSet<>();
     private List<Logic> logics = new LinkedList<>();
     private Map<Class<?>, List<Object>> messages = new HashMap<>();
+    private Map<Class<? extends Component>, ComponentManager<?>> componentMappers = new HashMap<>();
+
+    private <T extends Component> ComponentManager<T> getComponentMapper (Class<T> type) {
+        if( !componentMappers.containsKey(type) ){
+            componentMappers.put(type, new ComponentManager<T>());
+        }
+        return (ComponentManager<T>) componentMappers.get(type);
+    }
 
     public Entity createEntity (Component... components) {
         Entity entity = new Entity(entityCounter++);
@@ -25,15 +33,16 @@ public class World {
     }
 
     public boolean has (Entity entity, Class<? extends Component> type) {
-        return entity.has(type);
+        return getComponentMapper(type).has(entity);
     }
 
     public <T extends Component> T get (Entity entity, Class<T> type) {
-        return entity.get(type);
+        return getComponentMapper(type).get(entity);
     }
 
-    public void set (Entity entity, Component component) {
-        entity.set(component);
+    public <T extends Component> void set (Entity entity, T component) {
+        Class<T> clazz = (Class<T>) component.getClass();
+        getComponentMapper(clazz).set(entity, component);
     }
 
     public void addEntity (Entity entity) {
