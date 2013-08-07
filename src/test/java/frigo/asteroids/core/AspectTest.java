@@ -13,8 +13,8 @@ import frigo.asteroids.component.Velocity;
 
 public class AspectTest {
 
-    private Aspect aspect = Aspect.allOf(Position.class, Velocity.class);
     private World world = new World();
+    private Aspect aspect = new Aspect(world).allOf(Position.class, Velocity.class);
     private Entity entity = world.createEntity();
 
     @Test

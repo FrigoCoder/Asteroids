@@ -27,7 +27,7 @@ public final class Entity {
         return component;
     }
 
-    public boolean has (Class<? extends Component> type) {
+    boolean has (Class<? extends Component> type) {
         return components.containsKey(type);
     }
 

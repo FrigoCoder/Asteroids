@@ -16,11 +16,9 @@ import frigo.asteroids.core.World;
 
 public class GravitySystem implements Logic {
 
-    private static final Aspect ATTRACTOR_ASPECT = Aspect.allOf(Attractor.class, Mass.class, Position.class);
-    private static final Aspect ATTRACTABLE_ASPECT = Aspect.allOf(Acceleration.class, Attractable.class, Mass.class,
-        Position.class);
-
     private GravityCalculator calculator;
+    private Aspect attractorAspect;
+    private Aspect attractedAspect;
 
     public GravitySystem (GravityCalculator calculator) {
         this.calculator = calculator;
@@ -28,12 +26,14 @@ public class GravitySystem implements Logic {
 
     @Override
     public void init (World world) {
+        attractorAspect = new Aspect(world).allOf(Attractor.class, Mass.class, Position.class);
+        attractedAspect = new Aspect(world).allOf(Attractable.class, Mass.class, Position.class, Acceleration.class);
     }
 
     @Override
     public void update (World world, double elapsedSeconds) {
-        Set<Entity> attractors = world.getEntitiesFor(ATTRACTOR_ASPECT);
-        Set<Entity> attractables = world.getEntitiesFor(ATTRACTABLE_ASPECT);
+        Set<Entity> attractors = world.getEntitiesFor(attractorAspect);
+        Set<Entity> attractables = world.getEntitiesFor(attractedAspect);
         for( Entity attractor : attractors ){
             for( Entity attracted : attractables ){
                 Vector acceleration = calculator.getDirectionalAcceleration(attractor, attracted);

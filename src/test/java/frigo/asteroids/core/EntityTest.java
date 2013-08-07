@@ -44,12 +44,12 @@ public class EntityTest {
     @Test
     public void added_component_can_be_checked_for_presence () {
         world.setComponent(entity, position);
-        assertThat(entity.has(Position.class), is(true));
+        assertThat(world.hasComponent(entity, Position.class), is(true));
     }
 
     @Test
     public void not_added_component_can_be_checked_for_presence () {
-        assertThat(entity.has(Position.class), is(false));
+        assertThat(world.hasComponent(entity, Position.class), is(false));
     }
 
     @Test

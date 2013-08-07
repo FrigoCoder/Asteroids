@@ -11,6 +11,10 @@ import java.util.Set;
 
 public class World {
 
+    public boolean hasComponent (Entity entity, Class<? extends Component> type) {
+        return entity.has(type);
+    }
+
     public <T extends Component> T getComponent (Entity entity, Class<T> type) {
         return entity.get(type);
     }

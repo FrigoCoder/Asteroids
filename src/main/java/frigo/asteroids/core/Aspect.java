@@ -8,19 +8,14 @@ public class Aspect extends Value {
 
     private Set<Class<? extends Component>> all = new HashSet<>();
     private Set<Class<? extends Component>> none = new HashSet<>();
+    private World world;
 
-    @SafeVarargs
-    public static Aspect allOf (Class<? extends Component>... types) {
-        return new Aspect().andAllOf(types);
+    public Aspect (World world) {
+        this.world = world;
     }
 
     @SafeVarargs
-    public static Aspect noneOf (Class<? extends Component>... types) {
-        return new Aspect().andNoneOf(types);
-    }
-
-    @SafeVarargs
-    public final Aspect andAllOf (Class<? extends Component>... types) {
+    public final Aspect allOf (Class<? extends Component>... types) {
         for( Class<? extends Component> type : types ){
             all.add(type);
         }
@@ -28,21 +23,31 @@ public class Aspect extends Value {
     }
 
     @SafeVarargs
-    public final Aspect andNoneOf (Class<? extends Component>... types) {
+    public final Aspect noneOf (Class<? extends Component>... types) {
         for( Class<? extends Component> type : types ){
             none.add(type);
         }
         return this;
     }
 
+    @SafeVarargs
+    public final Aspect andAllOf (Class<? extends Component>... types) {
+        return allOf(types);
+    }
+
+    @SafeVarargs
+    public final Aspect andNoneOf (Class<? extends Component>... types) {
+        return noneOf(types);
+    }
+
     public boolean matches (Entity entity) {
         for( Class<? extends Component> component : all ){
-            if( !entity.has(component) ){
+            if( !world.hasComponent(entity, component) ){
                 return false;
             }
         }
         for( Class<? extends Component> component : none ){
-            if( entity.has(component) ){
+            if( world.hasComponent(entity, component) ){
                 return false;
             }
         }
