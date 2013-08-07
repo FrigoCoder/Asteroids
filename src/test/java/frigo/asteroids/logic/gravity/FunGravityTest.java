@@ -21,8 +21,7 @@ public class FunGravityTest {
     private Entity attracted1 = world.createEntity(new Mass(10), new Position(0.1, 0.0));
     private Entity attracted2 = world.createEntity(new Mass(1), new Position(0.0, 0.1));
     private Entity attracted3 = world.createEntity(new Mass(1), new Position(-0.1, 0.0));
-
-    private GravityCalculator gravity = new FunGravity();
+    private GravityCalculator gravity = new FunGravity(world);
 
     @Test
     public void directional_acceleration_is_calculated_properly () {

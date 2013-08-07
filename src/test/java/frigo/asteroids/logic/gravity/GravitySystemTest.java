@@ -21,7 +21,7 @@ import frigo.asteroids.core.World;
 public class GravitySystemTest {
 
     private World world = new World();
-    private GravitySystem gravitySystem = new GravitySystem(new NewtonianGravity());
+    private GravitySystem gravitySystem = new GravitySystem(new NewtonianGravity(world));
     private Entity attractor1 = world.createEntity(new Attractor(), new Mass(100), new Acceleration(0, 0),
         new Position(-0.1, 0.0));
     private Entity attracted1 = world.createEntity(new Attractable(), new Mass(10), new Acceleration(0, 0),
@@ -41,8 +41,8 @@ public class GravitySystemTest {
 
         gravitySystem.update(world, 1.0);
 
-        assertThat(attracted1.get(Acceleration.class), is(new Acceleration(0.0, 0.0)));
-        assertThat(attracted2.get(Acceleration.class), is(new Acceleration(0.0, 0.0)));
+        assertThat(world.getComponent(attracted1, Acceleration.class), is(new Acceleration(0.0, 0.0)));
+        assertThat(world.getComponent(attracted2, Acceleration.class), is(new Acceleration(0.0, 0.0)));
     }
 
     @Test
@@ -58,7 +58,7 @@ public class GravitySystemTest {
     }
 
     private void assertAcceleration (Entity attracted, Vector expected) {
-        Acceleration acceleration = attracted.get(Acceleration.class);
+        Acceleration acceleration = world.getComponent(attracted, Acceleration.class);
         assertThat(acceleration.x, closeTo(expected.x, 0));
         assertThat(acceleration.y, closeTo(expected.y, 0));
     }

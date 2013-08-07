@@ -24,9 +24,9 @@ public class InputSystem implements Logic {
     @Override
     public void update (World world, double elapsedSeconds) {
         Entity entity = world.getEntitiesFor(CONTROLLABLE_ASPECT).iterator().next();
-        PlayerControllable controllable = entity.get(PlayerControllable.class);
+        PlayerControllable controllable = world.getComponent(entity, PlayerControllable.class);
         double thrust = controllable.thrust;
-        Acceleration acceleration = entity.get(Acceleration.class);
+        Acceleration acceleration = world.getComponent(entity, Acceleration.class);
         for( KeyPressed event : world.getMessages(KeyPressed.class) ){
             acceleration = acceleration.add(getDirection(event.key).mul(thrust));
         }

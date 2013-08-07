@@ -49,7 +49,7 @@ public class AsteroidsWorldFactory {
     private void addLogics () {
         world.addLogic(new AccelerationNullerSystem());
         world.addLogic(new InputSystem());
-        world.addLogic(new GravitySystem(new NewtonianGravity()));
+        world.addLogic(new GravitySystem(new NewtonianGravity(world)));
         world.addLogic(new MovementSystem());
     }
 

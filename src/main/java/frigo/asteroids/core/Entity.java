@@ -19,7 +19,7 @@ public final class Entity {
         components.put(component.getClass(), component);
     }
 
-    public <T extends Component> T get (Class<T> type) {
+    <T extends Component> T get (Class<T> type) {
         T component = (T) components.get(type);
         if( component == null ){
             throw new NoSuchElementException();

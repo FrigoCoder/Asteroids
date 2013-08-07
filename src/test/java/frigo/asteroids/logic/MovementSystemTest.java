@@ -33,7 +33,7 @@ public class MovementSystemTest {
 
         world.update(0.1);
 
-        assertThat(entity.get(Velocity.class), is(new Velocity(1.1, -0.9)));
+        assertThat(world.getComponent(entity, Velocity.class), is(new Velocity(1.1, -0.9)));
     }
 
     @Test
@@ -42,7 +42,7 @@ public class MovementSystemTest {
 
         world.update(0.1);
 
-        assertThat(entity.get(Velocity.class), is(new Velocity(1.0, -1.0)));
+        assertThat(world.getComponent(entity, Velocity.class), is(new Velocity(1.0, -1.0)));
     }
 
     @Test
@@ -52,7 +52,7 @@ public class MovementSystemTest {
 
         world.update(0.1);
 
-        assertThat(entity.get(Position.class), is(new Position(0.1, 0.2)));
+        assertThat(world.getComponent(entity, Position.class), is(new Position(0.1, 0.2)));
     }
 
     @Test
@@ -61,7 +61,7 @@ public class MovementSystemTest {
 
         world.update(0.1);
 
-        assertThat(entity.get(Position.class), is(new Position(0.0, 0.1)));
+        assertThat(world.getComponent(entity, Position.class), is(new Position(0.0, 0.1)));
     }
 
     @Test
@@ -72,7 +72,7 @@ public class MovementSystemTest {
 
         world.update(0.1);
 
-        assertThat(entity.get(Velocity.class), is(new Velocity(1.1, -0.9)));
-        assertThat(entity.get(Position.class), is(new Position(0.605, 0.405)));
+        assertThat(world.getComponent(entity, Velocity.class), is(new Velocity(1.1, -0.9)));
+        assertThat(world.getComponent(entity, Position.class), is(new Position(0.605, 0.405)));
     }
 }

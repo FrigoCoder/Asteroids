@@ -11,6 +11,10 @@ import java.util.Set;
 
 public class World {
 
+    public <T extends Component> T getComponent (Entity entity, Class<T> type) {
+        return entity.get(type);
+    }
+
     public void setComponent (Entity entity, Component component) {
         entity.set(component);
     }

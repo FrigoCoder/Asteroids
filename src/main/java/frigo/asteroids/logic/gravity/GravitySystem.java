@@ -19,6 +19,7 @@ public class GravitySystem implements Logic {
     private static final Aspect ATTRACTOR_ASPECT = Aspect.allOf(Attractor.class, Mass.class, Position.class);
     private static final Aspect ATTRACTABLE_ASPECT = Aspect.allOf(Acceleration.class, Attractable.class, Mass.class,
         Position.class);
+
     private GravityCalculator calculator;
 
     public GravitySystem (GravityCalculator calculator) {
@@ -36,7 +37,7 @@ public class GravitySystem implements Logic {
         for( Entity attractor : attractors ){
             for( Entity attracted : attractables ){
                 Vector acceleration = calculator.getDirectionalAcceleration(attractor, attracted);
-                world.setComponent(attracted, attracted.get(Acceleration.class).add(acceleration));
+                world.setComponent(attracted, world.getComponent(attracted, Acceleration.class).add(acceleration));
             }
         }
     }
