@@ -13,14 +13,14 @@ import org.junit.rules.ExpectedException;
 
 import frigo.asteroids.component.Position;
 
-public class ComponentManagerTest {
+public class ComponentMapperTest {
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
     private World world = new World();
     private Entity entity = world.createEntity();
-    private ComponentManager<Position> manager = new ComponentManager<>();
+    private ComponentMapper<Position> manager = new ComponentMapper<>();
     private Position component = new Position(0.0, 0.0);
 
     @Test

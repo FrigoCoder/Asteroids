@@ -15,13 +15,13 @@ public class World {
     private Set<Entity> entities = new HashSet<>();
     private List<Logic> logics = new LinkedList<>();
     private Map<Class<?>, List<Object>> messages = new HashMap<>();
-    private Map<Class<? extends Component>, ComponentManager<?>> componentMappers = new HashMap<>();
+    private Map<Class<? extends Component>, ComponentMapper<?>> componentMappers = new HashMap<>();
 
-    private <T extends Component> ComponentManager<T> getComponentMapper (Class<T> type) {
+    private <T extends Component> ComponentMapper<T> getComponentMapper (Class<T> type) {
         if( !componentMappers.containsKey(type) ){
-            componentMappers.put(type, new ComponentManager<T>());
+            componentMappers.put(type, new ComponentMapper<T>());
         }
-        return (ComponentManager<T>) componentMappers.get(type);
+        return (ComponentMapper<T>) componentMappers.get(type);
     }
 
     public Entity createEntity (Component... components) {

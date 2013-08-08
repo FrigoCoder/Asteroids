@@ -5,7 +5,7 @@ import gnu.trove.TLongObjectHashMap;
 
 import java.util.NoSuchElementException;
 
-public class ComponentManager<T extends Component> {
+public class ComponentMapper<T extends Component> {
 
     private TLongObjectHashMap map = new TLongObjectHashMap();
 
