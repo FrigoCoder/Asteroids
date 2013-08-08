@@ -3,7 +3,6 @@ package frigo.asteroids.core;
 
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -12,10 +11,10 @@ public class World {
 
     private long entityCounter;
     private Set<Entity> entities = new HashSet<>();
-    private List<Logic> logics = new LinkedList<>();
     private Map<Class<? extends Component>, ComponentMapper<?>> componentMappers = new HashMap<>();
 
     private MessageManager messages = new MessageManager();
+    private SystemManager systems = new SystemManager();
 
     private <T extends Component> ComponentMapper<T> getComponentMapper (Class<T> type) {
         if( !componentMappers.containsKey(type) ){
@@ -64,19 +63,15 @@ public class World {
     }
 
     public void addLogic (Logic logic) {
-        logics.add(logic);
+        systems.addLogic(logic);
     }
 
     public void init () {
-        for( Logic logic : logics ){
-            logic.init(this);
-        }
+        systems.init(this);
     }
 
     public void update (double elapsedSeconds) {
-        for( Logic logic : logics ){
-            logic.update(this, elapsedSeconds);
-        }
+        systems.update(this, elapsedSeconds);
         messages.clear();
     }
 
