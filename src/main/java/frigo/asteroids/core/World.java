@@ -1,7 +1,6 @@
 
 package frigo.asteroids.core;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -14,8 +13,9 @@ public class World {
     private long entityCounter;
     private Set<Entity> entities = new HashSet<>();
     private List<Logic> logics = new LinkedList<>();
-    private Map<Class<?>, List<Object>> messages = new HashMap<>();
     private Map<Class<? extends Component>, ComponentMapper<?>> componentMappers = new HashMap<>();
+
+    private MessageManager messages = new MessageManager();
 
     private <T extends Component> ComponentMapper<T> getComponentMapper (Class<T> type) {
         if( !componentMappers.containsKey(type) ){
@@ -67,21 +67,6 @@ public class World {
         logics.add(logic);
     }
 
-    public void addMessage (Object message) {
-        Class<?> clazz = message.getClass();
-        if( !messages.containsKey(clazz) ){
-            messages.put(clazz, new LinkedList<>());
-        }
-        messages.get(clazz).add(message);
-    }
-
-    public <T> List<T> getMessages (Class<? extends T> clazz) {
-        if( !messages.containsKey(clazz) ){
-            return Collections.EMPTY_LIST;
-        }
-        return (List<T>) messages.get(clazz);
-    }
-
     public void init () {
         for( Logic logic : logics ){
             logic.init(this);
@@ -93,6 +78,14 @@ public class World {
             logic.update(this, elapsedSeconds);
         }
         messages.clear();
+    }
+
+    public void addMessage (Object message) {
+        messages.addMessage(message);
+    }
+
+    public <T> List<T> getMessages (Class<? extends T> clazz) {
+        return messages.getMessages(clazz);
     }
 
 }
