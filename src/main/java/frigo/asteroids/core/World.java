@@ -1,65 +1,54 @@
 
 package frigo.asteroids.core;
 
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 public class World {
 
-    private long entityCounter;
-    private Set<Entity> entities = new HashSet<>();
-    private Map<Class<? extends Component>, ComponentMapper<?>> componentMappers = new HashMap<>();
-
+    private EntityManager entities = new EntityManager();
+    private ComponentManager componentManager = new ComponentManager();
     private MessageManager messages = new MessageManager();
     private SystemManager systems = new SystemManager();
 
-    private <T extends Component> ComponentMapper<T> getComponentMapper (Class<T> type) {
-        if( !componentMappers.containsKey(type) ){
-            componentMappers.put(type, new ComponentMapper<T>());
-        }
-        return (ComponentMapper<T>) componentMappers.get(type);
-    }
-
     public Entity createEntity (Component... components) {
-        Entity entity = new Entity(entityCounter++);
+        Entity entity = entities.create();
         for( Component component : components ){
             set(entity, component);
         }
         return entity;
     }
 
-    public boolean has (Entity entity, Class<? extends Component> type) {
-        return getComponentMapper(type).has(entity);
-    }
-
-    public <T extends Component> T get (Entity entity, Class<T> type) {
-        return getComponentMapper(type).get(entity);
-    }
-
-    public <T extends Component> void set (Entity entity, T component) {
-        Class<T> clazz = (Class<T>) component.getClass();
-        getComponentMapper(clazz).set(entity, component);
-    }
-
     public void addEntity (Entity entity) {
-        entities.add(entity);
+        entities.addEntity(entity);
     }
 
     public Set<Entity> getEntities () {
-        return entities;
+        return entities.getEntitiesFor(new Aspect(this));
     }
 
     public Set<Entity> getEntitiesFor (Aspect aspect) {
-        Set<Entity> result = new HashSet<>();
-        for( Entity entity : entities ){
-            if( aspect.matches(entity) ){
-                result.add(entity);
-            }
-        }
-        return result;
+        return entities.getEntitiesFor(aspect);
+    }
+
+    public boolean has (Entity entity, Class<? extends Component> type) {
+        return componentManager.has(entity, type);
+    }
+
+    public <T extends Component> T get (Entity entity, Class<T> type) {
+        return componentManager.get(entity, type);
+    }
+
+    public <T extends Component> void set (Entity entity, T component) {
+        componentManager.set(entity, component);
+    }
+
+    public void addMessage (Object message) {
+        messages.addMessage(message);
+    }
+
+    public <T> List<T> getMessages (Class<? extends T> clazz) {
+        return messages.getMessages(clazz);
     }
 
     public void addLogic (Logic logic) {
@@ -73,14 +62,6 @@ public class World {
     public void update (double elapsedSeconds) {
         systems.update(this, elapsedSeconds);
         messages.clear();
-    }
-
-    public void addMessage (Object message) {
-        messages.addMessage(message);
-    }
-
-    public <T> List<T> getMessages (Class<? extends T> clazz) {
-        return messages.getMessages(clazz);
     }
 
 }
