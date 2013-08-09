@@ -7,16 +7,11 @@ import java.util.Set;
 public class World {
 
     private EntityManager entities = new EntityManager();
-    private ComponentManager componentManager = new ComponentManager();
     private MessageManager messages = new MessageManager();
     private SystemManager systems = new SystemManager();
 
     public Entity createEntity (Component... components) {
-        Entity entity = entities.create();
-        for( Component component : components ){
-            set(entity, component);
-        }
-        return entity;
+        return entities.createEntity(components);
     }
 
     public void addEntity (Entity entity) {
@@ -32,15 +27,15 @@ public class World {
     }
 
     public boolean has (Entity entity, Class<? extends Component> type) {
-        return componentManager.has(entity, type);
+        return entities.has(entity, type);
     }
 
     public <T extends Component> T get (Entity entity, Class<T> type) {
-        return componentManager.get(entity, type);
+        return entities.get(entity, type);
     }
 
     public <T extends Component> void set (Entity entity, T component) {
-        componentManager.set(entity, component);
+        entities.set(entity, component);
     }
 
     public void addMessage (Object message) {
@@ -62,6 +57,10 @@ public class World {
     public void update (double elapsedSeconds) {
         systems.update(this, elapsedSeconds);
         messages.clear();
+    }
+
+    public boolean matches (Entity entity, Aspect aspect) {
+        return entities.matches(entity, aspect);
     }
 
 }

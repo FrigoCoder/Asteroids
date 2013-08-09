@@ -6,8 +6,8 @@ import java.util.Set;
 
 public class Aspect extends Value {
 
-    private Set<Class<? extends Component>> all = new HashSet<>();
-    private Set<Class<? extends Component>> none = new HashSet<>();
+    Set<Class<? extends Component>> all = new HashSet<>();
+    Set<Class<? extends Component>> none = new HashSet<>();
     private World world;
 
     public Aspect (World world) {
@@ -38,20 +38,6 @@ public class Aspect extends Value {
     @SafeVarargs
     public final Aspect andNoneOf (Class<? extends Component>... types) {
         return noneOf(types);
-    }
-
-    public boolean matches (Entity entity) {
-        for( Class<? extends Component> component : all ){
-            if( !world.has(entity, component) ){
-                return false;
-            }
-        }
-        for( Class<? extends Component> component : none ){
-            if( world.has(entity, component) ){
-                return false;
-            }
-        }
-        return true;
     }
 
 }

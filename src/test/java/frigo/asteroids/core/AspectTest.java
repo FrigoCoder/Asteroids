@@ -14,20 +14,20 @@ import frigo.asteroids.component.Velocity;
 public class AspectTest {
 
     private World world = new World();
-    private Aspect aspect = new Aspect(world).allOf(Position.class, Velocity.class);
     private Entity entity = world.createEntity();
+    private Aspect aspect = new Aspect(world).allOf(Position.class, Velocity.class);
 
     @Test
     public void aspect_all_matches_entities_having_all_components () {
         world.set(entity, new Position(1, 1));
         world.set(entity, new Velocity(0.1, 0.1));
-        assertThat(aspect.matches(entity), is(true));
+        assertThat(world.matches(entity, aspect), is(true));
     }
 
     @Test
     public void aspect_all_does_not_match_entities_not_having_all_components () {
         world.set(entity, new Position(1, 1));
-        assertThat(aspect.matches(entity), is(false));
+        assertThat(world.matches(entity, aspect), is(false));
     }
 
     @Test
@@ -35,7 +35,7 @@ public class AspectTest {
         world.set(entity, new Position(1, 1));
         world.set(entity, new Velocity(0.1, 0.1));
         world.set(entity, new Renderable(1.0));
-        assertThat(aspect.matches(entity), is(true));
+        assertThat(world.matches(entity, aspect), is(true));
     }
 
     @Ignore
