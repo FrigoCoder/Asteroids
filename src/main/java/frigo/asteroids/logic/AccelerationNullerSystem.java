@@ -13,7 +13,7 @@ public class AccelerationNullerSystem implements Logic {
 
     @Override
     public void init (World world) {
-        accelerationAspect = new Aspect(world).allOf(Acceleration.class);
+        accelerationAspect = Aspect.allOf(Acceleration.class);
     }
 
     @Override

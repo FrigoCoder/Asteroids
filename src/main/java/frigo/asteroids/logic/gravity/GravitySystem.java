@@ -26,8 +26,8 @@ public class GravitySystem implements Logic {
 
     @Override
     public void init (World world) {
-        attractorAspect = new Aspect(world).allOf(Attractor.class, Mass.class, Position.class);
-        attractedAspect = new Aspect(world).allOf(Attractable.class, Mass.class, Position.class, Acceleration.class);
+        attractorAspect = Aspect.allOf(Attractor.class, Mass.class, Position.class);
+        attractedAspect = Aspect.allOf(Attractable.class, Mass.class, Position.class, Acceleration.class);
     }
 
     @Override

@@ -19,7 +19,7 @@ public class World {
     }
 
     public Set<Entity> getEntities () {
-        return entities.getEntitiesFor(new Aspect(this));
+        return entities.getEntitiesFor(Aspect.allOf());
     }
 
     public Set<Entity> getEntitiesFor (Aspect aspect) {

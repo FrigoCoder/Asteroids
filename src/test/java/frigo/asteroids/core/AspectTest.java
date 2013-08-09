@@ -15,7 +15,7 @@ public class AspectTest {
 
     private World world = new World();
     private Entity entity = world.createEntity();
-    private Aspect aspect = new Aspect(world).allOf(Position.class, Velocity.class);
+    private Aspect aspect = Aspect.allOf(Position.class, Velocity.class);
 
     @Test
     public void aspect_all_matches_entities_having_all_components () {

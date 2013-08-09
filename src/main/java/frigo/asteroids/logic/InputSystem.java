@@ -19,7 +19,7 @@ public class InputSystem implements Logic {
 
     @Override
     public void init (World world) {
-        controllableAspect = new Aspect(world).allOf(PlayerControllable.class, Acceleration.class);
+        controllableAspect = Aspect.allOf(PlayerControllable.class, Acceleration.class);
     }
 
     @Override

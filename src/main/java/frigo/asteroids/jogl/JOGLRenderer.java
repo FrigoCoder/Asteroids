@@ -44,7 +44,7 @@ public class JOGLRenderer implements GLEventListener {
         GL2 gl = drawable.getGL().getGL2();
         gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
 
-        Aspect aspect = new Aspect(world).allOf(Position.class, Renderable.class);
+        Aspect aspect = Aspect.allOf(Position.class, Renderable.class);
         for( Entity entity : world.getEntitiesFor(aspect) ){
             Position position = world.get(entity, Position.class);
             Renderable renderable = world.get(entity, Renderable.class);

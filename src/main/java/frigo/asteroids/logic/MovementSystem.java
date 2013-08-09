@@ -17,9 +17,9 @@ public class MovementSystem implements Logic {
 
     @Override
     public void init (World world) {
-        all = new Aspect(world).allOf(Acceleration.class, Velocity.class, Position.class);
-        noPosition = new Aspect(world).allOf(Acceleration.class, Velocity.class).andNoneOf(Position.class);
-        noAcceleration = new Aspect(world).allOf(Velocity.class, Position.class).andNoneOf(Acceleration.class);
+        all = Aspect.allOf(Acceleration.class, Velocity.class, Position.class);
+        noPosition = Aspect.allOf(Acceleration.class, Velocity.class).andNoneOf(Position.class);
+        noAcceleration = Aspect.allOf(Velocity.class, Position.class).andNoneOf(Acceleration.class);
     }
 
     @Override
@@ -32,8 +32,8 @@ public class MovementSystem implements Logic {
     private void handleEntitiesWithAllComponents (World world, double elapsedSeconds) {
         for( Entity entity : world.getEntitiesFor(all) ){
             VelocityVerlet verlet =
-                new VelocityVerlet(world.get(entity, Acceleration.class), world.get(entity,
-                    Velocity.class), world.get(entity, Position.class));
+                new VelocityVerlet(world.get(entity, Acceleration.class), world.get(entity, Velocity.class), world.get(
+                    entity, Position.class));
             world.set(entity, verlet.getVelocity(elapsedSeconds));
             world.set(entity, verlet.getPosition(elapsedSeconds));
         }
@@ -42,8 +42,8 @@ public class MovementSystem implements Logic {
     private void handleEntitiesWithNoAcceleration (World world, double elapsedSeconds) {
         for( Entity entity : world.getEntitiesFor(noAcceleration) ){
             VelocityVerlet verlet =
-                new VelocityVerlet(new Acceleration(0, 0), world.get(entity, Velocity.class),
-                    world.get(entity, Position.class));
+                new VelocityVerlet(new Acceleration(0, 0), world.get(entity, Velocity.class), world.get(entity,
+                    Position.class));
             world.set(entity, verlet.getVelocity(elapsedSeconds));
             world.set(entity, verlet.getPosition(elapsedSeconds));
         }
@@ -53,8 +53,8 @@ public class MovementSystem implements Logic {
     private void handleEntitiesWithNoPosition (World world, double elapsedSeconds) {
         for( Entity entity : world.getEntitiesFor(noPosition) ){
             VelocityVerlet verlet =
-                new VelocityVerlet(world.get(entity, Acceleration.class), world.get(entity,
-                    Velocity.class), new Position(0, 0));
+                new VelocityVerlet(world.get(entity, Acceleration.class), world.get(entity, Velocity.class),
+                    new Position(0, 0));
             world.set(entity, verlet.getVelocity(elapsedSeconds));
         }
     }
