@@ -1,8 +1,7 @@
 
 package frigo.asteroids.core;
 
-
-public final class Entity {
+public final class Entity extends Value {
 
     public final long id;
 
