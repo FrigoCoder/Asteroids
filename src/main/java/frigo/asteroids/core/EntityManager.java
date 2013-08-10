@@ -53,6 +53,12 @@ public class EntityManager {
 
     public List<Entity> getEntitiesFor (Aspect aspect) {
         List<Entity> result = new LinkedList<>(entities);
+        filterAll(result, aspect);
+        filterNone(result, aspect);
+        return result;
+    }
+
+    private void filterAll (List<Entity> result, Aspect aspect) {
         for( Class<? extends Component> clazz : aspect.all ){
             ComponentMapper<? extends Component> mapper = getComponentMapper(clazz);
             Iterator<Entity> iterator = result.iterator();
@@ -62,6 +68,9 @@ public class EntityManager {
                 }
             }
         }
+    }
+
+    private void filterNone (List<Entity> result, Aspect aspect) {
         for( Class<? extends Component> clazz : aspect.none ){
             ComponentMapper<? extends Component> mapper = getComponentMapper(clazz);
             Iterator<Entity> iterator = result.iterator();
@@ -71,7 +80,6 @@ public class EntityManager {
                 }
             }
         }
-        return result;
     }
 
     @Deprecated
