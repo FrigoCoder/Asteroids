@@ -53,7 +53,6 @@ public class JOGLRenderer implements GLEventListener {
             String texture = renderable.texture;
             if( texture == null ){
                 gl.glPointSize((float) size);
-                gl.glColor3d(renderable.r, renderable.g, renderable.b);
                 gl.glBegin(GL.GL_POINTS);
                 gl.glVertex2d(position.x, position.y);
                 gl.glEnd();
@@ -62,7 +61,6 @@ public class JOGLRenderer implements GLEventListener {
                 tex.enable(gl);
                 tex.bind(gl);
                 gl.glBegin(GL2GL3.GL_QUADS);
-                gl.glColor3d(1, 1, 1);
                 gl.glTexCoord2d(0.5 - 0.5, 0.5 - 0.5);
                 gl.glVertex2d(position.x - size / 2, position.y - size / 2);
                 gl.glTexCoord2d(0.5 - 0.5, 0.5 + 0.5);

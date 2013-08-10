@@ -97,7 +97,7 @@ public class AsteroidsWorldFactory {
         Entity entity = world.createEntity();
         world.set(entity, new Velocity(getRandom(-speed, speed), getRandom(-speed, speed)));
         world.set(entity, new Position(getRandom(-1, 1), getRandom(-1, 1)));
-        world.set(entity, new Renderable(size, 1.0, 1.0, 1.0));
+        world.set(entity, new Renderable(size));
         return entity;
     }
 
