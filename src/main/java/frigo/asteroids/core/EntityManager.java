@@ -10,10 +10,11 @@ public class EntityManager {
 
     private long counter;
     private Set<Entity> entities = new HashSet<>();
+    private Map<Class<? extends Component>, ComponentMapper<?>> components = new HashMap<>();
 
-    public Entity createEntity (Component... components) {
+    public Entity createEntity (Component... componentsToSet) {
         Entity entity = new Entity(counter++);
-        for( Component component : components ){
+        for( Component component : componentsToSet ){
             set(entity, component);
         }
         return entity;
@@ -26,8 +27,6 @@ public class EntityManager {
     public Set<Entity> getEntities () {
         return entities;
     }
-
-    private Map<Class<? extends Component>, ComponentMapper<?>> componentMappers = new HashMap<>();
 
     public boolean has (Entity entity, Class<? extends Component> type) {
         return getComponentMapper(type).has(entity);
@@ -43,13 +42,14 @@ public class EntityManager {
     }
 
     public <T extends Component> ComponentMapper<T> getComponentMapper (Class<T> type) {
-        if( !componentMappers.containsKey(type) ){
-            componentMappers.put(type, new ComponentMapper<T>());
+        if( !components.containsKey(type) ){
+            components.put(type, new ComponentMapper<T>());
         }
-        return (ComponentMapper<T>) componentMappers.get(type);
+        return (ComponentMapper<T>) components.get(type);
     }
 
     public Set<Entity> getEntitiesFor (Aspect aspect) {
+
         Set<Entity> result = new HashSet<>();
         for( Entity entity : entities ){
             if( matches(entity, aspect) ){
