@@ -3,6 +3,9 @@ package frigo.asteroids.core;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -41,24 +44,37 @@ public class EntityManager {
         getComponentMapper(clazz).set(entity, component);
     }
 
-    public <T extends Component> ComponentMapper<T> getComponentMapper (Class<T> type) {
+    private <T extends Component> ComponentMapper<T> getComponentMapper (Class<T> type) {
         if( !components.containsKey(type) ){
             components.put(type, new ComponentMapper<T>());
         }
         return (ComponentMapper<T>) components.get(type);
     }
 
-    public Set<Entity> getEntitiesFor (Aspect aspect) {
-
-        Set<Entity> result = new HashSet<>();
-        for( Entity entity : entities ){
-            if( matches(entity, aspect) ){
-                result.add(entity);
+    public List<Entity> getEntitiesFor (Aspect aspect) {
+        List<Entity> result = new LinkedList<>(entities);
+        for( Class<? extends Component> clazz : aspect.all ){
+            ComponentMapper<? extends Component> mapper = getComponentMapper(clazz);
+            Iterator<Entity> iterator = result.iterator();
+            while( iterator.hasNext() ){
+                if( !mapper.has(iterator.next()) ){
+                    iterator.remove();
+                }
+            }
+        }
+        for( Class<? extends Component> clazz : aspect.none ){
+            ComponentMapper<? extends Component> mapper = getComponentMapper(clazz);
+            Iterator<Entity> iterator = result.iterator();
+            while( iterator.hasNext() ){
+                if( mapper.has(iterator.next()) ){
+                    iterator.remove();
+                }
             }
         }
         return result;
     }
 
+    @Deprecated
     public boolean matches (Entity entity, Aspect aspect) {
         for( Class<? extends Component> component : aspect.all ){
             if( !has(entity, component) ){

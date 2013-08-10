@@ -1,7 +1,7 @@
 
 package frigo.asteroids.logic.gravity;
 
-import java.util.Set;
+import java.util.List;
 
 import frigo.asteroids.component.Acceleration;
 import frigo.asteroids.component.Attractable;
@@ -32,8 +32,8 @@ public class GravitySystem implements Logic {
 
     @Override
     public void update (World world, double elapsedSeconds) {
-        Set<Entity> attractors = world.getEntitiesFor(attractorAspect);
-        Set<Entity> attractables = world.getEntitiesFor(attractedAspect);
+        List<Entity> attractors = world.getEntitiesFor(attractorAspect);
+        List<Entity> attractables = world.getEntitiesFor(attractedAspect);
         for( Entity attractor : attractors ){
             for( Entity attracted : attractables ){
                 Vector acceleration = calculator.getDirectionalAcceleration(attractor, attracted);

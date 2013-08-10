@@ -10,9 +10,8 @@ import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
-import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 import org.junit.Test;
 
@@ -43,7 +42,7 @@ public class WorldTest {
 
         Aspect aspect = Aspect.allOf(Position.class, Velocity.class);
 
-        Set<Entity> expected = new HashSet<>(asList(entity));
+        List<Entity> expected = new LinkedList<>(asList(entity));
         assertThat(world.getEntitiesFor(aspect), is(expected));
     }
 

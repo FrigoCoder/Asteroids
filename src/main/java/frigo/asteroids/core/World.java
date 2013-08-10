@@ -2,7 +2,6 @@
 package frigo.asteroids.core;
 
 import java.util.List;
-import java.util.Set;
 
 public class World {
 
@@ -18,11 +17,11 @@ public class World {
         entities.addEntity(entity);
     }
 
-    public Set<Entity> getEntities () {
+    public List<Entity> getEntities () {
         return entities.getEntitiesFor(Aspect.allOf());
     }
 
-    public Set<Entity> getEntitiesFor (Aspect aspect) {
+    public List<Entity> getEntitiesFor (Aspect aspect) {
         return entities.getEntitiesFor(aspect);
     }
 
