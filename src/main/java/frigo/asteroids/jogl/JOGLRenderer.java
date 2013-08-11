@@ -52,27 +52,35 @@ public class JOGLRenderer implements GLEventListener {
 
             String texture = renderable.texture;
             if( texture == null ){
-                gl.glPointSize((float) size);
-                gl.glBegin(GL.GL_POINTS);
-                gl.glVertex2d(position.x, position.y);
-                gl.glEnd();
+                drawCircle(gl, position, size);
             }else{
-                Texture tex = textures.get(texture);
-                tex.enable(gl);
-                tex.bind(gl);
-                gl.glBegin(GL2GL3.GL_QUADS);
-                gl.glTexCoord2d(0.5 - 0.5, 0.5 - 0.5);
-                gl.glVertex2d(position.x - size / 2, position.y - size / 2);
-                gl.glTexCoord2d(0.5 - 0.5, 0.5 + 0.5);
-                gl.glVertex2d(position.x - size / 2, position.y + size / 2);
-                gl.glTexCoord2d(0.5 + 0.5, 0.5 + 0.5);
-                gl.glVertex2d(position.x + size / 2, position.y + size / 2);
-                gl.glTexCoord2d(0.5 + 0.5, 0.5 - 0.5);
-                gl.glVertex2d(position.x + size / 2, position.y - size / 2);
-                gl.glEnd();
-                tex.disable(gl);
+                drawTexture(gl, position, size, texture);
             }
         }
+    }
+
+    private void drawTexture (GL2 gl, Position position, double size, String texture) {
+        Texture tex = textures.get(texture);
+        tex.enable(gl);
+        tex.bind(gl);
+        gl.glBegin(GL2GL3.GL_QUADS);
+        gl.glTexCoord2d(0.5 - 0.5, 0.5 - 0.5);
+        gl.glVertex2d(position.x - size / 2, position.y - size / 2);
+        gl.glTexCoord2d(0.5 - 0.5, 0.5 + 0.5);
+        gl.glVertex2d(position.x - size / 2, position.y + size / 2);
+        gl.glTexCoord2d(0.5 + 0.5, 0.5 + 0.5);
+        gl.glVertex2d(position.x + size / 2, position.y + size / 2);
+        gl.glTexCoord2d(0.5 + 0.5, 0.5 - 0.5);
+        gl.glVertex2d(position.x + size / 2, position.y - size / 2);
+        gl.glEnd();
+        tex.disable(gl);
+    }
+
+    private void drawCircle (GL2 gl, Position position, double size) {
+        gl.glPointSize((float) size);
+        gl.glBegin(GL.GL_POINTS);
+        gl.glVertex2d(position.x, position.y);
+        gl.glEnd();
     }
 
     @Override
