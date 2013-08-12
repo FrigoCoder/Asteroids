@@ -14,20 +14,12 @@ public class JOGLWindowListener implements WindowListener {
     }
 
     @Override
-    public void windowResized (WindowEvent e) {
-    }
-
-    @Override
-    public void windowMoved (WindowEvent e) {
-    }
-
-    @Override
-    public void windowDestroyNotify (WindowEvent e) {
+    public void windowDestroyed (WindowEvent e) {
         runner.stop();
     }
 
     @Override
-    public void windowDestroyed (WindowEvent e) {
+    public void windowDestroyNotify (WindowEvent e) {
         runner.stop();
     }
 
@@ -40,7 +32,15 @@ public class JOGLWindowListener implements WindowListener {
     }
 
     @Override
+    public void windowMoved (WindowEvent e) {
+    }
+
+    @Override
     public void windowRepaint (WindowUpdateEvent e) {
+    }
+
+    @Override
+    public void windowResized (WindowEvent e) {
     }
 
 }
