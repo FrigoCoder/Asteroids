@@ -4,6 +4,8 @@ package frigo.asteroids.jogl;
 import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLEventListener;
 
+import com.google.common.annotations.VisibleForTesting;
+
 import frigo.asteroids.core.World;
 
 public class JOGLWorldUpdater implements GLEventListener {
@@ -18,15 +20,20 @@ public class JOGLWorldUpdater implements GLEventListener {
     @Override
     public void init (GLAutoDrawable drawable) {
         world.init();
-        lastMillis = System.nanoTime();
+        lastMillis = getNanoTime();
     }
 
     @Override
     public void display (GLAutoDrawable drawable) {
-        long currentMillis = System.nanoTime();
+        long currentMillis = getNanoTime();
         double elapsedSeconds = (currentMillis - lastMillis) / 1_000_000_000.0;
         world.update(elapsedSeconds);
         lastMillis = currentMillis;
+    }
+
+    @VisibleForTesting
+    long getNanoTime () {
+        return System.nanoTime();
     }
 
     @Override
