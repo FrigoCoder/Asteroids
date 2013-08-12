@@ -11,8 +11,10 @@ import javax.media.opengl.fixedfunc.GLMatrixFunc;
 
 import com.jogamp.opengl.util.texture.Texture;
 
+import frigo.asteroids.component.Circle;
 import frigo.asteroids.component.Position;
-import frigo.asteroids.component.Renderable;
+import frigo.asteroids.component.Size;
+import frigo.asteroids.component.TextureName;
 import frigo.asteroids.core.Aspect;
 import frigo.asteroids.core.Entity;
 import frigo.asteroids.core.World;
@@ -43,19 +45,33 @@ public class JOGLRenderer implements GLEventListener {
     public void display (GLAutoDrawable drawable) {
         GL2 gl = drawable.getGL().getGL2();
         gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
+        drawCircles(gl);
+        drawTextures(gl);
+    }
 
-        Aspect aspect = Aspect.allOf(Position.class, Renderable.class);
+    private void drawCircles (GL2 gl) {
+        Aspect aspect = Aspect.allOf(Position.class, Size.class, Circle.class);
         for( Entity entity : world.getEntitiesFor(aspect) ){
             Position position = world.get(entity, Position.class);
-            Renderable renderable = world.get(entity, Renderable.class);
-            double size = renderable.size;
+            Size size = world.get(entity, Size.class);
+            drawCircle(gl, position, size.size);
+        }
+    }
 
-            String texture = renderable.texture;
-            if( texture == null ){
-                drawCircle(gl, position, size);
-            }else{
-                drawTexture(gl, position, size, texture);
-            }
+    private void drawCircle (GL2 gl, Position position, double size) {
+        gl.glPointSize((float) size);
+        gl.glBegin(GL.GL_POINTS);
+        gl.glVertex2d(position.x, position.y);
+        gl.glEnd();
+    }
+
+    private void drawTextures (GL2 gl) {
+        Aspect aspect = Aspect.allOf(Position.class, Size.class, TextureName.class);
+        for( Entity entity : world.getEntitiesFor(aspect) ){
+            Position position = world.get(entity, Position.class);
+            Size size = world.get(entity, Size.class);
+            TextureName textureName = world.get(entity, TextureName.class);
+            drawTexture(gl, position, size.size, textureName.filename);
         }
     }
 
@@ -74,13 +90,6 @@ public class JOGLRenderer implements GLEventListener {
         gl.glVertex2d(position.x + size / 2, position.y - size / 2);
         gl.glEnd();
         tex.disable(gl);
-    }
-
-    private void drawCircle (GL2 gl, Position position, double size) {
-        gl.glPointSize((float) size);
-        gl.glBegin(GL.GL_POINTS);
-        gl.glVertex2d(position.x, position.y);
-        gl.glEnd();
     }
 
     @Override
