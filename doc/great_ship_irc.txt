@@ -1,0 +1,206 @@
+(00:25:48) Frigo: guys I have a dilemma about my asteroids game
+(00:25:54) Frigo: I have implemented a gravity system
+(00:26:05) Frigo: with proper units
+(00:26:31) eselle: Frigo: so what is the dilemma?
+(00:26:53) Frigo: kilograms for mass, meters for distance, seconds for time
+(00:26:57) Frigo: so
+(00:26:59) Frigo: as a result 
+(00:27:22) Koen: Yes?
+(00:27:25) Frigo: it tries to reflect reality
+(00:27:29) Frigo: rather than a simulation
+(00:27:34) Frigo: and there is a mismatch between the two
+(00:27:40) tiwake: you should use slugs, inches, and seconds
+(00:27:59) Frigo: for example the simulation has no time to wait for all that time it takes for a solar system to circle around a sun
+(00:28:06) Koen: Eselle do you still have the link i gave you earlier?
+(00:28:14) Frigo: so
+(00:28:20) eselle: Koen: yeah I do, at work atm though, will get to it today some time
+(00:28:20) Frigo: to circumvent this problem
+(00:28:31) eselle: sorry for the delays
+(00:28:35) Frigo: I made everything small and close
+(00:28:38) Koen: No prob
+(00:28:55) Frigo: the entire solar system is literally less than 1 meter wide
+(00:29:01) Koen: I'mma go to bed for now and you can leave a comment or tell me the opinion when we see eachother next time
+(00:29:02) Frigo: and
+(00:29:08) Koen: cya
+(00:29:09) eselle: kk
+(00:29:11) eselle: night
+(00:29:14) Koen left the room.
+(00:29:16) Frigo: I am using densities like
+(00:29:33) Pinkamena_Pie: >playing a game about seasoned soldiers fighting battles for the greater good or some such thing
+(00:29:40) eselle: Frigo: either you have correct scale (so densities drop) or you keep the density and everything burns
+(00:29:49) Frigo: 3 billion kgs / cubic meter
+(00:29:53) eselle: yeah
+(00:29:54) VoidChicken: the solar system is big enough that single-precision floats aren't viable out past Saturn or so
+(00:30:02) Pinkamena_Pie: >12 year olds running around screaming about using sniper rifles properly and how they have all had sexual relations with my mother
+(00:30:04) eselle: you have just created black holes Frigo :P
+(00:30:12) Frigo: so
+(00:30:22) Frigo: what is the correct solution to this simulation-reality mismatch
+(00:30:28) eselle: (not sure if true, my astrophysics is sorely lacking)
+(00:30:36) Frigo: have proper densities and scales
+(00:30:38) Frigo: and speed up time?
+(00:30:39) Frigo: or what?
+(00:30:49) eselle: have proper densities and scale
+(00:31:00) VoidChicken: or change the universal constants
+(00:31:00) eselle: but make your home planet something like the size/scale of mercury
+(00:31:15) eselle: that will give you smaller rotation periods
+(00:31:34) eselle: the time thing will work too
+(00:31:47) eselle: (and is the way most realworld simlation work)
+(00:31:51) VoidChicken: kerbal space program has downscaled planets. primarily because a real earth launch takes like 10 minutes and that's too long to wait every time in a game.
+(00:32:21) Frigo: well with proper scales comes another problem
+(00:32:22) eselle: VoidChicken: that would be awesome, having a real world launch physics game
+(00:32:29) VoidChicken: you mean Orbiter?
+(00:32:35) eselle: googling
+(00:32:41) Frigo: asteroids and spaceships should be recognizable on the screen
+(00:32:52) eselle: wow, thanks
+(00:33:09) VoidChicken: Orbiter also has TransX built-in, which is what Mechjeb wishes it could be.
+(00:33:28) Frigo: tho it is fun to entertain the idea of a spaceship the size of a bigger planet
+(00:33:50) TacticalRainboom left the room (quit: Ping timeout: 360 seconds).
+(00:33:58) eselle: Frigo: the simple act of travelling throug hspace would throw off the orbit of every planet in the solar system
+(00:34:06) Frigo: :)
+(00:34:10) eselle: so, yeah, would be pretty much awesome
+(00:34:21) VoidChicken: universe sandbox, then
+(00:34:25) VoidChicken: i believe
+(00:34:33) Frigo: I've read somewhere on /tg/ about a Warhammer 40k campaign where a sect was planning to build a spaceship 1 AU long
+(00:35:24) eselle: isn't that like, bigger than our solar system?
+(00:35:28) Frigo: yup
+(00:35:32) VoidChicken: 1 AU is the earth-sun distance
+(00:35:38) Frigo: http://suptg.thisisnotatrueending.com/archive.html?tags=great%20ship
+(00:35:39) eselle: ah that's right
+(00:35:52) Frigo: I think that is the correct tag
+(00:36:07) Frigo: http://suptg.thisisnotatrueending.com/archive/7723751/
+(00:36:08) Frigo: original thread
+(00:36:09) Carnifexy: Oh man, I remember those threads.
+(00:36:43) VoidChicken: ah yeah, universe sandbox is the "fuck around with orbits and gravity" game http://store.steampowered.com/app/72200/
+(00:37:11) Frigo: actually
+(00:37:16) The6thMaster: Oh /tg/, you so crazy
+(00:37:18) Frigo: having a big ass spaceship would make sense backstory-wise
+(00:38:04) Frigo: make "sense" somewhat
+(00:38:22) Frigo: our area of space was invaded by Jupiter-size asteroids
+(00:38:34) Carnifexy: So far my favorite thread series is the Mass Effect/Eclipse Phase crossover.
+(00:38:37) Frigo: so humanity built an even bigger spaceship to get rid of the threat
+(00:38:54) The6thMaster: That ship would be so big it wouldn't need weapons. Its gravity alone would destroy everything in its path.
+(00:38:56) Carnifexy: The original idea sprung up around 3 years ago, but a new person has taken the idea and has beenworking on it.
+(00:39:19) Doc_Sparks: I wonder if we'll ever make ships by just burrowing into asteroids.
+(00:39:32) Doc_Sparks: Seems like a good idea at a glance.
+(00:39:58) Frigo: it makes more sense to use nanomachines to form asteroids into hulls
+(00:39:58) VoidChicken: some rocks, maybe. many asteroids are more like a bunch of gravel held together by gravity
+(00:40:14) Carnifexy: Rocks are not free, citizen.
+(00:40:18) Frigo: haha
+(00:40:53) Doc_Sparks: Hmm, melt the exterior with a laser into a solid chunk...
+(00:41:01) Doc_Sparks: Might work?
+(00:41:29) DroppedC left the room (quit: Ping timeout: 360 seconds).
+(00:42:04) Doc_Sparks: At the least it would provide excellent camoflage.
+(00:42:22) Doc_Sparks: Wh'd suspect a rock floating in space?
+(00:42:24) Frigo: okay this seems to be the best way so far:
+(00:42:32) Frigo: keep Sun size and density
+(00:42:39) Frigo: keep gravitational constants
+(00:42:45) Frigo: keep distance units
+(00:42:52) Frigo: modify asteroids and spaceship to be big ass
+(00:43:02) Frigo: handwave it via backstory
+(00:43:13) Frigo: speed up time
+(00:43:29) tiwake: add aliens
+(00:43:34) tiwake: and ponies
+(00:43:35) Frigo: no not yet
+(00:43:50) Frigo: there could be guesswork regarding the origin of the asteroids
+(00:43:51) tiwake: (assuming ponies are not aliens)
+(00:43:57) DeiStar: https://images.4chan.org/mlp/src/1376258894796.gif
+(00:44:17) Frigo: huge ass Jupiter sized asteroids just don't appear out of nowhere
+(00:44:41) Frigo: actually
+(00:44:55) Frigo: I love this nanomachine idea
+(00:45:12) Frigo: it would be easy to explain away how humanity managed to create a spaceship so big
+(00:45:27) Frigo: they turned Mars into one
+(00:45:38) Frigo: crewed by millions
+(00:45:41) Frigo: it is humanity's last chance
+(00:46:11) tiwake: every time a pony teleports the negative energy interacts with another dimension (the dimension that ponies use to fold for the teleporting) and causes a huge mass of... suff... to appear in some random location
+(00:46:12) Frigo: and you are the captain
+(00:46:19) Frigo: humanity's fate rests on your shoulder
+(00:46:25) VoidChicken: still the issue of where the hell you find the power to move it, but sure why not.
+(00:47:08) Frigo: hmmm
+(00:47:31) Frigo: would solar power work?
+(00:47:43) VoidChicken: need a propellant
+(00:48:13) eselle: I know dick about astrophysics, but there is a boatload of radiation in space right?
+(00:48:18) VoidChicken: yup
+(00:48:25) Alamais: depends on the boat
+(00:48:27) eselle: can that not be converted to a fuel source somehow?
+(00:48:28) tiwake: set up a fusion reaction, and use the excess heat to super heat particles and shoot them back
+(00:48:33) Frigo: solar power would also make sense from a gameplay point of view
+(00:48:39) Frigo: you can't go too far away from the sun
+(00:48:47) Frigo: or you start running on emergency power
+(00:48:51) VoidChicken: if you're in sci-fi land, sure, propellantless solar. why not.
+(00:48:59) VoidChicken: irl, you have solar sails and that's about it
+(00:49:05) VoidChicken: and they only go in one direction
+(00:49:13) Pinkamena_Pie: Have a quote.
+(00:49:14) Alphacat: The sun's influence DOES extend pretty damn far though.
+(00:49:17) Alamais: solar doesn't work beyond the inner planets
+(00:49:19) Frigo: yeah, still no idea for propellant
+(00:49:32) VoidChicken: fusion rockets, perhaps. they're plenty powerful.
+(00:49:35) Alphacat: The heliosphere is pretty damn big, isn't it?
+(00:49:41) eselle: VoidChicken: solar sails are just for gaining speed are they not? you ride gravity from there on out
+(00:49:42) Pinkamena_Pie: "If Internet Explorer is brave enough to ask you to be your default browser, you're brave enough to ask that girl out."
+(00:49:48) VoidChicken: don't exist IRL. yet.
+(00:49:55) VoidChicken: but they're theoretically possible.
+(00:50:19) eselle: wouldn't the sails just get torn up by micro meteors or whatever they are called?
+(00:50:30) VoidChicken: that's a possibility
+(00:50:33) tiwake: floating particles
+(00:50:35) Frigo: for solar power I didn't mean solar sails and such
+(00:50:41) Alphacat: That's what the structural integrity field is for.
+(00:50:50) tiwake: hehe
+(00:50:54) Frigo: I meant a mars sized space ship covered in solar capacitors
+(00:51:04) Frigo: still no propellant
+(00:51:11) Alamais: http://en.wikipedia.org/wiki/Bussard_ramjet
+(00:51:13) eselle: Frigo: probably wouldn't get the power to move a structure that large from just solar
+(00:51:28) tiwake: for a whole planet? hmm
+(00:51:35) tiwake: yeah, fusion reaction
+(00:51:35) VoidChicken: you wouldn't get the power to move that without a damn black hole
+(00:51:35) Frigo: it would also be possible to cannibalize the inner mass of the spaceship... somehow
+(00:51:41) VoidChicken: (and not in the way you'd like)
+(00:51:44) Alphacat: If you have the ability to build something the size of a planet, then you don't need to worry about your energy needs. <.<
+(00:51:55) eselle: lol
+(00:52:01) eselle: build a solar system wide slingshot
+(00:52:05) eselle: and launch that shit
+(00:52:24) tiwake: well, I just finished updating
+(00:52:26) ***Alphacat flops on Pinkamena.
+(00:52:33) Frigo: #fimfiction - we make Mars sized spaceships possible and scientifically sound
+(00:52:37) Archonix: http://insaneponythread.tumblr.com/post/57999397207/this-is-the-cool-place-to-talk-about-ponies-and
+(00:52:38) tiwake: my ZNC server will be restarted... so.. brb
+(00:52:46) Alphacat: *Mars-sized
+(00:52:55) tiwake: Frigo: I think thats the case for most IRC conversations... heh
+(00:53:52) Frigo: god I don't even want to think about how will I explain the rotation of the ship
+(00:54:12) tiwake: dont have to
+(00:54:19) VoidChicken: it spins on its own through inertia
+(00:54:23) Frigo: no I mean
+(00:54:25) Frigo: artificial rotation
+(00:54:29) VoidChicken: to use the engine you have to wait for it to rotate to where you want it
+(00:54:37) tiwake: that size, you dont need a front or back
+(00:54:38) Alamais: moving a planet with any reasonable speed probably requires space-warping tech
+(00:55:08) tiwake: anyway, brb
+(00:55:15) tiwake left the room (quit: Quit: You can fix anything with a screwdriver and a bigger hammer.).
+(00:55:31) Poultron [~pone@2c5db252.1654620b.bumttx.sbcglobal.net] entered the room.
+(00:55:31) mode (+o Poultron) by ChanServ
+(00:55:47) Frigo: I already see the structure of the game tho
+(00:55:56) eselle: hmm, why when I tried to think of something you couldn't fix with those things did I immediately go to 'pregnancy'
+(00:55:57) Doc_Sparks: Wouldn't that require a powerful electromagnetic field?
+(00:56:01) VoidChicken: it's the feds! cheese it!
+(00:56:02) Frigo: every new level will add something new that could happen
+(00:56:05) eselle: now I have bad imagery
+(00:56:10) Frigo: first level: you just shoot at asteroids without regard to anything
+(00:56:17) Frigo: no
+(00:56:23) Frigo: it should be about moving about
+(00:56:29) Frigo: second level should be shooting at asteroids
+(00:56:41) Frigo: somewhere along the levels Earth should be introduced
+(00:56:49) Frigo: so the player learns not to "bump" into it
+(00:57:14) Frigo: resulting in such: http://lesitedurno.free.fr/telechargerlog/cataclysm.jpg
+(00:57:20) Frigo: or not to shoot at it
+(00:57:27) Frigo: and to defend it against incoming asteroids
+(00:59:38) Frigo: mmmmkay everyone
+(00:59:41) Frigo: thank you for your inputs
+(00:59:46) Frigo: it was very very useful
+(00:59:56) tiwake [~tiwake@25b55acd.2c4e124f.client.bresnan.net] entered the room.
+(00:59:57) Frigo: this session was much more fruitful than I expected
+(01:00:04) tiwake: there we go
+(01:00:27) Frigo: I'll skim through /tg/'s similar ideas about a huge ass starship
+(01:00:53) Frigo: and believable solutions to any problems encountered
+(01:02:29) tiwake: woo
+(01:02:29) Frigo: but now I have to go to sleep
+(01:02:41) tiwake: server seems to be fully functional after all those updates
+(01:02:53) Frigo: gn ppl
