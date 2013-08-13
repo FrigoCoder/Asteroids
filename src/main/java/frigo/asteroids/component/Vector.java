@@ -26,4 +26,10 @@ public class Vector extends Component {
         return new Vector(x * scalar, y * scalar);
     }
 
+    public Vector rotate (double radians) {
+        double c = Math.cos(radians);
+        double s = Math.sin(radians);
+        return new Vector(c * x - s * y, s * x + c * y);
+    }
+
 }

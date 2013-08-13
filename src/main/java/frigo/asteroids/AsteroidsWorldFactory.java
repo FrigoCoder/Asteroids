@@ -13,6 +13,7 @@ import frigo.asteroids.component.Circle;
 import frigo.asteroids.component.Mass;
 import frigo.asteroids.component.PlayerControllable;
 import frigo.asteroids.component.Position;
+import frigo.asteroids.component.Rotation;
 import frigo.asteroids.component.Size;
 import frigo.asteroids.component.TextureName;
 import frigo.asteroids.component.Velocity;
@@ -77,6 +78,7 @@ public class AsteroidsWorldFactory {
         world.set(entity, new Acceleration(0, 0));
         world.set(entity, new Velocity(0.2, 0));
         world.set(entity, new Position(0, 0.5));
+        world.set(entity, new Rotation(Math.PI / 2));
         world.set(entity, new Size(size));
         world.set(entity, new TextureName("spaceship.png"));
         return entity;
@@ -101,9 +103,9 @@ public class AsteroidsWorldFactory {
         double speed = 0.005;
         Entity entity = world.createEntity();
 
-        world.set(entity, new Attractable());
-        world.set(entity, new Mass(PI * 4 / 3 * pow(size, 3) * DENSITY));
-        world.set(entity, new Acceleration(0, 0));
+        // world.set(entity, new Attractable());
+        // world.set(entity, new Mass(PI * 4 / 3 * pow(size, 3) * DENSITY));
+        // world.set(entity, new Acceleration(0, 0));
 
         world.set(entity, new Velocity(getRandom(-speed, speed), getRandom(-speed, speed)));
         world.set(entity, new Position(getRandom(-1, 1), getRandom(-1, 1)));

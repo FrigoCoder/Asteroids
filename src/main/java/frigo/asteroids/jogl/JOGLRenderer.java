@@ -13,8 +13,10 @@ import com.jogamp.opengl.util.texture.Texture;
 
 import frigo.asteroids.component.Circle;
 import frigo.asteroids.component.Position;
+import frigo.asteroids.component.Rotation;
 import frigo.asteroids.component.Size;
 import frigo.asteroids.component.TextureName;
+import frigo.asteroids.component.Vector;
 import frigo.asteroids.core.Aspect;
 import frigo.asteroids.core.Entity;
 import frigo.asteroids.core.World;
@@ -71,25 +73,33 @@ public class JOGLRenderer implements GLEventListener {
             Position position = world.get(entity, Position.class);
             Size size = world.get(entity, Size.class);
             TextureName textureName = world.get(entity, TextureName.class);
-            drawTexture(gl, position, size.size, textureName.filename);
+            Rotation rotation = world.has(entity, Rotation.class) ? world.get(entity, Rotation.class) : new Rotation(0);
+            drawTexture(gl, position, rotation.radians, size.size, textureName.filename);
         }
     }
 
-    private void drawTexture (GL2 gl, Position position, double size, String texture) {
+    private void drawTexture (GL2 gl, Position position, double radians, double size, String texture) {
         Texture tex = textures.get(texture);
         tex.enable(gl);
         tex.bind(gl);
+
+        double scale = size / 2;
         gl.glBegin(GL2GL3.GL_QUADS);
-        gl.glTexCoord2d(0.5 - 0.5, 0.5 - 0.5);
-        gl.glVertex2d(position.x - size / 2, position.y - size / 2);
-        gl.glTexCoord2d(0.5 - 0.5, 0.5 + 0.5);
-        gl.glVertex2d(position.x - size / 2, position.y + size / 2);
-        gl.glTexCoord2d(0.5 + 0.5, 0.5 + 0.5);
-        gl.glVertex2d(position.x + size / 2, position.y + size / 2);
-        gl.glTexCoord2d(0.5 + 0.5, 0.5 - 0.5);
-        gl.glVertex2d(position.x + size / 2, position.y - size / 2);
+        gl.glTexCoord2d(0, 0);
+        vertex(gl, position.add(new Vector(-scale, -scale).rotate(radians)));
+        gl.glTexCoord2d(0, 1);
+        vertex(gl, position.add(new Vector(-scale, +scale).rotate(radians)));
+        gl.glTexCoord2d(1, 1);
+        vertex(gl, position.add(new Vector(+scale, +scale).rotate(radians)));
+        gl.glTexCoord2d(1, 0);
+        vertex(gl, position.add(new Vector(+scale, -scale).rotate(radians)));
         gl.glEnd();
+
         tex.disable(gl);
+    }
+
+    private void vertex (GL2 gl, Position position) {
+        gl.glVertex2d(position.x, position.y);
     }
 
     @Override
