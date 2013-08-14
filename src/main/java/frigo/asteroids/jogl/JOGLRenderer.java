@@ -13,7 +13,7 @@ import com.jogamp.opengl.util.texture.Texture;
 
 import frigo.asteroids.component.Circle;
 import frigo.asteroids.component.Position;
-import frigo.asteroids.component.Rotation;
+import frigo.asteroids.component.AngularDisplacement;
 import frigo.asteroids.component.Size;
 import frigo.asteroids.component.TextureName;
 import frigo.asteroids.component.Vector;
@@ -73,8 +73,8 @@ public class JOGLRenderer implements GLEventListener {
             Position position = world.get(entity, Position.class);
             Size size = world.get(entity, Size.class);
             TextureName textureName = world.get(entity, TextureName.class);
-            Rotation rotation = world.has(entity, Rotation.class) ? world.get(entity, Rotation.class) : new Rotation(0);
-            drawTexture(gl, position, rotation.radians, size.size, textureName.filename);
+            AngularDisplacement angularDisplacement = world.has(entity, AngularDisplacement.class) ? world.get(entity, AngularDisplacement.class) : new AngularDisplacement(0);
+            drawTexture(gl, position, angularDisplacement.radians, size.size, textureName.filename);
         }
     }
 
