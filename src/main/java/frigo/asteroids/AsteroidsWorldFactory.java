@@ -7,13 +7,13 @@ import static java.lang.Math.pow;
 import java.util.Random;
 
 import frigo.asteroids.component.Acceleration;
+import frigo.asteroids.component.AngularDisplacement;
 import frigo.asteroids.component.Attractable;
 import frigo.asteroids.component.Attractor;
 import frigo.asteroids.component.Circle;
 import frigo.asteroids.component.Mass;
 import frigo.asteroids.component.PlayerControllable;
 import frigo.asteroids.component.Position;
-import frigo.asteroids.component.Rotation;
 import frigo.asteroids.component.Size;
 import frigo.asteroids.component.TextureName;
 import frigo.asteroids.component.Velocity;
@@ -41,7 +41,7 @@ public class AsteroidsWorldFactory {
     private void addEntities () {
         world.addEntity(createSun());
         world.addEntity(createShip());
-        for( int i = 0; i < 500; i++ ){
+        for( int i = 0; i < 100; i++ ){
             world.addEntity(createAsteroid());
         }
         for( int i = 0; i < 20_000; i++ ){
@@ -72,13 +72,15 @@ public class AsteroidsWorldFactory {
     private Entity createShip () {
         double size = 0.1;
         Entity entity = world.createEntity();
-        world.set(entity, new PlayerControllable(0.3));
+        world.set(entity, new PlayerControllable(0.3, 0.1));
         world.set(entity, new Attractable());
         world.set(entity, new Mass(PI * 4 / 3 * pow(size, 3) * DENSITY));
         world.set(entity, new Acceleration(0, 0));
         world.set(entity, new Velocity(0.2, 0));
         world.set(entity, new Position(0, 0.5));
-        world.set(entity, new Rotation(Math.PI / 2));
+        world.set(entity, new AngularAcceleration(0.0));
+        world.set(entity, new AngularVelocity(0.0));
+        world.set(entity, new AngularDisplacement(Math.PI / 2));
         world.set(entity, new Size(size));
         world.set(entity, new TextureName("spaceship.png"));
         return entity;
