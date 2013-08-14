@@ -3,11 +3,11 @@ package frigo.asteroids.component;
 
 import frigo.asteroids.core.Component;
 
-public class Rotation extends Component {
+public class AngularDisplacement extends Component {
 
     public final double radians;
 
-    public Rotation (double radians) {
+    public AngularDisplacement (double radians) {
         this.radians = radians;
     }
 
