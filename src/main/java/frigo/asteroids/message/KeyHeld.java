@@ -1,14 +1,10 @@
 
 package frigo.asteroids.message;
 
-import frigo.asteroids.core.Message;
-
-public class KeyHeld extends Message {
-
-    public final short key;
+public class KeyHeld extends KeyMessage {
 
     public KeyHeld (short key) {
-        this.key = key;
+        super(key);
     }
 
 }
