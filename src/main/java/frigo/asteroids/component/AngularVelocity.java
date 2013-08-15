@@ -1,5 +1,5 @@
 
-package frigo.asteroids;
+package frigo.asteroids.component;
 
 import frigo.asteroids.core.Component;
 
