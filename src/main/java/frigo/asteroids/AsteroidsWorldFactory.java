@@ -7,7 +7,9 @@ import static java.lang.Math.pow;
 import java.util.Random;
 
 import frigo.asteroids.component.Acceleration;
+import frigo.asteroids.component.AngularAcceleration;
 import frigo.asteroids.component.AngularDisplacement;
+import frigo.asteroids.component.AngularVelocity;
 import frigo.asteroids.component.Attractable;
 import frigo.asteroids.component.Attractor;
 import frigo.asteroids.component.Circle;
