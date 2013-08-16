@@ -25,7 +25,7 @@ public class TextureBuffer {
 
     @VisibleForTesting
     File getFile (String filename) {
-        URL resource = getClass().getClassLoader().getResource(filename);
+        URL resource = ClassLoader.getSystemResource(filename);
         if( resource == null ){
             throw new IllegalArgumentException("File " + filename + " does not exist");
         }
