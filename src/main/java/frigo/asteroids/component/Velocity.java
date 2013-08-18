@@ -11,4 +11,10 @@ public class Velocity extends Vector {
         return add(acceleration.mul(elapsed));
     }
 
+    @SuppressWarnings("unchecked")
+    @Override
+    protected Velocity create (double xval, double yval) {
+        return new Velocity(xval, yval);
+    }
+
 }

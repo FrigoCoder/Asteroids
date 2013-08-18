@@ -7,4 +7,10 @@ public class Acceleration extends Vector {
         super(ddx, ddy);
     }
 
+    @SuppressWarnings("unchecked")
+    @Override
+    protected Vector create (double xval, double yval) {
+        return new Vector(xval, yval);
+    }
+
 }
