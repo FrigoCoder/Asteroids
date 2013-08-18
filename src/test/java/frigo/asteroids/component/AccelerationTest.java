@@ -12,7 +12,8 @@ public class AccelerationTest {
 
     @Test
     public void add_explicit_vector () {
-        assertThat(acceleration.add(new Vector(1.0, 1.0)), is(new Acceleration(3.0, 4.0)));
+        Acceleration actual = acceleration.add(new Vector(1.0, 1.0));
+        assertThat(actual, is(new Acceleration(3.0, 4.0)));
     }
 
 }
