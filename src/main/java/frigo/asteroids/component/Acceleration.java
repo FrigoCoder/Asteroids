@@ -28,7 +28,7 @@ public class Acceleration extends Vector {
     @SuppressWarnings("unchecked")
     @Override
     protected Vector create (double xval, double yval) {
-        return new Vector(xval, yval);
+        return new Acceleration(xval, yval);
     }
 
 }
