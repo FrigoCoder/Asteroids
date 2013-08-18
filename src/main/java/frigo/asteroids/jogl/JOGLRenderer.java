@@ -11,9 +11,9 @@ import javax.media.opengl.fixedfunc.GLMatrixFunc;
 
 import com.jogamp.opengl.util.texture.Texture;
 
+import frigo.asteroids.component.AngularDisplacement;
 import frigo.asteroids.component.Circle;
 import frigo.asteroids.component.Position;
-import frigo.asteroids.component.AngularDisplacement;
 import frigo.asteroids.component.Size;
 import frigo.asteroids.component.TextureName;
 import frigo.asteroids.component.Vector;
@@ -73,8 +73,10 @@ public class JOGLRenderer implements GLEventListener {
             Position position = world.get(entity, Position.class);
             Size size = world.get(entity, Size.class);
             TextureName textureName = world.get(entity, TextureName.class);
-            AngularDisplacement angularDisplacement = world.has(entity, AngularDisplacement.class) ? world.get(entity, AngularDisplacement.class) : new AngularDisplacement(0);
-            drawTexture(gl, position, angularDisplacement.radians, size.size, textureName.filename);
+            AngularDisplacement angularDisplacement =
+                world.has(entity, AngularDisplacement.class) ? world.get(entity, AngularDisplacement.class)
+                    : new AngularDisplacement(0);
+            drawTexture(gl, position, angularDisplacement.value, size.size, textureName.filename);
         }
     }
 
