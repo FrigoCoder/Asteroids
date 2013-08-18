@@ -11,14 +11,4 @@ public class Velocity extends Vector {
         return add(acceleration.mul(elapsed));
     }
 
-    @Override
-    public Velocity add (Vector other) {
-        return new Velocity(x + other.x, y + other.y);
-    }
-
-    @Override
-    public Velocity mul (double scalar) {
-        return new Velocity(x * scalar, y * scalar);
-    }
-
 }
