@@ -1,10 +1,6 @@
 
 package frigo.asteroids.component;
 
-import java.lang.reflect.Constructor;
-
-import com.google.common.base.Throwables;
-
 import frigo.asteroids.core.Component;
 
 public class Scalar extends Component {
@@ -15,29 +11,24 @@ public class Scalar extends Component {
         this.value = value;
     }
 
-    public <T extends Scalar> T add (Scalar addend) {
+    public Scalar add (Scalar addend) {
         return add(addend.value);
     }
 
-    public <T extends Scalar> T add (double addend) {
+    public Scalar add (double addend) {
         return create(value + addend);
     }
 
-    public <T extends Scalar> T mul (Scalar multiplicand) {
+    public Scalar mul (Scalar multiplicand) {
         return mul(multiplicand.value);
     }
 
-    public <T extends Scalar> T mul (double multiplicand) {
+    public Scalar mul (double multiplicand) {
         return create(value * multiplicand);
     }
 
-    protected <T extends Scalar> T create (double val) {
-        try{
-            Constructor<? extends Scalar> constructor = getClass().getConstructor(Double.TYPE);
-            return (T) constructor.newInstance(val);
-        }catch( Exception e ){
-            throw Throwables.propagate(e);
-        }
+    protected Scalar create (double val) {
+        return new Scalar(val);
     }
 
 }

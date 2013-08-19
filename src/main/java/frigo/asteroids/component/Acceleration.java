@@ -7,25 +7,21 @@ public class Acceleration extends Vector {
         super(ddx, ddy);
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public Acceleration add (Vector addend) {
-        return super.add(addend);
+        return (Acceleration) super.add(addend);
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public Acceleration mul (double scalar) {
-        return super.mul(scalar);
+        return (Acceleration) super.mul(scalar);
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public Acceleration rotate (double radians) {
-        return super.rotate(radians);
+        return (Acceleration) super.rotate(radians);
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     protected Vector create (double xval, double yval) {
         return new Acceleration(xval, yval);
