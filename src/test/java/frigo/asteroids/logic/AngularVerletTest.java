@@ -9,6 +9,7 @@ import org.junit.Test;
 import frigo.asteroids.component.AngularAcceleration;
 import frigo.asteroids.component.AngularDisplacement;
 import frigo.asteroids.component.AngularVelocity;
+import frigo.asteroids.logic.rotation.AngularVerlet;
 
 public class AngularVerletTest {
 

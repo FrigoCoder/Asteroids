@@ -1,5 +1,5 @@
 
-package frigo.asteroids.logic;
+package frigo.asteroids.logic.rotation;
 
 import frigo.asteroids.component.AngularAcceleration;
 import frigo.asteroids.component.AngularDisplacement;
