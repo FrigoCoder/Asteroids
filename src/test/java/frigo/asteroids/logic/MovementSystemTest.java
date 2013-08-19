@@ -28,22 +28,15 @@ public class MovementSystemTest {
     }
 
     @Test
-    public void updates_velocity_of_entities_by_acceleration_and_elapsed_seconds () {
+    public void properly_updates_velocity_and_position_of_entities_with_acceleration_and_velocity () {
         world.set(entity, new Acceleration(1.0, 1.0));
         world.set(entity, new Velocity(1.0, -1.0));
+        world.set(entity, new Position(0.5, 0.5));
 
         world.update(0.1);
 
         assertThat(world.get(entity, Velocity.class), is(new Velocity(1.1, -0.9)));
-    }
-
-    @Test
-    public void does_not_update_velocity_of_entities_without_acceleration () {
-        world.set(entity, new Velocity(1.0, -1.0));
-
-        world.update(0.1);
-
-        assertThat(world.get(entity, Velocity.class), is(new Velocity(1.0, -1.0)));
+        assertThat(world.get(entity, Position.class), is(new Position(0.605, 0.405)));
     }
 
     @Test
@@ -57,6 +50,15 @@ public class MovementSystemTest {
     }
 
     @Test
+    public void does_not_update_velocity_of_entities_without_acceleration () {
+        world.set(entity, new Velocity(1.0, -1.0));
+
+        world.update(0.1);
+
+        assertThat(world.get(entity, Velocity.class), is(new Velocity(1.0, -1.0)));
+    }
+
+    @Test
     public void does_not_update_position_of_entities_without_velocity () {
         world.set(entity, new Position(0.0, 0.1));
 
@@ -65,15 +67,4 @@ public class MovementSystemTest {
         assertThat(world.get(entity, Position.class), is(new Position(0.0, 0.1)));
     }
 
-    @Test
-    public void properly_updates_velocity_and_position_of_entities_with_acceleration_and_velocity () {
-        world.set(entity, new Acceleration(1.0, 1.0));
-        world.set(entity, new Velocity(1.0, -1.0));
-        world.set(entity, new Position(0.5, 0.5));
-
-        world.update(0.1);
-
-        assertThat(world.get(entity, Velocity.class), is(new Velocity(1.1, -0.9)));
-        assertThat(world.get(entity, Position.class), is(new Position(0.605, 0.405)));
-    }
 }
