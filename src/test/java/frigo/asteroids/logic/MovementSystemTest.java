@@ -18,11 +18,10 @@ public class MovementSystemTest {
 
     private World world = new World();
     private Entity entity = world.createEntity();
-    private MovementSystem movementSystem = new MovementSystem();
 
     @Before
     public void setUp () {
-        world.addLogic(movementSystem);
+        world.addLogic(new MovementSystem());
         world.init();
     }
 

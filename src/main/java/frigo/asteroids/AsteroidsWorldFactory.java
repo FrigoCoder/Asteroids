@@ -48,7 +48,7 @@ public class AsteroidsWorldFactory {
         for( int i = 0; i < 100; i++ ){
             createAsteroid();
         }
-        for( int i = 0; i < 20_000; i++ ){
+        for( int i = 0; i < 50_000; i++ ){
             createStar();
         }
     }
