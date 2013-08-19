@@ -5,7 +5,7 @@ import gnu.trove.TIntObjectHashMap;
 
 import java.util.NoSuchElementException;
 
-public class ComponentMapper<T extends Component> {
+public class TroveComponentMapper<T extends Component> {
 
     private TIntObjectHashMap map = new TIntObjectHashMap();
 
