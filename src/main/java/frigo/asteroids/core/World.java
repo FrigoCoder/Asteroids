@@ -5,9 +5,17 @@ import java.util.List;
 
 public class World {
 
-    private EntityManager entities = new EntityManager();
+    private EntityManager entities;
     private MessageManager messages = new MessageManager();
     private SystemManager systems = new SystemManager();
+
+    public World () {
+        this(new TroveComponentStorageFactory());
+    }
+
+    public World (ComponentStorageFactory factory) {
+        entities = new EntityManager(factory);
+    }
 
     public Entity createEntity (Component... components) {
         return entities.createEntity(components);

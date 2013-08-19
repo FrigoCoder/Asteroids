@@ -12,6 +12,11 @@ public class EntityManager {
     private int counter;
     private List<Entity> entities = new LinkedList<>();
     private Map<Class<? extends Component>, ComponentStorage<?>> components = new HashMap<>();
+    private ComponentStorageFactory factory;
+
+    public EntityManager (ComponentStorageFactory factory) {
+        this.factory = factory;
+    }
 
     public Entity createEntity (Component... componentsToSet) {
         Entity entity = new Entity(counter++);
@@ -37,7 +42,7 @@ public class EntityManager {
 
     private <T extends Component> ComponentStorage<T> getComponentMapper (Class<T> type) {
         if( !components.containsKey(type) ){
-            components.put(type, new TroveComponentStorage<T>());
+            components.put(type, factory.create());
         }
         return (ComponentStorage<T>) components.get(type);
     }
