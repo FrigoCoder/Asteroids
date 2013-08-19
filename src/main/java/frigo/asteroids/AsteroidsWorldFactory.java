@@ -20,6 +20,7 @@ import frigo.asteroids.component.Position;
 import frigo.asteroids.component.Size;
 import frigo.asteroids.component.TextureName;
 import frigo.asteroids.component.Velocity;
+import frigo.asteroids.core.ArrayComponentStorageFactory;
 import frigo.asteroids.core.Entity;
 import frigo.asteroids.core.World;
 import frigo.asteroids.logic.AccelerationNullerSystem;
@@ -36,7 +37,7 @@ public class AsteroidsWorldFactory {
     private World world;
 
     public World createWorld () {
-        world = new World();
+        world = new World(new ArrayComponentStorageFactory());
         addEntities();
         addLogics();
         return world;
@@ -48,7 +49,7 @@ public class AsteroidsWorldFactory {
         for( int i = 0; i < 100; i++ ){
             createAsteroid();
         }
-        for( int i = 0; i < 40_000; i++ ){
+        for( int i = 0; i < 80_000; i++ ){
             createStar();
         }
     }
@@ -106,14 +107,13 @@ public class AsteroidsWorldFactory {
     }
 
     private Entity createStar () {
-        // double size = 1.0;
-        double size = 1.0 / 500;
+        double size = 0.01;
         double speed = 0.005;
         Entity entity = world.createEntity();
 
-        // world.set(entity, new Attractable());
-        // world.set(entity, new Mass(PI * 4 / 3 * pow(size, 3) * DENSITY));
-        // world.set(entity, new Acceleration(0, 0));
+        world.set(entity, new Attractable());
+        world.set(entity, new Mass(PI * 4 / 3 * pow(size, 3) * DENSITY));
+        world.set(entity, new Acceleration(0, 0));
 
         world.set(entity, new Velocity(getRandom(-speed, speed), getRandom(-speed, speed)));
         world.set(entity, new Position(getRandom(-1, 1), getRandom(-1, 1)));
