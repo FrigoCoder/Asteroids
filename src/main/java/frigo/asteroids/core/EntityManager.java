@@ -11,7 +11,7 @@ public class EntityManager {
 
     private int counter;
     private List<Entity> entities = new LinkedList<>();
-    private Map<Class<? extends Component>, ComponentMapper<?>> components = new HashMap<>();
+    private Map<Class<? extends Component>, ComponentStorage<?>> components = new HashMap<>();
 
     public Entity createEntity (Component... componentsToSet) {
         Entity entity = new Entity(counter++);
@@ -35,11 +35,11 @@ public class EntityManager {
         getComponentMapper(clazz).set(entity, component);
     }
 
-    private <T extends Component> ComponentMapper<T> getComponentMapper (Class<T> type) {
+    private <T extends Component> ComponentStorage<T> getComponentMapper (Class<T> type) {
         if( !components.containsKey(type) ){
-            components.put(type, new TroveComponentMapper<T>());
+            components.put(type, new TroveComponentStorage<T>());
         }
-        return (ComponentMapper<T>) components.get(type);
+        return (ComponentStorage<T>) components.get(type);
     }
 
     public List<Entity> getEntitiesFor (Aspect aspect) {
@@ -51,7 +51,7 @@ public class EntityManager {
 
     private void filterAll (List<Entity> result, Aspect aspect) {
         for( Class<? extends Component> clazz : aspect.all ){
-            ComponentMapper<? extends Component> mapper = getComponentMapper(clazz);
+            ComponentStorage<? extends Component> mapper = getComponentMapper(clazz);
             Iterator<Entity> iterator = result.iterator();
             while( iterator.hasNext() ){
                 if( !mapper.has(iterator.next()) ){
@@ -63,7 +63,7 @@ public class EntityManager {
 
     private void filterNone (List<Entity> result, Aspect aspect) {
         for( Class<? extends Component> clazz : aspect.none ){
-            ComponentMapper<? extends Component> mapper = getComponentMapper(clazz);
+            ComponentStorage<? extends Component> mapper = getComponentMapper(clazz);
             Iterator<Entity> iterator = result.iterator();
             while( iterator.hasNext() ){
                 if( mapper.has(iterator.next()) ){
