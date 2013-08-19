@@ -2,18 +2,16 @@
 package frigo.asteroids.core;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 public class EntityManager {
 
     private int counter;
-    private Set<Entity> entities = new HashSet<>();
-    private Map<Class<? extends Component>, TroveComponentMapper<?>> components = new HashMap<>();
+    private List<Entity> entities = new LinkedList<>();
+    private Map<Class<? extends Component>, ComponentMapper<?>> components = new HashMap<>();
 
     public Entity createEntity (Component... componentsToSet) {
         Entity entity = new Entity(counter++);
@@ -22,10 +20,6 @@ public class EntityManager {
         }
         entities.add(entity);
         return entity;
-    }
-
-    public Set<Entity> getEntities () {
-        return entities;
     }
 
     public boolean has (Entity entity, Class<? extends Component> type) {
@@ -41,11 +35,11 @@ public class EntityManager {
         getComponentMapper(clazz).set(entity, component);
     }
 
-    private <T extends Component> TroveComponentMapper<T> getComponentMapper (Class<T> type) {
+    private <T extends Component> ComponentMapper<T> getComponentMapper (Class<T> type) {
         if( !components.containsKey(type) ){
             components.put(type, new TroveComponentMapper<T>());
         }
-        return (TroveComponentMapper<T>) components.get(type);
+        return (ComponentMapper<T>) components.get(type);
     }
 
     public List<Entity> getEntitiesFor (Aspect aspect) {
@@ -57,7 +51,7 @@ public class EntityManager {
 
     private void filterAll (List<Entity> result, Aspect aspect) {
         for( Class<? extends Component> clazz : aspect.all ){
-            TroveComponentMapper<? extends Component> mapper = getComponentMapper(clazz);
+            ComponentMapper<? extends Component> mapper = getComponentMapper(clazz);
             Iterator<Entity> iterator = result.iterator();
             while( iterator.hasNext() ){
                 if( !mapper.has(iterator.next()) ){
@@ -69,7 +63,7 @@ public class EntityManager {
 
     private void filterNone (List<Entity> result, Aspect aspect) {
         for( Class<? extends Component> clazz : aspect.none ){
-            TroveComponentMapper<? extends Component> mapper = getComponentMapper(clazz);
+            ComponentMapper<? extends Component> mapper = getComponentMapper(clazz);
             Iterator<Entity> iterator = result.iterator();
             while( iterator.hasNext() ){
                 if( mapper.has(iterator.next()) ){

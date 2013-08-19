@@ -20,7 +20,7 @@ public class TroveComponentMapperTest {
 
     private World world = new World();
     private Entity entity = world.createEntity();
-    private TroveComponentMapper<Position> manager = new TroveComponentMapper<>();
+    private ComponentMapper<Position> manager = new TroveComponentMapper<>();
     private Position component = new Position(0.0, 0.0);
 
     @Test
