@@ -12,7 +12,6 @@ import frigo.asteroids.component.AngularDisplacement;
 import frigo.asteroids.component.AngularVelocity;
 import frigo.asteroids.component.Attractable;
 import frigo.asteroids.component.Attractor;
-import frigo.asteroids.component.Circle;
 import frigo.asteroids.component.Mass;
 import frigo.asteroids.component.PlayerControllable;
 import frigo.asteroids.component.Point;
@@ -49,7 +48,7 @@ public class AsteroidsWorldFactory {
         for( int i = 0; i < 100; i++ ){
             createAsteroid();
         }
-        for( int i = 0; i < 80_000; i++ ){
+        for( int i = 0; i < 20_000; i++ ){
             createStar();
         }
     }
@@ -111,14 +110,13 @@ public class AsteroidsWorldFactory {
         double speed = 0.005;
         Entity entity = world.createEntity();
 
-        world.set(entity, new Attractable());
-        world.set(entity, new Mass(PI * 4 / 3 * pow(size, 3) * DENSITY));
-        world.set(entity, new Acceleration(0, 0));
+        // world.set(entity, new Attractable());
+        // world.set(entity, new Mass(PI * 4 / 3 * pow(size, 3) * DENSITY));
+        // world.set(entity, new Acceleration(0, 0));
 
         world.set(entity, new Velocity(getRandom(-speed, speed), getRandom(-speed, speed)));
         world.set(entity, new Position(getRandom(-1, 1), getRandom(-1, 1)));
         world.set(entity, new Size(size));
-        world.set(entity, new Circle());
         world.set(entity, new Point());
         return entity;
     }
