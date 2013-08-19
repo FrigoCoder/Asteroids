@@ -2,7 +2,6 @@
 package frigo.asteroids.core;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -28,19 +27,19 @@ public class EntityManager {
     }
 
     public boolean has (Entity entity, Class<? extends Component> type) {
-        return getComponentMapper(type).has(entity);
+        return getComponentStorage(type).has(entity);
     }
 
     public <T extends Component> T get (Entity entity, Class<T> type) {
-        return getComponentMapper(type).get(entity);
+        return getComponentStorage(type).get(entity);
     }
 
     public <T extends Component> void set (Entity entity, T component) {
         Class<T> clazz = (Class<T>) component.getClass();
-        getComponentMapper(clazz).set(entity, component);
+        getComponentStorage(clazz).set(entity, component);
     }
 
-    private <T extends Component> ComponentStorage<T> getComponentMapper (Class<T> type) {
+    private <T extends Component> ComponentStorage<T> getComponentStorage (Class<T> type) {
         if( !components.containsKey(type) ){
             components.put(type, factory.create());
         }
@@ -48,34 +47,49 @@ public class EntityManager {
     }
 
     public List<Entity> getEntitiesFor (Aspect aspect) {
-        List<Entity> result = new LinkedList<>(entities);
-        filterAll(result, aspect);
-        filterNone(result, aspect);
+        List<Entity> result = new LinkedList<>();
+        List<ComponentStorage<?>> needed = getNeededComponentStorages(aspect);
+        List<ComponentStorage<?>> undesired = getUndesiredComponentStorages(aspect);
+        for( Entity entity : entities ){
+            if( matchesAllOf(needed, entity) && !matchesAnyOf(undesired, entity) ){
+                result.add(entity);
+            }
+        }
         return result;
     }
 
-    private void filterAll (List<Entity> result, Aspect aspect) {
+    private List<ComponentStorage<?>> getNeededComponentStorages (Aspect aspect) {
+        List<ComponentStorage<?>> storages = new LinkedList<>();
         for( Class<? extends Component> clazz : aspect.all ){
-            ComponentStorage<? extends Component> mapper = getComponentMapper(clazz);
-            Iterator<Entity> iterator = result.iterator();
-            while( iterator.hasNext() ){
-                if( !mapper.has(iterator.next()) ){
-                    iterator.remove();
-                }
-            }
+            storages.add(getComponentStorage(clazz));
         }
+        return storages;
     }
 
-    private void filterNone (List<Entity> result, Aspect aspect) {
+    private List<ComponentStorage<?>> getUndesiredComponentStorages (Aspect aspect) {
+        List<ComponentStorage<?>> storages = new LinkedList<>();
         for( Class<? extends Component> clazz : aspect.none ){
-            ComponentStorage<? extends Component> mapper = getComponentMapper(clazz);
-            Iterator<Entity> iterator = result.iterator();
-            while( iterator.hasNext() ){
-                if( mapper.has(iterator.next()) ){
-                    iterator.remove();
-                }
+            storages.add(getComponentStorage(clazz));
+        }
+        return storages;
+    }
+
+    private boolean matchesAllOf (List<ComponentStorage<?>> needed, Entity entity) {
+        for( ComponentStorage<?> storage : needed ){
+            if( !storage.has(entity) ){
+                return false;
             }
         }
+        return true;
+    }
+
+    private boolean matchesAnyOf (List<ComponentStorage<?>> undesired, Entity entity) {
+        for( ComponentStorage<?> storage : undesired ){
+            if( storage.has(entity) ){
+                return true;
+            }
+        }
+        return false;
     }
 
     @Deprecated
