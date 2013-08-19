@@ -23,9 +23,9 @@ import frigo.asteroids.core.Entity;
 import frigo.asteroids.core.World;
 import frigo.asteroids.logic.AccelerationNullerSystem;
 import frigo.asteroids.logic.InputSystem;
-import frigo.asteroids.logic.MovementSystem;
 import frigo.asteroids.logic.gravity.GravitySystem;
 import frigo.asteroids.logic.gravity.NewtonianGravity;
+import frigo.asteroids.logic.movement.MovementSystem;
 
 public class AsteroidsWorldFactory {
 
@@ -82,7 +82,7 @@ public class AsteroidsWorldFactory {
         world.set(entity, new Position(0, 0.5));
         world.set(entity, new AngularAcceleration(0.0));
         world.set(entity, new AngularVelocity(0.0));
-        world.set(entity, new AngularDisplacement(Math.PI / 2));
+        world.set(entity, new AngularDisplacement(Math.PI / 4));
         world.set(entity, new Size(size));
         world.set(entity, new TextureName("spaceship.png"));
         return entity;

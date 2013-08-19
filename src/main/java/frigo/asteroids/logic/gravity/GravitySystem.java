@@ -17,8 +17,8 @@ import frigo.asteroids.core.World;
 public class GravitySystem implements Logic {
 
     private GravityCalculator calculator;
-    private Aspect attractorAspect;
-    private Aspect attractedAspect;
+    private Aspect attractorAspect = Aspect.allOf(Attractor.class, Mass.class, Position.class);
+    private Aspect attractedAspect = Aspect.allOf(Attractable.class, Mass.class, Position.class, Acceleration.class);
 
     public GravitySystem (GravityCalculator calculator) {
         this.calculator = calculator;
@@ -26,8 +26,6 @@ public class GravitySystem implements Logic {
 
     @Override
     public void init (World world) {
-        attractorAspect = Aspect.allOf(Attractor.class, Mass.class, Position.class);
-        attractedAspect = Aspect.allOf(Attractable.class, Mass.class, Position.class, Acceleration.class);
     }
 
     @Override

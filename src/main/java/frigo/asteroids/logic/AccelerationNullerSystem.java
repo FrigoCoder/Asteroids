@@ -9,11 +9,10 @@ import frigo.asteroids.core.World;
 
 public class AccelerationNullerSystem implements Logic {
 
-    private Aspect accelerationAspect;
+    private Aspect accelerationAspect = Aspect.allOf(Acceleration.class);
 
     @Override
     public void init (World world) {
-        accelerationAspect = Aspect.allOf(Acceleration.class);
     }
 
     @Override

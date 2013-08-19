@@ -9,6 +9,7 @@ import org.junit.Test;
 import frigo.asteroids.component.Acceleration;
 import frigo.asteroids.component.Position;
 import frigo.asteroids.component.Velocity;
+import frigo.asteroids.logic.movement.VelocityVerlet;
 
 public class VelocityVerletTest {
 

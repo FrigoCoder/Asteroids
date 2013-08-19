@@ -1,5 +1,5 @@
 
-package frigo.asteroids.logic;
+package frigo.asteroids.logic.movement;
 
 import frigo.asteroids.component.Acceleration;
 import frigo.asteroids.component.Position;
@@ -11,15 +11,12 @@ import frigo.asteroids.core.World;
 
 public class MovementSystem implements Logic {
 
-    private Aspect all;
-    private Aspect noPosition;
-    private Aspect noAcceleration;
+    private Aspect all = Aspect.allOf(Acceleration.class, Velocity.class, Position.class);
+    private Aspect noPosition = Aspect.allOf(Acceleration.class, Velocity.class).andNoneOf(Position.class);
+    private Aspect noAcceleration = Aspect.allOf(Velocity.class, Position.class).andNoneOf(Acceleration.class);
 
     @Override
     public void init (World world) {
-        all = Aspect.allOf(Acceleration.class, Velocity.class, Position.class);
-        noPosition = Aspect.allOf(Acceleration.class, Velocity.class).andNoneOf(Position.class);
-        noAcceleration = Aspect.allOf(Velocity.class, Position.class).andNoneOf(Acceleration.class);
     }
 
     @Override
@@ -58,4 +55,5 @@ public class MovementSystem implements Logic {
             world.set(entity, verlet.getVelocity(elapsedSeconds));
         }
     }
+
 }
