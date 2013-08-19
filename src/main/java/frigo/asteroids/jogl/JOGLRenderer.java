@@ -12,7 +12,7 @@ import javax.media.opengl.fixedfunc.GLMatrixFunc;
 import com.jogamp.opengl.util.texture.Texture;
 
 import frigo.asteroids.component.AngularDisplacement;
-import frigo.asteroids.component.Circle;
+import frigo.asteroids.component.Point;
 import frigo.asteroids.component.Position;
 import frigo.asteroids.component.Size;
 import frigo.asteroids.component.TextureName;
@@ -47,23 +47,18 @@ public class JOGLRenderer implements GLEventListener {
     public void display (GLAutoDrawable drawable) {
         GL2 gl = drawable.getGL().getGL2();
         gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
-        drawCircles(gl);
+        drawPoints(gl);
         drawTextures(gl);
     }
 
-    private void drawCircles (GL2 gl) {
-        Aspect aspect = Aspect.allOf(Position.class, Size.class, Circle.class);
+    private void drawPoints (GL2 gl) {
+        gl.glPointSize(1.0f);
+        gl.glBegin(GL.GL_POINTS);
+        Aspect aspect = Aspect.allOf(Position.class, Point.class);
         for( Entity entity : world.getEntitiesFor(aspect) ){
             Position position = world.get(entity, Position.class);
-            Size size = world.get(entity, Size.class);
-            drawCircle(gl, position, size.size);
+            gl.glVertex2d(position.x, position.y);
         }
-    }
-
-    private void drawCircle (GL2 gl, Position position, double size) {
-        gl.glPointSize((float) size);
-        gl.glBegin(GL.GL_POINTS);
-        gl.glVertex2d(position.x, position.y);
         gl.glEnd();
     }
 

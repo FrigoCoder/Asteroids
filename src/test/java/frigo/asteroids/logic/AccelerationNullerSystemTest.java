@@ -20,7 +20,6 @@ public class AccelerationNullerSystemTest {
 
     @Before
     public void setUp () {
-        world.addEntity(entity);
         world.addLogic(system);
         world.init();
     }

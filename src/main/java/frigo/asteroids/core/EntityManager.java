@@ -11,7 +11,7 @@ import java.util.Set;
 
 public class EntityManager {
 
-    private long counter;
+    private int counter;
     private Set<Entity> entities = new HashSet<>();
     private Map<Class<? extends Component>, ComponentMapper<?>> components = new HashMap<>();
 
@@ -20,11 +20,8 @@ public class EntityManager {
         for( Component component : componentsToSet ){
             set(entity, component);
         }
-        return entity;
-    }
-
-    public void addEntity (Entity entity) {
         entities.add(entity);
+        return entity;
     }
 
     public Set<Entity> getEntities () {
@@ -84,17 +81,7 @@ public class EntityManager {
 
     @Deprecated
     public boolean matches (Entity entity, Aspect aspect) {
-        for( Class<? extends Component> component : aspect.all ){
-            if( !has(entity, component) ){
-                return false;
-            }
-        }
-        for( Class<? extends Component> component : aspect.none ){
-            if( has(entity, component) ){
-                return false;
-            }
-        }
-        return true;
+        return getEntitiesFor(aspect).contains(entity);
     }
 
 }

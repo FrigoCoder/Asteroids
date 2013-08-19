@@ -13,10 +13,6 @@ public class World {
         return entities.createEntity(components);
     }
 
-    public void addEntity (Entity entity) {
-        entities.addEntity(entity);
-    }
-
     public List<Entity> getEntities () {
         return entities.getEntitiesFor(Aspect.allOf());
     }
@@ -58,6 +54,7 @@ public class World {
         messages.clear();
     }
 
+    @Deprecated
     public boolean matches (Entity entity, Aspect aspect) {
         return entities.matches(entity, aspect);
     }

@@ -21,25 +21,20 @@ import frigo.asteroids.core.World;
 public class GravitySystemTest {
 
     private World world = new World();
-    private GravitySystem gravitySystem = new GravitySystem(new NewtonianGravity(world));
-    private Entity attractor1 = world.createEntity(new Attractor(), new Mass(100), new Acceleration(0, 0),
-        new Position(-0.1, 0.0));
-    private Entity attracted1 = world.createEntity(new Attractable(), new Mass(10), new Acceleration(0, 0),
-        new Position(0.1, 0.0));
-    private Entity attracted2 = world.createEntity(new Attractable(), new Mass(1), new Acceleration(0, 0),
-        new Position(0.0, 0.1));
+    private Entity attracted1;
+    private Entity attracted2;
 
     @Before
     public void setUp () {
-        gravitySystem.init(world);
+        attracted1 = createAttracted(new Mass(10), new Position(0.1, 0.0));
+        attracted2 = createAttracted(new Mass(1), new Position(0.0, 0.1));
+        world.addLogic(new GravitySystem(new NewtonianGravity(world)));
+        world.init();
     }
 
     @Test
     public void does_nothing_without_attractors () {
-        world.addEntity(attracted1);
-        world.addEntity(attracted2);
-
-        gravitySystem.update(world, 1.0);
+        world.update(1.0);
 
         assertThat(world.get(attracted1, Acceleration.class), is(new Acceleration(0.0, 0.0)));
         assertThat(world.get(attracted2, Acceleration.class), is(new Acceleration(0.0, 0.0)));
@@ -47,14 +42,20 @@ public class GravitySystemTest {
 
     @Test
     public void attractor_attracts_two_attractables () {
-        world.addEntity(attractor1);
-        world.addEntity(attracted1);
-        world.addEntity(attracted2);
+        createAttractor();
 
-        gravitySystem.update(world, 1.0);
+        world.update(1.0);
 
         assertAcceleration(attracted1, new Vector(-0.2, 0.0).mul(G * 100 / 0.04));
         assertAcceleration(attracted2, new Vector(-0.1, -0.1).mul(G * 100 / 0.02));
+    }
+
+    private Entity createAttractor () {
+        return world.createEntity(new Attractor(), new Mass(100), new Acceleration(0, 0), new Position(-0.1, 0.0));
+    }
+
+    private Entity createAttracted (Mass mass, Position position) {
+        return world.createEntity(new Attractable(), mass, new Acceleration(0, 0), position);
     }
 
     private void assertAcceleration (Entity attracted, Vector expected) {

@@ -15,6 +15,7 @@ import frigo.asteroids.component.Attractor;
 import frigo.asteroids.component.Circle;
 import frigo.asteroids.component.Mass;
 import frigo.asteroids.component.PlayerControllable;
+import frigo.asteroids.component.Point;
 import frigo.asteroids.component.Position;
 import frigo.asteroids.component.Size;
 import frigo.asteroids.component.TextureName;
@@ -26,6 +27,7 @@ import frigo.asteroids.logic.InputSystem;
 import frigo.asteroids.logic.gravity.GravitySystem;
 import frigo.asteroids.logic.gravity.NewtonianGravity;
 import frigo.asteroids.logic.movement.MovementSystem;
+import frigo.asteroids.logic.rotation.RotationSystem;
 
 public class AsteroidsWorldFactory {
 
@@ -41,19 +43,20 @@ public class AsteroidsWorldFactory {
     }
 
     private void addEntities () {
-        world.addEntity(createSun());
-        world.addEntity(createShip());
+        createSun();
+        createShip();
         for( int i = 0; i < 100; i++ ){
-            world.addEntity(createAsteroid());
+            createAsteroid();
         }
-        for( int i = 0; i < 20_000; i++ ){
-            world.addEntity(createStar());
+        for( int i = 0; i < 40_000; i++ ){
+            createStar();
         }
     }
 
     private void addLogics () {
         world.addLogic(new AccelerationNullerSystem());
         world.addLogic(new InputSystem());
+        world.addLogic(new RotationSystem());
         world.addLogic(new GravitySystem(new NewtonianGravity(world)));
         world.addLogic(new MovementSystem());
     }
@@ -80,8 +83,8 @@ public class AsteroidsWorldFactory {
         world.set(entity, new Acceleration(0, 0));
         world.set(entity, new Velocity(0.2, 0));
         world.set(entity, new Position(0, 0.5));
-        world.set(entity, new AngularAcceleration(0.0));
-        world.set(entity, new AngularVelocity(0.0));
+        world.set(entity, new AngularAcceleration(0.1));
+        world.set(entity, new AngularVelocity(0.1));
         world.set(entity, new AngularDisplacement(Math.PI / 4));
         world.set(entity, new Size(size));
         world.set(entity, new TextureName("spaceship.png"));
@@ -103,7 +106,8 @@ public class AsteroidsWorldFactory {
     }
 
     private Entity createStar () {
-        double size = 1.0;
+        // double size = 1.0;
+        double size = 1.0 / 500;
         double speed = 0.005;
         Entity entity = world.createEntity();
 
@@ -115,7 +119,7 @@ public class AsteroidsWorldFactory {
         world.set(entity, new Position(getRandom(-1, 1), getRandom(-1, 1)));
         world.set(entity, new Size(size));
         world.set(entity, new Circle());
-        // world.set(entity, new Textured("sun.png"));
+        world.set(entity, new Point());
         return entity;
     }
 

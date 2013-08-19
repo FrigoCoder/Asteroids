@@ -27,7 +27,6 @@ public class WorldTest {
 
     @Test
     public void added_entity_is_present () {
-        world.addEntity(entity);
         assertThat(world.getEntities(), hasItem(entity));
     }
 
@@ -35,10 +34,8 @@ public class WorldTest {
     public void entities_matching_aspect_are_returned () {
         world.set(entity, new Position(1, 1));
         world.set(entity, new Velocity(1, 1));
-        world.addEntity(entity);
 
-        Entity empty = world.createEntity();
-        world.addEntity(empty);
+        world.createEntity();
 
         Aspect aspect = Aspect.allOf(Position.class, Velocity.class);
 

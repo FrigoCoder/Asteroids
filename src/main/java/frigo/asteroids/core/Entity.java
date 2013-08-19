@@ -3,9 +3,9 @@ package frigo.asteroids.core;
 
 public final class Entity extends Value {
 
-    public final long id;
+    public final int id;
 
-    Entity (long id) {
+    Entity (int id) {
         this.id = id;
     }
 

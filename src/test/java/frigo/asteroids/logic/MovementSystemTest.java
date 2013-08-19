@@ -22,7 +22,6 @@ public class MovementSystemTest {
 
     @Before
     public void setUp () {
-        world.addEntity(entity);
         world.addLogic(movementSystem);
         world.init();
     }
