@@ -6,7 +6,7 @@ import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
 
-import frigo.asteroids.component.Circle;
+import frigo.asteroids.component.Point;
 import frigo.asteroids.component.Position;
 import frigo.asteroids.component.Velocity;
 
@@ -30,7 +30,7 @@ public class AspectTest {
 
     @Test
     public void aspect_all_matches_entities_having_more_components () {
-        Entity entity = world.createEntity(new Position(0, 0), new Velocity(0, 0), new Circle());
+        Entity entity = world.createEntity(new Position(0, 0), new Velocity(0, 0), new Point());
         assertThat(world.matches(entity, all), is(true));
     }
 
@@ -48,7 +48,7 @@ public class AspectTest {
 
     @Test
     public void aspect_none_matches_entities_having_other_components () {
-        Entity entity = world.createEntity(new Circle());
+        Entity entity = world.createEntity(new Point());
         assertThat(world.matches(entity, none), is(true));
     }
 
