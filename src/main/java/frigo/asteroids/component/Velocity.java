@@ -7,10 +7,6 @@ public class Velocity extends Vector {
         super(dx, dy);
     }
 
-    public Velocity add (Vector acceleration, double elapsed) {
-        return add(acceleration.mul(elapsed));
-    }
-
     @Override
     public Velocity add (Vector addend) {
         return (Velocity) super.add(addend);

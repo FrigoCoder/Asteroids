@@ -13,7 +13,7 @@ public class VelocityTest {
         Velocity velocity = new Velocity(0.5, 0.5);
         Acceleration acceleration = new Acceleration(0.1, -0.1);
         double elapsed = 0.1;
-        assertThat(velocity.add(acceleration, elapsed), is(new Velocity(0.51, 0.49)));
+        assertThat(velocity.add(acceleration.mul(elapsed)), is(new Velocity(0.51, 0.49)));
     }
 
 }

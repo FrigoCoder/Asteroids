@@ -43,7 +43,7 @@ public class VelocityVerletTest {
     @Test
     public void nonzero_acceleration_and_tenth_elapsed_seconds () {
         verlet = new VelocityVerlet(acceleration, velocity, position);
-        assertVelocity(0.1, velocity.add(acceleration, 0.1), 0);
+        assertVelocity(0.1, velocity.add(acceleration.mul(0.1)), 0);
         assertPosition(0.1, position.add(velocity, 0.1).add(acceleration, 0.5 * 0.1 * 0.1), 0);
     }
 
