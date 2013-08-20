@@ -21,7 +21,7 @@ public class ArrayComponentStorageTest {
 
     private World world = new World();
     private Entity entity = world.createEntity();
-    private ComponentStorage<Position> storage = new ArrayComponentStorage<>();
+    private ComponentStorage<Position> storage = new ArrayComponentStorage<>(1);
     private Position component = new Position(0.0, 0.0);
 
     @Before
