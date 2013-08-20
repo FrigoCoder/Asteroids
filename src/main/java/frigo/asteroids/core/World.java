@@ -42,11 +42,11 @@ public class World {
     }
 
     public void addMessage (Object message) {
-        messages.addMessage(message);
+        messages.add(message);
     }
 
     public <T> List<T> getMessages (Class<? extends T> clazz) {
-        return messages.getMessages(clazz);
+        return messages.get(clazz);
     }
 
     public void addLogic (Logic logic) {
