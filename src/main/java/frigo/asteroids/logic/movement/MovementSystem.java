@@ -42,7 +42,6 @@ public class MovementSystem implements Logic {
             world.set(entity, verlet.getVelocity(elapsedSeconds));
             world.set(entity, verlet.getPosition(elapsedSeconds));
         }
-
     }
 
 }
