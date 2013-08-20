@@ -9,6 +9,12 @@ public class ArrayComponentStorage<T extends Component> implements ComponentStor
 
     private List<T> list = new ArrayList<>();
 
+    public ArrayComponentStorage (int entities) {
+        for( int i = 0; i < entities; i++ ){
+            added();
+        }
+    }
+
     @Override
     public void added () {
         list.add(null);

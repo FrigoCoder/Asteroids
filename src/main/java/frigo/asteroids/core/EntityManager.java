@@ -50,7 +50,7 @@ public class EntityManager {
 
     public <T extends Component> ComponentStorage<T> getOrCreateStorage (Class<T> type) {
         if( !storages.containsKey(type) ){
-            storages.put(type, factory.create());
+            storages.put(type, factory.create(counter));
         }
         return (ComponentStorage<T>) storages.get(type);
     }
