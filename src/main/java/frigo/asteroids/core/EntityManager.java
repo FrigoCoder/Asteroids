@@ -35,7 +35,7 @@ public class EntityManager {
         return entity;
     }
 
-    public boolean has (Entity entity, Class<? extends Component> type) {
+    public <T extends Component> boolean has (Entity entity, Class<T> type) {
         return getOrCreateStorage(type).has(entity);
     }
 
