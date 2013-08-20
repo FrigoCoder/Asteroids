@@ -2,6 +2,7 @@
 package frigo.asteroids.logic;
 
 import static frigo.asteroids.component.VectorCloseTo.closeTo;
+import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
@@ -22,30 +23,29 @@ public class VelocityVerletTest {
     @Test
     public void zero_acceleration_and_one_elapsed_seconds () {
         verlet = new VelocityVerlet(zeroAcceleration, velocity, position);
-        assertThat(verlet.getVelocity(1.0), closeTo(velocity));
-        assertThat(verlet.getPosition(1.0), closeTo(position.add(velocity)));
+        assertThat(verlet.getVelocity(1.0), is(velocity));
+        assertThat(verlet.getPosition(1.0), is(position.add(velocity)));
     }
 
     @Test
     public void zero_acceleration_and_tenth_elapsed_seconds () {
         verlet = new VelocityVerlet(zeroAcceleration, velocity, position);
-        assertThat(verlet.getVelocity(0.1), closeTo(velocity));
-        assertThat(verlet.getPosition(0.1), closeTo(position.add(velocity.mul(0.1))));
+        assertThat(verlet.getVelocity(0.1), is(velocity));
+        assertThat(verlet.getPosition(0.1), is(position.add(velocity.mul(0.1))));
     }
 
     @Test
     public void nonzero_acceleration_and_one_elapsed_seconds () {
         verlet = new VelocityVerlet(acceleration, velocity, position);
-        assertThat(verlet.getVelocity(1.0), closeTo(velocity.add(acceleration)));
+        assertThat(verlet.getVelocity(1.0), is(velocity.add(acceleration)));
         assertThat(verlet.getPosition(1.0), closeTo(position.add(velocity).add(acceleration.mul(0.5)), 1E-15));
     }
 
     @Test
     public void nonzero_acceleration_and_tenth_elapsed_seconds () {
         verlet = new VelocityVerlet(acceleration, velocity, position);
-        assertThat(verlet.getVelocity(0.1), closeTo(velocity.add(acceleration.mul(0.1))));
-        assertThat(verlet.getPosition(0.1),
-            closeTo(position.add(velocity.mul(0.1)).add(acceleration.mul(0.5 * 0.1 * 0.1))));
+        assertThat(verlet.getVelocity(0.1), is(velocity.add(acceleration.mul(0.1))));
+        assertThat(verlet.getPosition(0.1), is(position.add(velocity.mul(0.1)).add(acceleration.mul(0.5 * 0.1 * 0.1))));
     }
 
 }

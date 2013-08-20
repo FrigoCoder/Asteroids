@@ -1,7 +1,7 @@
 
 package frigo.asteroids.logic;
 
-import static org.hamcrest.Matchers.closeTo;
+import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
@@ -22,37 +22,30 @@ public class AngularVerletTest {
     @Test
     public void zero_acceleration_and_one_elapsed_seconds () {
         verlet = new AngularVerlet(zeroAcceleration, velocity, position);
-        assertVelocity(1.0, velocity, 0);
-        assertPosition(1.0, position.add(velocity), 0);
+        assertThat(verlet.getVelocity(1.0), is(velocity));
+        assertThat(verlet.getDisplacement(1.0), is(position.add(velocity)));
     }
 
     @Test
     public void zero_acceleration_and_tenth_elapsed_seconds () {
         verlet = new AngularVerlet(zeroAcceleration, velocity, position);
-        assertVelocity(0.1, velocity, 0);
-        assertPosition(0.1, position.add(velocity.mul(0.1)), 0);
+        assertThat(verlet.getVelocity(0.1), is(velocity));
+        assertThat(verlet.getDisplacement(0.1), is(position.add(velocity.mul(0.1))));
     }
 
     @Test
     public void nonzero_acceleration_and_one_elapsed_seconds () {
         verlet = new AngularVerlet(acceleration, velocity, position);
-        assertVelocity(1.0, velocity.add(acceleration), 0);
-        assertPosition(1.0, position.add(velocity.add(acceleration.mul(0.5))), 1E-15);
+        assertThat(verlet.getVelocity(1.0), is(velocity.add(acceleration)));
+        assertThat(verlet.getDisplacement(1.0), is(position.add(velocity.add(acceleration.mul(0.5)))));
     }
 
     @Test
     public void nonzero_acceleration_and_tenth_elapsed_seconds () {
         verlet = new AngularVerlet(acceleration, velocity, position);
-        assertVelocity(0.1, velocity.add(acceleration.mul(0.1)), 0);
-        assertPosition(0.1, position.add(velocity.mul(0.1).add(acceleration.mul(0.5 * 0.1 * 0.1))), 0);
-    }
-
-    private void assertVelocity (double elapsed, AngularVelocity expected, double tolerance) {
-        assertThat(verlet.getVelocity(elapsed).value, closeTo(expected.value, tolerance));
-    }
-
-    private void assertPosition (double elapsed, AngularDisplacement expected, double tolerance) {
-        assertThat(verlet.getDisplacement(elapsed).value, closeTo(expected.value, tolerance));
+        assertThat(verlet.getVelocity(0.1), is(velocity.add(acceleration.mul(0.1))));
+        assertThat(verlet.getDisplacement(0.1),
+            is(position.add(velocity.mul(0.1).add(acceleration.mul(0.5 * 0.1 * 0.1)))));
     }
 
 }
