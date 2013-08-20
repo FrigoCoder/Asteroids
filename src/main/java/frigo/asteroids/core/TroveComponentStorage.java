@@ -10,6 +10,10 @@ public class TroveComponentStorage<T extends Component> implements ComponentStor
     private TIntObjectHashMap map = new TIntObjectHashMap();
 
     @Override
+    public void added () {
+    }
+
+    @Override
     public boolean has (Entity entity) {
         return map.containsKey(entity.id);
     }

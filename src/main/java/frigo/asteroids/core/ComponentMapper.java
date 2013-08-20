@@ -4,7 +4,7 @@ package frigo.asteroids.core;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ComponentMapper {
+public class ComponentMapper implements EntityListener {
 
     private ComponentStorageFactory factory;
     private Map<Class<? extends Component>, ComponentStorage<?>> storages = new HashMap<>();
@@ -31,6 +31,13 @@ public class ComponentMapper {
             storages.put(type, factory.create());
         }
         return (ComponentStorage<T>) storages.get(type);
+    }
+
+    @Override
+    public void added () {
+        for( ComponentStorage<?> storage : storages.values() ){
+            storage.added();
+        }
     }
 
 }

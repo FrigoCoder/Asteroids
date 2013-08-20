@@ -7,6 +7,7 @@ import static org.junit.Assert.assertThat;
 
 import java.util.NoSuchElementException;
 
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -22,6 +23,11 @@ public class ArrayComponentStorageTest {
     private Entity entity = world.createEntity();
     private ComponentStorage<Position> storage = new ArrayComponentStorage<>();
     private Position component = new Position(0.0, 0.0);
+
+    @Before
+    public void setUp () {
+        storage.added();
+    }
 
     @Test
     public void has_returns_false_for_entity_without_component () {

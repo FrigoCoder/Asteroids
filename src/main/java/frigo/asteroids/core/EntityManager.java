@@ -20,6 +20,7 @@ public class EntityManager {
             set(entity, component);
         }
         entities.add(entity);
+        mapper.added();
         return entity;
     }
 
