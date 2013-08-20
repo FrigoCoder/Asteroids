@@ -9,12 +9,12 @@ public class EntityMatcher {
     private List<ComponentStorage<?>> all = new LinkedList<>();
     private List<ComponentStorage<?>> none = new LinkedList<>();
 
-    public EntityMatcher (ComponentMapper mapper, Aspect aspect) {
+    public EntityMatcher (EntityManager mapper, Aspect aspect) {
         for( Class<? extends Component> clazz : aspect.all ){
-            all.add(mapper.getComponentStorage(clazz));
+            all.add(mapper.getOrCreateStorage(clazz));
         }
         for( Class<? extends Component> clazz : aspect.none ){
-            none.add(mapper.getComponentStorage(clazz));
+            none.add(mapper.getOrCreateStorage(clazz));
         }
     }
 

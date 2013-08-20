@@ -1,43 +1,62 @@
 
 package frigo.asteroids.core;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 public class EntityManager {
 
     private int counter;
     private List<Entity> entities = new LinkedList<>();
-    private ComponentMapper mapper;
+
+    private ComponentStorageFactory factory;
+    private Map<Class<? extends Component>, ComponentStorage<?>> storages = new HashMap<>();
 
     public EntityManager (ComponentStorageFactory factory) {
-        mapper = new ComponentMapper(factory);
+        this.factory = factory;
     }
 
     public Entity createEntity (Component... componentsToSet) {
-        Entity entity = new Entity(counter++);
+        Entity entity = createEntity();
         for( Component component : componentsToSet ){
             set(entity, component);
         }
+        return entity;
+    }
+
+    private Entity createEntity () {
+        Entity entity = new Entity(counter++);
         entities.add(entity);
-        mapper.added();
+        for( ComponentStorage<?> storage : storages.values() ){
+            storage.added();
+        }
         return entity;
     }
 
     public boolean has (Entity entity, Class<? extends Component> type) {
-        return mapper.has(entity, type);
+        return getOrCreateStorage(type).has(entity);
     }
 
     public <T extends Component> T get (Entity entity, Class<T> type) {
-        return mapper.get(entity, type);
+        return getOrCreateStorage(type).get(entity);
     }
 
     public <T extends Component> void set (Entity entity, T component) {
-        mapper.set(entity, component);
+        ComponentStorage<T> storage = getOrCreateStorage((Class<T>) component.getClass());
+        storage.set(entity, component);
+    }
+
+    public <T extends Component> ComponentStorage<T> getOrCreateStorage (Class<T> type) {
+        if( !storages.containsKey(type) ){
+            storages.put(type, factory.create());
+        }
+        return (ComponentStorage<T>) storages.get(type);
     }
 
     public List<Entity> getEntitiesFor (Aspect aspect) {
-        EntityMatcher matcher = new EntityMatcher(mapper, aspect);
+        EntityMatcher matcher = new EntityMatcher(this, aspect);
         List<Entity> result = new LinkedList<>();
         for( Entity entity : entities ){
             if( matcher.matches(entity) ){
@@ -49,7 +68,7 @@ public class EntityManager {
 
     @Deprecated
     public boolean matches (Entity entity, Aspect aspect) {
-        return new EntityMatcher(mapper, aspect).matches(entity);
+        return new EntityMatcher(this, aspect).matches(entity);
     }
 
 }
