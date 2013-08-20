@@ -2,7 +2,6 @@
 package frigo.asteroids.logic.gravity;
 
 import static frigo.asteroids.logic.gravity.NewtonianGravity.G;
-import static org.hamcrest.Matchers.closeTo;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -14,7 +13,6 @@ import frigo.asteroids.component.Attractable;
 import frigo.asteroids.component.Attractor;
 import frigo.asteroids.component.Mass;
 import frigo.asteroids.component.Position;
-import frigo.asteroids.component.Vector;
 import frigo.asteroids.core.Entity;
 import frigo.asteroids.core.World;
 
@@ -46,8 +44,8 @@ public class GravitySystemTest {
 
         world.update(1.0);
 
-        assertAcceleration(attracted1, new Vector(-0.2, 0.0).mul(G * 100 / 0.04));
-        assertAcceleration(attracted2, new Vector(-0.1, -0.1).mul(G * 100 / 0.02));
+        assertThat(world.get(attracted1, Acceleration.class), is(new Acceleration(-0.2, 0.0).mul(G * 100 / 0.04)));
+        assertThat(world.get(attracted2, Acceleration.class), is(new Acceleration(-0.1, -0.1).mul(G * 100 / 0.02)));
     }
 
     private Entity createAttractor () {
@@ -56,12 +54,6 @@ public class GravitySystemTest {
 
     private Entity createAttracted (Mass mass, Position position) {
         return world.createEntity(new Attractable(), mass, new Acceleration(0, 0), position);
-    }
-
-    private void assertAcceleration (Entity attracted, Vector expected) {
-        Acceleration acceleration = world.get(attracted, Acceleration.class);
-        assertThat(acceleration.x, closeTo(expected.x, 0));
-        assertThat(acceleration.y, closeTo(expected.y, 0));
     }
 
 }

@@ -13,7 +13,7 @@ public class PositionTest {
         Position position = new Position(0.5, 0.5);
         Velocity velocity = new Velocity(0.1, -0.1);
         double elapsed = 0.1;
-        assertThat(position.add(velocity, elapsed), is(new Position(0.51, 0.49)));
+        assertThat(position.add(velocity.mul(elapsed)), is(new Position(0.51, 0.49)));
     }
 
 }

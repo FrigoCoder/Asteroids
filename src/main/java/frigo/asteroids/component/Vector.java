@@ -22,6 +22,10 @@ public class Vector extends Component {
         return create(x + addend.x, y + addend.y);
     }
 
+    public Vector sub (Vector subtrahend) {
+        return create(x - subtrahend.x, y - subtrahend.y);
+    }
+
     public Vector mul (double scalar) {
         return create(x * scalar, y * scalar);
     }

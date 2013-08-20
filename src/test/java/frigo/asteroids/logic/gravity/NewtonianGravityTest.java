@@ -1,8 +1,8 @@
 
 package frigo.asteroids.logic.gravity;
 
+import static frigo.asteroids.component.VectorCloseTo.closeTo;
 import static frigo.asteroids.logic.gravity.NewtonianGravity.G;
-import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
@@ -25,14 +25,14 @@ public class NewtonianGravityTest {
     @Test
     public void directional_acceleration_is_calculated_properly () {
         assertThat(gravity.getDirectionalAcceleration(attractor1, attracted1),
-            is(new Vector(-0.2, 0.0).mul(G * 100 / 0.04)));
+            closeTo(new Vector(-0.2, 0.0).mul(G * 100 / 0.04)));
         assertThat(gravity.getDirectionalAcceleration(attractor1, attracted2),
-            is(new Vector(-0.1, -0.1).mul(G * 100 / 0.02)));
+            closeTo(new Vector(-0.1, -0.1).mul(G * 100 / 0.02)));
     }
 
     @Test
     public void direction_acceleration_is_zero_for_objects_at_same_place () {
-        assertThat(gravity.getDirectionalAcceleration(attractor1, attracted3), is(new Vector(0, 0)));
+        assertThat(gravity.getDirectionalAcceleration(attractor1, attracted3), closeTo(new Vector(0, 0)));
     }
 
 }

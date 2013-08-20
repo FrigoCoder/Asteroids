@@ -13,6 +13,11 @@ public class Velocity extends Vector {
     }
 
     @Override
+    public Velocity sub (Vector subtrahend) {
+        return (Velocity) super.sub(subtrahend);
+    }
+
+    @Override
     public Velocity mul (double scalar) {
         return (Velocity) super.mul(scalar);
     }

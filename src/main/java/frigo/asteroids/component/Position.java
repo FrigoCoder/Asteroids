@@ -1,28 +1,35 @@
 
 package frigo.asteroids.component;
 
-import frigo.asteroids.core.Component;
-
-public class Position extends Component {
-
-    public final double x;
-    public final double y;
+public class Position extends Vector {
 
     public Position (double x, double y) {
-        this.x = x;
-        this.y = y;
+        super(x, y);
     }
 
-    public Position add (Vector vector) {
-        return new Position(x + vector.x, y + vector.y);
+    @Override
+    public Position add (Vector addend) {
+        return (Position) super.add(addend);
     }
 
-    public Position add (Vector velocity, double elapsed) {
-        return add(velocity.mul(elapsed));
+    @Override
+    public Position sub (Vector substrahend) {
+        return (Position) super.sub(substrahend);
     }
 
-    public Vector sub (Position substrahend) {
-        return new Vector(x - substrahend.x, y - substrahend.y);
+    @Override
+    public Position mul (double scalar) {
+        return (Position) super.mul(scalar);
+    }
+
+    @Override
+    public Position rotate (double radians) {
+        return (Position) super.rotate(radians);
+    }
+
+    @Override
+    protected Position create (double xval, double yval) {
+        return new Position(xval, yval);
     }
 
 }

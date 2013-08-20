@@ -1,7 +1,7 @@
 
 package frigo.asteroids.logic;
 
-import static org.hamcrest.Matchers.closeTo;
+import static frigo.asteroids.component.VectorCloseTo.closeTo;
 import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
@@ -22,41 +22,30 @@ public class VelocityVerletTest {
     @Test
     public void zero_acceleration_and_one_elapsed_seconds () {
         verlet = new VelocityVerlet(zeroAcceleration, velocity, position);
-        assertVelocity(1.0, velocity, 0);
-        assertPosition(1.0, position.add(velocity), 0);
+        assertThat(verlet.getVelocity(1.0), closeTo(velocity));
+        assertThat(verlet.getPosition(1.0), closeTo(position.add(velocity)));
     }
 
     @Test
     public void zero_acceleration_and_tenth_elapsed_seconds () {
         verlet = new VelocityVerlet(zeroAcceleration, velocity, position);
-        assertVelocity(0.1, velocity, 0);
-        assertPosition(0.1, position.add(velocity, 0.1), 0);
+        assertThat(verlet.getVelocity(0.1), closeTo(velocity));
+        assertThat(verlet.getPosition(0.1), closeTo(position.add(velocity.mul(0.1))));
     }
 
     @Test
     public void nonzero_acceleration_and_one_elapsed_seconds () {
         verlet = new VelocityVerlet(acceleration, velocity, position);
-        assertVelocity(1.0, velocity.add(acceleration), 0);
-        assertPosition(1.0, position.add(velocity).add(acceleration, 0.5), 1E-15);
+        assertThat(verlet.getVelocity(1.0), closeTo(velocity.add(acceleration)));
+        assertThat(verlet.getPosition(1.0), closeTo(position.add(velocity).add(acceleration.mul(0.5)), 1E-15));
     }
 
     @Test
     public void nonzero_acceleration_and_tenth_elapsed_seconds () {
         verlet = new VelocityVerlet(acceleration, velocity, position);
-        assertVelocity(0.1, velocity.add(acceleration.mul(0.1)), 0);
-        assertPosition(0.1, position.add(velocity, 0.1).add(acceleration, 0.5 * 0.1 * 0.1), 0);
-    }
-
-    private void assertVelocity (double elapsed, Velocity expected, double tolerance) {
-        Velocity actual = verlet.getVelocity(elapsed);
-        assertThat(actual.x, closeTo(expected.x, tolerance));
-        assertThat(actual.y, closeTo(expected.y, tolerance));
-    }
-
-    private void assertPosition (double elapsed, Position expected, double tolerance) {
-        Position actual = verlet.getPosition(elapsed);
-        assertThat(actual.x, closeTo(expected.x, tolerance));
-        assertThat(actual.y, closeTo(expected.y, tolerance));
+        assertThat(verlet.getVelocity(0.1), closeTo(velocity.add(acceleration.mul(0.1))));
+        assertThat(verlet.getPosition(0.1),
+            closeTo(position.add(velocity.mul(0.1)).add(acceleration.mul(0.5 * 0.1 * 0.1))));
     }
 
 }

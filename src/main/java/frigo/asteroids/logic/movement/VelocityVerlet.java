@@ -22,6 +22,6 @@ public class VelocityVerlet {
     }
 
     public Position getPosition (double elapsed) {
-        return position.add(getVelocity(elapsed).add(velocity), 0.5 * elapsed);
+        return position.add(getVelocity(elapsed).add(velocity).mul(0.5 * elapsed));
     }
 }
