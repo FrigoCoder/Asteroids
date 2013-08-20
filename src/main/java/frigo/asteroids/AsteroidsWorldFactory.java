@@ -48,7 +48,7 @@ public class AsteroidsWorldFactory {
         for( int i = 0; i < 100; i++ ){
             createAsteroid();
         }
-        for( int i = 0; i < 50_000; i++ ){
+        for( int i = 0; i < 30_000; i++ ){
             createStar();
         }
     }
@@ -115,7 +115,7 @@ public class AsteroidsWorldFactory {
         // world.set(entity, new Acceleration(0, 0));
 
         world.set(entity, new Velocity(getRandom(-speed, speed), getRandom(-speed, speed)));
-        world.set(entity, new Position(getRandom(-1, 1), getRandom(-1, 1)));
+        world.set(entity, new Position(getRandom(-2, 2), getRandom(-1, 1)));
         world.set(entity, new Size(size));
         world.set(entity, new Point());
         return entity;
