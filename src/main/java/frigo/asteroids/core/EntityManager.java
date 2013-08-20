@@ -5,10 +5,10 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 public class EntityManager {
 
-    private int counter;
     private List<Entity> entities = new LinkedList<>();
 
     private ComponentStorageFactory factory;
@@ -27,7 +27,7 @@ public class EntityManager {
     }
 
     private Entity createEntity () {
-        Entity entity = new Entity(counter++);
+        Entity entity = new Entity(entities.size());
         entities.add(entity);
         for( ComponentStorage<?> storage : storages.values() ){
             storage.added();
@@ -36,11 +36,19 @@ public class EntityManager {
     }
 
     public <T extends Component> boolean has (Entity entity, Class<T> type) {
-        return getOrCreateStorage(type).has(entity);
+        ComponentStorage<T> storage = (ComponentStorage<T>) storages.get(type);
+        if( storage == null ){
+            return false;
+        }
+        return storage.has(entity);
     }
 
     public <T extends Component> T get (Entity entity, Class<T> type) {
-        return getOrCreateStorage(type).get(entity);
+        ComponentStorage<T> storage = (ComponentStorage<T>) storages.get(type);
+        if( storage == null ){
+            throw new NoSuchElementException();
+        }
+        return storage.get(entity);
     }
 
     public <T extends Component> void set (Entity entity, T component) {
@@ -49,9 +57,11 @@ public class EntityManager {
     }
 
     public <T extends Component> ComponentStorage<T> getOrCreateStorage (Class<T> type) {
-        if( !storages.containsKey(type) ){
-            storages.put(type, factory.create(counter));
+        ComponentStorage<T> storage = (ComponentStorage<T>) storages.get(type);
+        if( storage != null ){
+            return storage;
         }
+        storages.put(type, factory.create(entities.size()));
         return (ComponentStorage<T>) storages.get(type);
     }
 
