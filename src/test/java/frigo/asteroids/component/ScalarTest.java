@@ -16,22 +16,22 @@ public class ScalarTest {
     }
 
     @Test
-    public void can_be_added_by_scalar () {
+    public void add_scalar () {
         assertThat(scalar.add(new Scalar(2.0)), is(new Scalar(3.0)));
     }
 
     @Test
-    public void can_be_added_by_double () {
+    public void add_double () {
         assertThat(scalar.add(2.0), is(new Scalar(3.0)));
     }
 
     @Test
-    public void can_be_multiplied_by_scalar () {
+    public void mul_by_scalar () {
         assertThat(scalar.mul(new Scalar(2.0)), is(new Scalar(2.0)));
     }
 
     @Test
-    public void can_be_multiplied_by_double () {
+    public void mul_by_double () {
         assertThat(scalar.mul(2.0), is(new Scalar(2.0)));
     }
 
