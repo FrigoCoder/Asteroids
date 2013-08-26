@@ -7,6 +7,8 @@ import java.util.List;
 import com.jogamp.newt.event.KeyEvent;
 
 import frigo.asteroids.component.Acceleration;
+import frigo.asteroids.component.AngularAcceleration;
+import frigo.asteroids.component.AngularDisplacement;
 import frigo.asteroids.component.PlayerControllable;
 import frigo.asteroids.component.Vector;
 import frigo.asteroids.core.Aspect;
@@ -19,7 +21,8 @@ import frigo.asteroids.message.KeyPressed;
 
 public class InputSystem implements Logic {
 
-    private Aspect controllableAspect = Aspect.allOf(PlayerControllable.class, Acceleration.class);
+    private Aspect controllableAspect = Aspect.allOf(PlayerControllable.class, Acceleration.class,
+        AngularAcceleration.class, AngularDisplacement.class);
 
     @Override
     public void init (World world) {
@@ -33,21 +36,20 @@ public class InputSystem implements Logic {
 
         for( Entity entity : world.getEntitiesFor(controllableAspect) ){
             PlayerControllable controllable = world.get(entity, PlayerControllable.class);
-            double thrust = controllable.thrust;
 
             for( KeyMessage message : messages ){
                 switch( message.key ){
                     case KeyEvent.VK_UP:
-                        world.set(entity, world.get(entity, Acceleration.class).add(new Vector(0, thrust)));
-                        break;
-                    case KeyEvent.VK_DOWN:
-                        world.set(entity, world.get(entity, Acceleration.class).add(new Vector(0, -thrust)));
+                        AngularDisplacement angle = world.get(entity, AngularDisplacement.class);
+                        Vector heading = new Vector(0.0, 1.0).rotate(angle.value).mul(controllable.thrust);
+                        world.set(entity, world.get(entity, Acceleration.class).add(heading));
                         break;
                     case KeyEvent.VK_LEFT:
-                        world.set(entity, world.get(entity, Acceleration.class).add(new Vector(-thrust, 0)));
+                        world.set(entity, world.get(entity, AngularAcceleration.class).add(controllable.angularThrust));
                         break;
                     case KeyEvent.VK_RIGHT:
-                        world.set(entity, world.get(entity, Acceleration.class).add(new Vector(thrust, 0)));
+                        world
+                            .set(entity, world.get(entity, AngularAcceleration.class).add(-controllable.angularThrust));
                         break;
                     default:
                         break;
@@ -55,5 +57,4 @@ public class InputSystem implements Logic {
             }
         }
     }
-
 }

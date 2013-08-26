@@ -77,14 +77,14 @@ public class AsteroidsWorldFactory {
     private Entity createShip () {
         double size = 0.1;
         Entity entity = world.createEntity();
-        world.set(entity, new PlayerControllable(0.3, 0.1));
+        world.set(entity, new PlayerControllable(0.3, 1.0));
         world.set(entity, new Attractable());
         world.set(entity, new Mass(PI * 4 / 3 * pow(size, 3) * DENSITY));
         world.set(entity, new Acceleration(0, 0));
         world.set(entity, new Velocity(0.2, 0));
         world.set(entity, new Position(0, 0.5));
-        world.set(entity, new AngularAcceleration(0.1));
-        world.set(entity, new AngularVelocity(0.1));
+        world.set(entity, new AngularAcceleration(0));
+        world.set(entity, new AngularVelocity(0));
         world.set(entity, new AngularDisplacement(Math.PI / 4));
         world.set(entity, new Size(size));
         world.set(entity, new TextureName("spaceship.png"));
@@ -109,10 +109,6 @@ public class AsteroidsWorldFactory {
         double size = 0.01;
         double speed = 0.005;
         Entity entity = world.createEntity();
-
-        // world.set(entity, new Attractable());
-        // world.set(entity, new Mass(PI * 4 / 3 * pow(size, 3) * DENSITY));
-        // world.set(entity, new Acceleration(0, 0));
 
         world.set(entity, new Velocity(getRandom(-speed, speed), getRandom(-speed, speed)));
         world.set(entity, new Position(getRandom(-2, 2), getRandom(-1, 1)));
