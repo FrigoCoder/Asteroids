@@ -69,6 +69,9 @@ public class AsteroidsWorldFactory {
         world.set(entity, new Acceleration(0, 0));
         world.set(entity, new Velocity(0, 0));
         world.set(entity, new Position(0, 0));
+        world.set(entity, new AngularAcceleration(0));
+        world.set(entity, new AngularVelocity(0.01));
+        world.set(entity, new AngularDisplacement(0));
         world.set(entity, new Size(size));
         world.set(entity, new TextureName("sun.png"));
         return entity;
@@ -100,6 +103,7 @@ public class AsteroidsWorldFactory {
         world.set(entity, new Acceleration(0, 0));
         world.set(entity, new Velocity(getRandom(-speed, speed), getRandom(-speed, speed)));
         world.set(entity, new Position(getRandom(-1, 1), getRandom(-1, 1)));
+        world.set(entity, new AngularAcceleration(0));
         world.set(entity, new AngularVelocity(getRandom(-PI, PI)));
         world.set(entity, new AngularDisplacement(0));
         world.set(entity, new Size(size));
@@ -112,6 +116,7 @@ public class AsteroidsWorldFactory {
         double speed = 0.005;
         Entity entity = world.createEntity();
 
+        world.set(entity, new Acceleration(0, 0));
         world.set(entity, new Velocity(getRandom(-speed, speed), getRandom(-speed, speed)));
         world.set(entity, new Position(getRandom(-2, 2), getRandom(-1, 1)));
         world.set(entity, new Size(size));
