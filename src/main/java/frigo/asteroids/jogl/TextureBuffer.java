@@ -1,7 +1,6 @@
 
 package frigo.asteroids.jogl;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
@@ -16,30 +15,29 @@ public class TextureBuffer {
 
     private Map<String, Texture> textures = new HashMap<>();
 
-    public Texture get (String filename) {
-        if( !textures.containsKey(filename) ){
-            textures.put(filename, newTexture(getFile(filename)));
+    public Texture get(String filename) {
+        if (!textures.containsKey(filename)) {
+            textures.put(filename, newTexture(getUrl(filename)));
         }
         return textures.get(filename);
     }
 
     @VisibleForTesting
-    File getFile (String filename) {
+    URL getUrl(String filename) {
         URL resource = ClassLoader.getSystemResource(filename);
-        if( resource == null ){
+        if (resource == null) {
             throw new IllegalArgumentException("File " + filename + " does not exist");
         }
-        return new File(resource.getFile());
+        return resource;
     }
 
     @VisibleForTesting
-    Texture newTexture (File file) {
-        try{
-            return TextureIO.newTexture(file, true);
-        }catch( IOException e ){
+    Texture newTexture(URL url) {
+        try {
+            return TextureIO.newTexture(url, true, null);
+        } catch (IOException e) {
             throw Throwables.propagate(e);
         }
-
     }
 
 }
