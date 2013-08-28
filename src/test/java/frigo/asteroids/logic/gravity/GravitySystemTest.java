@@ -8,11 +8,11 @@ import static org.junit.Assert.assertThat;
 import org.junit.Before;
 import org.junit.Test;
 
-import frigo.asteroids.component.Acceleration;
 import frigo.asteroids.component.Attractable;
 import frigo.asteroids.component.Attractor;
 import frigo.asteroids.component.Mass;
-import frigo.asteroids.component.Position;
+import frigo.asteroids.component.Planar;
+import frigo.asteroids.component.Vector;
 import frigo.asteroids.core.Entity;
 import frigo.asteroids.core.World;
 
@@ -24,8 +24,8 @@ public class GravitySystemTest {
 
     @Before
     public void setUp () {
-        attracted1 = createAttracted(new Mass(10), new Position(0.1, 0.0));
-        attracted2 = createAttracted(new Mass(1), new Position(0.0, 0.1));
+        attracted1 = world.createEntity(new Attractable(), new Mass(10), new Planar(new Vector(0.1, 0.0)));
+        attracted2 = world.createEntity(new Attractable(), new Mass(1), new Planar(new Vector(0.0, 0.1)));
         world.addLogic(new GravitySystem(new NewtonianGravity(world)));
         world.init();
     }
@@ -34,26 +34,18 @@ public class GravitySystemTest {
     public void does_nothing_without_attractors () {
         world.update(1.0);
 
-        assertThat(world.get(attracted1, Acceleration.class), is(new Acceleration(0.0, 0.0)));
-        assertThat(world.get(attracted2, Acceleration.class), is(new Acceleration(0.0, 0.0)));
+        assertThat(world.get(attracted1, Planar.class).acceleration, is(new Vector(0.0, 0.0)));
+        assertThat(world.get(attracted2, Planar.class).acceleration, is(new Vector(0.0, 0.0)));
     }
 
     @Test
     public void attractor_attracts_two_attractables () {
-        createAttractor();
+        world.createEntity(new Attractor(), new Mass(100), new Planar(new Vector(-0.1, 0.0)));
 
         world.update(1.0);
 
-        assertThat(world.get(attracted1, Acceleration.class), is(new Acceleration(-0.2, 0.0).mul(G * 100 / 0.04)));
-        assertThat(world.get(attracted2, Acceleration.class), is(new Acceleration(-0.1, -0.1).mul(G * 100 / 0.02)));
-    }
-
-    private Entity createAttractor () {
-        return world.createEntity(new Attractor(), new Mass(100), new Acceleration(0, 0), new Position(-0.1, 0.0));
-    }
-
-    private Entity createAttracted (Mass mass, Position position) {
-        return world.createEntity(new Attractable(), mass, new Acceleration(0, 0), position);
+        assertThat(world.get(attracted1, Planar.class).acceleration, is(new Vector(-0.2, 0.0).mul(G * 100 / 0.04)));
+        assertThat(world.get(attracted2, Planar.class).acceleration, is(new Vector(-0.1, -0.1).mul(G * 100 / 0.02)));
     }
 
 }

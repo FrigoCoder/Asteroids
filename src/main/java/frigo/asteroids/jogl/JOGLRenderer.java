@@ -12,8 +12,8 @@ import javax.media.opengl.fixedfunc.GLMatrixFunc;
 import com.jogamp.opengl.util.texture.Texture;
 
 import frigo.asteroids.component.AngularDisplacement;
+import frigo.asteroids.component.Planar;
 import frigo.asteroids.component.Point;
-import frigo.asteroids.component.Position;
 import frigo.asteroids.component.Size;
 import frigo.asteroids.component.TextureName;
 import frigo.asteroids.component.Vector;
@@ -54,18 +54,18 @@ public class JOGLRenderer implements GLEventListener {
     private void drawPoints (GL2 gl) {
         gl.glPointSize(1.0f);
         gl.glBegin(GL.GL_POINTS);
-        Aspect aspect = Aspect.allOf(Position.class, Point.class);
+        Aspect aspect = Aspect.allOf(Planar.class, Point.class);
         for( Entity entity : world.getEntitiesFor(aspect) ){
-            Position position = world.get(entity, Position.class);
+            Vector position = world.get(entity, Planar.class).position;
             gl.glVertex2d(position.x, position.y);
         }
         gl.glEnd();
     }
 
     private void drawTextures (GL2 gl) {
-        Aspect aspect = Aspect.allOf(Position.class, Size.class, TextureName.class);
+        Aspect aspect = Aspect.allOf(Planar.class, Size.class, TextureName.class);
         for( Entity entity : world.getEntitiesFor(aspect) ){
-            Position position = world.get(entity, Position.class);
+            Vector position = world.get(entity, Planar.class).position;
             Size size = world.get(entity, Size.class);
             TextureName textureName = world.get(entity, TextureName.class);
             AngularDisplacement angularDisplacement =
@@ -75,7 +75,7 @@ public class JOGLRenderer implements GLEventListener {
         }
     }
 
-    private void drawTexture (GL2 gl, Position position, double radians, double size, String texture) {
+    private void drawTexture (GL2 gl, Vector position, double radians, double size, String texture) {
         Texture tex = textures.get(texture);
         tex.enable(gl);
         tex.bind(gl);
@@ -95,7 +95,7 @@ public class JOGLRenderer implements GLEventListener {
         tex.disable(gl);
     }
 
-    private void vertex (GL2 gl, Position position) {
+    private void vertex (GL2 gl, Vector position) {
         gl.glVertex2d(position.x, position.y);
     }
 

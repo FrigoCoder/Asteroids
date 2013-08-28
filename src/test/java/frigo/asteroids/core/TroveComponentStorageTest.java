@@ -11,7 +11,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import frigo.asteroids.component.Position;
+import frigo.asteroids.component.Planar;
+import frigo.asteroids.component.Vector;
 
 public class TroveComponentStorageTest {
 
@@ -20,8 +21,8 @@ public class TroveComponentStorageTest {
 
     private World world = new World();
     private Entity entity = world.createEntity();
-    private ComponentStorage<Position> storage = new TroveComponentStorage<>();
-    private Position component = new Position(0.0, 0.0);
+    private ComponentStorage<Planar> storage = new TroveComponentStorage<>();
+    private Planar component = new Planar(new Vector(0.0, 0.0));
 
     @Test
     public void has_returns_false_for_entity_without_component () {

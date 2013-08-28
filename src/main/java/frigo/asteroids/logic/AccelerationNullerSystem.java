@@ -1,7 +1,6 @@
 
 package frigo.asteroids.logic;
 
-import frigo.asteroids.component.Acceleration;
 import frigo.asteroids.component.AngularAcceleration;
 import frigo.asteroids.core.Aspect;
 import frigo.asteroids.core.Entity;
@@ -10,7 +9,6 @@ import frigo.asteroids.core.World;
 
 public class AccelerationNullerSystem implements Logic {
 
-    private Aspect accelerationAspect = Aspect.allOf(Acceleration.class);
     private Aspect angularAccelerationAspect = Aspect.allOf(AngularAcceleration.class);
 
     @Override
@@ -19,9 +17,6 @@ public class AccelerationNullerSystem implements Logic {
 
     @Override
     public void update (World world, double elapsedSeconds) {
-        for( Entity entity : world.getEntitiesFor(accelerationAspect) ){
-            world.set(entity, new Acceleration(0, 0));
-        }
         for( Entity entity : world.getEntitiesFor(angularAccelerationAspect) ){
             world.set(entity, new AngularAcceleration(0));
         }

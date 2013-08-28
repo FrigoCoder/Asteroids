@@ -12,7 +12,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import frigo.asteroids.component.Position;
+import frigo.asteroids.component.Planar;
+import frigo.asteroids.component.Vector;
 
 public class ArrayComponentStorageTest {
 
@@ -21,8 +22,8 @@ public class ArrayComponentStorageTest {
 
     private World world = new World();
     private Entity entity = world.createEntity();
-    private ComponentStorage<Position> storage = new ArrayComponentStorage<>(1);
-    private Position component = new Position(0.0, 0.0);
+    private ComponentStorage<Planar> storage = new ArrayComponentStorage<>(1);
+    private Planar component = new Planar(new Vector(0, 0));
 
     @Before
     public void setUp () {

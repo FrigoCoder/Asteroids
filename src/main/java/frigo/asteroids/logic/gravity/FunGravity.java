@@ -2,7 +2,7 @@
 package frigo.asteroids.logic.gravity;
 
 import frigo.asteroids.component.Mass;
-import frigo.asteroids.component.Position;
+import frigo.asteroids.component.Planar;
 import frigo.asteroids.component.Vector;
 import frigo.asteroids.core.Entity;
 import frigo.asteroids.core.World;
@@ -20,7 +20,7 @@ public class FunGravity implements GravityCalculator {
     @Override
     public Vector getDirectionalAcceleration (Entity attractor, Entity attracted) {
         double m1 = world.get(attractor, Mass.class).kg;
-        Vector direction = world.get(attractor, Position.class).sub(world.get(attracted, Position.class));
+        Vector direction = world.get(attractor, Planar.class).position.sub(world.get(attracted, Planar.class).position);
         double r = direction.length();
         r = r <= 0.0 ? Double.MAX_VALUE : r;
         double acceleration = G * m1 / r;

@@ -7,7 +7,6 @@ import static org.junit.Assert.assertThat;
 import org.junit.Before;
 import org.junit.Test;
 
-import frigo.asteroids.component.Acceleration;
 import frigo.asteroids.component.AngularAcceleration;
 import frigo.asteroids.core.Entity;
 import frigo.asteroids.core.World;
@@ -23,20 +22,6 @@ public class AccelerationNullerSystemTest {
     public void setUp () {
         world.addLogic(system);
         world.init();
-    }
-
-    @Test
-    public void sets_acceleration_to_zero () {
-        world.set(entity, new Acceleration(1.0, -1.0));
-        world.update(1.0);
-        assertThat(world.get(entity, Acceleration.class), is(new Acceleration(0.0, 0.0)));
-
-    }
-
-    @Test
-    public void does_not_create_acceleration () {
-        world.update(1.0);
-        assertThat(world.has(entity, Acceleration.class), is(false));
     }
 
     @Test

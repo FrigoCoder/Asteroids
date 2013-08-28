@@ -1,27 +1,22 @@
 
 package frigo.asteroids.logic.movement;
 
-import frigo.asteroids.component.Acceleration;
-import frigo.asteroids.component.Position;
-import frigo.asteroids.component.Velocity;
+import frigo.asteroids.component.Planar;
+import frigo.asteroids.component.Vector;
 
 public class VelocityVerlet {
 
-    private Acceleration acceleration;
-    private Velocity velocity;
-    private Position position;
+    private Planar planar;
 
-    public VelocityVerlet (Acceleration acceleration, Velocity velocity, Position position) {
-        this.acceleration = acceleration;
-        this.velocity = velocity;
-        this.position = position;
+    public VelocityVerlet (Planar planar) {
+        this.planar = planar;
     }
 
-    public Velocity getVelocity (double elapsed) {
-        return velocity.add(acceleration.mul(elapsed));
+    public Vector getVelocity (double elapsed) {
+        return planar.velocity.add(planar.acceleration.mul(elapsed));
     }
 
-    public Position getPosition (double elapsed) {
-        return position.add(getVelocity(elapsed).add(velocity).mul(0.5 * elapsed));
+    public Vector getPosition (double elapsed) {
+        return planar.position.add(getVelocity(elapsed).add(planar.velocity).mul(0.5 * elapsed));
     }
 }

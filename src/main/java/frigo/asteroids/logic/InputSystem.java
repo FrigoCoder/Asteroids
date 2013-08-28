@@ -6,9 +6,9 @@ import java.util.List;
 
 import com.jogamp.newt.event.KeyEvent;
 
-import frigo.asteroids.component.Acceleration;
 import frigo.asteroids.component.AngularAcceleration;
 import frigo.asteroids.component.AngularDisplacement;
+import frigo.asteroids.component.Planar;
 import frigo.asteroids.component.PlayerControllable;
 import frigo.asteroids.component.Vector;
 import frigo.asteroids.core.Aspect;
@@ -21,8 +21,8 @@ import frigo.asteroids.message.KeyPressed;
 
 public class InputSystem implements Logic {
 
-    private Aspect controllableAspect = Aspect.allOf(PlayerControllable.class, Acceleration.class,
-        AngularAcceleration.class, AngularDisplacement.class);
+    private Aspect controllableAspect = Aspect.allOf(PlayerControllable.class, Planar.class, AngularAcceleration.class,
+        AngularDisplacement.class);
 
     @Override
     public void init (World world) {
@@ -42,7 +42,7 @@ public class InputSystem implements Logic {
                     case KeyEvent.VK_UP:
                         AngularDisplacement angle = world.get(entity, AngularDisplacement.class);
                         Vector heading = new Vector(0.0, 1.0).rotate(angle.value).mul(controllable.thrust);
-                        world.set(entity, world.get(entity, Acceleration.class).add(heading));
+                        world.set(entity, world.get(entity, Planar.class).accelerate(heading));
                         break;
                     case KeyEvent.VK_LEFT:
                         world.set(entity, world.get(entity, AngularAcceleration.class).add(controllable.angularThrust));

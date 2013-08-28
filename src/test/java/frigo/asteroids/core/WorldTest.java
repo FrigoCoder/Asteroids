@@ -15,8 +15,8 @@ import java.util.List;
 
 import org.junit.Test;
 
-import frigo.asteroids.component.Position;
-import frigo.asteroids.component.Velocity;
+import frigo.asteroids.component.Planar;
+import frigo.asteroids.component.Vector;
 
 public class WorldTest {
 
@@ -32,12 +32,11 @@ public class WorldTest {
 
     @Test
     public void entities_matching_aspect_are_returned () {
-        world.set(entity, new Position(1, 1));
-        world.set(entity, new Velocity(1, 1));
+        world.set(entity, new Planar(new Vector(1, 1), new Vector(1, 1)));
 
         world.createEntity();
 
-        Aspect aspect = Aspect.allOf(Position.class, Velocity.class);
+        Aspect aspect = Aspect.allOf(Planar.class);
 
         List<Entity> expected = new LinkedList<>(asList(entity));
         assertThat(world.getEntitiesFor(aspect), is(expected));

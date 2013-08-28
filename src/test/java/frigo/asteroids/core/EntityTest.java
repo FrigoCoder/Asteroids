@@ -13,7 +13,8 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import frigo.asteroids.component.Attractor;
-import frigo.asteroids.component.Position;
+import frigo.asteroids.component.Planar;
+import frigo.asteroids.component.Vector;
 
 public class EntityTest {
 
@@ -21,7 +22,7 @@ public class EntityTest {
     public ExpectedException thrown = ExpectedException.none();
     private World world = new World();
     private Entity entity = world.createEntity();
-    private Position position = new Position(1, 1);
+    private Planar position = new Planar(new Vector(1, 1));
 
     @Test
     public void created_entities_have_different_ids () {
@@ -32,31 +33,31 @@ public class EntityTest {
     @Test
     public void added_component_can_be_retrieved () {
         world.set(entity, position);
-        assertThat(world.get(entity, Position.class), sameInstance(position));
+        assertThat(world.get(entity, Planar.class), sameInstance(position));
     }
 
     @Test
     public void not_added_component_retrieval_throws_exception () {
         thrown.expect(NoSuchElementException.class);
-        world.get(entity, Position.class);
+        world.get(entity, Planar.class);
     }
 
     @Test
     public void added_component_can_be_checked_for_presence () {
         world.set(entity, position);
-        assertThat(world.has(entity, Position.class), is(true));
+        assertThat(world.has(entity, Planar.class), is(true));
     }
 
     @Test
     public void not_added_component_can_be_checked_for_presence () {
-        assertThat(world.has(entity, Position.class), is(false));
+        assertThat(world.has(entity, Planar.class), is(false));
     }
 
     @Test
     public void vararg_constructor_adds_all_components () {
         Attractor attractor = new Attractor();
         entity = world.createEntity(position, attractor);
-        assertThat(world.get(entity, Position.class), sameInstance(position));
+        assertThat(world.get(entity, Planar.class), sameInstance(position));
         assertThat(world.get(entity, Attractor.class), sameInstance(attractor));
     }
 

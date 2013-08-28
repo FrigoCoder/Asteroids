@@ -6,19 +6,18 @@ import static java.lang.Math.pow;
 
 import java.util.Random;
 
-import frigo.asteroids.component.Acceleration;
 import frigo.asteroids.component.AngularAcceleration;
 import frigo.asteroids.component.AngularDisplacement;
 import frigo.asteroids.component.AngularVelocity;
 import frigo.asteroids.component.Attractable;
 import frigo.asteroids.component.Attractor;
 import frigo.asteroids.component.Mass;
+import frigo.asteroids.component.Planar;
 import frigo.asteroids.component.PlayerControllable;
 import frigo.asteroids.component.Point;
-import frigo.asteroids.component.Position;
 import frigo.asteroids.component.Size;
 import frigo.asteroids.component.TextureName;
-import frigo.asteroids.component.Velocity;
+import frigo.asteroids.component.Vector;
 import frigo.asteroids.core.ArrayComponentStorageFactory;
 import frigo.asteroids.core.Entity;
 import frigo.asteroids.core.World;
@@ -66,9 +65,8 @@ public class AsteroidsWorldFactory {
         Entity entity = world.createEntity();
         world.set(entity, new Attractor());
         world.set(entity, new Mass(PI * 4 / 3 * pow(size, 3) * DENSITY));
-        world.set(entity, new Acceleration(0, 0));
-        world.set(entity, new Velocity(0, 0));
-        world.set(entity, new Position(0, 0));
+        Vector position = new Vector(0, 0);
+        world.set(entity, new Planar(position));
         world.set(entity, new AngularAcceleration(0));
         world.set(entity, new AngularVelocity(0.01));
         world.set(entity, new AngularDisplacement(0));
@@ -83,9 +81,9 @@ public class AsteroidsWorldFactory {
         world.set(entity, new PlayerControllable(0.1, 1.0));
         world.set(entity, new Attractable());
         world.set(entity, new Mass(PI * 4 / 3 * pow(size, 3) * DENSITY));
-        world.set(entity, new Acceleration(0, 0));
-        world.set(entity, new Velocity(0.2, 0));
-        world.set(entity, new Position(0, 0.5));
+        Vector position = new Vector(0, 0.5);
+        Vector velocity = new Vector(0.2, 0);
+        world.set(entity, new Planar(position, velocity));
         world.set(entity, new AngularAcceleration(0));
         world.set(entity, new AngularVelocity(0));
         world.set(entity, new AngularDisplacement(0));
@@ -100,9 +98,9 @@ public class AsteroidsWorldFactory {
         Entity entity = world.createEntity();
         world.set(entity, new Attractable());
         world.set(entity, new Mass(PI * 4 / 3 * pow(size, 3) * DENSITY));
-        world.set(entity, new Acceleration(0, 0));
-        world.set(entity, new Velocity(getRandom(-speed, speed), getRandom(-speed, speed)));
-        world.set(entity, new Position(getRandom(-1, 1), getRandom(-1, 1)));
+        Vector position = new Vector(getRandom(-1, 1), getRandom(-1, 1));
+        Vector velocity = new Vector(getRandom(-speed, speed), getRandom(-speed, speed));
+        world.set(entity, new Planar(position, velocity));
         world.set(entity, new AngularAcceleration(0));
         world.set(entity, new AngularVelocity(getRandom(-PI, PI)));
         world.set(entity, new AngularDisplacement(0));
@@ -115,10 +113,9 @@ public class AsteroidsWorldFactory {
         double size = 0.01;
         double speed = 0.005;
         Entity entity = world.createEntity();
-
-        world.set(entity, new Acceleration(0, 0));
-        world.set(entity, new Velocity(getRandom(-speed, speed), getRandom(-speed, speed)));
-        world.set(entity, new Position(getRandom(-2, 2), getRandom(-1, 1)));
+        Vector position = new Vector(getRandom(-2, 2), getRandom(-1, 1));
+        Vector velocity = new Vector(getRandom(-speed, speed), getRandom(-speed, speed));
+        world.set(entity, new Planar(position, velocity));
         world.set(entity, new Size(size));
         world.set(entity, new Point());
         return entity;

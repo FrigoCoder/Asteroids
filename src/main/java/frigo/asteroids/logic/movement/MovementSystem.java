@@ -1,9 +1,8 @@
 
 package frigo.asteroids.logic.movement;
 
-import frigo.asteroids.component.Acceleration;
-import frigo.asteroids.component.Position;
-import frigo.asteroids.component.Velocity;
+import frigo.asteroids.component.Planar;
+import frigo.asteroids.component.Vector;
 import frigo.asteroids.core.Aspect;
 import frigo.asteroids.core.Entity;
 import frigo.asteroids.core.Logic;
@@ -11,8 +10,7 @@ import frigo.asteroids.core.World;
 
 public class MovementSystem implements Logic {
 
-    private Aspect all = Aspect.allOf(Acceleration.class, Velocity.class, Position.class);
-    private Aspect noAcceleration = Aspect.allOf(Velocity.class, Position.class).andNoneOf(Acceleration.class);
+    private Aspect aspect = Aspect.allOf(Planar.class);
 
     @Override
     public void init (World world) {
@@ -20,27 +18,11 @@ public class MovementSystem implements Logic {
 
     @Override
     public void update (World world, double elapsedSeconds) {
-        handleEntitiesWithAllComponents(world, elapsedSeconds);
-        handleEntitiesWithNoAcceleration(world, elapsedSeconds);
-    }
-
-    private void handleEntitiesWithAllComponents (World world, double elapsedSeconds) {
-        for( Entity entity : world.getEntitiesFor(all) ){
-            VelocityVerlet verlet =
-                new VelocityVerlet(world.get(entity, Acceleration.class), world.get(entity, Velocity.class), world.get(
-                    entity, Position.class));
-            world.set(entity, verlet.getVelocity(elapsedSeconds));
-            world.set(entity, verlet.getPosition(elapsedSeconds));
-        }
-    }
-
-    private void handleEntitiesWithNoAcceleration (World world, double elapsedSeconds) {
-        for( Entity entity : world.getEntitiesFor(noAcceleration) ){
-            VelocityVerlet verlet =
-                new VelocityVerlet(new Acceleration(0, 0), world.get(entity, Velocity.class), world.get(entity,
-                    Position.class));
-            world.set(entity, verlet.getVelocity(elapsedSeconds));
-            world.set(entity, verlet.getPosition(elapsedSeconds));
+        for( Entity entity : world.getEntitiesFor(aspect) ){
+            VelocityVerlet verlet = new VelocityVerlet(world.get(entity, Planar.class));
+            Planar planar =
+                new Planar(verlet.getPosition(elapsedSeconds), verlet.getVelocity(elapsedSeconds), new Vector(0, 0));
+            world.set(entity, planar);
         }
     }
 
