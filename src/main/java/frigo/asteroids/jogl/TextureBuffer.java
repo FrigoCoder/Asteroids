@@ -15,27 +15,27 @@ public class TextureBuffer {
 
     private Map<String, Texture> textures = new HashMap<>();
 
-    public Texture get(String filename) {
-        if (!textures.containsKey(filename)) {
+    public Texture get (String filename) {
+        if( !textures.containsKey(filename) ){
             textures.put(filename, newTexture(getUrl(filename)));
         }
         return textures.get(filename);
     }
 
     @VisibleForTesting
-    URL getUrl(String filename) {
+    URL getUrl (String filename) {
         URL resource = ClassLoader.getSystemResource(filename);
-        if (resource == null) {
+        if( resource == null ){
             throw new IllegalArgumentException("File " + filename + " does not exist");
         }
         return resource;
     }
 
     @VisibleForTesting
-    Texture newTexture(URL url) {
-        try {
+    Texture newTexture (URL url) {
+        try{
             return TextureIO.newTexture(url, true, null);
-        } catch (IOException e) {
+        }catch( IOException e ){
             throw Throwables.propagate(e);
         }
     }
