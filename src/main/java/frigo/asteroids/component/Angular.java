@@ -19,4 +19,9 @@ public class Angular extends Component {
         return new Angular(position, velocity, acceleration + direction);
     }
 
+    public Angular update (double elapsed) {
+        double newVelocity = velocity + acceleration * elapsed;
+        double newPosition = position + (velocity + newVelocity) * 0.5 * elapsed;
+        return new Angular(newPosition, newVelocity, 0);
+    }
 }
