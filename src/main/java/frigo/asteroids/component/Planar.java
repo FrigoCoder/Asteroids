@@ -26,4 +26,11 @@ public class Planar extends Component {
     public Planar accelerate (Vector direction) {
         return new Planar(position, velocity, acceleration.add(direction));
     }
+
+    public Planar update (double elapsed) {
+        Vector newVelocity = velocity.add(acceleration.mul(elapsed));
+        Vector newPosition = position.add(velocity.add(newVelocity).mul(0.5 * elapsed));
+        return new Planar(newPosition, newVelocity, new Vector(0, 0));
+    }
+
 }
