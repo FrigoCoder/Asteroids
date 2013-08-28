@@ -6,8 +6,7 @@ import java.util.List;
 
 import com.jogamp.newt.event.KeyEvent;
 
-import frigo.asteroids.component.AngularAcceleration;
-import frigo.asteroids.component.AngularDisplacement;
+import frigo.asteroids.component.Angular;
 import frigo.asteroids.component.Planar;
 import frigo.asteroids.component.PlayerControllable;
 import frigo.asteroids.component.Vector;
@@ -21,8 +20,7 @@ import frigo.asteroids.message.KeyPressed;
 
 public class InputSystem implements Logic {
 
-    private Aspect controllableAspect = Aspect.allOf(PlayerControllable.class, Planar.class, AngularAcceleration.class,
-        AngularDisplacement.class);
+    private Aspect controllableAspect = Aspect.allOf(PlayerControllable.class, Planar.class, Angular.class);
 
     @Override
     public void init (World world) {
@@ -40,16 +38,15 @@ public class InputSystem implements Logic {
             for( KeyMessage message : messages ){
                 switch( message.key ){
                     case KeyEvent.VK_UP:
-                        AngularDisplacement angle = world.get(entity, AngularDisplacement.class);
-                        Vector heading = new Vector(0.0, 1.0).rotate(angle.value).mul(controllable.thrust);
+                        double angle = world.get(entity, Angular.class).position;
+                        Vector heading = new Vector(0.0, 1.0).rotate(angle).mul(controllable.thrust);
                         world.set(entity, world.get(entity, Planar.class).accelerate(heading));
                         break;
                     case KeyEvent.VK_LEFT:
-                        world.set(entity, world.get(entity, AngularAcceleration.class).add(controllable.angularThrust));
+                        world.set(entity, world.get(entity, Angular.class).accelerate(controllable.angularThrust));
                         break;
                     case KeyEvent.VK_RIGHT:
-                        world
-                            .set(entity, world.get(entity, AngularAcceleration.class).add(-controllable.angularThrust));
+                        world.set(entity, world.get(entity, Angular.class).accelerate(-controllable.angularThrust));
                         break;
                     default:
                         break;

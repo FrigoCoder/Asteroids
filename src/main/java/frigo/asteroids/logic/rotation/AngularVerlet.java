@@ -1,28 +1,22 @@
 
 package frigo.asteroids.logic.rotation;
 
-import frigo.asteroids.component.AngularAcceleration;
-import frigo.asteroids.component.AngularDisplacement;
-import frigo.asteroids.component.AngularVelocity;
+import frigo.asteroids.component.Angular;
 
 public class AngularVerlet {
 
-    private AngularAcceleration acceleration;
-    private AngularVelocity velocity;
-    private AngularDisplacement displacement;
+    private Angular angular;
 
-    public AngularVerlet (AngularAcceleration acceleration, AngularVelocity velocity, AngularDisplacement displacement) {
-        this.acceleration = acceleration;
-        this.velocity = velocity;
-        this.displacement = displacement;
+    public AngularVerlet (Angular angular) {
+        this.angular = angular;
     }
 
-    public AngularVelocity getVelocity (double elapsed) {
-        return velocity.add(acceleration.mul(elapsed));
+    public double getVelocity (double elapsed) {
+        return angular.velocity + angular.acceleration * elapsed;
     }
 
-    public AngularDisplacement getDisplacement (double elapsed) {
-        return displacement.add(getVelocity(elapsed).add(velocity).mul(0.5 * elapsed));
+    public double getDisplacement (double elapsed) {
+        return angular.position + (getVelocity(elapsed) + angular.velocity) * 0.5 * elapsed;
     }
 
 }
