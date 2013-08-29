@@ -13,7 +13,7 @@ import frigo.asteroids.core.Entity;
 import frigo.asteroids.core.Logic;
 import frigo.asteroids.core.World;
 
-public class GravitySystem implements Logic {
+public class GravitySystem extends Logic {
 
     private GravityCalculator calculator;
     private Aspect attractorAspect = Aspect.allOf(Attractor.class, Mass.class, Planar.class);
@@ -21,10 +21,6 @@ public class GravitySystem implements Logic {
 
     public GravitySystem (GravityCalculator calculator) {
         this.calculator = calculator;
-    }
-
-    @Override
-    public void init (World world) {
     }
 
     @Override

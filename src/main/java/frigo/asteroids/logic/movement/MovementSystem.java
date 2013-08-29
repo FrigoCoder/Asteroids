@@ -7,13 +7,9 @@ import frigo.asteroids.core.Entity;
 import frigo.asteroids.core.Logic;
 import frigo.asteroids.core.World;
 
-public class MovementSystem implements Logic {
+public class MovementSystem extends Logic {
 
     private Aspect aspect = Aspect.allOf(Planar.class);
-
-    @Override
-    public void init (World world) {
-    }
 
     @Override
     public void update (World world, double elapsedSeconds) {

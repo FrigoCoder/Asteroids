@@ -18,13 +18,9 @@ import frigo.asteroids.message.KeyHeld;
 import frigo.asteroids.message.KeyMessage;
 import frigo.asteroids.message.KeyPressed;
 
-public class InputSystem implements Logic {
+public class InputSystem extends Logic {
 
     private Aspect controllableAspect = Aspect.allOf(PlayerControllable.class, Planar.class, Angular.class);
-
-    @Override
-    public void init (World world) {
-    }
 
     @Override
     public void update (World world, double elapsedSeconds) {
@@ -54,4 +50,5 @@ public class InputSystem implements Logic {
             }
         }
     }
+
 }

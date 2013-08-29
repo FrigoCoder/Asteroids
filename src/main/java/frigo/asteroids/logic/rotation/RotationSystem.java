@@ -7,13 +7,9 @@ import frigo.asteroids.core.Entity;
 import frigo.asteroids.core.Logic;
 import frigo.asteroids.core.World;
 
-public class RotationSystem implements Logic {
+public class RotationSystem extends Logic {
 
     private Aspect all = Aspect.allOf(Angular.class);
-
-    @Override
-    public void init (World world) {
-    }
 
     @Override
     public void update (World world, double elapsedSeconds) {
