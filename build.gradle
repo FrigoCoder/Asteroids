@@ -14,9 +14,12 @@ repositories {
 }
 
 dependencies {
+
+    natives group: 'org.jogamp.gluegen', name: 'gluegen-rt', version: 'latest.stable', classifier: 'natives-linux-amd64'
     natives group: 'org.jogamp.gluegen', name: 'gluegen-rt', version: 'latest.stable', classifier: 'natives-windows-amd64'
     compile group: 'org.jogamp.gluegen', name: 'gluegen-rt', version: 'latest.stable'
 
+    natives group: 'org.jogamp.jogl', name: 'jogl-all', version: 'latest.stable', classifier: 'natives-linux-amd64'
     natives group: 'org.jogamp.jogl', name: 'jogl-all', version: 'latest.stable', classifier: 'natives-windows-amd64'
     compile group: 'org.jogamp.jogl', name: 'jogl-all-noawt', version: 'latest.stable'
 
@@ -30,11 +33,6 @@ dependencies {
     compile group: 'log4j', name: 'log4j', version: 'latest.release'
     compile group: 'log4j', name: 'apache-log4j-extras', version: 'latest.release'
 
-    compile group: 'colt', name: 'colt', version: 'latest.release'
-    compile group: 'com.carrotsearch', name: 'hppc', version: 'latest.release'
-    compile group: 'fastutil', name: 'fastutil', version: 'latest.release'
-    compile group: 'org.javolution', name: 'javolution', version: 'latest.release'
-    compile group: 'pcj', name: 'pcj', version: 'latest.release'
     compile group: 'trove', name: 'trove', version: 'latest.release'
 
     testCompile group: 'com.jayway.awaitility', name: 'awaitility', version: 'latest.release'
