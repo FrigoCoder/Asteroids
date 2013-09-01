@@ -1,10 +1,9 @@
 
-package frigo.asteroids.component;
+package frigo.asteroids.core;
 
 import static java.lang.Math.sqrt;
-import frigo.asteroids.core.Component;
 
-public class Vector extends Component {
+public class Vector extends Value {
 
     public static final Vector NULL = vector(0, 0);
     public static final Vector UNIT_X = vector(1, 0);

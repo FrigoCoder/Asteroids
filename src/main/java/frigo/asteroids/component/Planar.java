@@ -1,9 +1,10 @@
 
 package frigo.asteroids.component;
 
-import static frigo.asteroids.component.Vector.NULL;
-import static frigo.asteroids.component.Vector.vector;
+import static frigo.asteroids.core.Vector.NULL;
+import static frigo.asteroids.core.Vector.vector;
 import frigo.asteroids.core.Component;
+import frigo.asteroids.core.Vector;
 
 public class Planar extends Component {
 

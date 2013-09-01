@@ -1,5 +1,9 @@
 
-package frigo.asteroids.core;
+package frigo.asteroids.core.storage;
+
+import frigo.asteroids.core.Component;
+import frigo.asteroids.core.ComponentStorage;
+import frigo.asteroids.core.ComponentStorageFactory;
 
 public class TroveComponentStorageFactory implements ComponentStorageFactory {
 

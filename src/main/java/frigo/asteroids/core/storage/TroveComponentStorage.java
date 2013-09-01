@@ -1,16 +1,19 @@
 
-package frigo.asteroids.core;
-
-import gnu.trove.TIntObjectHashMap;
+package frigo.asteroids.core.storage;
 
 import java.util.NoSuchElementException;
+
+import frigo.asteroids.core.Component;
+import frigo.asteroids.core.ComponentStorage;
+import frigo.asteroids.core.Entity;
+import gnu.trove.TIntObjectHashMap;
 
 public class TroveComponentStorage<T extends Component> implements ComponentStorage<T> {
 
     private TIntObjectHashMap map = new TIntObjectHashMap();
 
     @Override
-    public void added () {
+    public void added (Entity entity) {
     }
 
     @Override

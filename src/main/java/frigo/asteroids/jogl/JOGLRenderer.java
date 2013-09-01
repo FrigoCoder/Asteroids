@@ -1,7 +1,7 @@
 
 package frigo.asteroids.jogl;
 
-import static frigo.asteroids.component.Vector.vector;
+import static frigo.asteroids.core.Vector.vector;
 
 import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
@@ -18,9 +18,9 @@ import frigo.asteroids.component.Planar;
 import frigo.asteroids.component.Point;
 import frigo.asteroids.component.Size;
 import frigo.asteroids.component.TextureName;
-import frigo.asteroids.component.Vector;
 import frigo.asteroids.core.Aspect;
 import frigo.asteroids.core.Entity;
+import frigo.asteroids.core.Vector;
 import frigo.asteroids.core.World;
 
 public class JOGLRenderer implements GLEventListener {

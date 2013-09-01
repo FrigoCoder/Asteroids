@@ -2,9 +2,9 @@
 package frigo.asteroids.logic.gravity;
 
 import static frigo.asteroids.component.Planar.planar;
-import static frigo.asteroids.component.Vector.NULL;
-import static frigo.asteroids.component.Vector.vector;
 import static frigo.asteroids.component.VectorCloseTo.closeTo;
+import static frigo.asteroids.core.Vector.NULL;
+import static frigo.asteroids.core.Vector.vector;
 import static frigo.asteroids.logic.gravity.NewtonianGravity.G;
 import static org.junit.Assert.assertThat;
 

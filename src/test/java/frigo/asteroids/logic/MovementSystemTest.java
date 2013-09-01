@@ -2,7 +2,7 @@
 package frigo.asteroids.logic;
 
 import static frigo.asteroids.component.Planar.planar;
-import static frigo.asteroids.component.Vector.vector;
+import static frigo.asteroids.core.Vector.vector;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 

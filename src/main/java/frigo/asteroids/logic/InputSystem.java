@@ -1,7 +1,7 @@
 
 package frigo.asteroids.logic;
 
-import static frigo.asteroids.component.Vector.UNIT_Y;
+import static frigo.asteroids.core.Vector.UNIT_Y;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -11,10 +11,10 @@ import com.jogamp.newt.event.KeyEvent;
 import frigo.asteroids.component.Angular;
 import frigo.asteroids.component.Planar;
 import frigo.asteroids.component.PlayerControllable;
-import frigo.asteroids.component.Vector;
 import frigo.asteroids.core.Aspect;
 import frigo.asteroids.core.Entity;
 import frigo.asteroids.core.Logic;
+import frigo.asteroids.core.Vector;
 import frigo.asteroids.core.World;
 import frigo.asteroids.message.KeyHeld;
 import frigo.asteroids.message.KeyMessage;

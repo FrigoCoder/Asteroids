@@ -5,6 +5,8 @@ import org.hamcrest.Description;
 import org.hamcrest.Factory;
 import org.hamcrest.TypeSafeMatcher;
 
+import frigo.asteroids.core.Vector;
+
 public class VectorCloseTo extends TypeSafeMatcher<Vector> {
 
     @Factory

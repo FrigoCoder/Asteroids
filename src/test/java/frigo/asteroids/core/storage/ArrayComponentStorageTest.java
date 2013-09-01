@@ -1,5 +1,5 @@
 
-package frigo.asteroids.core;
+package frigo.asteroids.core.storage;
 
 import static frigo.asteroids.component.Planar.planar;
 import static org.hamcrest.Matchers.is;
@@ -14,6 +14,9 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import frigo.asteroids.component.Planar;
+import frigo.asteroids.core.ComponentStorage;
+import frigo.asteroids.core.Entity;
+import frigo.asteroids.core.World;
 
 public class ArrayComponentStorageTest {
 
@@ -27,7 +30,7 @@ public class ArrayComponentStorageTest {
 
     @Before
     public void setUp () {
-        storage.added();
+        storage.added(null);
     }
 
     @Test

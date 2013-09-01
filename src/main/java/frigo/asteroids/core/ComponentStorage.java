@@ -1,7 +1,9 @@
 
 package frigo.asteroids.core;
 
-public interface ComponentStorage<T extends Component> extends EntityListener {
+public interface ComponentStorage<T extends Component> {
+
+    void added (Entity entity);
 
     boolean has (Entity entity);
 

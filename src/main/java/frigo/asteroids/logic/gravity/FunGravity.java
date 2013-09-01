@@ -3,8 +3,8 @@ package frigo.asteroids.logic.gravity;
 
 import frigo.asteroids.component.Mass;
 import frigo.asteroids.component.Planar;
-import frigo.asteroids.component.Vector;
 import frigo.asteroids.core.Entity;
+import frigo.asteroids.core.Vector;
 import frigo.asteroids.core.World;
 
 public class FunGravity implements GravityCalculator {

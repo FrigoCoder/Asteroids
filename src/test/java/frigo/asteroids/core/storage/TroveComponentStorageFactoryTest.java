@@ -1,10 +1,13 @@
 
-package frigo.asteroids.core;
+package frigo.asteroids.core.storage;
 
 import static org.hamcrest.Matchers.instanceOf;
 import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
+
+import frigo.asteroids.core.storage.TroveComponentStorage;
+import frigo.asteroids.core.storage.TroveComponentStorageFactory;
 
 public class TroveComponentStorageFactoryTest {
 

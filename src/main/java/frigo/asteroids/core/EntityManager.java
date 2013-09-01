@@ -30,7 +30,7 @@ public class EntityManager {
         Entity entity = new Entity(entities.size());
         entities.add(entity);
         for( ComponentStorage<?> storage : storages.values() ){
-            storage.added();
+            storage.added(entity);
         }
         return entity;
     }

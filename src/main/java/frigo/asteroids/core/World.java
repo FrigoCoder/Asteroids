@@ -3,6 +3,8 @@ package frigo.asteroids.core;
 
 import java.util.List;
 
+import frigo.asteroids.core.storage.TroveComponentStorageFactory;
+
 public class World {
 
     private EntityManager entities;

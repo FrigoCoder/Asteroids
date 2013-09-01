@@ -2,13 +2,15 @@
 package frigo.asteroids.component;
 
 import static frigo.asteroids.component.Planar.planar;
-import static frigo.asteroids.component.Vector.NULL;
-import static frigo.asteroids.component.Vector.vector;
 import static frigo.asteroids.component.VectorCloseTo.closeTo;
+import static frigo.asteroids.core.Vector.NULL;
+import static frigo.asteroids.core.Vector.vector;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
+
+import frigo.asteroids.core.Vector;
 
 public class PlanarTest {
 

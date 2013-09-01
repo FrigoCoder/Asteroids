@@ -1,9 +1,9 @@
 
-package frigo.asteroids.component;
+package frigo.asteroids.core;
 
-import static frigo.asteroids.component.Vector.UNIT_X;
-import static frigo.asteroids.component.Vector.UNIT_Y;
-import static frigo.asteroids.component.Vector.vector;
+import static frigo.asteroids.core.Vector.UNIT_X;
+import static frigo.asteroids.core.Vector.UNIT_Y;
+import static frigo.asteroids.core.Vector.vector;
 import static java.lang.Math.PI;
 import static java.lang.Math.cos;
 import static java.lang.Math.sin;
@@ -12,6 +12,8 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
+
+import frigo.asteroids.core.Vector;
 
 public class VectorTest {
 

@@ -7,10 +7,10 @@ import frigo.asteroids.component.Attractable;
 import frigo.asteroids.component.Attractor;
 import frigo.asteroids.component.Mass;
 import frigo.asteroids.component.Planar;
-import frigo.asteroids.component.Vector;
 import frigo.asteroids.core.Aspect;
 import frigo.asteroids.core.Entity;
 import frigo.asteroids.core.Logic;
+import frigo.asteroids.core.Vector;
 import frigo.asteroids.core.World;
 
 public class GravitySystem extends Logic {
