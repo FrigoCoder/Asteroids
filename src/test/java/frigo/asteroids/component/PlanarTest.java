@@ -67,7 +67,7 @@ public class PlanarTest {
     public void zero_acceleration_and_tenth_elapsed_seconds () {
         planar = planar.acceleration(NULL);
         Planar actual = planar.update(0.1);
-        Planar expected = planar().position(position.add(velocity.mul(0.1))).velocity(velocity).acceleration(NULL);
+        Planar expected = planar().position(position.add(velocity.mul(0.1))).velocity(velocity);
         assertThat(actual, is(expected));
     }
 

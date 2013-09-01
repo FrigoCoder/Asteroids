@@ -52,7 +52,7 @@ public class Planar extends Component {
     public Planar update (double elapsed) {
         Vector newVelocity = velocity.add(acceleration.mul(elapsed));
         Vector newPosition = position.add(velocity.add(newVelocity).mul(0.5 * elapsed));
-        return planar().position(newPosition).velocity(newVelocity);
+        return new Planar(newPosition, newVelocity, NULL);
     }
 
 }
