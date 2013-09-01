@@ -22,7 +22,7 @@ public class FunGravity implements GravityCalculator {
         double m1 = world.get(attractor, Mass.class).kg;
         Vector direction = world.get(attractor, Planar.class).position.sub(world.get(attracted, Planar.class).position);
         double r = direction.length();
-        r = r <= 0.0 ? Double.MAX_VALUE : r;
+        r = r <= 0 ? Double.MAX_VALUE : r;
         double acceleration = G * m1 / r;
         return direction.mul(acceleration);
     }

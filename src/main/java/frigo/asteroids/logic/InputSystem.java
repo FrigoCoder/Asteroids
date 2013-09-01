@@ -1,6 +1,8 @@
 
 package frigo.asteroids.logic;
 
+import static frigo.asteroids.component.Vector.UNIT_Y;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -35,7 +37,7 @@ public class InputSystem extends Logic {
                 switch( message.key ){
                     case KeyEvent.VK_UP:
                         double angle = world.get(entity, Angular.class).position;
-                        Vector heading = new Vector(0.0, 1.0).rotate(angle).mul(controllable.thrust);
+                        Vector heading = UNIT_Y.rotate(angle).mul(controllable.thrust);
                         world.set(entity, world.get(entity, Planar.class).accelerate(heading));
                         break;
                     case KeyEvent.VK_LEFT:

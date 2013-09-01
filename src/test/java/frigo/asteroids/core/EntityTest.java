@@ -1,6 +1,7 @@
 
 package frigo.asteroids.core;
 
+import static frigo.asteroids.component.Vector.vector;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.sameInstance;
@@ -14,7 +15,6 @@ import org.junit.rules.ExpectedException;
 
 import frigo.asteroids.component.Attractor;
 import frigo.asteroids.component.Planar;
-import frigo.asteroids.component.Vector;
 
 public class EntityTest {
 
@@ -22,7 +22,7 @@ public class EntityTest {
     public ExpectedException thrown = ExpectedException.none();
     private World world = new World();
     private Entity entity = world.createEntity();
-    private Planar position = new Planar(new Vector(1, 1));
+    private Planar position = new Planar(vector(1, 1));
 
     @Test
     public void created_entities_have_different_ids () {

@@ -10,7 +10,7 @@ public class MassTest {
 
     @Test
     public void constructor_initializes_mass () {
-        Mass mass = new Mass(1.0);
+        Mass mass = new Mass(1);
         assertThat(mass.kg, is(1.0));
     }
 

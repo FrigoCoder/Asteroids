@@ -1,6 +1,7 @@
 
 package frigo.asteroids.core;
 
+import static frigo.asteroids.component.Vector.NULL;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -9,7 +10,6 @@ import org.junit.Test;
 import frigo.asteroids.component.Mass;
 import frigo.asteroids.component.Planar;
 import frigo.asteroids.component.Point;
-import frigo.asteroids.component.Vector;
 
 public class AspectTest {
 
@@ -19,19 +19,19 @@ public class AspectTest {
 
     @Test
     public void aspect_all_matches_entities_having_all_components () {
-        Entity entity = world.createEntity(new Planar(new Vector(0, 0)), new Mass(0));
+        Entity entity = world.createEntity(new Planar(NULL), new Mass(0));
         assertThat(world.matches(entity, all), is(true));
     }
 
     @Test
     public void aspect_all_does_not_match_entities_not_having_all_components () {
-        Entity entity = world.createEntity(new Planar(new Vector(0, 0)));
+        Entity entity = world.createEntity(new Planar(NULL));
         assertThat(world.matches(entity, all), is(false));
     }
 
     @Test
     public void aspect_all_matches_entities_having_more_components () {
-        Entity entity = world.createEntity(new Planar(new Vector(0, 0)), new Mass(0), new Point());
+        Entity entity = world.createEntity(new Planar(NULL), new Mass(0), new Point());
         assertThat(world.matches(entity, all), is(true));
     }
 
@@ -43,7 +43,7 @@ public class AspectTest {
 
     @Test
     public void aspect_none_does_not_match_entities_having_such_components () {
-        Entity entity = world.createEntity(new Planar(new Vector(0, 0)));
+        Entity entity = world.createEntity(new Planar(NULL));
         assertThat(world.matches(entity, none), is(false));
     }
 

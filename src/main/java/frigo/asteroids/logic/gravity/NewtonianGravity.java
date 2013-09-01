@@ -22,7 +22,7 @@ public class NewtonianGravity implements GravityCalculator {
         double m1 = world.get(attractor, Mass.class).kg;
         Vector direction = world.get(attractor, Planar.class).position.sub(world.get(attracted, Planar.class).position);
         double r2 = direction.x * direction.x + direction.y * direction.y;
-        r2 = r2 <= 0.0 ? Double.MAX_VALUE : r2;
+        r2 = r2 <= 0 ? Double.MAX_VALUE : r2;
         double acceleration = G * m1 / r2;
         return direction.mul(acceleration);
     }

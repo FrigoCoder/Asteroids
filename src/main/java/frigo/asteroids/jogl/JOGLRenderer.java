@@ -1,6 +1,8 @@
 
 package frigo.asteroids.jogl;
 
+import static frigo.asteroids.component.Vector.vector;
+
 import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
 import javax.media.opengl.GL2ES1;
@@ -82,13 +84,13 @@ public class JOGLRenderer implements GLEventListener {
         double scale = size / 2;
         gl.glBegin(GL2GL3.GL_QUADS);
         gl.glTexCoord2d(0, 0);
-        vertex(gl, position.add(new Vector(-scale, -scale).rotate(radians)));
+        vertex(gl, position.add(vector(-scale, -scale).rotate(radians)));
         gl.glTexCoord2d(0, 1);
-        vertex(gl, position.add(new Vector(-scale, +scale).rotate(radians)));
+        vertex(gl, position.add(vector(-scale, +scale).rotate(radians)));
         gl.glTexCoord2d(1, 1);
-        vertex(gl, position.add(new Vector(+scale, +scale).rotate(radians)));
+        vertex(gl, position.add(vector(+scale, +scale).rotate(radians)));
         gl.glTexCoord2d(1, 0);
-        vertex(gl, position.add(new Vector(+scale, -scale).rotate(radians)));
+        vertex(gl, position.add(vector(+scale, -scale).rotate(radians)));
         gl.glEnd();
 
         tex.disable(gl);

@@ -1,6 +1,7 @@
 
 package frigo.asteroids.core;
 
+import static frigo.asteroids.component.Vector.NULL;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.sameInstance;
 import static org.junit.Assert.assertThat;
@@ -13,7 +14,6 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import frigo.asteroids.component.Planar;
-import frigo.asteroids.component.Vector;
 
 public class ArrayComponentStorageTest {
 
@@ -23,7 +23,7 @@ public class ArrayComponentStorageTest {
     private World world = new World();
     private Entity entity = world.createEntity();
     private ComponentStorage<Planar> storage = new ArrayComponentStorage<>(1);
-    private Planar component = new Planar(new Vector(0, 0));
+    private Planar component = new Planar(NULL);
 
     @Before
     public void setUp () {

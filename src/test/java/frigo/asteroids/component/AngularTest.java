@@ -23,9 +23,9 @@ public class AngularTest {
     @Test
     public void zero_acceleration_and_one_elapsed_seconds () {
         angular = new Angular(position, velocity, zeroAcceleration);
-        assertThat(angular.update(1.0).acceleration, is(0.0));
-        assertThat(angular.update(1.0).velocity, is(velocity));
-        assertThat(angular.update(1.0).position, is(position + velocity));
+        assertThat(angular.update(1).acceleration, is(0.0));
+        assertThat(angular.update(1).velocity, is(velocity));
+        assertThat(angular.update(1).position, is(position + velocity));
     }
 
     @Test
@@ -39,9 +39,9 @@ public class AngularTest {
     @Test
     public void nonzero_acceleration_and_one_elapsed_seconds () {
         angular = new Angular(position, velocity, acceleration);
-        assertThat(angular.update(1.0).acceleration, is(0.0));
-        assertThat(angular.update(1.0).velocity, is(velocity + acceleration));
-        assertThat(angular.update(1.0).position, is(position + (velocity + acceleration * 0.5)));
+        assertThat(angular.update(1).acceleration, is(0.0));
+        assertThat(angular.update(1).velocity, is(velocity + acceleration));
+        assertThat(angular.update(1).position, is(position + (velocity + acceleration * 0.5)));
     }
 
     @Test

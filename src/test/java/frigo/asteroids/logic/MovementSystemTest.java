@@ -1,6 +1,8 @@
 
 package frigo.asteroids.logic;
 
+import static frigo.asteroids.component.Vector.NULL;
+import static frigo.asteroids.component.Vector.vector;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -26,30 +28,30 @@ public class MovementSystemTest {
 
     @Test
     public void properly_updates_velocity_and_position_of_entities_with_acceleration_and_velocity () {
-        Vector acceleration = new Vector(1.0, 1.0);
-        Vector velocity = new Vector(1.0, -1.0);
-        Vector position = new Vector(0.5, 0.5);
+        Vector acceleration = vector(1, 1);
+        Vector velocity = vector(1, -1);
+        Vector position = vector(0.5, 0.5);
         world.set(entity, new Planar(position, velocity, acceleration));
 
         world.update(0.1);
 
-        assertThat(world.get(entity, Planar.class).acceleration, is(new Vector(0, 0)));
-        assertThat(world.get(entity, Planar.class).velocity, is(new Vector(1.1, -0.9)));
-        assertThat(world.get(entity, Planar.class).position, is(new Vector(0.605, 0.405)));
+        assertThat(world.get(entity, Planar.class).acceleration, is(NULL));
+        assertThat(world.get(entity, Planar.class).velocity, is(vector(1.1, -0.9)));
+        assertThat(world.get(entity, Planar.class).position, is(vector(0.605, 0.405)));
     }
 
     @Test
     public void updates_position_of_entities_by_velocity_and_elapsed_seconds () {
-        Vector acceleration = new Vector(0.0, 0.0);
-        Vector velocity = new Vector(1.0, 1.0);
-        Vector position = new Vector(0.0, 0.1);
+        Vector acceleration = NULL;
+        Vector velocity = vector(1, 1);
+        Vector position = vector(0, 0.1);
         world.set(entity, new Planar(position, velocity, acceleration));
 
         world.update(0.1);
 
-        assertThat(world.get(entity, Planar.class).acceleration, is(new Vector(0, 0)));
-        assertThat(world.get(entity, Planar.class).velocity, is(new Vector(1.0, 1.0)));
-        assertThat(world.get(entity, Planar.class).position, is(new Vector(0.1, 0.2)));
+        assertThat(world.get(entity, Planar.class).acceleration, is(NULL));
+        assertThat(world.get(entity, Planar.class).velocity, is(vector(1, 1)));
+        assertThat(world.get(entity, Planar.class).position, is(vector(0.1, 0.2)));
     }
 
 }
