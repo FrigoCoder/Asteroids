@@ -35,6 +35,8 @@ dependencies {
 
     compile group: 'trove', name: 'trove', version: 'latest.release'
 
+	compile group: 'com.thoughtworks.xstream', name: 'xstream', version: 'latest.release'
+
     testCompile group: 'com.jayway.awaitility', name: 'awaitility', version: 'latest.release'
     testCompile group: 'junit', name: 'junit', version: 'latest.release'
     testCompile group: 'org.hamcrest', name: 'hamcrest-all', version: 'latest.release'
