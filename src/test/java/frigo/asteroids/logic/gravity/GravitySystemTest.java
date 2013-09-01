@@ -26,8 +26,8 @@ public class GravitySystemTest {
 
     @Before
     public void setUp () {
-        attracted1 = world.createEntity(new Attractable(), new Mass(10), planar().position(vector(0.1, 0)));
-        attracted2 = world.createEntity(new Attractable(), new Mass(1), planar().position(vector(0, 0.1)));
+        attracted1 = world.createEntity(new Attractable(), new Mass(10), planar().position(0.1, 0));
+        attracted2 = world.createEntity(new Attractable(), new Mass(1), planar().position(0, 0.1));
         world.addLogic(new GravitySystem(new NewtonianGravity(world)));
         world.init();
     }
@@ -42,7 +42,7 @@ public class GravitySystemTest {
 
     @Test
     public void attractor_attracts_two_attractables () {
-        world.createEntity(new Attractor(), new Mass(100), planar().position(vector(-0.1, 0)));
+        world.createEntity(new Attractor(), new Mass(100), planar().position(-0.1, 0));
 
         world.update(1);
 

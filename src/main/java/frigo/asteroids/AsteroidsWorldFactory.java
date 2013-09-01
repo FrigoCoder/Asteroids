@@ -2,7 +2,6 @@
 package frigo.asteroids;
 
 import static frigo.asteroids.component.Planar.planar;
-import static frigo.asteroids.component.Vector.vector;
 import static java.lang.Math.PI;
 import static java.lang.Math.pow;
 
@@ -16,7 +15,6 @@ import frigo.asteroids.component.PlayerControllable;
 import frigo.asteroids.component.Point;
 import frigo.asteroids.component.Size;
 import frigo.asteroids.component.TextureName;
-import frigo.asteroids.component.Vector;
 import frigo.asteroids.core.ArrayComponentStorageFactory;
 import frigo.asteroids.core.Entity;
 import frigo.asteroids.core.World;
@@ -75,9 +73,7 @@ public class AsteroidsWorldFactory {
         world.set(entity, new PlayerControllable(0.1, 1));
         world.set(entity, new Attractable());
         world.set(entity, new Mass(PI * 4 / 3 * pow(size, 3) * DENSITY));
-        Vector position = vector(0, 0.5);
-        Vector velocity = vector(0.2, 0);
-        world.set(entity, planar().position(position).velocity(velocity));
+        world.set(entity, planar().position(0, 0.5).velocity(0.2, 0));
         world.set(entity, new Angular(0, 0, 0));
         world.set(entity, new Size(size));
         world.set(entity, new TextureName("spaceship.png"));
@@ -90,9 +86,8 @@ public class AsteroidsWorldFactory {
         Entity entity = world.createEntity();
         world.set(entity, new Attractable());
         world.set(entity, new Mass(PI * 4 / 3 * pow(size, 3) * DENSITY));
-        Vector position = vector(getRandom(-1, 1), getRandom(-1, 1));
-        Vector velocity = vector(getRandom(-speed, speed), getRandom(-speed, speed));
-        world.set(entity, planar().position(position).velocity(velocity));
+        world.set(entity, planar().position(getRandom(-1, 1), getRandom(-1, 1)).velocity(getRandom(-speed, speed),
+            getRandom(-speed, speed)));
         world.set(entity, new Angular(0, getRandom(-PI, PI), 0));
         world.set(entity, new Size(size));
         world.set(entity, new TextureName("vesta.png"));
@@ -103,9 +98,8 @@ public class AsteroidsWorldFactory {
         double size = 0.01;
         double speed = 0.005;
         Entity entity = world.createEntity();
-        Vector position = vector(getRandom(-2, 2), getRandom(-1, 1));
-        Vector velocity = vector(getRandom(-speed, speed), getRandom(-speed, speed));
-        world.set(entity, planar().position(position).velocity(velocity));
+        world.set(entity, planar().position(getRandom(-2, 2), getRandom(-1, 1)).velocity(getRandom(-speed, speed),
+            getRandom(-speed, speed)));
         world.set(entity, new Size(size));
         world.set(entity, new Point());
         return entity;

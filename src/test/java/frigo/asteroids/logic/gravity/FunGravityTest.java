@@ -18,10 +18,10 @@ import frigo.asteroids.core.World;
 public class FunGravityTest {
 
     private World world = new World();
-    private Entity attractor1 = world.createEntity(new Mass(100), planar().position(vector(-0.1, 0)));
-    private Entity attracted1 = world.createEntity(new Mass(10), planar().position(vector(0.1, 0)));
-    private Entity attracted2 = world.createEntity(new Mass(1), planar().position(vector(0, 0.1)));
-    private Entity attracted3 = world.createEntity(new Mass(1), planar().position(vector(-0.1, 0)));
+    private Entity attractor1 = world.createEntity(new Mass(100), planar().position(-0.1, 0));
+    private Entity attracted1 = world.createEntity(new Mass(10), planar().position(0.1, 0));
+    private Entity attracted2 = world.createEntity(new Mass(1), planar().position(0, 0.1));
+    private Entity attracted3 = world.createEntity(new Mass(1), planar().position(-0.1, 0));
     private GravityCalculator gravity = new FunGravity(world);
 
     @Test
