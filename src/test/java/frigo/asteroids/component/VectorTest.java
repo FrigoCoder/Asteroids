@@ -82,4 +82,15 @@ public class VectorTest {
         assertThat(vector.rotate(PI / 2).y, closeTo(0.0, 1E-16));
     }
 
+    @Test
+    public void normalize_normalizes_nonzero_vector () {
+        Vector vector = new Vector(3.0, 4.0);
+        assertThat(vector.normalize(), is(new Vector(0.6, 0.8)));
+    }
+
+    @Test
+    public void normalize_returns_zero_vector_for_zero_vector () {
+
+    }
+
 }

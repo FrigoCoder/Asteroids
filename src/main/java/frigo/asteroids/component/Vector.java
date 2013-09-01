@@ -40,6 +40,10 @@ public class Vector extends Component {
         return create(c * x - s * y, s * x + c * y);
     }
 
+    public Vector normalize () {
+        return div(length());
+    }
+
     private static Vector create (double xval, double yval) {
         return new Vector(xval, yval);
     }
