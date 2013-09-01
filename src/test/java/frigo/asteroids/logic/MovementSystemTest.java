@@ -1,6 +1,7 @@
 
 package frigo.asteroids.logic;
 
+import static frigo.asteroids.component.Planar.planar;
 import static frigo.asteroids.component.Vector.NULL;
 import static frigo.asteroids.component.Vector.vector;
 import static org.hamcrest.Matchers.is;
@@ -31,7 +32,7 @@ public class MovementSystemTest {
         Vector acceleration = vector(1, 1);
         Vector velocity = vector(1, -1);
         Vector position = vector(0.5, 0.5);
-        world.set(entity, new Planar(position, velocity, acceleration));
+        world.set(entity, planar().position(position).velocity(velocity).acceleration(acceleration));
 
         world.update(0.1);
 
@@ -45,7 +46,7 @@ public class MovementSystemTest {
         Vector acceleration = NULL;
         Vector velocity = vector(1, 1);
         Vector position = vector(0, 0.1);
-        world.set(entity, new Planar(position, velocity, acceleration));
+        world.set(entity, planar().position(position).velocity(velocity).acceleration(acceleration));
 
         world.update(0.1);
 

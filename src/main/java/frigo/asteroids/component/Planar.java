@@ -6,32 +6,40 @@ import frigo.asteroids.core.Component;
 
 public class Planar extends Component {
 
+    public static Planar planar () {
+        return new Planar(NULL, NULL, NULL);
+    }
+
     public final Vector position;
     public final Vector velocity;
     public final Vector acceleration;
 
-    public Planar (Vector position) {
-        this(position, NULL, NULL);
-    }
-
-    public Planar (Vector position, Vector velocity) {
-        this(position, velocity, NULL);
-    }
-
-    public Planar (Vector position, Vector velocity, Vector acceleration) {
+    private Planar (Vector position, Vector velocity, Vector acceleration) {
         this.position = position;
         this.velocity = velocity;
         this.acceleration = acceleration;
     }
 
+    public Planar position (Vector newPosition) {
+        return new Planar(newPosition, velocity, acceleration);
+    }
+
+    public Planar velocity (Vector newVelocity) {
+        return new Planar(position, newVelocity, acceleration);
+    }
+
+    public Planar acceleration (Vector newAcceleration) {
+        return new Planar(position, velocity, newAcceleration);
+    }
+
     public Planar accelerate (Vector direction) {
-        return new Planar(position, velocity, acceleration.add(direction));
+        return acceleration(acceleration.add(direction));
     }
 
     public Planar update (double elapsed) {
         Vector newVelocity = velocity.add(acceleration.mul(elapsed));
         Vector newPosition = position.add(velocity.add(newVelocity).mul(0.5 * elapsed));
-        return new Planar(newPosition, newVelocity, NULL);
+        return planar().position(newPosition).velocity(newVelocity);
     }
 
 }

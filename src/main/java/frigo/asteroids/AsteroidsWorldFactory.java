@@ -1,7 +1,7 @@
 
 package frigo.asteroids;
 
-import static frigo.asteroids.component.Vector.NULL;
+import static frigo.asteroids.component.Planar.planar;
 import static frigo.asteroids.component.Vector.vector;
 import static java.lang.Math.PI;
 import static java.lang.Math.pow;
@@ -12,7 +12,6 @@ import frigo.asteroids.component.Angular;
 import frigo.asteroids.component.Attractable;
 import frigo.asteroids.component.Attractor;
 import frigo.asteroids.component.Mass;
-import frigo.asteroids.component.Planar;
 import frigo.asteroids.component.PlayerControllable;
 import frigo.asteroids.component.Point;
 import frigo.asteroids.component.Size;
@@ -63,7 +62,7 @@ public class AsteroidsWorldFactory {
         Entity entity = world.createEntity();
         world.set(entity, new Attractor());
         world.set(entity, new Mass(PI * 4 / 3 * pow(size, 3) * DENSITY));
-        world.set(entity, new Planar(NULL));
+        world.set(entity, planar());
         world.set(entity, new Angular(0, 0.01, 0));
         world.set(entity, new Size(size));
         world.set(entity, new TextureName("sun.png"));
@@ -78,7 +77,7 @@ public class AsteroidsWorldFactory {
         world.set(entity, new Mass(PI * 4 / 3 * pow(size, 3) * DENSITY));
         Vector position = vector(0, 0.5);
         Vector velocity = vector(0.2, 0);
-        world.set(entity, new Planar(position, velocity));
+        world.set(entity, planar().position(position).velocity(velocity));
         world.set(entity, new Angular(0, 0, 0));
         world.set(entity, new Size(size));
         world.set(entity, new TextureName("spaceship.png"));
@@ -93,7 +92,7 @@ public class AsteroidsWorldFactory {
         world.set(entity, new Mass(PI * 4 / 3 * pow(size, 3) * DENSITY));
         Vector position = vector(getRandom(-1, 1), getRandom(-1, 1));
         Vector velocity = vector(getRandom(-speed, speed), getRandom(-speed, speed));
-        world.set(entity, new Planar(position, velocity));
+        world.set(entity, planar().position(position).velocity(velocity));
         world.set(entity, new Angular(0, getRandom(-PI, PI), 0));
         world.set(entity, new Size(size));
         world.set(entity, new TextureName("vesta.png"));
@@ -106,7 +105,7 @@ public class AsteroidsWorldFactory {
         Entity entity = world.createEntity();
         Vector position = vector(getRandom(-2, 2), getRandom(-1, 1));
         Vector velocity = vector(getRandom(-speed, speed), getRandom(-speed, speed));
-        world.set(entity, new Planar(position, velocity));
+        world.set(entity, planar().position(position).velocity(velocity));
         world.set(entity, new Size(size));
         world.set(entity, new Point());
         return entity;

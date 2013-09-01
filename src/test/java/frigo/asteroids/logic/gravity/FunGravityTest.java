@@ -1,6 +1,7 @@
 
 package frigo.asteroids.logic.gravity;
 
+import static frigo.asteroids.component.Planar.planar;
 import static frigo.asteroids.component.Vector.NULL;
 import static frigo.asteroids.component.Vector.vector;
 import static frigo.asteroids.component.VectorCloseTo.closeTo;
@@ -11,17 +12,16 @@ import static org.junit.Assert.assertThat;
 import org.junit.Test;
 
 import frigo.asteroids.component.Mass;
-import frigo.asteroids.component.Planar;
 import frigo.asteroids.core.Entity;
 import frigo.asteroids.core.World;
 
 public class FunGravityTest {
 
     private World world = new World();
-    private Entity attractor1 = world.createEntity(new Mass(100), new Planar(vector(-0.1, 0)));
-    private Entity attracted1 = world.createEntity(new Mass(10), new Planar(vector(0.1, 0)));
-    private Entity attracted2 = world.createEntity(new Mass(1), new Planar(vector(0, 0.1)));
-    private Entity attracted3 = world.createEntity(new Mass(1), new Planar(vector(-0.1, 0)));
+    private Entity attractor1 = world.createEntity(new Mass(100), planar().position(vector(-0.1, 0)));
+    private Entity attracted1 = world.createEntity(new Mass(10), planar().position(vector(0.1, 0)));
+    private Entity attracted2 = world.createEntity(new Mass(1), planar().position(vector(0, 0.1)));
+    private Entity attracted3 = world.createEntity(new Mass(1), planar().position(vector(-0.1, 0)));
     private GravityCalculator gravity = new FunGravity(world);
 
     @Test
