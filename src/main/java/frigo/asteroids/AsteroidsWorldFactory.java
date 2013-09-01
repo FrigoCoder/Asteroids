@@ -1,13 +1,13 @@
 
 package frigo.asteroids;
 
+import static frigo.asteroids.component.Angular.angular;
 import static frigo.asteroids.component.Planar.planar;
 import static java.lang.Math.PI;
 import static java.lang.Math.pow;
 
 import java.util.Random;
 
-import frigo.asteroids.component.Angular;
 import frigo.asteroids.component.Attractable;
 import frigo.asteroids.component.Attractor;
 import frigo.asteroids.component.Mass;
@@ -61,7 +61,7 @@ public class AsteroidsWorldFactory {
         world.set(entity, new Attractor());
         world.set(entity, new Mass(PI * 4 / 3 * pow(size, 3) * DENSITY));
         world.set(entity, planar());
-        world.set(entity, new Angular(0, 0.01, 0));
+        world.set(entity, angular().velocity(0.01));
         world.set(entity, new Size(size));
         world.set(entity, new TextureName("sun.png"));
         return entity;
@@ -74,7 +74,7 @@ public class AsteroidsWorldFactory {
         world.set(entity, new Attractable());
         world.set(entity, new Mass(PI * 4 / 3 * pow(size, 3) * DENSITY));
         world.set(entity, planar().position(0, 0.5).velocity(0.2, 0));
-        world.set(entity, new Angular(0, 0, 0));
+        world.set(entity, angular().velocity(0.5));
         world.set(entity, new Size(size));
         world.set(entity, new TextureName("spaceship.png"));
         return entity;
@@ -88,7 +88,7 @@ public class AsteroidsWorldFactory {
         world.set(entity, new Mass(PI * 4 / 3 * pow(size, 3) * DENSITY));
         world.set(entity, planar().position(getRandom(-1, 1), getRandom(-1, 1)).velocity(getRandom(-speed, speed),
             getRandom(-speed, speed)));
-        world.set(entity, new Angular(0, getRandom(-PI, PI), 0));
+        world.set(entity, angular().velocity(getRandom(-PI, PI)));
         world.set(entity, new Size(size));
         world.set(entity, new TextureName("vesta.png"));
         return entity;
