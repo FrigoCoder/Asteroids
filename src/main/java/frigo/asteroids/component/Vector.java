@@ -30,13 +30,17 @@ public class Vector extends Component {
         return create(x * scalar, y * scalar);
     }
 
+    public Vector div (double scalar) {
+        return create(x / scalar, y / scalar);
+    }
+
     public Vector rotate (double radians) {
         double c = Math.cos(radians);
         double s = Math.sin(radians);
         return create(c * x - s * y, s * x + c * y);
     }
 
-    protected Vector create (double xval, double yval) {
+    private static Vector create (double xval, double yval) {
         return new Vector(xval, yval);
     }
 

@@ -51,6 +51,12 @@ public class VectorTest {
     }
 
     @Test
+    public void div_divides_coordinates () {
+        Vector vector = new Vector(1.0, 2.0);
+        assertThat(vector.div(2.0), is(new Vector(0.5, 1.0)));
+    }
+
+    @Test
     public void unit_x_rotated_by_zero () {
         Vector vector = new Vector(1.0, 0.0);
         assertThat(vector.rotate(0), is(vector));
