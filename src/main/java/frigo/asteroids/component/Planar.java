@@ -2,6 +2,7 @@
 package frigo.asteroids.component;
 
 import static frigo.asteroids.component.Vector.NULL;
+import static frigo.asteroids.component.Vector.vector;
 import frigo.asteroids.core.Component;
 
 public class Planar extends Component {
@@ -24,12 +25,24 @@ public class Planar extends Component {
         return new Planar(newPosition, velocity, acceleration);
     }
 
+    public Planar position (double x, double y) {
+        return position(vector(x, y));
+    }
+
     public Planar velocity (Vector newVelocity) {
         return new Planar(position, newVelocity, acceleration);
     }
 
+    public Planar velocity (double dx, double dy) {
+        return velocity(vector(dx, dy));
+    }
+
     public Planar acceleration (Vector newAcceleration) {
         return new Planar(position, velocity, newAcceleration);
+    }
+
+    public Planar acceleration (double ddx, double ddy) {
+        return acceleration(vector(ddx, ddy));
     }
 
     public Planar accelerate (Vector direction) {
