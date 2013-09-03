@@ -3,6 +3,8 @@ package frigo.asteroids.jogl;
 
 import static frigo.asteroids.core.Vector.vector;
 
+import java.util.List;
+
 import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
 import javax.media.opengl.GL2ES1;
@@ -15,6 +17,7 @@ import com.jogamp.opengl.util.texture.Texture;
 
 import frigo.asteroids.component.Angular;
 import frigo.asteroids.component.Planar;
+import frigo.asteroids.component.PlayerControllable;
 import frigo.asteroids.component.Point;
 import frigo.asteroids.component.Size;
 import frigo.asteroids.component.TextureName;
@@ -24,6 +27,8 @@ import frigo.asteroids.core.Vector;
 import frigo.asteroids.core.World;
 
 public class JOGLRenderer implements GLEventListener {
+
+    private static final Aspect PLAYER_CONTROLLABLE = Aspect.allOf(PlayerControllable.class);
 
     private World world;
     private TextureBuffer textures = new TextureBuffer();
@@ -49,8 +54,24 @@ public class JOGLRenderer implements GLEventListener {
     public void display (GLAutoDrawable drawable) {
         GL2 gl = drawable.getGL().getGL2();
         gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
+
+        gl.glMatrixMode(GLMatrixFunc.GL_MODELVIEW);
+        gl.glLoadIdentity();
+
         drawPoints(gl);
+
+        focusOnPlayer(gl);
+
         drawTextures(gl);
+    }
+
+    private void focusOnPlayer (GL2 gl) {
+        List<Entity> entities = world.getEntitiesFor(PLAYER_CONTROLLABLE);
+        if( entities.size() == 1 ){
+            Entity entity = entities.get(0);
+            Vector position = world.get(entity, Planar.class).position;
+            gl.glTranslated(-position.x, -position.y, 0);
+        }
     }
 
     private void drawPoints (GL2 gl) {

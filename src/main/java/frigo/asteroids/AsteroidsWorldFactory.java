@@ -26,7 +26,7 @@ import frigo.asteroids.logic.rotation.RotationSystem;
 
 public class AsteroidsWorldFactory {
 
-    private static final double DENSITY = 3_000_000_000.0;
+    public static final double DENSITY = 3_000_000_000.0;
     private Random random = new Random();
     private World world;
 
@@ -40,7 +40,7 @@ public class AsteroidsWorldFactory {
     private void addEntities () {
         createSun();
         createShip();
-        for( int i = 0; i < 100; i++ ){
+        for( int i = 0; i < 50; i++ ){
             createAsteroid();
         }
         for( int i = 0; i < 20_000; i++ ){
@@ -81,7 +81,7 @@ public class AsteroidsWorldFactory {
     }
 
     private Entity createAsteroid () {
-        double size = 0.05;
+        double size = getRandom(0.02, 0.08);
         double speed = 0.2;
         Entity entity = world.createEntity();
         world.set(entity, new Attractable());
