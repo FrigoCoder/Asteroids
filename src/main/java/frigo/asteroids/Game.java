@@ -12,6 +12,13 @@ import frigo.asteroids.jogl.JOGLRunner;
 
 public class Game {
 
+    static{
+        System.setProperty("jogamp.debug", "true");
+        // System.setProperty("jogamp.gluegen.UseTempJarCache", "false");
+        // System.setProperty("jogamp.gluegen.UseTempJarCache", "true");
+
+    }
+
     public static void main (String[] args) throws IOException {
         World world = new AsteroidsWorldFactory().createWorld();
 

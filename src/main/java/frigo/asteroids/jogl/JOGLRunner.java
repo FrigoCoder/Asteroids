@@ -14,8 +14,6 @@ public class JOGLRunner {
     private FPSAnimator animator;
 
     public JOGLRunner (World world, int xsize, int ysize, int fps) {
-        System.setProperty("jogamp.gluegen.UseTempJarCache", "false");
-
         GLWindow window = GLWindow.create(new GLCapabilities(GLProfile.getDefault()));
 
         JOGLKeyListener keyListener = new JOGLKeyListener(world);
