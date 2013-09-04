@@ -3,7 +3,6 @@ apply plugin: 'application'
 apply plugin: 'eclipse'
 apply plugin: 'sonar-runner'
 apply plugin: 'jacoco'
-apply from: 'natives.gradle'
 
 sourceCompatibility = 1.7
 
@@ -14,29 +13,24 @@ repositories {
 }
 
 dependencies {
-
-    natives group: 'org.jogamp.gluegen', name: 'gluegen-rt', version: 'latest.stable', classifier: 'natives-linux-amd64'
-    natives group: 'org.jogamp.gluegen', name: 'gluegen-rt', version: 'latest.stable', classifier: 'natives-windows-amd64'
-    compile group: 'org.jogamp.gluegen', name: 'gluegen-rt', version: 'latest.stable'
-
-    natives group: 'org.jogamp.jogl', name: 'jogl-all', version: 'latest.stable', classifier: 'natives-linux-amd64'
-    natives group: 'org.jogamp.jogl', name: 'jogl-all', version: 'latest.stable', classifier: 'natives-windows-amd64'
-    compile group: 'org.jogamp.jogl', name: 'jogl-all-noawt', version: 'latest.stable'
-
     compile group: 'com.google.guava', name: 'guava', version: 'latest.release'
-
-    compile group: 'org.apache.commons', name: 'commons-lang3', version: 'latest.release'
-    compile group: 'org.apache.commons', name: 'commons-math3', version: 'latest.release'
-
+    
+    compile group: 'com.thoughtworks.xstream', name: 'xstream', version: 'latest.release'
+    
+    compile group: 'log4j', name: 'apache-log4j-extras', version: 'latest.release'
+    compile group: 'log4j', name: 'log4j', version: 'latest.release'
     compile group: 'org.slf4j', name: 'slf4j-api', version: 'latest.release'
     compile group: 'org.slf4j', name: 'slf4j-log4j12', version: 'latest.release'
-    compile group: 'log4j', name: 'log4j', version: 'latest.release'
-    compile group: 'log4j', name: 'apache-log4j-extras', version: 'latest.release'
-
+    
+    compile group: 'org.apache.commons', name: 'commons-io', version: 'latest.release'
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: 'latest.release'
+    compile group: 'org.apache.commons', name: 'commons-math3', version: 'latest.release'
+    
+    compile group: 'org.jogamp.gluegen', name: 'gluegen-rt-main', version: 'latest.release'
+    compile group: 'org.jogamp.jogl', name: 'jogl-all-noawt-main', version: 'latest.release'
+    
     compile group: 'trove', name: 'trove', version: 'latest.release'
-
-	compile group: 'com.thoughtworks.xstream', name: 'xstream', version: 'latest.release'
-
+    
     testCompile group: 'com.jayway.awaitility', name: 'awaitility', version: 'latest.release'
     testCompile group: 'junit', name: 'junit', version: 'latest.release'
     testCompile group: 'org.hamcrest', name: 'hamcrest-all', version: 'latest.release'

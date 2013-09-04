@@ -4,6 +4,10 @@ package frigo.asteroids.jogl;
 import javax.media.opengl.GLCapabilities;
 import javax.media.opengl.GLProfile;
 
+import net.tribe7.opengl.util.GLBootstrap;
+
+import com.google.common.base.Throwables;
+import com.jogamp.common.jvm.JNILibLoaderBase;
 import com.jogamp.newt.opengl.GLWindow;
 import com.jogamp.opengl.util.FPSAnimator;
 
@@ -14,6 +18,13 @@ public class JOGLRunner {
     private FPSAnimator animator;
 
     public JOGLRunner (World world, int xsize, int ysize, int fps) {
+
+        try{
+            JNILibLoaderBase.setLoadingAction(new GLBootstrap());
+        }catch( Exception e ){
+            throw Throwables.propagate(e);
+        }
+
         GLWindow window = GLWindow.create(new GLCapabilities(GLProfile.getDefault()));
 
         JOGLKeyListener keyListener = new JOGLKeyListener(world);
