@@ -7,6 +7,7 @@ apply plugin: 'jacoco'
 sourceCompatibility = 1.7
 
 mainClassName = 'frigo.asteroids.Game'
+project.version = System.getenv().BUILD_NUMBER ?: "dev"
 
 repositories {
     mavenCentral()
@@ -55,7 +56,7 @@ test {
 
 eclipse {
     classpath {
-        containers.clear();
-        containers.add("org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7");
+        containers.clear()
+        containers.add("org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7")
     }
 }
