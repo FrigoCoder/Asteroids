@@ -13,22 +13,17 @@ import frigo.asteroids.jogl.JOGLRunner;
 public class Game {
 
     static{
-        System.setProperty("jogamp.debug", "true");
-        // System.setProperty("jogamp.gluegen.UseTempJarCache", "false");
-        // System.setProperty("jogamp.gluegen.UseTempJarCache", "true");
-
+        System.setProperty("jogamp.debug", "whatever");
     }
 
-    public static void main (String[] args) throws IOException {
+    public static void main (String[] args) {
         World world = new AsteroidsWorldFactory().createWorld();
-
-        // dump(world, "world.json");
 
         JOGLRunner runner = new JOGLRunner(world, 1024, 768, 100);
         runner.start();
     }
 
-    private static void dump (World world, String filename) throws IOException {
+    protected static void dump (World world, String filename) throws IOException {
         XStream xstream = new XStream(new JsonHierarchicalStreamDriver());
         try( FileWriter writer = new FileWriter(filename) ){
             xstream.toXML(world, writer);

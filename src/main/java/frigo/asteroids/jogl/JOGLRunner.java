@@ -15,15 +15,17 @@ import frigo.asteroids.core.World;
 
 public class JOGLRunner {
 
-    private FPSAnimator animator;
-
-    public JOGLRunner (World world, int xsize, int ysize, int fps) {
-
+    static{
         try{
             JNILibLoaderBase.setLoadingAction(new GLBootstrap());
         }catch( Exception e ){
             throw Throwables.propagate(e);
         }
+    }
+
+    private FPSAnimator animator;
+
+    public JOGLRunner (World world, int xsize, int ysize, int fps) {
 
         GLWindow window = GLWindow.create(new GLCapabilities(GLProfile.getDefault()));
 
