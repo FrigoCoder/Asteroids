@@ -3,7 +3,12 @@ package frigo.asteroids;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintStream;
 
+import net.tribe7.opengl.util.GLBootstrap;
+
+import com.google.common.base.Throwables;
+import com.jogamp.common.jvm.JNILibLoaderBase;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.json.JsonHierarchicalStreamDriver;
 
@@ -13,13 +18,19 @@ import frigo.asteroids.jogl.JOGLRunner;
 public class Game {
 
     static{
-        System.setProperty("jogamp.debug", "whatever");
+        try{
+            System.setOut(new PrintStream("out.txt"));
+            System.setErr(new PrintStream("Err.txt"));
+            JNILibLoaderBase.setLoadingAction(new GLBootstrap());
+        }catch( Exception e ){
+            throw Throwables.propagate(e);
+        }
     }
 
     public static void main (String[] args) {
         World world = new AsteroidsWorldFactory().createWorld();
 
-        JOGLRunner runner = new JOGLRunner(world, 1024, 768, 100);
+        JOGLRunner runner = new JOGLRunner(world, 1024, 768, 1000);
         runner.start();
     }
 

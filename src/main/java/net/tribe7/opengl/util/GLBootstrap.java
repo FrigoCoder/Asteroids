@@ -3,12 +3,15 @@ package net.tribe7.opengl.util;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.file.Files;
 import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
@@ -21,71 +24,75 @@ import com.jogamp.common.jvm.JNILibLoaderBase.LoaderAction;
 
 public class GLBootstrap implements LoaderAction {
 
-    private Map<String, String> entryToJar = new HashMap<>();
-
-    public GLBootstrap () throws Exception {
-        System.setProperty("jogamp.gluegen.UseTempJarCache", "false");
-        for( String jar : getClassPathEntries() ){
-            if( jar.contains(PlatformPropsImpl.os_and_arch) ){
-                addEntriesOfJar(jar);
-            }
-        }
-    }
-
-    private String[] getClassPathEntries () {
-        return System.getProperty("java.class.path").split(System.getProperty("path.separator"));
-    }
-
-    private void addEntriesOfJar (String jarName) throws IOException {
-        try( JarFile jar = new JarFile(jarName) ){
-            Enumeration<JarEntry> entries = jar.entries();
-            while( entries.hasMoreElements() ){
-                addJarEntry(jarName, entries.nextElement());
-            }
-        }
-    }
-
-    private void addJarEntry (String jarName, JarEntry jarEntry) {
-        if( !jarEntry.isDirectory() && !jarEntry.getName().contains("META-INF") ){
-            entryToJar.put(jarEntry.getName(), jarName);
-        }
-    }
-
-    @Override
-    public boolean loadLibrary (String libname, boolean ignoreError, ClassLoader cl) {
-        for( String entry : entryToJar.keySet() ){
-            if( entry.contains(libname) ){
-                load(entry);
-            }
-        }
-        return true;
-    }
-
-    private void load (String entry) {
-        File file = copyToTemp(entry);
-        System.load(file.getAbsolutePath());
-    }
-
-    private File copyToTemp (String entry) {
-        try( JarFile jar = new JarFile(entryToJar.get(entry)) ){
-            JarEntry jarEntry = jar.getJarEntry(entry);
-            File temp = new File(new File(System.getProperty("java.io.tmpdir")), entry + ".jni");
-            temp.createNewFile();
-            try( OutputStream out = new BufferedOutputStream(new FileOutputStream(temp)) ){
-                IOUtils.copy(jar.getInputStream(jarEntry), out);
-            }
-            return temp;
-        }catch( Exception e ){
-            throw Throwables.propagate(e);
-        }
-    }
-
     @Override
     public void loadLibrary (String libname, String[] preload, boolean preloadIgnoreError, ClassLoader cl) {
         for( int i = 0; i < preload.length; i++ ){
             loadLibrary(preload[i], preloadIgnoreError, cl);
         }
         loadLibrary(libname, false, cl);
+    }
+
+    @Override
+    public boolean loadLibrary (String libname, boolean ignoreError, ClassLoader cl) {
+        for( String jar : getPlatformJars() ){
+            if( loadFrom(jar, libname) ){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private List<String> getPlatformJars () {
+        List<String> result = new LinkedList<>();
+        String[] classpath = System.getProperty("java.class.path").split(System.getProperty("path.separator"));
+        for( String jar : classpath ){
+            if( jar.contains(".jar") && jar.contains(PlatformPropsImpl.os_and_arch) ){
+                result.add(jar);
+            }
+        }
+        return result;
+    }
+
+    private boolean loadFrom (String jarName, String libname) {
+        try( JarFile jar = new JarFile(jarName) ){
+            for( Enumeration<JarEntry> entries = jar.entries(); entries.hasMoreElements(); ){
+                JarEntry entry = entries.nextElement();
+                if( !entry.isDirectory() && entry.getName().contains(libname) ){
+                    if( loadFrom(jarName, entry.getName(), libname) ){
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }catch( Exception e ){
+            throw Throwables.propagate(e);
+        }
+    }
+
+    private boolean loadFrom (String jar, String entry, String libname) {
+        System.out.println("Loading " + libname + " from " + jar + "!/../" + entry);
+        File file = copyToTemp(jar, entry);
+        System.load(file.getAbsolutePath());
+        return true;
+    }
+
+    private File copyToTemp (String jarName, String entryName) {
+        try( JarFile jar = new JarFile(jarName) ){
+            JarEntry entry = jar.getJarEntry(entryName);
+            try( InputStream inputStream = jar.getInputStream(entry) ){
+                return copyToTempFile(inputStream);
+            }
+        }catch( Exception e ){
+            throw Throwables.propagate(e);
+        }
+    }
+
+    private File copyToTempFile (InputStream stream) throws IOException, FileNotFoundException {
+        File file = Files.createTempFile(null, ".jni").toFile();
+        try( OutputStream out = new BufferedOutputStream(new FileOutputStream(file)) ){
+            IOUtils.copy(stream, out);
+        }
+        return file;
     }
 
 }

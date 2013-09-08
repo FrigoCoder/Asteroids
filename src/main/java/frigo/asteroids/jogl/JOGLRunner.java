@@ -4,24 +4,12 @@ package frigo.asteroids.jogl;
 import javax.media.opengl.GLCapabilities;
 import javax.media.opengl.GLProfile;
 
-import net.tribe7.opengl.util.GLBootstrap;
-
-import com.google.common.base.Throwables;
-import com.jogamp.common.jvm.JNILibLoaderBase;
 import com.jogamp.newt.opengl.GLWindow;
 import com.jogamp.opengl.util.FPSAnimator;
 
 import frigo.asteroids.core.World;
 
 public class JOGLRunner {
-
-    static{
-        try{
-            JNILibLoaderBase.setLoadingAction(new GLBootstrap());
-        }catch( Exception e ){
-            throw Throwables.propagate(e);
-        }
-    }
 
     private FPSAnimator animator;
 
