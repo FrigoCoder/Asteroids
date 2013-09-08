@@ -35,11 +35,13 @@ public class GLBootstrap implements LoaderAction {
     @Override
     public boolean loadLibrary (String libname, boolean ignoreError, ClassLoader cl) {
         for( String jar : getPlatformJars() ){
-            if( loadFrom(jar, libname) ){
-                return true;
+            for( String entry : getJarEntries(jar, libname) ){
+                System.out.println("Loading " + libname + " from " + jar + "!/../" + entry);
+                File file = copyToTemp(jar, entry);
+                System.load(file.getAbsolutePath());
             }
         }
-        return false;
+        return true;
     }
 
     private List<String> getPlatformJars () {
@@ -53,41 +55,33 @@ public class GLBootstrap implements LoaderAction {
         return result;
     }
 
-    private boolean loadFrom (String jarName, String libname) {
+    private List<String> getJarEntries (String jarName, String libname) {
+        List<String> result = new LinkedList<>();
         try( JarFile jar = new JarFile(jarName) ){
             for( Enumeration<JarEntry> entries = jar.entries(); entries.hasMoreElements(); ){
                 JarEntry entry = entries.nextElement();
                 if( !entry.isDirectory() && entry.getName().contains(libname) ){
-                    if( loadFrom(jarName, entry.getName(), libname) ){
-                        return true;
-                    }
+                    result.add(entry.getName());
                 }
             }
-            return false;
-        }catch( Exception e ){
+        }catch( IOException e ){
             throw Throwables.propagate(e);
         }
-    }
-
-    private boolean loadFrom (String jar, String entry, String libname) {
-        System.out.println("Loading " + libname + " from " + jar + "!/../" + entry);
-        File file = copyToTemp(jar, entry);
-        System.load(file.getAbsolutePath());
-        return true;
+        return result;
     }
 
     private File copyToTemp (String jarName, String entryName) {
         try( JarFile jar = new JarFile(jarName) ){
             JarEntry entry = jar.getJarEntry(entryName);
             try( InputStream inputStream = jar.getInputStream(entry) ){
-                return copyToTempFile(inputStream);
+                return copyToTemp(inputStream);
             }
         }catch( Exception e ){
             throw Throwables.propagate(e);
         }
     }
 
-    private File copyToTempFile (InputStream stream) throws IOException, FileNotFoundException {
+    private File copyToTemp (InputStream stream) throws IOException, FileNotFoundException {
         File file = Files.createTempFile(null, ".jni").toFile();
         try( OutputStream out = new BufferedOutputStream(new FileOutputStream(file)) ){
             IOUtils.copy(stream, out);
