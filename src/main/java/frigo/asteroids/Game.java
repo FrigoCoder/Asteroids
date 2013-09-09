@@ -4,11 +4,9 @@ package frigo.asteroids;
 import java.applet.Applet;
 
 import com.google.common.base.Throwables;
-import com.jogamp.common.jvm.JNILibLoaderBase;
 
 import frigo.asteroids.core.World;
 import frigo.asteroids.jogl.JOGLRunner;
-import frigo.asteroids.jogl.JoglNativeLoader;
 import frigo.asteroids.jogl.ResourceLoader;
 
 public class Game extends Applet {
@@ -23,7 +21,7 @@ public class Game extends Applet {
             throw Throwables.propagate(e);
         }
 
-        JNILibLoaderBase.setLoadingAction(new JoglNativeLoader());
+        // JNILibLoaderBase.setLoadingAction(new JoglNativeLoader());
     }
 
     public static void main (String[] args) {
