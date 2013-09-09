@@ -1,9 +1,9 @@
 
 package frigo.asteroids;
 
+import java.applet.Applet;
 import java.io.FileWriter;
 import java.io.IOException;
-
 
 import org.apache.commons.lang3.time.StopWatch;
 
@@ -13,11 +13,11 @@ import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.json.JsonHierarchicalStreamDriver;
 
 import frigo.asteroids.core.World;
-import frigo.asteroids.jogl.JoglNativeLoader;
 import frigo.asteroids.jogl.JOGLRunner;
+import frigo.asteroids.jogl.JoglNativeLoader;
 import frigo.asteroids.jogl.ResourceLoader;
 
-public class Game {
+public class Game extends Applet {
 
     static{
         System.setOut(new LoggingPrintStream(System.out));
