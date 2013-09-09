@@ -2,15 +2,9 @@
 package frigo.asteroids;
 
 import java.applet.Applet;
-import java.io.FileWriter;
-import java.io.IOException;
-
-import org.apache.commons.lang3.time.StopWatch;
 
 import com.google.common.base.Throwables;
 import com.jogamp.common.jvm.JNILibLoaderBase;
-import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.io.json.JsonHierarchicalStreamDriver;
 
 import frigo.asteroids.core.World;
 import frigo.asteroids.jogl.JOGLRunner;
@@ -33,22 +27,32 @@ public class Game extends Applet {
     }
 
     public static void main (String[] args) {
-        StopWatch watch = new StopWatch();
-        watch.start();
-
-        World world = new AsteroidsWorldFactory().createWorld();
-        JOGLRunner runner = new JOGLRunner(world, 1024, 768, 1000);
-        runner.start();
-
-        watch.stop();
-        System.out.println("Startup time: " + watch.toString());
+        Game game = new Game();
+        game.init();
+        game.start();
     }
 
-    protected static void dump (World world, String filename) throws IOException {
-        XStream xstream = new XStream(new JsonHierarchicalStreamDriver());
-        try( FileWriter writer = new FileWriter(filename) ){
-            xstream.toXML(world, writer);
-        }
+    private JOGLRunner runner;
+
+    @Override
+    public void init () {
+        World world = new AsteroidsWorldFactory().createWorld();
+        runner = new JOGLRunner(world, 1024, 768, 1000);
+    }
+
+    @Override
+    public void destroy () {
+
+    }
+
+    @Override
+    public void start () {
+        runner.start();
+    }
+
+    @Override
+    public void stop () {
+        runner.stop();
     }
 
 }
