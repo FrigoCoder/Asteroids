@@ -17,18 +17,9 @@ public class TextureBuffer {
 
     public Texture get (String filename) {
         if( !textures.containsKey(filename) ){
-            textures.put(filename, newTexture(getUrl(filename)));
+            textures.put(filename, newTexture(ResourceLoader.getUrl(filename)));
         }
         return textures.get(filename);
-    }
-
-    @VisibleForTesting
-    URL getUrl (String filename) {
-        URL resource = ClassLoader.getSystemResource(filename);
-        if( resource == null ){
-            throw new IllegalArgumentException("File " + filename + " does not exist");
-        }
-        return resource;
     }
 
     @VisibleForTesting

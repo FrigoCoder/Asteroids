@@ -31,7 +31,7 @@ public class TextureBufferTest {
 
     @Before
     public void setUp () {
-        url = buffer.getUrl(SUN_PNG);
+        url = ResourceLoader.getUrl(SUN_PNG);
         doReturn(texture).when(buffer).newTexture(url);
     }
 
