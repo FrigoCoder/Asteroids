@@ -17,13 +17,13 @@ import frigo.asteroids.message.KeyHeld;
 import frigo.asteroids.message.KeyPressed;
 import frigo.asteroids.message.KeyReleased;
 
-public class JOGLKeyListener implements KeyListener, GLEventListener {
+public class JoglKeyListener implements KeyListener, GLEventListener {
 
     private World world;
     private LinkedBlockingQueue<KeyEvent> keyEvents = new LinkedBlockingQueue<>();
     private Map<Short, KeyEvent> held = new HashMap<>();
 
-    public JOGLKeyListener (World world) {
+    public JoglKeyListener (World world) {
         this.world = world;
     }
 

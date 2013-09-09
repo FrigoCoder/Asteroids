@@ -8,12 +8,12 @@ import com.google.common.annotations.VisibleForTesting;
 
 import frigo.asteroids.core.World;
 
-public class JOGLWorldUpdater implements GLEventListener {
+public class JoglWorldUpdater implements GLEventListener {
 
     private World world;
     private long lastMillis;
 
-    public JOGLWorldUpdater (World world) {
+    public JoglWorldUpdater (World world) {
         this.world = world;
     }
 

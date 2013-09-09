@@ -1,5 +1,5 @@
 
-package net.tribe7.opengl.util;
+package frigo.asteroids.jogl;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -22,7 +22,7 @@ import org.apache.commons.io.IOUtils;
 import com.google.common.base.Throwables;
 import com.jogamp.common.jvm.JNILibLoaderBase.LoaderAction;
 
-public class GLBootstrap implements LoaderAction {
+public class JoglNativeLoader implements LoaderAction {
 
     @Override
     public void loadLibrary (String libname, String[] preload, boolean preloadIgnoreError, ClassLoader cl) {

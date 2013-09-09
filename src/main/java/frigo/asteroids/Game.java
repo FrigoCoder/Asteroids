@@ -4,7 +4,6 @@ package frigo.asteroids;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import net.tribe7.opengl.util.GLBootstrap;
 
 import org.apache.commons.lang3.time.StopWatch;
 
@@ -14,7 +13,8 @@ import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.json.JsonHierarchicalStreamDriver;
 
 import frigo.asteroids.core.World;
-import frigo.asteroids.jogl.JOGLRunner;
+import frigo.asteroids.jogl.JoglNativeLoader;
+import frigo.asteroids.jogl.JoglRunner;
 import frigo.asteroids.jogl.ResourceLoader;
 
 public class Game {
@@ -29,7 +29,7 @@ public class Game {
             throw Throwables.propagate(e);
         }
 
-        JNILibLoaderBase.setLoadingAction(new GLBootstrap());
+        JNILibLoaderBase.setLoadingAction(new JoglNativeLoader());
     }
 
     public static void main (String[] args) {
@@ -37,7 +37,7 @@ public class Game {
         watch.start();
 
         World world = new AsteroidsWorldFactory().createWorld();
-        JOGLRunner runner = new JOGLRunner(world, 1024, 768, 1000);
+        JoglRunner runner = new JoglRunner(world, 1024, 768, 1000);
         runner.start();
 
         watch.stop();

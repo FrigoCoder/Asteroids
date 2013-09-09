@@ -8,8 +8,8 @@ import org.junit.Test;
 
 public class JOGLWindowListenerTest {
 
-    private JOGLRunner runner = mock(JOGLRunner.class);
-    private JOGLWindowListener listener = new JOGLWindowListener(runner);
+    private JoglRunner runner = mock(JoglRunner.class);
+    private JoglWindowListener listener = new JoglWindowListener(runner);
 
     @Test
     public void window_listener_stops_runner_at_window_close_notification () {

@@ -13,7 +13,7 @@ import frigo.asteroids.core.World;
 public class JOGLWorldUpdaterTest {
 
     private World world = mock(World.class);
-    private JOGLWorldUpdater updater = spy(new JOGLWorldUpdater(world));
+    private JoglWorldUpdater updater = spy(new JoglWorldUpdater(world));
 
     @Test
     public void init_calls_world_init () {
