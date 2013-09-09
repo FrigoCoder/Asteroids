@@ -26,14 +26,14 @@ import frigo.asteroids.core.Entity;
 import frigo.asteroids.core.Vector;
 import frigo.asteroids.core.World;
 
-public class JoglRenderer implements GLEventListener {
+public class JOGLRenderer implements GLEventListener {
 
     private static final Aspect PLAYER_CONTROLLABLE = Aspect.allOf(PlayerControllable.class);
 
     private World world;
     private TextureBuffer textures = new TextureBuffer();
 
-    public JoglRenderer (World world) {
+    public JOGLRenderer (World world) {
         this.world = world;
     }
 

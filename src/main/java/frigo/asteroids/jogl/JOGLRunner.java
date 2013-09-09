@@ -9,22 +9,22 @@ import com.jogamp.opengl.util.FPSAnimator;
 
 import frigo.asteroids.core.World;
 
-public class JoglRunner {
+public class JOGLRunner {
 
     private FPSAnimator animator;
 
-    public JoglRunner (World world, int xsize, int ysize, int fps) {
+    public JOGLRunner (World world, int xsize, int ysize, int fps) {
 
         GLWindow window = GLWindow.create(new GLCapabilities(GLProfile.getDefault()));
 
-        JoglKeyListener keyListener = new JoglKeyListener(world);
+        JOGLKeyListener keyListener = new JOGLKeyListener(world);
         window.addKeyListener(keyListener);
 
         window.addGLEventListener(keyListener);
-        window.addGLEventListener(new JoglWorldUpdater(world));
-        window.addGLEventListener(new JoglRenderer(world));
+        window.addGLEventListener(new JOGLWorldUpdater(world));
+        window.addGLEventListener(new JOGLRenderer(world));
 
-        window.addWindowListener(new JoglWindowListener(this));
+        window.addWindowListener(new JOGLWindowListener(this));
 
         window.setSize(xsize, ysize);
         window.setTitle("Asteroids");

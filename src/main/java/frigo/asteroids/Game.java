@@ -14,7 +14,7 @@ import com.thoughtworks.xstream.io.json.JsonHierarchicalStreamDriver;
 
 import frigo.asteroids.core.World;
 import frigo.asteroids.jogl.JoglNativeLoader;
-import frigo.asteroids.jogl.JoglRunner;
+import frigo.asteroids.jogl.JOGLRunner;
 import frigo.asteroids.jogl.ResourceLoader;
 
 public class Game {
@@ -37,7 +37,7 @@ public class Game {
         watch.start();
 
         World world = new AsteroidsWorldFactory().createWorld();
-        JoglRunner runner = new JoglRunner(world, 1024, 768, 1000);
+        JOGLRunner runner = new JOGLRunner(world, 1024, 768, 1000);
         runner.start();
 
         watch.stop();

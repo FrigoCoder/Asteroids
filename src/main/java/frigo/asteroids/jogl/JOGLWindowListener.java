@@ -5,11 +5,11 @@ import com.jogamp.newt.event.WindowEvent;
 import com.jogamp.newt.event.WindowListener;
 import com.jogamp.newt.event.WindowUpdateEvent;
 
-public class JoglWindowListener implements WindowListener {
+public class JOGLWindowListener implements WindowListener {
 
-    private JoglRunner runner;
+    private JOGLRunner runner;
 
-    public JoglWindowListener (JoglRunner runner) {
+    public JOGLWindowListener (JOGLRunner runner) {
         this.runner = runner;
     }
 
