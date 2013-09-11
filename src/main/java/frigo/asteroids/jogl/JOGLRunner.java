@@ -2,43 +2,65 @@
 package frigo.asteroids.jogl;
 
 import javax.media.opengl.GLCapabilities;
+import javax.media.opengl.GLEventListener;
 import javax.media.opengl.GLProfile;
 
+import com.jogamp.newt.event.KeyListener;
+import com.jogamp.newt.event.WindowEvent;
+import com.jogamp.newt.event.WindowListener;
+import com.jogamp.newt.event.WindowUpdateEvent;
 import com.jogamp.newt.opengl.GLWindow;
 import com.jogamp.opengl.util.FPSAnimator;
 
-import frigo.asteroids.core.World;
-
-public class JOGLRunner {
+public class JOGLRunner implements WindowListener {
 
     private FPSAnimator animator;
 
-    public JOGLRunner (World world, int xsize, int ysize, int fps) {
-
+    public JOGLRunner (GLEventListener listener, int xsize, int ysize, int fps) {
         GLWindow window = GLWindow.create(new GLCapabilities(GLProfile.getDefault()));
-
-        JOGLKeyListener keyListener = new JOGLKeyListener(world);
-        window.addKeyListener(keyListener);
-
-        window.addGLEventListener(keyListener);
-        window.addGLEventListener(new JOGLWorldUpdater(world));
-        window.addGLEventListener(new JOGLRenderer(world));
-
-        window.addWindowListener(new JOGLWindowListener(this));
-
+        window.addGLEventListener(listener);
+        if( listener instanceof KeyListener ){
+            window.addKeyListener((KeyListener) listener);
+        }
+        window.addWindowListener(this);
         window.setSize(xsize, ysize);
         window.setTitle("Asteroids");
         window.setVisible(true);
-
         animator = new FPSAnimator(window, fps, true);
     }
 
-    public void start () {
+    public void init () {
         animator.start();
     }
 
-    public void stop () {
+    @Override
+    public void windowDestroyed (WindowEvent e) {
         animator.stop();
+    }
+
+    @Override
+    public void windowDestroyNotify (WindowEvent e) {
+        animator.stop();
+    }
+
+    @Override
+    public void windowGainedFocus (WindowEvent e) {
+    }
+
+    @Override
+    public void windowLostFocus (WindowEvent e) {
+    }
+
+    @Override
+    public void windowMoved (WindowEvent e) {
+    }
+
+    @Override
+    public void windowRepaint (WindowUpdateEvent e) {
+    }
+
+    @Override
+    public void windowResized (WindowEvent e) {
     }
 
 }

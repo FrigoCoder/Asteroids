@@ -1,56 +1,75 @@
 
 package frigo.asteroids;
 
-import java.applet.Applet;
+import javax.media.opengl.GLAutoDrawable;
+import javax.media.opengl.GLEventListener;
 
-import com.google.common.base.Throwables;
+import com.jogamp.newt.event.KeyEvent;
+import com.jogamp.newt.event.KeyListener;
 
 import frigo.asteroids.core.World;
+import frigo.asteroids.jogl.JOGLKeyListener;
+import frigo.asteroids.jogl.JOGLRenderer;
 import frigo.asteroids.jogl.JOGLRunner;
-import frigo.asteroids.jogl.ResourceLoader;
+import frigo.asteroids.jogl.JOGLWorldUpdater;
 
-public class Game extends Applet {
-
-    static{
-        System.setOut(new LoggingPrintStream(System.out));
-        System.setErr(new LoggingPrintStream(System.err));
-
-        try{
-            System.getProperties().load(ResourceLoader.getInputStream("asteroids.properties"));
-        }catch( Exception e ){
-            throw Throwables.propagate(e);
-        }
-
-        // JNILibLoaderBase.setLoadingAction(new JoglNativeLoader());
-    }
+public class Game implements GLEventListener, KeyListener {
 
     public static void main (String[] args) {
         Game game = new Game();
-        game.init();
-        game.start();
+        JOGLRunner runner = new JOGLRunner(game, 1024, 768, 100);
+        runner.init();
     }
 
-    private JOGLRunner runner;
+    private World world;
+    private JOGLKeyListener keyListener;
+    private JOGLWorldUpdater worldUpdater;
+    private JOGLRenderer renderer;
 
-    @Override
-    public void init () {
-        World world = new AsteroidsWorldFactory().createWorld();
-        runner = new JOGLRunner(world, 1024, 768, 1000);
-    }
-
-    @Override
-    public void destroy () {
-
-    }
-
-    @Override
-    public void start () {
-        runner.start();
+    public Game () {
+        world = new AsteroidsWorldFactory().createWorld();
+        keyListener = new JOGLKeyListener(world);
+        worldUpdater = new JOGLWorldUpdater(world);
+        renderer = new JOGLRenderer(world);
     }
 
     @Override
-    public void stop () {
-        runner.stop();
+    public void keyPressed (KeyEvent e) {
+        keyListener.keyPressed(e);
+    }
+
+    @Override
+    public void keyReleased (KeyEvent e) {
+        keyListener.keyReleased(e);
+    }
+
+    @Override
+    public void init (GLAutoDrawable drawable) {
+        keyListener.init(drawable);
+        worldUpdater.init(drawable);
+        renderer.init(drawable);
+    }
+
+    @Override
+    public void dispose (GLAutoDrawable drawable) {
+        renderer.dispose(drawable);
+        worldUpdater.dispose(drawable);
+        keyListener.dispose(drawable);
+    }
+
+    @Override
+    public void display (GLAutoDrawable drawable) {
+        keyListener.display(drawable);
+        worldUpdater.display(drawable);
+        renderer.display(drawable);
+
+    }
+
+    @Override
+    public void reshape (GLAutoDrawable drawable, int x, int y, int width, int height) {
+        keyListener.reshape(drawable, x, y, width, height);
+        worldUpdater.reshape(drawable, x, y, width, height);
+        renderer.reshape(drawable, x, y, width, height);
     }
 
 }

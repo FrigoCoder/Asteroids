@@ -8,5 +8,5 @@ dependencies {
     compile group: 'com.thoughtworks.xstream', name: 'xstream', version: 'latest.release'
 
     compile group: 'org.jogamp.gluegen', name: 'gluegen-rt-main', version: 'latest.release'
-    compile group: 'org.jogamp.jogl', name: 'jogl-all-noawt-main', version: 'latest.release'
+    compile group: 'org.jogamp.jogl', name: 'jogl-all-main', version: 'latest.release'
 }
