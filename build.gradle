@@ -1,4 +1,5 @@
 apply from: 'common.gradle'
+apply plugin: 'signing'
 
 mainClassName = 'frigo.asteroids.Game'
 applicationDefaultJvmArgs += "-XX:+UseG1GC"
@@ -9,4 +10,8 @@ dependencies {
 
     compile group: 'org.jogamp.gluegen', name: 'gluegen-rt-main', version: 'latest.release'
     compile group: 'org.jogamp.jogl', name: 'jogl-all-main', version: 'latest.release'
+}
+
+jar.doLast {
+    ant.signjar(jar: tasks.jar.archivePath, alias:alias, storepass:storepass, keystore:keystore)
 }

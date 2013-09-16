@@ -62,7 +62,6 @@ public class Game implements GLEventListener, KeyListener {
         keyListener.display(drawable);
         worldUpdater.display(drawable);
         renderer.display(drawable);
-
     }
 
     @Override
