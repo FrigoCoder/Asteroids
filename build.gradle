@@ -13,5 +13,5 @@ dependencies {
 }
 
 jar.doLast {
-    ant.signjar(jar: tasks.jar.archivePath, alias:alias, storepass:storepass, keystore:keystore)
+    ant.signjar(jar: tasks.jar.archivePath, alias:"asteroids", storepass:"asteroids", keystore:"/server/.keystore")
 }
