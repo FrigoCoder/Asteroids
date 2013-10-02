@@ -2,9 +2,11 @@
 package frigo.asteroids.jogl;
 
 import java.io.IOException;
-import java.net.URL;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.media.opengl.GLException;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Throwables;
@@ -17,18 +19,25 @@ public class TextureBuffer {
 
     public Texture get (String filename) {
         if( !textures.containsKey(filename) ){
-            textures.put(filename, newTexture(ResourceLoader.getUrl(filename)));
+            textures.put(filename, newTexture(filename));
         }
         return textures.get(filename);
     }
 
     @VisibleForTesting
-    Texture newTexture (URL url) {
+    Texture newTexture (String filename) {
+        return newTexture(getInputStream(filename));
+    }
+
+    private Texture newTexture (InputStream stream) {
         try{
-            return TextureIO.newTexture(url, true, null);
-        }catch( IOException e ){
+            return TextureIO.newTexture(stream, true, null);
+        }catch( GLException | IOException e ){
             throw Throwables.propagate(e);
         }
     }
 
+    private InputStream getInputStream (String filename) {
+        return getClass().getClassLoader().getResourceAsStream(filename);
+    }
 }

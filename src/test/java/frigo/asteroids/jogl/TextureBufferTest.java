@@ -9,8 +9,6 @@ import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-import java.net.URL;
-
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -27,12 +25,10 @@ public class TextureBufferTest {
 
     private TextureBuffer buffer = spy(new TextureBuffer());
     private Texture texture = mock(Texture.class);
-    private URL url;
 
     @Before
     public void setUp () {
-        url = ResourceLoader.getUrl(SUN_PNG);
-        doReturn(texture).when(buffer).newTexture(url);
+        doReturn(texture).when(buffer).newTexture(SUN_PNG);
     }
 
     @Test
@@ -47,26 +43,16 @@ public class TextureBufferTest {
     }
 
     @Test
-    public void get_loads_texture_if_it_is_not_present_in_buffer () {
+    public void get_loads_texture_if_not_present () {
         buffer.get(SUN_PNG);
-        verify(buffer).newTexture(url);
+        verify(buffer).newTexture(SUN_PNG);
     }
 
     @Test
-    public void get_loads_texture_from_buffer_if_it_is_present () {
+    public void get_retrieves_texture_from_buffer () {
         buffer.get(SUN_PNG);
         buffer.get(SUN_PNG);
-        verify(buffer, times(1)).newTexture(url);
-    }
-
-    @Test
-    public void getUrl_returns_proper_address_for_sun_png () {
-        String expected = getFileNameFromSystemResource(SUN_PNG);
-        assertThat(url.getFile(), is(expected));
-    }
-
-    private String getFileNameFromSystemResource (String filename) {
-        return ClassLoader.getSystemResource(filename).getFile();
+        verify(buffer, times(1)).newTexture(SUN_PNG);
     }
 
 }
