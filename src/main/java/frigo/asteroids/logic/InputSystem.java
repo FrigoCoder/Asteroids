@@ -48,7 +48,7 @@ public class InputSystem extends Logic {
                 switch( message.key ){
                     case KeyEvent.VK_UP:
                         double angle = world.get(entity, Angular.class).position;
-                        Vector heading = UNIT_Y.rotate(angle).mul(controllable.thrust);
+                        Vector heading = UNIT_Y.mul(-1).rotate(angle).mul(controllable.thrust);
                         world.set(entity, world.get(entity, Planar.class).accelerate(heading));
                         break;
                     case KeyEvent.VK_LEFT:
