@@ -1,6 +1,7 @@
 
 package frigo.asteroids.jogl;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
@@ -9,9 +10,10 @@ import java.util.Map;
 import javax.media.opengl.GLException;
 
 import com.google.common.annotations.VisibleForTesting;
-import com.google.common.base.Throwables;
 import com.jogamp.opengl.util.texture.Texture;
 import com.jogamp.opengl.util.texture.TextureIO;
+
+import frigo.asteroids.util.Undeclared;
 
 public class TextureBuffer {
 
@@ -29,15 +31,20 @@ public class TextureBuffer {
         return newTexture(getInputStream(filename));
     }
 
+    private InputStream getInputStream (String filename) {
+        InputStream stream = getClass().getClassLoader().getResourceAsStream(filename);
+        if( stream == null ){
+            throw Undeclared.propagate(new FileNotFoundException(filename));
+        }
+        return stream;
+    }
+
     private Texture newTexture (InputStream stream) {
         try{
             return TextureIO.newTexture(stream, true, null);
         }catch( GLException | IOException e ){
-            throw Throwables.propagate(e);
+            throw Undeclared.propagate(e);
         }
     }
 
-    private InputStream getInputStream (String filename) {
-        return getClass().getClassLoader().getResourceAsStream(filename);
-    }
 }
