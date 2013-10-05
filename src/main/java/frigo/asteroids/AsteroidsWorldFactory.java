@@ -17,7 +17,7 @@ import frigo.asteroids.component.Size;
 import frigo.asteroids.component.TextureName;
 import frigo.asteroids.core.Entity;
 import frigo.asteroids.core.World;
-import frigo.asteroids.core.storage.ArrayComponentStorageFactory;
+import frigo.asteroids.core.storage.TroveComponentStorageFactory;
 import frigo.asteroids.logic.InputSystem;
 import frigo.asteroids.logic.gravity.GravitySystem;
 import frigo.asteroids.logic.gravity.NewtonianGravity;
@@ -31,7 +31,7 @@ public class AsteroidsWorldFactory {
     private World world;
 
     public World createWorld () {
-        world = new World(new ArrayComponentStorageFactory());
+        world = new World(new TroveComponentStorageFactory());
         addEntities();
         addLogics();
         return world;
