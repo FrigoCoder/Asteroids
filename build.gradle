@@ -61,12 +61,17 @@ task copyJoglNatives (type: Copy) {
     }
 }
 
+eclipseClasspath {
+    dependsOn copyGluegenNatives
+    dependsOn copyJoglNatives
+}
+
 run {
     dependsOn copyGluegenNatives
     dependsOn copyJoglNatives
 }
 
-eclipseClasspath {
+test {
     dependsOn copyGluegenNatives
     dependsOn copyJoglNatives
 }
