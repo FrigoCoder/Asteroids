@@ -5,13 +5,72 @@ mainClassName = 'frigo.asteroids.Game'
 applicationDefaultJvmArgs += "-XX:+UseG1GC"
 applicationDefaultJvmArgs += "-XX:MaxGCPauseMillis=10"
 
-dependencies {
-    compile group: 'com.thoughtworks.xstream', name: 'xstream', version: 'latest.release'
+configurations {
+    gluegen
+    gluegenNatives
+    jogl
+    joglNatives
 
-    compile group: 'org.jogamp.gluegen', name: 'gluegen-rt-main', version: 'latest.release'
-    compile group: 'org.jogamp.jogl', name: 'jogl-all-main', version: 'latest.release'
+    compile {
+        extendsFrom gluegen
+        extendsFrom gluegenNatives
+        extendsFrom jogl
+        extendsFrom joglNatives
+    }
 }
 
-jar.doLast {
+dependencies {
+    gluegen group: 'org.jogamp.gluegen', name: 'gluegen-rt', version: 'latest.release'
+    gluegenNatives group: 'org.jogamp.gluegen', name: 'gluegen-rt', version: 'latest.release', classifier: 'natives-android-armv6'
+    gluegenNatives group: 'org.jogamp.gluegen', name: 'gluegen-rt', version: 'latest.release', classifier: 'natives-linux-amd64'
+    gluegenNatives group: 'org.jogamp.gluegen', name: 'gluegen-rt', version: 'latest.release', classifier: 'natives-linux-armv6'
+    gluegenNatives group: 'org.jogamp.gluegen', name: 'gluegen-rt', version: 'latest.release', classifier: 'natives-linux-armv6hf'
+    gluegenNatives group: 'org.jogamp.gluegen', name: 'gluegen-rt', version: 'latest.release', classifier: 'natives-linux-i586'
+    gluegenNatives group: 'org.jogamp.gluegen', name: 'gluegen-rt', version: 'latest.release', classifier: 'natives-macosx-universal'
+    gluegenNatives group: 'org.jogamp.gluegen', name: 'gluegen-rt', version: 'latest.release', classifier: 'natives-solaris-amd64'
+    gluegenNatives group: 'org.jogamp.gluegen', name: 'gluegen-rt', version: 'latest.release', classifier: 'natives-solaris-i586'
+    gluegenNatives group: 'org.jogamp.gluegen', name: 'gluegen-rt', version: 'latest.release', classifier: 'natives-windows-amd64'
+    gluegenNatives group: 'org.jogamp.gluegen', name: 'gluegen-rt', version: 'latest.release', classifier: 'natives-windows-i586'
+
+    jogl group: 'org.jogamp.jogl', name: 'jogl-all', version: 'latest.release'
+    joglNatives group: 'org.jogamp.jogl', name: 'jogl-all', version: 'latest.release', classifier: 'natives-android-armv6'
+    joglNatives group: 'org.jogamp.jogl', name: 'jogl-all', version: 'latest.release', classifier: 'natives-linux-amd64'
+    joglNatives group: 'org.jogamp.jogl', name: 'jogl-all', version: 'latest.release', classifier: 'natives-linux-armv6'
+    joglNatives group: 'org.jogamp.jogl', name: 'jogl-all', version: 'latest.release', classifier: 'natives-linux-armv6hf'
+    joglNatives group: 'org.jogamp.jogl', name: 'jogl-all', version: 'latest.release', classifier: 'natives-linux-i586'
+    joglNatives group: 'org.jogamp.jogl', name: 'jogl-all', version: 'latest.release', classifier: 'natives-macosx-universal'
+    joglNatives group: 'org.jogamp.jogl', name: 'jogl-all', version: 'latest.release', classifier: 'natives-solaris-amd64'
+    joglNatives group: 'org.jogamp.jogl', name: 'jogl-all', version: 'latest.release', classifier: 'natives-solaris-i586'
+    joglNatives group: 'org.jogamp.jogl', name: 'jogl-all', version: 'latest.release', classifier: 'natives-windows-amd64'
+    joglNatives group: 'org.jogamp.jogl', name: 'jogl-all', version: 'latest.release', classifier: 'natives-windows-i586'
+
+    compile group: 'com.thoughtworks.xstream', name: 'xstream', version: 'latest.release'
+}
+
+task copyGluegenNatives (type: Copy) {
+    from configurations.gluegenNatives.resolve()
+    configurations.gluegen.resolve().each() {
+        into it.getParentFile().getAbsolutePath()
+    }
+}
+
+task copyJoglNatives (type: Copy) {
+    from configurations.joglNatives.resolve()
+    configurations.jogl.resolve().each() {
+        into it.getParentFile().getAbsolutePath()
+    }
+}
+
+run {
+    dependsOn copyGluegenNatives
+    dependsOn copyJoglNatives
+}
+
+eclipseClasspath {
+    dependsOn copyGluegenNatives
+    dependsOn copyJoglNatives
+}
+
+jar << {
     ant.signjar(jar: tasks.jar.archivePath, alias:"asteroids", storepass:"asteroids", keystore:"/server/.keystore")
 }
