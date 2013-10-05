@@ -55,4 +55,8 @@ public class Vector extends Value {
         return div(length);
     }
 
+    public Vector opposite () {
+        return vector(-x, -y);
+    }
+
 }

@@ -13,8 +13,6 @@ import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
 
-import frigo.asteroids.core.Vector;
-
 public class VectorTest {
 
     @Test
@@ -82,5 +80,10 @@ public class VectorTest {
     @Test
     public void normalize_returns_null_vector_for_null_vector () {
         assertThat(Vector.NULL.normalize(), is(Vector.NULL));
+    }
+
+    @Test
+    public void opposite_negates_coordinates () {
+        assertThat(vector(1, 2).opposite(), is(vector(-1, -2)));
     }
 }

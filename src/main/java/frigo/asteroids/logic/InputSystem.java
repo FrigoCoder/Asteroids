@@ -47,9 +47,7 @@ public class InputSystem extends Logic {
             for( KeyMessage message : messages ){
                 switch( message.key ){
                     case KeyEvent.VK_UP:
-                        double angle = world.get(entity, Angular.class).position;
-                        Vector heading = UNIT_Y.mul(-1).rotate(angle).mul(controllable.thrust);
-                        world.set(entity, world.get(entity, Planar.class).accelerate(heading));
+                        handleAcceleration(world, entity, controllable);
                         break;
                     case KeyEvent.VK_LEFT:
                         world.set(entity, world.get(entity, Angular.class).accelerate(controllable.angularThrust));
@@ -68,6 +66,14 @@ public class InputSystem extends Logic {
         }
     }
 
+    private void handleAcceleration (World world, Entity entity, PlayerControllable controllable) {
+        double angle = world.get(entity, Angular.class).position;
+        Vector heading = UNIT_Y.opposite().rotate(angle).mul(controllable.thrust);
+        Planar planar = world.get(entity, Planar.class).accelerate(heading);
+        world.set(entity, planar);
+        createFlame(world, planar.position, planar.velocity.sub(heading));
+    }
+
     private Entity createAsteroid (World world, Vector position) {
         double size = getRandom(0.02, 0.08);
         double speed = 0.2;
@@ -83,6 +89,20 @@ public class InputSystem extends Logic {
 
     private double getRandom (double low, double high) {
         return low + random.nextDouble() * (high - low);
+    }
+
+    private Entity createFlame (World world, Vector position, Vector velocity) {
+        double size = getRandom(0.02, 0.04);
+        double spread = 0.05;
+        Entity entity = world.createEntity();
+        world.set(entity, new Attractable());
+        world.set(entity, new Mass(PI * 4 / 3 * pow(size, 3) * DENSITY));
+        world.set(entity, planar().position(position).velocity(getRandom(-spread, spread) + velocity.x,
+            getRandom(-spread, spread) + velocity.y));
+        world.set(entity, angular().velocity(getRandom(-PI, PI)));
+        world.set(entity, new Size(size));
+        world.set(entity, new TextureName("exhaust.png"));
+        return entity;
     }
 
 }
