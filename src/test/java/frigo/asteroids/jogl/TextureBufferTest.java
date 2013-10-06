@@ -9,6 +9,8 @@ import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
+import java.io.FileNotFoundException;
+
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -38,7 +40,7 @@ public class TextureBufferTest {
 
     @Test
     public void get_throws_exception_if_texture_file_is_not_present () {
-        thrown.expect(IllegalArgumentException.class);
+        thrown.expect(FileNotFoundException.class);
         buffer.get("doesnotexist.png");
     }
 
