@@ -30,7 +30,7 @@ import frigo.asteroids.message.KeyHeld;
 import frigo.asteroids.message.KeyMessage;
 import frigo.asteroids.message.KeyPressed;
 
-public class InputSystem extends Logic {
+public class PlayerControllableBasedInputSystem extends Logic {
 
     private Aspect controllableAspect = Aspect.allOf(PlayerControllable.class, Planar.class, Angular.class);
     private Random random = new Random();
@@ -98,7 +98,7 @@ public class InputSystem extends Logic {
         entity.set(new Attractable());
         entity.set(new Mass(PI * 4 / 3 * pow(size, 3) * DENSITY));
         entity.set(planar().position(position).velocity(getRandom(-spread, spread) + velocity.x,
-        getRandom(-spread, spread) + velocity.y));
+            getRandom(-spread, spread) + velocity.y));
         entity.set(angular().velocity(getRandom(-PI, PI)));
         entity.set(new Size(size));
         entity.set(new TextureName("exhaust.png"));

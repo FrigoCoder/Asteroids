@@ -91,8 +91,7 @@ public class JOGLRenderer implements GLEventListener {
             Vector position = entity.get(Planar.class).position;
             Size size = entity.get(Size.class);
             TextureName textureName = entity.get(TextureName.class);
-            double angularDisplacement =
-                entity.has(Angular.class) ? entity.get(Angular.class).position : 0;
+            double angularDisplacement = entity.has(Angular.class) ? entity.get(Angular.class).position : 0;
             drawTexture(gl, position, angularDisplacement, size.size, textureName.filename);
         }
     }

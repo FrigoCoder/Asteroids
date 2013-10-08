@@ -18,7 +18,7 @@ import frigo.asteroids.component.TextureName;
 import frigo.asteroids.core.Entity;
 import frigo.asteroids.core.World;
 import frigo.asteroids.core.storage.TroveComponentStorageFactory;
-import frigo.asteroids.logic.InputSystem;
+import frigo.asteroids.logic.PlayerControllableBasedInputSystem;
 import frigo.asteroids.logic.gravity.GravitySystem;
 import frigo.asteroids.logic.gravity.NewtonianGravity;
 import frigo.asteroids.logic.movement.MovementSystem;
@@ -49,7 +49,7 @@ public class AsteroidsWorldFactory {
     }
 
     private void addLogics () {
-        world.addLogic(new InputSystem());
+        world.addLogic(new PlayerControllableBasedInputSystem());
         world.addLogic(new RotationSystem());
         world.addLogic(new GravitySystem(new NewtonianGravity(world)));
         world.addLogic(new MovementSystem());
@@ -87,7 +87,7 @@ public class AsteroidsWorldFactory {
         entity.set(new Attractable());
         entity.set(new Mass(PI * 4 / 3 * pow(size, 3) * DENSITY));
         entity.set(planar().position(getRandom(-1, 1), getRandom(-1, 1)).velocity(getRandom(-speed, speed),
-        getRandom(-speed, speed)));
+            getRandom(-speed, speed)));
         entity.set(angular().velocity(getRandom(-PI, PI)));
         entity.set(new Size(size));
         entity.set(new TextureName("vesta.png"));
@@ -99,7 +99,7 @@ public class AsteroidsWorldFactory {
         double speed = 0.005;
         Entity entity = world.createEntity();
         entity.set(planar().position(getRandom(-2, 2), getRandom(-1, 1)).velocity(getRandom(-speed, speed),
-        getRandom(-speed, speed)));
+            getRandom(-speed, speed)));
         entity.set(new Size(size));
         entity.set(new Point());
         return entity;
