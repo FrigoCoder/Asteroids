@@ -36,8 +36,8 @@ public class GravitySystemTest {
     public void does_nothing_without_attractors () {
         world.update(1);
 
-        assertThat(world.get(attracted1, Planar.class).acceleration, is(NULL));
-        assertThat(world.get(attracted2, Planar.class).acceleration, is(NULL));
+        assertThat(attracted1.get(Planar.class).acceleration, is(NULL));
+        assertThat(attracted2.get(Planar.class).acceleration, is(NULL));
     }
 
     @Test
@@ -46,8 +46,8 @@ public class GravitySystemTest {
 
         world.update(1);
 
-        assertThat(world.get(attracted1, Planar.class).acceleration, is(vector(-0.2, 0).mul(G * 100 / 0.04)));
-        assertThat(world.get(attracted2, Planar.class).acceleration, is(vector(-0.1, -0.1).mul(G * 100 / 0.02)));
+        assertThat(attracted1.get(Planar.class).acceleration, is(vector(-0.2, 0).mul(G * 100 / 0.04)));
+        assertThat(attracted2.get(Planar.class).acceleration, is(vector(-0.1, -0.1).mul(G * 100 / 0.02)));
     }
 
 }

@@ -32,33 +32,33 @@ public class EntityTest {
 
     @Test
     public void added_component_can_be_retrieved () {
-        world.set(entity, position);
-        assertThat(world.get(entity, Planar.class), sameInstance(position));
+        entity.set(position);
+        assertThat(entity.get(Planar.class), sameInstance(position));
     }
 
     @Test
     public void not_added_component_retrieval_throws_exception () {
         thrown.expect(NoSuchElementException.class);
-        world.get(entity, Planar.class);
+        entity.get(Planar.class);
     }
 
     @Test
     public void added_component_can_be_checked_for_presence () {
-        world.set(entity, position);
-        assertThat(world.has(entity, Planar.class), is(true));
+        entity.set(position);
+        assertThat(entity.has(Planar.class), is(true));
     }
 
     @Test
     public void not_added_component_can_be_checked_for_presence () {
-        assertThat(world.has(entity, Planar.class), is(false));
+        assertThat(entity.has(Planar.class), is(false));
     }
 
     @Test
     public void vararg_constructor_adds_all_components () {
         Attractor attractor = new Attractor();
         entity = world.createEntity(position, attractor);
-        assertThat(world.get(entity, Planar.class), sameInstance(position));
-        assertThat(world.get(entity, Attractor.class), sameInstance(attractor));
+        assertThat(entity.get(Planar.class), sameInstance(position));
+        assertThat(entity.get(Attractor.class), sameInstance(attractor));
     }
 
 }

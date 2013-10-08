@@ -69,7 +69,7 @@ public class JOGLRenderer implements GLEventListener {
         List<Entity> entities = world.getEntitiesFor(PLAYER_CONTROLLABLE);
         if( entities.size() == 1 ){
             Entity entity = entities.get(0);
-            Vector position = world.get(entity, Planar.class).position;
+            Vector position = entity.get(Planar.class).position;
             gl.glTranslated(-position.x, -position.y, 0);
         }
     }
@@ -79,7 +79,7 @@ public class JOGLRenderer implements GLEventListener {
         gl.glBegin(GL.GL_POINTS);
         Aspect aspect = Aspect.allOf(Planar.class, Point.class);
         for( Entity entity : world.getEntitiesFor(aspect) ){
-            Vector position = world.get(entity, Planar.class).position;
+            Vector position = entity.get(Planar.class).position;
             gl.glVertex2d(position.x, position.y);
         }
         gl.glEnd();
@@ -88,11 +88,11 @@ public class JOGLRenderer implements GLEventListener {
     private void drawTextures (GL2 gl) {
         Aspect aspect = Aspect.allOf(Planar.class, Size.class, TextureName.class);
         for( Entity entity : world.getEntitiesFor(aspect) ){
-            Vector position = world.get(entity, Planar.class).position;
-            Size size = world.get(entity, Size.class);
-            TextureName textureName = world.get(entity, TextureName.class);
+            Vector position = entity.get(Planar.class).position;
+            Size size = entity.get(Size.class);
+            TextureName textureName = entity.get(TextureName.class);
             double angularDisplacement =
-                world.has(entity, Angular.class) ? world.get(entity, Angular.class).position : 0;
+                entity.has(Angular.class) ? entity.get(Angular.class).position : 0;
             drawTexture(gl, position, angularDisplacement, size.size, textureName.filename);
         }
     }

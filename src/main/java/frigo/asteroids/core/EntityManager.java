@@ -21,13 +21,13 @@ public class EntityManager {
     public Entity createEntity (Component... componentsToSet) {
         Entity entity = createEntity();
         for( Component component : componentsToSet ){
-            set(entity, component);
+            entity.set(component);
         }
         return entity;
     }
 
     private Entity createEntity () {
-        Entity entity = new Entity(entities.size());
+        Entity entity = new Entity(this, entities.size());
         entities.add(entity);
         for( ComponentStorage<?> storage : storages.values() ){
             storage.added(entity);
@@ -35,7 +35,7 @@ public class EntityManager {
         return entity;
     }
 
-    public <T extends Component> boolean has (Entity entity, Class<T> type) {
+    <T extends Component> boolean innerHas (Entity entity, Class<T> type) {
         ComponentStorage<T> storage = (ComponentStorage<T>) storages.get(type);
         if( storage == null ){
             return false;
@@ -43,7 +43,7 @@ public class EntityManager {
         return storage.has(entity);
     }
 
-    public <T extends Component> T get (Entity entity, Class<T> type) {
+    <T extends Component> T innerGet (Entity entity, Class<T> type) {
         ComponentStorage<T> storage = (ComponentStorage<T>) storages.get(type);
         if( storage == null ){
             throw new NoSuchElementException();
@@ -51,7 +51,7 @@ public class EntityManager {
         return storage.get(entity);
     }
 
-    public <T extends Component> void set (Entity entity, T component) {
+    <T extends Component> void innerSet (Entity entity, T component) {
         ComponentStorage<T> storage = getOrCreateStorage((Class<T>) component.getClass());
         storage.set(entity, component);
     }

@@ -32,7 +32,7 @@ public class WorldTest {
 
     @Test
     public void entities_matching_aspect_are_returned () {
-        world.set(entity, planar().position(1, 1).velocity(1, 1));
+        entity.set(planar().position(1, 1).velocity(1, 1));
 
         world.createEntity();
 

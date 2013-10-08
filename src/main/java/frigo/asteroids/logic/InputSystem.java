@@ -42,7 +42,7 @@ public class InputSystem extends Logic {
         messages.addAll(world.getMessages(KeyHeld.class));
 
         for( Entity entity : world.getEntitiesFor(controllableAspect) ){
-            PlayerControllable controllable = world.get(entity, PlayerControllable.class);
+            PlayerControllable controllable = entity.get(PlayerControllable.class);
 
             for( KeyMessage message : messages ){
                 switch( message.key ){
@@ -50,13 +50,13 @@ public class InputSystem extends Logic {
                         handleAcceleration(world, entity, controllable);
                         break;
                     case KeyEvent.VK_LEFT:
-                        world.set(entity, world.get(entity, Angular.class).accelerate(controllable.angularThrust));
+                        entity.set(entity.get(Angular.class).accelerate(controllable.angularThrust));
                         break;
                     case KeyEvent.VK_RIGHT:
-                        world.set(entity, world.get(entity, Angular.class).accelerate(-controllable.angularThrust));
+                        entity.set(entity.get(Angular.class).accelerate(-controllable.angularThrust));
                         break;
                     case KeyEvent.VK_SPACE:
-                        Vector position = world.get(entity, Planar.class).position;
+                        Vector position = entity.get(Planar.class).position;
                         createAsteroid(world, position);
                         break;
                     default:
@@ -67,10 +67,10 @@ public class InputSystem extends Logic {
     }
 
     private void handleAcceleration (World world, Entity entity, PlayerControllable controllable) {
-        double angle = world.get(entity, Angular.class).position;
+        double angle = entity.get(Angular.class).position;
         Vector heading = UNIT_Y.opposite().rotate(angle).mul(controllable.thrust);
-        Planar planar = world.get(entity, Planar.class).accelerate(heading);
-        world.set(entity, planar);
+        Planar planar = entity.get(Planar.class).accelerate(heading);
+        entity.set(planar);
         createFlame(world, planar.position, planar.velocity.sub(heading));
     }
 
@@ -78,12 +78,12 @@ public class InputSystem extends Logic {
         double size = getRandom(0.02, 0.08);
         double speed = 0.2;
         Entity entity = world.createEntity();
-        world.set(entity, new Attractable());
-        world.set(entity, new Mass(PI * 4 / 3 * pow(size, 3) * DENSITY));
-        world.set(entity, planar().position(position).velocity(getRandom(-speed, speed), getRandom(-speed, speed)));
-        world.set(entity, angular().velocity(getRandom(-PI, PI)));
-        world.set(entity, new Size(size));
-        world.set(entity, new TextureName("vesta.png"));
+        entity.set(new Attractable());
+        entity.set(new Mass(PI * 4 / 3 * pow(size, 3) * DENSITY));
+        entity.set(planar().position(position).velocity(getRandom(-speed, speed), getRandom(-speed, speed)));
+        entity.set(angular().velocity(getRandom(-PI, PI)));
+        entity.set(new Size(size));
+        entity.set(new TextureName("vesta.png"));
         return entity;
     }
 
@@ -95,13 +95,13 @@ public class InputSystem extends Logic {
         double size = getRandom(0.02, 0.04);
         double spread = 0.05;
         Entity entity = world.createEntity();
-        world.set(entity, new Attractable());
-        world.set(entity, new Mass(PI * 4 / 3 * pow(size, 3) * DENSITY));
-        world.set(entity, planar().position(position).velocity(getRandom(-spread, spread) + velocity.x,
-            getRandom(-spread, spread) + velocity.y));
-        world.set(entity, angular().velocity(getRandom(-PI, PI)));
-        world.set(entity, new Size(size));
-        world.set(entity, new TextureName("exhaust.png"));
+        entity.set(new Attractable());
+        entity.set(new Mass(PI * 4 / 3 * pow(size, 3) * DENSITY));
+        entity.set(planar().position(position).velocity(getRandom(-spread, spread) + velocity.x,
+        getRandom(-spread, spread) + velocity.y));
+        entity.set(angular().velocity(getRandom(-PI, PI)));
+        entity.set(new Size(size));
+        entity.set(new TextureName("exhaust.png"));
         return entity;
     }
 

@@ -31,18 +31,6 @@ public class World {
         return entities.getEntitiesFor(aspect);
     }
 
-    public boolean has (Entity entity, Class<? extends Component> type) {
-        return entities.has(entity, type);
-    }
-
-    public <T extends Component> T get (Entity entity, Class<T> type) {
-        return entities.get(entity, type);
-    }
-
-    public <T extends Component> void set (Entity entity, T component) {
-        entities.set(entity, component);
-    }
-
     public void addMessage (Object message) {
         messages.add(message);
     }

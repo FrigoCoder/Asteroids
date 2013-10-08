@@ -27,16 +27,16 @@ public class MovementSystemTest {
 
     @Test
     public void properly_updates_velocity_and_position_of_entities_with_acceleration_and_velocity () {
-        world.set(entity, planar().position(0.5, 0.5).velocity(1, -1).acceleration(1, 1));
+        entity.set(planar().position(0.5, 0.5).velocity(1, -1).acceleration(1, 1));
         world.update(0.1);
-        assertThat(world.get(entity, Planar.class), is(planar().position(0.605, 0.405).velocity(1.1, -0.9)));
+        assertThat(entity.get(Planar.class), is(planar().position(0.605, 0.405).velocity(1.1, -0.9)));
     }
 
     @Test
     public void updates_position_of_entities_by_velocity_and_elapsed_seconds () {
-        world.set(entity, planar().position(vector(0, 0.1)).velocity(vector(1, 1)));
+        entity.set(planar().position(vector(0, 0.1)).velocity(vector(1, 1)));
         world.update(0.1);
-        assertThat(world.get(entity, Planar.class), is(planar().position(0.1, 0.2).velocity(1, 1)));
+        assertThat(entity.get(Planar.class), is(planar().position(0.1, 0.2).velocity(1, 1)));
     }
 
 }
