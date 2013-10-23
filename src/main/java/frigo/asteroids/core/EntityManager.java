@@ -84,9 +84,4 @@ public class EntityManager {
         return result;
     }
 
-    @Deprecated
-    public boolean matches (Entity entity, Aspect aspect) {
-        return new EntityMatcher(this, aspect).matches(entity);
-    }
-
 }

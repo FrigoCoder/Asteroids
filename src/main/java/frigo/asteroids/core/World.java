@@ -56,9 +56,4 @@ public class World {
         messages.clear();
     }
 
-    @Deprecated
-    public boolean matches (Entity entity, Aspect aspect) {
-        return entities.matches(entity, aspect);
-    }
-
 }
