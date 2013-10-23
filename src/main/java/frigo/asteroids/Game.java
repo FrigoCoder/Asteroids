@@ -28,6 +28,7 @@ public class Game implements GLEventListener, KeyListener {
 
     public Game () {
         world = new AsteroidsWorldFactory().createWorld();
+
         keyListener = new JOGLKeyListener(world);
         worldUpdater = new JOGLWorldUpdater(world);
         renderer = new JOGLRenderer(world);

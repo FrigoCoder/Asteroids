@@ -43,8 +43,6 @@ dependencies {
     joglNatives group: 'org.jogamp.jogl', name: 'jogl-all', version: 'latest.release', classifier: 'natives-solaris-i586'
     joglNatives group: 'org.jogamp.jogl', name: 'jogl-all', version: 'latest.release', classifier: 'natives-windows-amd64'
     joglNatives group: 'org.jogamp.jogl', name: 'jogl-all', version: 'latest.release', classifier: 'natives-windows-i586'
-
-    compile group: 'com.thoughtworks.xstream', name: 'xstream', version: 'latest.release'
 }
 
 task copyGluegenNatives (type: Copy) {

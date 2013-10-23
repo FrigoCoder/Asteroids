@@ -20,7 +20,11 @@ public class World {
     }
 
     public Entity createEntity (Component... components) {
-        return entities.createEntity(components);
+        return entities.create(components);
+    }
+
+    public void removeEntity (Entity entity) {
+        entities.remove(entity);
     }
 
     public List<Entity> getEntities () {

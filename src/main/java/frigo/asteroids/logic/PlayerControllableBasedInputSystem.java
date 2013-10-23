@@ -19,6 +19,7 @@ import frigo.asteroids.component.Attractable;
 import frigo.asteroids.component.Mass;
 import frigo.asteroids.component.Planar;
 import frigo.asteroids.component.PlayerControllable;
+import frigo.asteroids.component.SelfDestruct;
 import frigo.asteroids.component.Size;
 import frigo.asteroids.component.TextureName;
 import frigo.asteroids.core.Aspect;
@@ -102,6 +103,7 @@ public class PlayerControllableBasedInputSystem extends Logic {
         entity.set(angular().velocity(getRandom(-PI, PI)));
         entity.set(new Size(size));
         entity.set(new TextureName("exhaust.png"));
+        entity.set(new SelfDestruct(2.0));
         return entity;
     }
 

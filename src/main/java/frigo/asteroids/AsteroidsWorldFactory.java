@@ -19,6 +19,7 @@ import frigo.asteroids.core.Entity;
 import frigo.asteroids.core.World;
 import frigo.asteroids.core.storage.TroveComponentStorageFactory;
 import frigo.asteroids.logic.PlayerControllableBasedInputSystem;
+import frigo.asteroids.logic.SelfDestructSystem;
 import frigo.asteroids.logic.gravity.GravitySystem;
 import frigo.asteroids.logic.gravity.NewtonianGravity;
 import frigo.asteroids.logic.movement.MovementSystem;
@@ -53,6 +54,7 @@ public class AsteroidsWorldFactory {
         world.addLogic(new RotationSystem());
         world.addLogic(new GravitySystem(new NewtonianGravity(world)));
         world.addLogic(new MovementSystem());
+        world.addLogic(new SelfDestructSystem());
     }
 
     private Entity createSun () {

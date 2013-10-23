@@ -5,10 +5,12 @@ public interface ComponentStorage<T extends Component> {
 
     void added (Entity entity);
 
+    void removed (Entity entity);
+
     boolean has (Entity entity);
 
-    void set (Entity entity, T component);
-
     T get (Entity entity);
+
+    void set (Entity entity, T component);
 
 }

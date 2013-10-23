@@ -17,6 +17,11 @@ public class TroveComponentStorage<T extends Component> implements ComponentStor
     }
 
     @Override
+    public void removed (Entity entity) {
+        map.remove(entity.id);
+    }
+
+    @Override
     public boolean has (Entity entity) {
         return map.containsKey(entity.id);
     }

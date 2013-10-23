@@ -9,6 +9,7 @@ import java.util.NoSuchElementException;
 
 public class EntityManager {
 
+    private int entitiesSoFar;
     private List<Entity> entities = new LinkedList<>();
 
     private ComponentStorageFactory factory;
@@ -18,21 +19,28 @@ public class EntityManager {
         this.factory = factory;
     }
 
-    public Entity createEntity (Component... componentsToSet) {
-        Entity entity = createEntity();
-        for( Component component : componentsToSet ){
+    public Entity create (Component... components) {
+        Entity entity = create();
+        for( Component component : components ){
             entity.set(component);
         }
         return entity;
     }
 
-    private Entity createEntity () {
-        Entity entity = new Entity(this, entities.size());
+    private Entity create () {
+        Entity entity = new Entity(this, entitiesSoFar++);
         entities.add(entity);
         for( ComponentStorage<?> storage : storages.values() ){
             storage.added(entity);
         }
         return entity;
+    }
+
+    public void remove (Entity entity) {
+        for( ComponentStorage<?> storage : storages.values() ){
+            storage.removed(entity);
+        }
+        entities.remove(entity);
     }
 
     <T extends Component> boolean has (Entity entity, Class<T> type) {
