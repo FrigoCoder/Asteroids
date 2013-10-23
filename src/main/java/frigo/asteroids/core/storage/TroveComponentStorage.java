@@ -22,16 +22,16 @@ public class TroveComponentStorage<T extends Component> {
         return map.containsKey(entity.id);
     }
 
-    public void set (Entity entity, T component) {
-        map.put(entity.id, component);
-    }
-
     public T get (Entity entity) {
         T component = (T) map.get(entity.id);
         if( component == null ){
             throw new NoSuchElementException();
         }
         return component;
+    }
+
+    public void set (Entity entity, T component) {
+        map.put(entity.id, component);
     }
 
 }

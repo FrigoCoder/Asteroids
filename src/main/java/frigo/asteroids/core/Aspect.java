@@ -6,8 +6,8 @@ import java.util.Set;
 
 public class Aspect extends Value {
 
-    Set<Class<? extends Component>> all = new HashSet<>();
-    Set<Class<? extends Component>> none = new HashSet<>();
+    private Set<Class<? extends Component>> all = new HashSet<>();
+    private Set<Class<? extends Component>> none = new HashSet<>();
 
     @SafeVarargs
     public static Aspect allOf (Class<? extends Component>... types) {
@@ -33,6 +33,20 @@ public class Aspect extends Value {
             none.add(type);
         }
         return this;
+    }
+
+    public boolean matches (Entity entity) {
+        for( Class<? extends Component> type : all ){
+            if( !entity.has(type) ){
+                return false;
+            }
+        }
+        for( Class<? extends Component> type : none ){
+            if( entity.has(type) ){
+                return false;
+            }
+        }
+        return true;
     }
 
 }

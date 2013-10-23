@@ -3,17 +3,11 @@ package frigo.asteroids.core;
 
 import java.util.List;
 
-import frigo.asteroids.core.storage.TroveComponentStorageFactory;
-
 public class World {
 
-    private EntityManager entities;
+    private EntityManager entities = new EntityManager();
     private MessageManager messages = new MessageManager();
     private SystemManager systems = new SystemManager();
-
-    public World () {
-        entities = new EntityManager(new TroveComponentStorageFactory());
-    }
 
     public Entity createEntity (Component... components) {
         return entities.create(components);
