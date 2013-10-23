@@ -12,11 +12,7 @@ public class World {
     private SystemManager systems = new SystemManager();
 
     public World () {
-        this(new TroveComponentStorageFactory());
-    }
-
-    public World (ComponentStorageFactory factory) {
-        entities = new EntityManager(factory);
+        entities = new EntityManager(new TroveComponentStorageFactory());
     }
 
     public Entity createEntity (Component... components) {

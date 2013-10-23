@@ -13,10 +13,8 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import frigo.asteroids.component.Planar;
-import frigo.asteroids.core.ComponentStorage;
 import frigo.asteroids.core.Entity;
 import frigo.asteroids.core.World;
-import frigo.asteroids.core.storage.TroveComponentStorage;
 
 public class TroveComponentStorageTest {
 
@@ -25,7 +23,7 @@ public class TroveComponentStorageTest {
 
     private World world = new World();
     private Entity entity = world.createEntity();
-    private ComponentStorage<Planar> storage = new TroveComponentStorage<>();
+    private TroveComponentStorage<Planar> storage = new TroveComponentStorage<>();
     private Planar component = planar();
 
     @Test

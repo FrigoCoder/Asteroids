@@ -7,15 +7,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
+import frigo.asteroids.core.storage.TroveComponentStorage;
+import frigo.asteroids.core.storage.TroveComponentStorageFactory;
+
 public class EntityManager {
 
     private int entitiesSoFar;
     private List<Entity> entities = new LinkedList<>();
 
-    private ComponentStorageFactory factory;
-    private Map<Class<? extends Component>, ComponentStorage<?>> storages = new HashMap<>();
+    private TroveComponentStorageFactory factory;
+    private Map<Class<? extends Component>, TroveComponentStorage<?>> storages = new HashMap<>();
 
-    public EntityManager (ComponentStorageFactory factory) {
+    public EntityManager (TroveComponentStorageFactory factory) {
         this.factory = factory;
     }
 
@@ -30,21 +33,21 @@ public class EntityManager {
     private Entity create () {
         Entity entity = new Entity(this, entitiesSoFar++);
         entities.add(entity);
-        for( ComponentStorage<?> storage : storages.values() ){
+        for( TroveComponentStorage<?> storage : storages.values() ){
             storage.added(entity);
         }
         return entity;
     }
 
     public void remove (Entity entity) {
-        for( ComponentStorage<?> storage : storages.values() ){
+        for( TroveComponentStorage<?> storage : storages.values() ){
             storage.removed(entity);
         }
         entities.remove(entity);
     }
 
     <T extends Component> boolean has (Entity entity, Class<T> type) {
-        ComponentStorage<T> storage = (ComponentStorage<T>) storages.get(type);
+        TroveComponentStorage<T> storage = (TroveComponentStorage<T>) storages.get(type);
         if( storage == null ){
             return false;
         }
@@ -52,7 +55,7 @@ public class EntityManager {
     }
 
     <T extends Component> T get (Entity entity, Class<T> type) {
-        ComponentStorage<T> storage = (ComponentStorage<T>) storages.get(type);
+        TroveComponentStorage<T> storage = (TroveComponentStorage<T>) storages.get(type);
         if( storage == null ){
             throw new NoSuchElementException();
         }
@@ -60,17 +63,17 @@ public class EntityManager {
     }
 
     <T extends Component> void set (Entity entity, T component) {
-        ComponentStorage<T> storage = getOrCreateStorage((Class<T>) component.getClass());
+        TroveComponentStorage<T> storage = getOrCreateStorage((Class<T>) component.getClass());
         storage.set(entity, component);
     }
 
-    public <T extends Component> ComponentStorage<T> getOrCreateStorage (Class<T> type) {
-        ComponentStorage<T> storage = (ComponentStorage<T>) storages.get(type);
+    public <T extends Component> TroveComponentStorage<T> getOrCreateStorage (Class<T> type) {
+        TroveComponentStorage<T> storage = (TroveComponentStorage<T>) storages.get(type);
         if( storage != null ){
             return storage;
         }
         storages.put(type, factory.create(entities.size()));
-        return (ComponentStorage<T>) storages.get(type);
+        return (TroveComponentStorage<T>) storages.get(type);
     }
 
     public List<Entity> getEntitiesFor (Aspect aspect) {
