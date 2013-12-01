@@ -1,7 +1,7 @@
 
 package frigo.asteroids.core;
 
-import gnu.trove.TIntObjectHashMap;
+import gnu.trove.map.hash.TIntObjectHashMap;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -9,7 +9,7 @@ import java.util.List;
 public class EntityManager {
 
     private int entitiesSoFar;
-    private TIntObjectHashMap entities = new TIntObjectHashMap();
+    private TIntObjectHashMap<Entity> entities = new TIntObjectHashMap<>();
     private EntityComponentMap map = new EntityComponentMap();
 
     public Entity create (Component... components) {
@@ -34,7 +34,7 @@ public class EntityManager {
 
     public List<Entity> getEntitiesFor (Aspect aspect) {
         List<Entity> result = new LinkedList<>();
-        for( Object object : entities.getValues() ){
+        for( Object object : entities.values() ){
             Entity entity = (Entity) object;
             if( aspect.matches(entity) ){
                 result.add(entity);

@@ -1,5 +1,8 @@
 apply from: 'common.gradle'
 apply plugin: 'signing'
+apply plugin: 'maven'
+
+group = 'frigo'
 
 mainClassName = 'frigo.asteroids.Game'
 applicationDefaultJvmArgs += "-XX:+UseG1GC"

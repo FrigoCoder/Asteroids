@@ -5,11 +5,11 @@ import java.util.NoSuchElementException;
 
 import frigo.asteroids.core.Component;
 import frigo.asteroids.core.Entity;
-import gnu.trove.TIntObjectHashMap;
+import gnu.trove.map.hash.TIntObjectHashMap;
 
 public class TroveComponentStorage<T extends Component> {
 
-    private TIntObjectHashMap map = new TIntObjectHashMap();
+    private TIntObjectHashMap<T> map = new TIntObjectHashMap<>();
 
     public void added (Entity entity) {
     }
@@ -23,7 +23,7 @@ public class TroveComponentStorage<T extends Component> {
     }
 
     public T get (Entity entity) {
-        T component = (T) map.get(entity.id);
+        T component = map.get(entity.id);
         if( component == null ){
             throw new NoSuchElementException();
         }

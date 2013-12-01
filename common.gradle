@@ -10,6 +10,9 @@ project.version = System.getenv().BUILD_NUMBER ?: "dev"
 
 repositories {
     mavenCentral()
+    maven {
+        url "http://frigocoder.dyndns.org/nexus/content/groups/public"
+    }
 }
 
 dependencies {
@@ -24,7 +27,7 @@ dependencies {
     compile group: 'org.apache.commons', name: 'commons-lang3', version: 'latest.release'
     compile group: 'org.apache.commons', name: 'commons-math3', version: 'latest.release'
 
-    compile group: 'trove', name: 'trove', version: 'latest.release'
+    compile group: 'net.sf.trove4j', name: 'trove4j', version: 'latest.release'
     
     testCompile group: 'com.jayway.awaitility', name: 'awaitility', version: 'latest.release'
     testCompile group: 'junit', name: 'junit', version: 'latest.release'
@@ -32,12 +35,10 @@ dependencies {
     testCompile group: 'org.mockito', name: 'mockito-core', version: 'latest.release'
 }
 
-sonarRunner {
-    sonarProperties {
-        property "sonar.host.url", "http://server/sonar"
-        property "sonar.jdbc.url", "jdbc:mysql://server:3306/sonar?useUnicode=true&characterEncoding=utf8&rewriteBatchedStatements=true"
-        property "sonar.jdbc.username", "sonar"
-        property "sonar.jdbc.password", "sonar"
+eclipse {
+    classpath {
+        containers.clear()
+        containers.add("org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7")
     }
 }
 
@@ -48,9 +49,11 @@ test {
     }
 }
 
-eclipse {
-    classpath {
-        containers.clear()
-        containers.add("org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7")
+sonarRunner {
+    sonarProperties {
+        property "sonar.host.url", "http://server/sonar"
+        property "sonar.jdbc.url", "jdbc:mysql://server:3306/sonar?useUnicode=true&characterEncoding=utf8&rewriteBatchedStatements=true"
+        property "sonar.jdbc.username", "sonar"
+        property "sonar.jdbc.password", "sonar"
     }
 }
