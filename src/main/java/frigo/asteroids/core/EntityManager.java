@@ -10,7 +10,7 @@ public class EntityManager {
 
     private int entitiesSoFar;
     private TIntObjectHashMap<Entity> entities = new TIntObjectHashMap<>();
-    private EntityComponentMap map = new EntityComponentMap();
+    private EntityComponentDatabase map = new EntityComponentDatabase();
 
     public Entity create (Component... components) {
         Entity entity = create();

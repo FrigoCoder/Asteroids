@@ -3,10 +3,10 @@ package frigo.asteroids.core;
 
 public final class Entity extends Identity {
 
-    private transient EntityComponentMap map;
+    private transient EntityComponentDatabase map;
     public final int id;
 
-    Entity (EntityComponentMap map, int id) {
+    Entity (EntityComponentDatabase map, int id) {
         this.map = map;
         this.id = id;
     }

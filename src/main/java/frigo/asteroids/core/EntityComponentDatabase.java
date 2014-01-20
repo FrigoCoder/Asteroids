@@ -6,7 +6,7 @@ import java.util.Map;
 
 import frigo.asteroids.core.storage.TroveComponentStorage;
 
-public class EntityComponentMap {
+public class EntityComponentDatabase {
 
     private Map<Class<? extends Component>, TroveComponentStorage<?>> storages = new HashMap<>();
 
