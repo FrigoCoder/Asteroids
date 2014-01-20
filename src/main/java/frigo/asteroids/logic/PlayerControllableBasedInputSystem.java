@@ -2,8 +2,9 @@
 package frigo.asteroids.logic;
 
 import static frigo.asteroids.AsteroidsWorldFactory.DENSITY;
-import static frigo.asteroids.component.Planar.planar;
+import static frigo.asteroids.core.Vector.NULL;
 import static frigo.asteroids.core.Vector.UNIT_Y;
+import static frigo.asteroids.core.Vector.vector;
 import static java.lang.Math.PI;
 import static java.lang.Math.pow;
 
@@ -69,8 +70,8 @@ public class PlayerControllableBasedInputSystem extends Logic {
     private void handleAcceleration (World world, Entity entity, PlayerControllable controllable) {
         double angle = entity.get(Angular.class).position;
         Vector heading = UNIT_Y.opposite().rotate(angle).mul(controllable.thrust);
-        Planar planar = entity.get(Planar.class).accelerate(heading);
-        entity.set(planar);
+        Planar planar = entity.get(Planar.class);
+        planar.accelerate(heading);
         createFlame(world, planar.position, planar.velocity.sub(heading));
     }
 
@@ -80,7 +81,7 @@ public class PlayerControllableBasedInputSystem extends Logic {
         Entity entity = world.createEntity();
         entity.set(new Attractable());
         entity.set(new Mass(PI * 4 / 3 * pow(size, 3) * DENSITY));
-        entity.set(planar().position(position).velocity(getRandom(-speed, speed), getRandom(-speed, speed)));
+        entity.set(new Planar(position, vector(getRandom(-speed, speed), getRandom(-speed, speed)), NULL));
         entity.set(new Angular(0, getRandom(-PI, PI), 0));
         entity.set(new Size(size));
         entity.set(new TextureName("vesta.png"));
@@ -97,13 +98,12 @@ public class PlayerControllableBasedInputSystem extends Logic {
         Entity entity = world.createEntity();
         entity.set(new Attractable());
         entity.set(new Mass(PI * 4 / 3 * pow(size, 3) * DENSITY));
-        entity.set(planar().position(position).velocity(getRandom(-spread, spread) + velocity.x,
-            getRandom(-spread, spread) + velocity.y));
+        entity.set(new Planar(position, vector(getRandom(-spread, spread) + velocity.x, getRandom(-spread, spread)
+            + velocity.y), NULL));
         entity.set(new Angular(0, getRandom(-PI, PI), 0));
         entity.set(new Size(size));
         entity.set(new TextureName("exhaust.png"));
         entity.set(new SelfDestruct(2.0));
         return entity;
     }
-
 }

@@ -1,7 +1,7 @@
 
 package frigo.asteroids.logic;
 
-import static frigo.asteroids.component.Planar.planar;
+import static frigo.asteroids.core.Vector.NULL;
 import static frigo.asteroids.core.Vector.vector;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
@@ -27,16 +27,15 @@ public class MovementSystemTest {
 
     @Test
     public void properly_updates_velocity_and_position_of_entities_with_acceleration_and_velocity () {
-        entity.set(planar().position(0.5, 0.5).velocity(1, -1).acceleration(1, 1));
+        entity.set(new Planar(vector(0.5, 0.5), vector(1, -1), vector(1, 1)));
         world.update(0.1);
-        assertThat(entity.get(Planar.class), is(planar().position(0.605, 0.405).velocity(1.1, -0.9)));
+        assertThat(entity.get(Planar.class), is(new Planar(vector(0.605, 0.405), vector(1.1, -0.9), NULL)));
     }
 
     @Test
     public void updates_position_of_entities_by_velocity_and_elapsed_seconds () {
-        entity.set(planar().position(vector(0, 0.1)).velocity(vector(1, 1)));
+        entity.set(new Planar(vector(0, 0.1), vector(1, 1), NULL));
         world.update(0.1);
-        assertThat(entity.get(Planar.class), is(planar().position(0.1, 0.2).velocity(1, 1)));
+        assertThat(entity.get(Planar.class), is(new Planar(vector(0.1, 0.2), vector(1, 1), NULL)));
     }
-
 }

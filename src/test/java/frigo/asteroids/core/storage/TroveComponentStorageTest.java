@@ -1,7 +1,6 @@
 
 package frigo.asteroids.core.storage;
 
-import static frigo.asteroids.component.Planar.planar;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.sameInstance;
 import static org.junit.Assert.assertThat;
@@ -24,7 +23,7 @@ public class TroveComponentStorageTest {
     private World world = new World();
     private Entity entity = world.createEntity();
     private TroveComponentStorage<Planar> storage = new TroveComponentStorage<>();
-    private Planar component = planar();
+    private Planar component = new Planar();
 
     @Test
     public void has_returns_false_for_entity_without_component () {

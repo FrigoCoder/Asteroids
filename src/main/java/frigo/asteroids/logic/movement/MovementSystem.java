@@ -14,7 +14,7 @@ public class MovementSystem extends Logic {
     @Override
     public void update (World world, double elapsedSeconds) {
         for( Entity entity : world.getEntitiesFor(aspect) ){
-            entity.set(entity.get(Planar.class).update(elapsedSeconds));
+            entity.get(Planar.class).update(elapsedSeconds);
         }
     }
 

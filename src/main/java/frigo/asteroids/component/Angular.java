@@ -24,10 +24,9 @@ public class Angular extends Component {
 
     public void update (double elapsed) {
         double newVelocity = velocity + acceleration * elapsed;
-        double newPosition = position + (velocity + newVelocity) * 0.5 * elapsed;
-        acceleration = 0;
+        position += (velocity + newVelocity) * 0.5 * elapsed;
         velocity = newVelocity;
-        position = newPosition;
+        acceleration = 0;
     }
 
 }

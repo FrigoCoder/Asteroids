@@ -11,10 +11,7 @@ public class NewtonianGravity implements GravityCalculator {
 
     public static final double G = 6.6738480 * Math.pow(10, -11);
 
-    private World world;
-
     public NewtonianGravity (World world) {
-        this.world = world;
     }
 
     @Override
