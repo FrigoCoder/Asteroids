@@ -23,18 +23,18 @@ public class SelfDestructSystemTest {
     }
 
     @Test
-    public void entity_is_removed_if_time_just_elapsed () {
+    public void unrelated_entity_is_not_removed () {
         Entity entity = world.createEntity();
-        entity.set(new SelfDestruct(1.0));
+        world.update(1.0);
+        assertThat(world.getEntities(), hasItem(entity));
+    }
+
+    @Test
+    public void entity_is_removed () {
+        Entity entity = world.createEntity();
+        entity.set(new SelfDestruct());
         world.update(1.0);
         assertThat(world.getEntities(), not(hasItem(entity)));
     }
 
-    @Test
-    public void entity_is_removed_if_more_time_elapsed () {
-        Entity entity = world.createEntity();
-        entity.set(new SelfDestruct(1.0));
-        world.update(1.1);
-        assertThat(world.getEntities(), not(hasItem(entity)));
-    }
 }
