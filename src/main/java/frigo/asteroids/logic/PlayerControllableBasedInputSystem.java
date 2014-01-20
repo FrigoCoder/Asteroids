@@ -2,7 +2,6 @@
 package frigo.asteroids.logic;
 
 import static frigo.asteroids.AsteroidsWorldFactory.DENSITY;
-import static frigo.asteroids.component.Angular.angular;
 import static frigo.asteroids.component.Planar.planar;
 import static frigo.asteroids.core.Vector.UNIT_Y;
 import static java.lang.Math.PI;
@@ -51,10 +50,10 @@ public class PlayerControllableBasedInputSystem extends Logic {
                         handleAcceleration(world, entity, controllable);
                         break;
                     case KeyEvent.VK_LEFT:
-                        entity.set(entity.get(Angular.class).accelerate(controllable.angularThrust));
+                        entity.get(Angular.class).accelerate(controllable.angularThrust);
                         break;
                     case KeyEvent.VK_RIGHT:
-                        entity.set(entity.get(Angular.class).accelerate(-controllable.angularThrust));
+                        entity.get(Angular.class).accelerate(-controllable.angularThrust);
                         break;
                     case KeyEvent.VK_SPACE:
                         Vector position = entity.get(Planar.class).position;
@@ -82,7 +81,7 @@ public class PlayerControllableBasedInputSystem extends Logic {
         entity.set(new Attractable());
         entity.set(new Mass(PI * 4 / 3 * pow(size, 3) * DENSITY));
         entity.set(planar().position(position).velocity(getRandom(-speed, speed), getRandom(-speed, speed)));
-        entity.set(angular().velocity(getRandom(-PI, PI)));
+        entity.set(new Angular(0, getRandom(-PI, PI), 0));
         entity.set(new Size(size));
         entity.set(new TextureName("vesta.png"));
         return entity;
@@ -100,7 +99,7 @@ public class PlayerControllableBasedInputSystem extends Logic {
         entity.set(new Mass(PI * 4 / 3 * pow(size, 3) * DENSITY));
         entity.set(planar().position(position).velocity(getRandom(-spread, spread) + velocity.x,
             getRandom(-spread, spread) + velocity.y));
-        entity.set(angular().velocity(getRandom(-PI, PI)));
+        entity.set(new Angular(0, getRandom(-PI, PI), 0));
         entity.set(new Size(size));
         entity.set(new TextureName("exhaust.png"));
         entity.set(new SelfDestruct(2.0));

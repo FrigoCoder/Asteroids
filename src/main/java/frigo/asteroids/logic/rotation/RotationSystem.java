@@ -14,7 +14,7 @@ public class RotationSystem extends Logic {
     @Override
     public void update (World world, double elapsedSeconds) {
         for( Entity entity : world.getEntitiesFor(all) ){
-            entity.set(entity.get(Angular.class).update(elapsedSeconds));
+            entity.get(Angular.class).update(elapsedSeconds);
         }
     }
 
