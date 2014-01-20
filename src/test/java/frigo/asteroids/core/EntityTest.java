@@ -10,7 +10,6 @@ import static org.junit.Assert.assertThat;
 
 import java.util.NoSuchElementException;
 
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -55,12 +54,11 @@ public class EntityTest {
         assertThat(entity.has(Planar.class), is(false));
     }
 
-    @Ignore
     @Test
     public void removed_component_is_removed () {
-        // entity.set(position);
-        // entity.remove(Planar.class);
-        // assertThat(entity.has(Planar.class), is(false));
+        entity.set(position);
+        entity.remove(Planar.class);
+        assertThat(entity.has(Planar.class), is(false));
     }
 
     @Test

@@ -5,7 +5,6 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import frigo.asteroids.component.SelfDestruct;
@@ -44,7 +43,6 @@ public class TimerSystemTest {
         assertThat(entity.has(SelfDestruct.class), is(true));
     }
 
-    @Ignore
     @Test
     public void elapsed_timer_is_deleted () {
         world.update(1.0);
@@ -58,7 +56,6 @@ public class TimerSystemTest {
         assertThat(entity.has(SelfDestruct.class), is(true));
     }
 
-    @Ignore
     @Test
     public void elapsed_timer_emits_component_only_once () {
         world.update(1.0);

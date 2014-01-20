@@ -15,7 +15,7 @@ public class EntityComponentMap {
 
     public void remove (Entity entity) {
         for( TroveComponentStorage<?> storage : storages.values() ){
-            storage.removed(entity);
+            storage.remove(entity);
         }
     }
 
@@ -29,6 +29,10 @@ public class EntityComponentMap {
 
     public <T extends Component> void set (Entity entity, T component) {
         getOrCreateStorage((Class<T>) component.getClass()).set(entity, component);
+    }
+
+    public <T extends Component> void remove (Entity entity, Class<T> type) {
+        getOrCreateStorage(type).remove(entity);
     }
 
     private <T extends Component> TroveComponentStorage<T> getOrCreateStorage (Class<T> type) {

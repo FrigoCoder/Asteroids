@@ -11,13 +11,6 @@ public class TroveComponentStorage<T extends Component> {
 
     private TIntObjectHashMap<T> map = new TIntObjectHashMap<>();
 
-    public void added (Entity entity) {
-    }
-
-    public void removed (Entity entity) {
-        map.remove(entity.id);
-    }
-
     public boolean has (Entity entity) {
         return map.containsKey(entity.id);
     }
@@ -32,6 +25,10 @@ public class TroveComponentStorage<T extends Component> {
 
     public void set (Entity entity, T component) {
         map.put(entity.id, component);
+    }
+
+    public void remove (Entity entity) {
+        map.remove(entity.id);
     }
 
 }

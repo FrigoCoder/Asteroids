@@ -1,7 +1,6 @@
 
 package frigo.asteroids.core;
 
-
 public final class Entity extends Identity {
 
     private transient EntityComponentMap map;
@@ -25,6 +24,7 @@ public final class Entity extends Identity {
     }
 
     public <T extends Component> void remove (Class<T> type) {
+        map.remove(this, type);
     }
 
 }

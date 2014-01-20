@@ -48,4 +48,11 @@ public class TroveComponentStorageTest {
         assertThat(storage.get(entity), sameInstance(component));
     }
 
+    @Test
+    public void remove_removes_component_from_entity () {
+        storage.set(entity, component);
+        storage.remove(entity);
+        assertThat(storage.has(entity), is(false));
+    }
+
 }
