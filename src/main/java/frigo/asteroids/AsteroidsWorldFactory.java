@@ -21,6 +21,7 @@ import frigo.asteroids.core.Entity;
 import frigo.asteroids.core.World;
 import frigo.asteroids.logic.PlayerControllableBasedInputSystem;
 import frigo.asteroids.logic.SelfDestructSystem;
+import frigo.asteroids.logic.TimerSystem;
 import frigo.asteroids.logic.gravity.GravitySystem;
 import frigo.asteroids.logic.gravity.NewtonianGravity;
 import frigo.asteroids.logic.movement.MovementSystem;
@@ -51,6 +52,7 @@ public class AsteroidsWorldFactory {
     }
 
     private void addLogics () {
+        world.addLogic(new TimerSystem());
         world.addLogic(new PlayerControllableBasedInputSystem());
         world.addLogic(new RotationSystem());
         world.addLogic(new GravitySystem(new NewtonianGravity(world)));
