@@ -21,14 +21,14 @@ public class NewtonianGravityTest {
     private Entity attracted1 = world.createEntity(new Mass(10), new Planar(vector(0.1, 0), NULL, NULL));
     private Entity attracted2 = world.createEntity(new Mass(1), new Planar(vector(0, 0.1), NULL, NULL));
     private Entity attracted3 = world.createEntity(new Mass(1), new Planar(vector(-0.1, 0), NULL, NULL));
-    private GravityCalculator gravity = new NewtonianGravity(world);
+    private GravityCalculator gravity = new NewtonianGravity();
 
     @Test
     public void directional_acceleration_is_calculated_properly () {
         assertThat(gravity.getDirectionalAcceleration(attractor1, attracted1), closeTo(vector(-0.2, 0).mul(
-            G * 100 / 0.04)));
+            G * 100 / 0.04), 1E-22));
         assertThat(gravity.getDirectionalAcceleration(attractor1, attracted2), closeTo(vector(-0.1, -0.1).mul(
-            G * 100 / 0.02)));
+            G * 100 / 0.02), 1E-22));
     }
 
     @Test
