@@ -5,14 +5,10 @@ import frigo.asteroids.component.Mass;
 import frigo.asteroids.component.Planar;
 import frigo.asteroids.core.Entity;
 import frigo.asteroids.core.Vector;
-import frigo.asteroids.core.World;
 
 public class FunGravity implements GravityCalculator {
 
     public static final double G = 6.6738480 * Math.pow(10, -11);
-
-    public FunGravity (World world) {
-    }
 
     @Override
     public Vector getDirectionalAcceleration (Entity attractor, Entity attracted) {

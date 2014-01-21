@@ -55,7 +55,7 @@ public class AsteroidsWorldFactory {
         world.addLogic(new TimerSystem());
         world.addLogic(new PlayerControllableBasedInputSystem());
         world.addLogic(new RotationSystem());
-        world.addLogic(new GravitySystem(new NewtonianGravity(world)));
+        world.addLogic(new GravitySystem(new NewtonianGravity()));
         world.addLogic(new MovementSystem());
         world.addLogic(new SelfDestructSystem());
     }
