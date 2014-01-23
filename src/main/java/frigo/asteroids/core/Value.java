@@ -4,6 +4,7 @@ package frigo.asteroids.core;
 import static org.apache.commons.lang3.builder.ToStringStyle.SHORT_PREFIX_STYLE;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.SerializationUtils;
@@ -20,7 +21,7 @@ public class Value implements Serializable, Cloneable {
             return false;
         }
         Value thatSerializable = (Value) that;
-        return ArrayUtils.isEquals(serialize(), thatSerializable.serialize());
+        return Objects.deepEquals(serialize(), thatSerializable.serialize());
     }
 
     @Override
