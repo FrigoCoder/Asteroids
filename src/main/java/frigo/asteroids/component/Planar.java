@@ -11,10 +11,6 @@ public class Planar extends Component {
     public Vector velocity;
     public Vector acceleration;
 
-    public Planar () {
-        this(NULL, NULL, NULL);
-    }
-
     public Planar (Vector position, Vector velocity, Vector acceleration) {
         this.position = position;
         this.velocity = velocity;

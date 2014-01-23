@@ -65,7 +65,7 @@ public class AsteroidsWorldFactory {
         Entity entity = world.createEntity();
         entity.set(new Attractor());
         entity.set(new Mass(PI * 4 / 3 * pow(size, 3) * DENSITY));
-        entity.set(new Planar());
+        entity.set(new Planar(NULL, NULL, NULL));
         entity.set(new Angular(0, 0.01, 0));
         entity.set(new Size(size));
         entity.set(new TextureName("sun.png"));

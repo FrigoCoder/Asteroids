@@ -9,9 +9,6 @@ public class Angular extends Component {
     public double velocity;
     public double acceleration;
 
-    public Angular () {
-    }
-
     public Angular (double position, double velocity, double acceleration) {
         this.position = position;
         this.velocity = velocity;
