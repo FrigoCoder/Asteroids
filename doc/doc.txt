@@ -1,0 +1,74 @@
+
+Introduction
+
+    Links
+
+        The Mercurial repository of the project is hosted at https://bitbucket.org/FrigoCoder/asteroids/
+
+        The Continuous Integration server is found at http://frigocoder.dyndns.org/jenkins/job/asteroids/
+
+        A demo Applet can be found at http://frigocoder.dyndns.org/asteroids/
+        <make sure it works>
+
+    Thesis Foreword
+
+        This project demonstrates the use of modern Software Engineering principles, techniques and tools, with an emphasis on Entity Component Systems, in the development of simple two dimensional games, specifically a variation of the popular classic Asteroids.
+
+        Modern Software Engineering principles and techniques:
+            - Object Oriented Programming (OOP)
+            - Integrated Development Environments (IDE)
+            - Clean Code & Test Driven Development (TDD)
+            - Mock Objects
+            - Distributed Revision Control
+            - Build Automation Software
+            - Continuous Integration (CI)
+            - Software Quality Control
+            - Entity Component System (ECS)
+
+        Corresponding Software Engineering Tools:
+            - Java
+            - Eclipse
+            - Junit
+            - Mockito
+            - Mercurial
+            - Gradle
+            - Jenkins
+            - SonarQube
+
+    Explanation of used Software Engineering principles, techniques and tools
+
+        <insert some words about these techniques>
+
+        <insert technikai megfontolások, döntések>
+
+        <insert terminology>
+
+    Goal of the project
+
+        <todo>
+
+    Target audience
+
+        <todo>
+
+    Project life cycle
+        - initial ideas
+        - design
+        - implementation
+        - extension
+        - testing
+        - deployment
+        - maintenance
+        - end of life
+
+        <todo>
+
+    Licensing
+
+        I hereby release this project and all of its components into the public domain.
+
+User Documentation
+
+    
+
+Developer Documentation
