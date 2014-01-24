@@ -29,7 +29,7 @@ public class InputSystem extends Logic {
         for( KeyMessage message : messages ){
             if( actions.containsKey(message.key) ){
                 InputAction action = actions.get(message.key);
-                action.run(world, elapsedSeconds);
+                action.run(elapsedSeconds);
             }
         }
     }
