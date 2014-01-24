@@ -50,16 +50,12 @@ dependencies {
 
 task copyGluegenNatives (type: Copy) {
     from configurations.gluegenNatives.resolve()
-    configurations.gluegen.resolve().each() {
-        into it.getParentFile().getAbsolutePath()
-    }
+    into configurations.gluegen.resolve().iterator().next().getParentFile().getAbsolutePath()
 }
 
 task copyJoglNatives (type: Copy) {
     from configurations.joglNatives.resolve()
-    configurations.jogl.resolve().each() {
-        into it.getParentFile().getAbsolutePath()
-    }
+    into configurations.jogl.resolve().iterator().next().getParentFile().getAbsolutePath();
 }
 
 eclipseClasspath {
@@ -80,3 +76,28 @@ test {
 jar << {
     ant.signjar(jar: tasks.jar.archivePath, alias:"asteroids", storepass:"asteroids", keystore:"/server/.keystore")
 }
+
+/*
+task copyAppletIndex (type: Copy) {
+    from "$projectDir/src/applet/resources"
+    into "$buildDir/resources/applet"
+}
+
+task modifyAppletIndex {
+    dependsOn configurations.compile
+    dependsOn copyAppletIndex
+    File dir = file("$buildDir/resources/applet");
+    outputs.dir dir;
+    doLast {
+        File index = new File(dir, "index.html");
+        index.text = index.text.replaceAll("[\$][{]mainClassName[}]", mainClassName);
+        index.text = index.text.replaceAll("[\$][{]applicationDefaultJvmArgs[}]", applicationDefaultJvmArgs.join(" ")); //"
+//        index.text = index.text.replaceAll("[\$][{]libraries[}]", 
+        //dependsOn configurations.natives
+    }
+}
+
+applicationDistribution.from(modifyAppletIndex) {
+    into ""
+}
+*/
