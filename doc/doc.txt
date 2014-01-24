@@ -43,6 +43,8 @@ Introduction
 
         <insert terminology>
 
+        <might be better in the developer documentation>
+
     Goal of the project
 
         <todo>
@@ -69,6 +71,21 @@ Introduction
 
 User Documentation
 
-    
+    System requirements
+
+        The software requires an OpenGL 2.0 compatible video card with installed drivers for proper display capabilities and a keyboard for player input. These requirements are most likely fulfilled by current Personal Computers. Unfortunately the game in its current state does not support Android or iOS based mobile devices.
+
+        Since the project is based on Java and multiplatform libraries, it should have no problem with running on a wide range of operating systems like Windows or Linux. However only Windows and Linux is supported officially at the moment.
+
+        The computer should have a Java 1.7 Runtime Environment installed. This is usually available on most computers, but in case it is not installed or is outdated, please download and install it from http://java.com/en
+
+    Backstory
+
+    Basics
+
+        The player controls a spaceship tasked with clearing the asteroid debris in a solar system. The game uses realistic two dimensional physics. The player can only control the movement of the spaceship in a restricted manner. Forward thrust is achieved by the forward arrow on the keyboard. Angular acceleration, rather than angular velocity, is influenced by the left and right arrows. The spaceship can also shoot bullets, in order to achieve this, the player has to press the space button. The player should spend some time familiarizing himself with the controls, the realistic physics makes the control non-trivial, especially in the presence of gravitational wells.
+
+    Screenshots
+
 
 Developer Documentation
