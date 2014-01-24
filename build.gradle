@@ -90,9 +90,26 @@ task modifyAppletIndex {
     doLast {
         File index = new File(dir, "index.html");
         index.text = index.text.replaceAll("[\$][{]mainClassName[}]", mainClassName);
-        index.text = index.text.replaceAll("[\$][{]applicationDefaultJvmArgs[}]", applicationDefaultJvmArgs.join(" ")); //"
-//        index.text = index.text.replaceAll("[\$][{]libraries[}]", 
-        //dependsOn configurations.natives
+        index.text = index.text.replaceAll("[\$][{]applicationDefaultJvmArgs[}]", applicationDefaultJvmArgs.join(" ")); //" stupid notepad++ syntax highlighting
+
+        Collection<String> libraries = new LinkedList<String>();
+        libraries.add("lib/" + project.name + "-" + project.version + ".jar");
+        configurations.compile.resolve().each {
+            libraries.add("lib/" + it.getName());
+        }
+        configurations.gluegen.resolve().each {
+            libraries.remove("lib/" + it.getName());
+        }
+        configurations.gluegenNatives.resolve().each {
+            libraries.remove("lib/" + it.getName());
+        }
+        configurations.jogl.resolve().each {
+            libraries.remove("lib/" + it.getName());
+        }
+        configurations.joglNatives.resolve().each {
+            libraries.remove("lib/" + it.getName());
+        }
+        index.text = index.text.replaceAll("[\$][{]libraries[}]", libraries.join(", ")); //" stupid notepad++ syntax higlighting
     }
 }
 
