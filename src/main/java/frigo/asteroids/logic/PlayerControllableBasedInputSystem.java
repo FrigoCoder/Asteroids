@@ -58,8 +58,7 @@ public class PlayerControllableBasedInputSystem extends Logic {
                         entity.get(Angular.class).accelerate(-controllable.angularThrust);
                         break;
                     case KeyEvent.VK_SPACE:
-                        Vector position = entity.get(Planar.class).position;
-                        createAsteroid(world, position);
+                        createAsteroid(world, entity.get(Planar.class).position);
                         break;
                     default:
                         break;
