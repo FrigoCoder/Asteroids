@@ -23,6 +23,7 @@ Introduction
             - Build Automation Software
             - Continuous Integration (CI)
             - Software Quality Control
+            - Issue Tracking Systems
             - Entity Component System (ECS)
 
         Corresponding Software Engineering Tools:
@@ -34,6 +35,7 @@ Introduction
             - Gradle
             - Jenkins
             - SonarQube
+            - JIRA
 
     Explanation of used Software Engineering principles, techniques and tools
 
