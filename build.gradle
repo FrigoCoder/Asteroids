@@ -77,7 +77,6 @@ jar << {
     ant.signjar(jar: tasks.jar.archivePath, alias:"asteroids", storepass:"asteroids", keystore:"/server/.keystore")
 }
 
-/*
 task copyAppletIndex (type: Copy) {
     from "$projectDir/src/applet/resources"
     into "$buildDir/resources/applet"
@@ -100,4 +99,3 @@ task modifyAppletIndex {
 applicationDistribution.from(modifyAppletIndex) {
     into ""
 }
-*/

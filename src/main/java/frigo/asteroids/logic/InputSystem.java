@@ -27,8 +27,7 @@ public class InputSystem extends Logic {
 
         for( KeyMessage message : messages ){
             if( actions.containsKey(message.key) ){
-                InputAction action = actions.get(message.key);
-                action.run(elapsedSeconds);
+                actions.get(message.key).run(elapsedSeconds);
             }
         }
     }
