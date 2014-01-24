@@ -1,0 +1,21 @@
+<html>
+
+<body>
+    <object type="application/x-java-applet" width="1024" height="768">
+        <param name="code" value="com.jogamp.newt.awt.applet.JOGLNewtApplet1Run" />
+        <param name="gl_event_listener_class" value="${mainClassName}" />
+        <param name="java_arguments" value="${applicationDefaultJvmArgs}" />
+        <param name="archive" value="http://jogamp.org/deployment/jogamp-current/jar/gluegen-rt.jar, http://jogamp.org/deployment/jogamp-current/jar/jogl-all.jar, ${libraries}" />
+        <param name="cache_option" value="no" />
+        <param name="cache_archive" value="" />
+        <param name="classloader_cache" value="false" />
+        <param name="gl_profile" value="GL2" />
+        <param name="gl_swap_interval" value="1" />
+        <param name="gl_debug" value="false" />
+        <param name="gl_trace" value="false" />
+        <param name="noddraw.check" value="true">
+        <param name="progressbar" value="true">
+    </object>
+</body>
+
+</html>
