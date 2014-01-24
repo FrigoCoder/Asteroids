@@ -42,7 +42,7 @@ public class World {
     }
 
     public void update (double elapsedSeconds) {
-        systems.update(this, elapsedSeconds);
+        systems.update(elapsedSeconds);
         messages.clear();
     }
 

@@ -18,9 +18,9 @@ public class SystemManager {
         }
     }
 
-    public void update (World world, double elapsedSeconds) {
+    public void update (double elapsedSeconds) {
         for( Logic logic : logics ){
-            logic.update(world, elapsedSeconds);
+            logic.update(elapsedSeconds);
         }
     }
 

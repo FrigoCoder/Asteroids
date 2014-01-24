@@ -11,7 +11,6 @@ import frigo.asteroids.core.Aspect;
 import frigo.asteroids.core.Entity;
 import frigo.asteroids.core.Logic;
 import frigo.asteroids.core.Vector;
-import frigo.asteroids.core.World;
 
 public class GravitySystem extends Logic {
 
@@ -24,7 +23,7 @@ public class GravitySystem extends Logic {
     }
 
     @Override
-    public void update (World world, double elapsedSeconds) {
+    public void update (double elapsedSeconds) {
         List<Entity> attractors = world.getEntitiesFor(attractorAspect);
         List<Entity> attractables = world.getEntitiesFor(attractedAspect);
         for( Entity attractor : attractors ){

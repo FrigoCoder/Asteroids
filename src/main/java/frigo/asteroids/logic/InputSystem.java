@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 
 import frigo.asteroids.core.Logic;
-import frigo.asteroids.core.World;
 import frigo.asteroids.message.KeyHeld;
 import frigo.asteroids.message.KeyMessage;
 import frigo.asteroids.message.KeyPressed;
@@ -21,7 +20,7 @@ public class InputSystem extends Logic {
     }
 
     @Override
-    public void update (World world, double elapsedSeconds) {
+    public void update (double elapsedSeconds) {
         List<KeyMessage> messages = new LinkedList<>();
         messages.addAll(world.getMessages(KeyPressed.class));
         messages.addAll(world.getMessages(KeyHeld.class));

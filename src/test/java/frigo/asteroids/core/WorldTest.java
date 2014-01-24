@@ -54,14 +54,14 @@ public class WorldTest {
     public void logic_is_updated_at_update_call () {
         world.addLogic(logic);
         world.update(1);
-        verify(logic).update(world, 1);
+        verify(logic).update(1);
     }
 
     @Test
     public void logic_is_updated_by_the_elapsed_seconds () {
         world.addLogic(logic);
         world.update(0.01);
-        verify(logic).update(world, 0.01);
+        verify(logic).update(0.01);
     }
 
     @Test
