@@ -1,19 +1,18 @@
 
 package frigo.asteroids.core;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 public class EntityManager {
 
     private int entitiesSoFar;
-    private Map<Integer, Entity> entities = new HashMap<>();
+    private List<Entity> entities = new ArrayList<>();
 
     public Entity create (Component... components) {
         Entity entity = new Entity(entitiesSoFar++);
-        entities.put(entity.id, entity);
+        entities.add(entity);
         for( Component component : components ){
             entity.add(component);
         }
@@ -21,18 +20,16 @@ public class EntityManager {
     }
 
     public void remove (Entity entity) {
-        entities.remove(entity.id);
+        entities.remove(entity);
     }
 
     public List<Entity> getEntitiesFor (Aspect aspect) {
         List<Entity> result = new LinkedList<>();
-        for( Object object : entities.values() ){
-            Entity entity = (Entity) object;
+        for( Entity entity : entities ){
             if( aspect.matches(entity) ){
                 result.add(entity);
             }
         }
         return result;
     }
-
 }
