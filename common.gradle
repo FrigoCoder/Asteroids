@@ -27,8 +27,6 @@ dependencies {
     compile group: 'org.apache.commons', name: 'commons-lang3', version: 'latest.release'
     compile group: 'org.apache.commons', name: 'commons-math3', version: 'latest.release'
 
-    compile group: 'net.sf.trove4j', name: 'trove4j', version: 'latest.release'
-    
     testCompile group: 'com.jayway.awaitility', name: 'awaitility', version: 'latest.release'
     testCompile group: 'junit', name: 'junit', version: 'latest.release'
     testCompile group: 'org.hamcrest', name: 'hamcrest-all', version: 'latest.release'

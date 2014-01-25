@@ -1,15 +1,15 @@
 
 package frigo.asteroids.core;
 
-import gnu.trove.map.hash.TIntObjectHashMap;
-
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 public class EntityManager {
 
     private int entitiesSoFar;
-    private TIntObjectHashMap<Entity> entities = new TIntObjectHashMap<>();
+    private Map<Integer, Entity> entities = new HashMap<>();
 
     public Entity create (Component... components) {
         Entity entity = new Entity(entitiesSoFar++);

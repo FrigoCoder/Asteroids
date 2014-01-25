@@ -43,8 +43,8 @@ public class AsteroidsWorldFactory {
 
     public World createWorld () {
         world = new World();
-        ship = createShip();
         createSun();
+        ship = createShip();
         for( int i = 0; i < 50; i++ ){
             createAsteroid(vector(getRandom(-1, 1), getRandom(-1, 1)));
         }
