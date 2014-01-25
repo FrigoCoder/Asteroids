@@ -16,11 +16,11 @@ import frigo.asteroids.component.Attractable;
 import frigo.asteroids.component.Attractor;
 import frigo.asteroids.component.Mass;
 import frigo.asteroids.component.Planar;
-import frigo.asteroids.component.PlayerControllable;
 import frigo.asteroids.component.Point;
 import frigo.asteroids.component.SelfDestruct;
 import frigo.asteroids.component.Size;
 import frigo.asteroids.component.TextureName;
+import frigo.asteroids.component.Thrustable;
 import frigo.asteroids.component.Timer;
 import frigo.asteroids.core.Entity;
 import frigo.asteroids.core.Vector;
@@ -45,7 +45,7 @@ public class AsteroidsWorldFactory {
         world = new World();
         ship = createShip();
         createSun();
-        for( int i = 0; i < 50; i++ ){
+        for( int i = 0; i < 50_000; i++ ){
             createAsteroid(vector(getRandom(-1, 1), getRandom(-1, 1)));
         }
         for( int i = 0; i < 20_000; i++ ){
@@ -63,7 +63,7 @@ public class AsteroidsWorldFactory {
     private Entity createShip () {
         double size = 0.1;
         Entity entity = world.createEntity();
-        entity.set(new PlayerControllable(0.1, 1));
+        entity.set(new Thrustable(0.1, 1));
         entity.set(new Attractable());
         entity.set(new Mass(PI * 4 / 3 * pow(size, 3) * DENSITY));
         entity.set(new Planar(vector(0, 0.5), vector(0.2, 0), NULL));
@@ -127,7 +127,7 @@ public class AsteroidsWorldFactory {
         @Override
         public void run (double elapsedSeconds) {
             double angle = ship.get(Angular.class).position;
-            Vector heading = UNIT_Y.opposite().rotate(angle).mul(ship.get(PlayerControllable.class).thrust);
+            Vector heading = UNIT_Y.opposite().rotate(angle).mul(ship.get(Thrustable.class).thrust);
             Planar planar = ship.get(Planar.class);
             planar.accelerate(heading);
             createFlame(planar.position, planar.velocity.sub(heading));
@@ -154,7 +154,7 @@ public class AsteroidsWorldFactory {
 
         @Override
         public void run (double elapsedSeconds) {
-            ship.get(Angular.class).accelerate(ship.get(PlayerControllable.class).angularThrust);
+            ship.get(Angular.class).accelerate(ship.get(Thrustable.class).angularThrust);
         }
     };
 
@@ -162,7 +162,7 @@ public class AsteroidsWorldFactory {
 
         @Override
         public void run (double elapsedSeconds) {
-            ship.get(Angular.class).accelerate(-ship.get(PlayerControllable.class).angularThrust);
+            ship.get(Angular.class).accelerate(-ship.get(Thrustable.class).angularThrust);
         }
 
     };

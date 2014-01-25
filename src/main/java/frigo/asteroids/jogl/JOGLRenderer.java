@@ -17,7 +17,7 @@ import com.jogamp.opengl.util.texture.Texture;
 
 import frigo.asteroids.component.Angular;
 import frigo.asteroids.component.Planar;
-import frigo.asteroids.component.PlayerControllable;
+import frigo.asteroids.component.Thrustable;
 import frigo.asteroids.component.Point;
 import frigo.asteroids.component.Size;
 import frigo.asteroids.component.TextureName;
@@ -28,7 +28,7 @@ import frigo.asteroids.core.World;
 
 public class JOGLRenderer implements GLEventListener {
 
-    private static final Aspect PLAYER_CONTROLLABLE = Aspect.allOf(PlayerControllable.class);
+    private static final Aspect PLAYER_CONTROLLABLE = Aspect.allOf(Thrustable.class);
 
     private World world;
     private TextureBuffer textures = new TextureBuffer();
