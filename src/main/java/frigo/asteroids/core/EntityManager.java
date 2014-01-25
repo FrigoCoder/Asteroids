@@ -10,7 +10,6 @@ public class EntityManager {
 
     private int entitiesSoFar;
     private TIntObjectHashMap<Entity> entities = new TIntObjectHashMap<>();
-    private EntityComponentDatabase map = new EntityComponentDatabase();
 
     public Entity create (Component... components) {
         Entity entity = create();
@@ -21,14 +20,12 @@ public class EntityManager {
     }
 
     private Entity create () {
-        Entity entity = new Entity(map, entitiesSoFar++);
+        Entity entity = new Entity(entitiesSoFar++);
         entities.put(entity.id, entity);
-        map.add(entity);
         return entity;
     }
 
     public void remove (Entity entity) {
-        map.remove(entity);
         entities.remove(entity.id);
     }
 
