@@ -33,7 +33,7 @@ public class EntityTest {
 
     @Test
     public void added_component_can_be_retrieved () {
-        entity.set(position);
+        entity.add(position);
         assertThat(entity.get(Planar.class), sameInstance(position));
     }
 
@@ -45,7 +45,7 @@ public class EntityTest {
 
     @Test
     public void added_component_can_be_checked_for_presence () {
-        entity.set(position);
+        entity.add(position);
         assertThat(entity.has(Planar.class), is(true));
     }
 
@@ -56,7 +56,7 @@ public class EntityTest {
 
     @Test
     public void removed_component_is_removed () {
-        entity.set(position);
+        entity.add(position);
         entity.remove(Planar.class);
         assertThat(entity.has(Planar.class), is(false));
     }

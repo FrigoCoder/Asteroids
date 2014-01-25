@@ -45,14 +45,14 @@ public class AsteroidsWorldFactory {
         world = new World();
         ship = createShip();
         createSun();
-        for( int i = 0; i < 50_000; i++ ){
+        for( int i = 0; i < 50; i++ ){
             createAsteroid(vector(getRandom(-1, 1), getRandom(-1, 1)));
         }
         for( int i = 0; i < 20_000; i++ ){
             createStar();
         }
-        world.addLogic(new TimerSystem());
         world.addLogic(createInputSystem());
+        world.addLogic(new TimerSystem());
         world.addLogic(new GravitySystem(new NewtonianGravity()));
         world.addLogic(new RotationSystem());
         world.addLogic(new MovementSystem());
@@ -63,25 +63,25 @@ public class AsteroidsWorldFactory {
     private Entity createShip () {
         double size = 0.1;
         Entity entity = world.createEntity();
-        entity.set(new Thrustable(0.1, 1));
-        entity.set(new Attractable());
-        entity.set(new Mass(PI * 4 / 3 * pow(size, 3) * DENSITY));
-        entity.set(new Planar(vector(0, 0.5), vector(0.2, 0), NULL));
-        entity.set(new Angular(0, 0.5, 0));
-        entity.set(new Size(size));
-        entity.set(new TextureName("spaceship.png"));
+        entity.add(new Thrustable(0.1, 1));
+        entity.add(new Attractable());
+        entity.add(new Mass(PI * 4 / 3 * pow(size, 3) * DENSITY));
+        entity.add(new Planar(vector(0, 0.5), vector(0.2, 0), NULL));
+        entity.add(new Angular(0, 0.5, 0));
+        entity.add(new Size(size));
+        entity.add(new TextureName("spaceship.png"));
         return entity;
     }
 
     private Entity createSun () {
         double size = 0.4;
         Entity entity = world.createEntity();
-        entity.set(new Attractor());
-        entity.set(new Mass(PI * 4 / 3 * pow(size, 3) * DENSITY));
-        entity.set(new Planar(NULL, NULL, NULL));
-        entity.set(new Angular(0, 0.01, 0));
-        entity.set(new Size(size));
-        entity.set(new TextureName("sun.png"));
+        entity.add(new Attractor());
+        entity.add(new Mass(PI * 4 / 3 * pow(size, 3) * DENSITY));
+        entity.add(new Planar(NULL, NULL, NULL));
+        entity.add(new Angular(0, 0.01, 0));
+        entity.add(new Size(size));
+        entity.add(new TextureName("sun.png"));
         return entity;
     }
 
@@ -89,12 +89,12 @@ public class AsteroidsWorldFactory {
         double size = getRandom(0.02, 0.08);
         double speed = 0.2;
         Entity entity = world.createEntity();
-        entity.set(new Attractable());
-        entity.set(new Mass(PI * 4 / 3 * pow(size, 3) * DENSITY));
-        entity.set(new Planar(position, vector(getRandom(-speed, speed), getRandom(-speed, speed)), NULL));
-        entity.set(new Angular(0, getRandom(-PI, PI), 0));
-        entity.set(new Size(size));
-        entity.set(new TextureName("vesta.png"));
+        entity.add(new Attractable());
+        entity.add(new Mass(PI * 4 / 3 * pow(size, 3) * DENSITY));
+        entity.add(new Planar(position, vector(getRandom(-speed, speed), getRandom(-speed, speed)), NULL));
+        entity.add(new Angular(0, getRandom(-PI, PI), 0));
+        entity.add(new Size(size));
+        entity.add(new TextureName("vesta.png"));
         return entity;
     }
 
@@ -102,10 +102,10 @@ public class AsteroidsWorldFactory {
         double size = 0.01;
         double speed = 0.005;
         Entity entity = world.createEntity();
-        entity.set(new Planar(vector(getRandom(-2, 2), getRandom(-1, 1)), vector(getRandom(-speed, speed), getRandom(
+        entity.add(new Planar(vector(getRandom(-2, 2), getRandom(-1, 1)), vector(getRandom(-speed, speed), getRandom(
             -speed, speed)), NULL));
-        entity.set(new Size(size));
-        entity.set(new Point());
+        entity.add(new Size(size));
+        entity.add(new Point());
         return entity;
     }
 
@@ -137,14 +137,14 @@ public class AsteroidsWorldFactory {
             double size = getRandom(0.02, 0.04);
             double spread = 0.05;
             Entity entity = world.createEntity();
-            entity.set(new Attractable());
-            entity.set(new Mass(PI * 4 / 3 * pow(size, 3) * DENSITY));
-            entity.set(new Planar(position, vector(getRandom(-spread, spread) + velocity.x, getRandom(-spread, spread)
+            entity.add(new Attractable());
+            entity.add(new Mass(PI * 4 / 3 * pow(size, 3) * DENSITY));
+            entity.add(new Planar(position, vector(getRandom(-spread, spread) + velocity.x, getRandom(-spread, spread)
                 + velocity.y), NULL));
-            entity.set(new Angular(0, getRandom(-PI, PI), 0));
-            entity.set(new Size(size));
-            entity.set(new TextureName("exhaust.png"));
-            entity.set(new Timer(new SelfDestruct(), 2.0));
+            entity.add(new Angular(0, getRandom(-PI, PI), 0));
+            entity.add(new Size(size));
+            entity.add(new TextureName("exhaust.png"));
+            entity.add(new Timer(new SelfDestruct(), 2.0));
             return entity;
         }
 

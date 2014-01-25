@@ -32,7 +32,7 @@ public class SelfDestructSystemTest {
     @Test
     public void entity_is_removed () {
         Entity entity = world.createEntity();
-        entity.set(new SelfDestruct());
+        entity.add(new SelfDestruct());
         world.update(1.0);
         assertThat(world.getEntities(), not(hasItem(entity)));
     }

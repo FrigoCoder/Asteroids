@@ -26,7 +26,7 @@ public final class Entity extends Identity {
         return component;
     }
 
-    public <T extends Component> void set (T component) {
+    public <T extends Component> void add (T component) {
         map.put(component.getClass(), component);
     }
 
