@@ -43,7 +43,7 @@ public class AsteroidsWorldFactory {
 
     public World createWorld () {
         world = new World();
-        for( int i = 0; i < 2_000; i++ ){
+        for( int i = 0; i < 5_000; i++ ){
             createStar();
         }
         for( int i = 0; i < 50; i++ ){
@@ -61,7 +61,7 @@ public class AsteroidsWorldFactory {
     }
 
     private Entity createStar () {
-        double size = getRandom(0.01, 0.05);
+        double size = getRandom(0.01, 0.1);
         double speed = 0.005;
         Entity entity = world.createEntity();
         entity.add(new Planar(vector(getRandom(-2, 2), getRandom(-1, 1)), vector(getRandom(-speed, speed), getRandom(
