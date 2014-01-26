@@ -42,7 +42,7 @@ public class JOGLRenderer implements GLEventListener {
         GL2 gl = drawable.getGL().getGL2();
 
         gl.glEnable(GL2ES1.GL_POINT_SMOOTH);
-        gl.glHint(GL2ES1.GL_POINT_SMOOTH, GL.GL_NICEST);
+        gl.glHint(GL2ES1.GL_POINT_SMOOTH_HINT, GL.GL_NICEST);
 
         gl.glEnable(GL.GL_TEXTURE_2D);
 

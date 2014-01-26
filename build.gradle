@@ -7,7 +7,8 @@ group = 'frigo'
 mainClassName = 'frigo.asteroids.Game'
 applicationDefaultJvmArgs += "-XX:+UseG1GC"
 applicationDefaultJvmArgs += "-XX:MaxGCPauseMillis=10"
-applicationDefaultJvmArgs += "-Dsun.java2d.noddraw=true"
+applicationDefaultJvmArgs += "-Dsun.java2d.opengl=True"
+applicationDefaultJvmArgs += "-Dsun.java2d.d3d=false"
 
 configurations {
     gluegen
