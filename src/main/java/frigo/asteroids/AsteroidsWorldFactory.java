@@ -14,12 +14,12 @@ import com.jogamp.newt.event.KeyEvent;
 import frigo.asteroids.component.Angular;
 import frigo.asteroids.component.Attractable;
 import frigo.asteroids.component.Attractor;
+import frigo.asteroids.component.Background;
+import frigo.asteroids.component.Image;
 import frigo.asteroids.component.Mass;
 import frigo.asteroids.component.Planar;
-import frigo.asteroids.component.Point;
 import frigo.asteroids.component.SelfDestruct;
 import frigo.asteroids.component.Size;
-import frigo.asteroids.component.Image;
 import frigo.asteroids.component.Thrustable;
 import frigo.asteroids.component.Timer;
 import frigo.asteroids.core.Entity;
@@ -43,14 +43,14 @@ public class AsteroidsWorldFactory {
 
     public World createWorld () {
         world = new World();
-        createSun();
-        ship = createShip();
+        for( int i = 0; i < 2_000; i++ ){
+            createStar();
+        }
         for( int i = 0; i < 50; i++ ){
             createAsteroid(vector(getRandom(-1, 1), getRandom(-1, 1)));
         }
-        for( int i = 0; i < 20_000; i++ ){
-            createStar();
-        }
+        createSun();
+        ship = createShip();
         world.addLogic(createInputSystem());
         world.addLogic(new TimerSystem());
         world.addLogic(new GravitySystem(new NewtonianGravity()));
@@ -60,28 +60,15 @@ public class AsteroidsWorldFactory {
         return world;
     }
 
-    private Entity createShip () {
-        double size = 0.1;
+    private Entity createStar () {
+        double size = getRandom(0.01, 0.05);
+        double speed = 0.005;
         Entity entity = world.createEntity();
-        entity.add(new Thrustable(0.1, 1));
-        entity.add(Attractable.ATTRACTABLE);
-        entity.add(new Mass(PI * 4 / 3 * pow(size, 3) * DENSITY));
-        entity.add(new Planar(vector(0, 0.5), vector(0.2, 0), NULL));
-        entity.add(new Angular(0, 0.5, 0));
+        entity.add(new Planar(vector(getRandom(-2, 2), getRandom(-1, 1)), vector(getRandom(-speed, speed), getRandom(
+            -speed, speed)), NULL));
         entity.add(new Size(size));
-        entity.add(new Image("spaceship.png"));
-        return entity;
-    }
-
-    private Entity createSun () {
-        double size = 0.4;
-        Entity entity = world.createEntity();
-        entity.add(Attractor.ATTRACTOR);
-        entity.add(new Mass(PI * 4 / 3 * pow(size, 3) * DENSITY));
-        entity.add(new Planar(NULL, NULL, NULL));
-        entity.add(new Angular(0, 0.01, 0));
-        entity.add(new Size(size));
-        entity.add(new Image("sun.png"));
+        entity.add(new Image("star64.png", -1));
+        entity.add(Background.BACKGROUND);
         return entity;
     }
 
@@ -94,23 +81,33 @@ public class AsteroidsWorldFactory {
         entity.add(new Planar(position, vector(getRandom(-speed, speed), getRandom(-speed, speed)), NULL));
         entity.add(new Angular(0, getRandom(-PI, PI), 0));
         entity.add(new Size(size));
-        entity.add(new Image("vesta.png"));
+        entity.add(new Image("vesta.png", 0));
         return entity;
     }
 
-    private Entity createStar () {
-        double size = 0.01;
-        double speed = 0.005;
+    private Entity createSun () {
+        double size = 0.4;
         Entity entity = world.createEntity();
-        entity.add(new Planar(vector(getRandom(-2, 2), getRandom(-1, 1)), vector(getRandom(-speed, speed), getRandom(
-            -speed, speed)), NULL));
+        entity.add(Attractor.ATTRACTOR);
+        entity.add(new Mass(PI * 4 / 3 * pow(size, 3) * DENSITY));
+        entity.add(new Planar(NULL, NULL, NULL));
+        entity.add(new Angular(0, 0.01, 0));
         entity.add(new Size(size));
-        entity.add(Point.POINT);
+        entity.add(new Image("sun.png", 1));
         return entity;
     }
 
-    private double getRandom (double low, double high) {
-        return low + random.nextDouble() * (high - low);
+    private Entity createShip () {
+        double size = 0.1;
+        Entity entity = world.createEntity();
+        entity.add(new Thrustable(0.1, 1));
+        entity.add(Attractable.ATTRACTABLE);
+        entity.add(new Mass(PI * 4 / 3 * pow(size, 3) * DENSITY));
+        entity.add(new Planar(vector(0, 0.5), vector(0.2, 0), NULL));
+        entity.add(new Angular(0, 0.5, 0));
+        entity.add(new Size(size));
+        entity.add(new Image("spaceship.png", 2));
+        return entity;
     }
 
     private InputSystem createInputSystem () {
@@ -175,5 +172,9 @@ public class AsteroidsWorldFactory {
         }
 
     };
+
+    private double getRandom (double low, double high) {
+        return low + random.nextDouble() * (high - low);
+    }
 
 }

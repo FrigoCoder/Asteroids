@@ -3,11 +3,13 @@ package frigo.asteroids.jogl;
 
 import static frigo.asteroids.core.Vector.vector;
 
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
-import javax.media.opengl.GL2ES1;
 import javax.media.opengl.GL2GL3;
 import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLEventListener;
@@ -16,10 +18,10 @@ import javax.media.opengl.fixedfunc.GLMatrixFunc;
 import com.jogamp.opengl.util.texture.Texture;
 
 import frigo.asteroids.component.Angular;
-import frigo.asteroids.component.Planar;
-import frigo.asteroids.component.Point;
-import frigo.asteroids.component.Size;
+import frigo.asteroids.component.Background;
 import frigo.asteroids.component.Image;
+import frigo.asteroids.component.Planar;
+import frigo.asteroids.component.Size;
 import frigo.asteroids.component.Thrustable;
 import frigo.asteroids.core.Aspect;
 import frigo.asteroids.core.Entity;
@@ -41,9 +43,6 @@ public class JOGLRenderer implements GLEventListener {
     public void init (GLAutoDrawable drawable) {
         GL2 gl = drawable.getGL().getGL2();
 
-        gl.glEnable(GL2ES1.GL_POINT_SMOOTH);
-        gl.glHint(GL2ES1.GL_POINT_SMOOTH_HINT, GL.GL_NICEST);
-
         gl.glEnable(GL.GL_TEXTURE_2D);
 
         gl.glEnable(GL.GL_BLEND);
@@ -58,10 +57,16 @@ public class JOGLRenderer implements GLEventListener {
         gl.glMatrixMode(GLMatrixFunc.GL_MODELVIEW);
         gl.glLoadIdentity();
 
-        drawPoints(gl);
+        drawBackground(gl);
         focusOnPlayer(gl);
-        drawTextures(gl);
-        drawPlayer(gl);
+        drawEntities(gl);
+    }
+
+    private void drawBackground (GL2 gl) {
+        Aspect aspect = Aspect.allOf(Planar.class, Size.class, Image.class, Background.class);
+        for( Entity entity : world.getEntitiesFor(aspect) ){
+            drawEntity(gl, entity);
+        }
     }
 
     private void focusOnPlayer (GL2 gl) {
@@ -73,60 +78,46 @@ public class JOGLRenderer implements GLEventListener {
         }
     }
 
-    private void drawPoints (GL2 gl) {
-        gl.glPointSize(1.0f);
-        gl.glBegin(GL.GL_POINTS);
-        Aspect aspect = Aspect.allOf(Planar.class, Point.class);
-        for( Entity entity : world.getEntitiesFor(aspect) ){
-            Vector position = entity.get(Planar.class).position;
-            gl.glVertex2d(position.x, position.y);
-        }
-        gl.glEnd();
-    }
+    private void drawEntities (GL2 gl) {
+        Aspect aspect = Aspect.allOf(Planar.class, Size.class, Image.class).andNoneOf(Background.class);
 
-    private void drawTextures (GL2 gl) {
-        Aspect aspect = Aspect.allOf(Planar.class, Size.class, Image.class).andNoneOf(Thrustable.class);
+        Map<Integer, List<Entity>> map = new TreeMap<>();
         for( Entity entity : world.getEntitiesFor(aspect) ){
-            drawEntity(gl, entity);
+            Image image = entity.get(Image.class);
+            if( !map.containsKey(image.order) ){
+                map.put(image.order, new LinkedList<Entity>());
+            }
+            map.get(image.order).add(entity);
         }
-    }
-
-    private void drawPlayer (GL2 gl) {
-        Aspect aspect = Aspect.allOf(Planar.class, Size.class, Image.class, Thrustable.class);
-        for( Entity entity : world.getEntitiesFor(aspect) ){
-            drawEntity(gl, entity);
+        for( List<Entity> list : map.values() ){
+            for( Entity entity : list ){
+                drawEntity(gl, entity);
+            }
         }
     }
 
     private void drawEntity (GL2 gl, Entity entity) {
         Vector position = entity.get(Planar.class).position;
-        Size size = entity.get(Size.class);
+        double angular = entity.has(Angular.class) ? entity.get(Angular.class).position : 0;
+        double size = entity.get(Size.class).size / 2;
         Image image = entity.get(Image.class);
-        double angularDisplacement = entity.has(Angular.class) ? entity.get(Angular.class).position : 0;
-        drawTexture(gl, position, angularDisplacement, size.size, image.filename);
-    }
 
-    private void drawTexture (GL2 gl, Vector position, double radians, double size, String texture) {
-        Texture tex = textures.get(texture);
-        tex.enable(gl);
-        tex.bind(gl);
+        Texture texture = textures.get(image.filename);
+        texture.enable(gl);
+        texture.bind(gl);
 
-        double scale = size / 2;
         gl.glBegin(GL2GL3.GL_QUADS);
-        gl.glTexCoord2d(0, 0);
-        vertex(gl, position.add(vector(-scale, -scale).rotate(radians)));
-        gl.glTexCoord2d(0, 1);
-        vertex(gl, position.add(vector(-scale, +scale).rotate(radians)));
-        gl.glTexCoord2d(1, 1);
-        vertex(gl, position.add(vector(+scale, +scale).rotate(radians)));
-        gl.glTexCoord2d(1, 0);
-        vertex(gl, position.add(vector(+scale, -scale).rotate(radians)));
+        vertex(gl, 0, 0, position.add(vector(-size, -size).rotate(angular)));
+        vertex(gl, 0, 1, position.add(vector(-size, +size).rotate(angular)));
+        vertex(gl, 1, 1, position.add(vector(+size, +size).rotate(angular)));
+        vertex(gl, 1, 0, position.add(vector(+size, -size).rotate(angular)));
         gl.glEnd();
 
-        tex.disable(gl);
+        texture.disable(gl);
     }
 
-    private void vertex (GL2 gl, Vector position) {
+    private void vertex (GL2 gl, double s, double t, Vector position) {
+        gl.glTexCoord2d(s, t);
         gl.glVertex2d(position.x, position.y);
     }
 
