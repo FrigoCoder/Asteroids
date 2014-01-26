@@ -17,7 +17,7 @@ public class Game implements GLEventListener, KeyListener {
 
     public static void main (String[] args) {
         Game game = new Game();
-        JOGLRunner runner = new JOGLRunner(game, 1024, 768, 100);
+        JOGLRunner runner = new JOGLRunner(game, 1024, 768, 60);
         runner.init();
     }
 
