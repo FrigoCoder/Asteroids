@@ -64,7 +64,7 @@ public class AsteroidsWorldFactory {
         double size = 0.1;
         Entity entity = world.createEntity();
         entity.add(new Thrustable(0.1, 1));
-        entity.add(new Attractable());
+        entity.add(Attractable.ATTRACTABLE);
         entity.add(new Mass(PI * 4 / 3 * pow(size, 3) * DENSITY));
         entity.add(new Planar(vector(0, 0.5), vector(0.2, 0), NULL));
         entity.add(new Angular(0, 0.5, 0));
@@ -89,7 +89,7 @@ public class AsteroidsWorldFactory {
         double size = getRandom(0.02, 0.08);
         double speed = 0.2;
         Entity entity = world.createEntity();
-        entity.add(new Attractable());
+        entity.add(Attractable.ATTRACTABLE);
         entity.add(new Mass(PI * 4 / 3 * pow(size, 3) * DENSITY));
         entity.add(new Planar(position, vector(getRandom(-speed, speed), getRandom(-speed, speed)), NULL));
         entity.add(new Angular(0, getRandom(-PI, PI), 0));
@@ -137,7 +137,7 @@ public class AsteroidsWorldFactory {
             double size = getRandom(0.02, 0.04);
             double spread = 0.05;
             Entity entity = world.createEntity();
-            entity.add(new Attractable());
+            entity.add(Attractable.ATTRACTABLE);
             entity.add(new Mass(PI * 4 / 3 * pow(size, 3) * DENSITY));
             entity.add(new Planar(position, vector(getRandom(-spread, spread) + velocity.x, getRandom(-spread, spread)
                 + velocity.y), NULL));

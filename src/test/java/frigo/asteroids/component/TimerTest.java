@@ -34,7 +34,7 @@ public class TimerTest {
 
     @Test
     public void returns_component () {
-        Component component = new Attractable();
+        Component component = Attractable.ATTRACTABLE;
         Timer timer = new Timer(component, 1.0);
         assertThat(timer.emitted(), sameInstance(component));
     }
