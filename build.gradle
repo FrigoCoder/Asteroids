@@ -75,6 +75,12 @@ test {
     dependsOn copyJoglNatives
 }
 
+jar {
+    manifest {
+        attributes("Permissions": "default")
+    }
+}
+
 jar << {
     ant.signjar(jar: tasks.jar.archivePath, alias:"asteroids", storepass:"asteroids", keystore:"/server/.keystore")
 }
