@@ -42,7 +42,7 @@ public class GravitySystemTest {
 
     @Test
     public void attractor_attracts_two_attractables () {
-        world.createEntity(new Attractor(), new Mass(100), new Planar(vector(-0.1, 0), NULL, NULL));
+        world.createEntity(Attractor.ATTRACTOR, new Mass(100), new Planar(vector(-0.1, 0), NULL, NULL));
 
         world.update(1);
 

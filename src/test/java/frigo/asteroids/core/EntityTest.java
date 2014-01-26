@@ -63,7 +63,7 @@ public class EntityTest {
 
     @Test
     public void vararg_constructor_adds_all_components () {
-        Attractor attractor = new Attractor();
+        Attractor attractor = Attractor.ATTRACTOR;
         entity = world.createEntity(position, attractor);
         assertThat(entity.get(Planar.class), sameInstance(position));
         assertThat(entity.get(Attractor.class), sameInstance(attractor));

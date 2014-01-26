@@ -76,7 +76,7 @@ public class AsteroidsWorldFactory {
     private Entity createSun () {
         double size = 0.4;
         Entity entity = world.createEntity();
-        entity.add(new Attractor());
+        entity.add(Attractor.ATTRACTOR);
         entity.add(new Mass(PI * 4 / 3 * pow(size, 3) * DENSITY));
         entity.add(new Planar(NULL, NULL, NULL));
         entity.add(new Angular(0, 0.01, 0));
@@ -105,7 +105,7 @@ public class AsteroidsWorldFactory {
         entity.add(new Planar(vector(getRandom(-2, 2), getRandom(-1, 1)), vector(getRandom(-speed, speed), getRandom(
             -speed, speed)), NULL));
         entity.add(new Size(size));
-        entity.add(new Point());
+        entity.add(Point.POINT);
         return entity;
     }
 
@@ -144,7 +144,7 @@ public class AsteroidsWorldFactory {
             entity.add(new Angular(0, getRandom(-PI, PI), 0));
             entity.add(new Size(size));
             entity.add(new TextureName("exhaust.png"));
-            entity.add(new Timer(new SelfDestruct(), 2.0));
+            entity.add(new Timer(SelfDestruct.SELF_DESTRUCT, 2.0));
             return entity;
         }
 

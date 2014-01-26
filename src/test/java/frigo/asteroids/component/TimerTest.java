@@ -13,21 +13,21 @@ public class TimerTest {
 
     @Test
     public void timer_is_not_elapsed () {
-        Timer timer = new Timer(new SelfDestruct(), 1.1);
+        Timer timer = new Timer(SelfDestruct.SELF_DESTRUCT, 1.1);
         timer.countDown(1.0);
         assertThat(timer.elapsed(), is(false));
     }
 
     @Test
     public void timer_is_just_elapsed () {
-        Timer timer = new Timer(new SelfDestruct(), 1.0);
+        Timer timer = new Timer(SelfDestruct.SELF_DESTRUCT, 1.0);
         timer.countDown(1.0);
         assertThat(timer.elapsed(), is(true));
     }
 
     @Test
     public void timer_is_elapsed () {
-        Timer timer = new Timer(new SelfDestruct(), 0.9);
+        Timer timer = new Timer(SelfDestruct.SELF_DESTRUCT, 0.9);
         timer.countDown(1.0);
         assertThat(timer.elapsed(), is(true));
     }

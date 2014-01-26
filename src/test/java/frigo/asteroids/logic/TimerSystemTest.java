@@ -22,7 +22,7 @@ public class TimerSystemTest {
         world.addLogic(new TimerSystem());
         world.init();
         entity = world.createEntity();
-        entity.add(new Timer(new SelfDestruct(), 1.0));
+        entity.add(new Timer(SelfDestruct.SELF_DESTRUCT, 1.0));
     }
 
     @Test
