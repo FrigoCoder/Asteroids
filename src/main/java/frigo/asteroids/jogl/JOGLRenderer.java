@@ -19,7 +19,7 @@ import frigo.asteroids.component.Angular;
 import frigo.asteroids.component.Planar;
 import frigo.asteroids.component.Point;
 import frigo.asteroids.component.Size;
-import frigo.asteroids.component.TextureName;
+import frigo.asteroids.component.Image;
 import frigo.asteroids.component.Thrustable;
 import frigo.asteroids.core.Aspect;
 import frigo.asteroids.core.Entity;
@@ -85,14 +85,14 @@ public class JOGLRenderer implements GLEventListener {
     }
 
     private void drawTextures (GL2 gl) {
-        Aspect aspect = Aspect.allOf(Planar.class, Size.class, TextureName.class).andNoneOf(Thrustable.class);
+        Aspect aspect = Aspect.allOf(Planar.class, Size.class, Image.class).andNoneOf(Thrustable.class);
         for( Entity entity : world.getEntitiesFor(aspect) ){
             drawEntity(gl, entity);
         }
     }
 
     private void drawPlayer (GL2 gl) {
-        Aspect aspect = Aspect.allOf(Planar.class, Size.class, TextureName.class, Thrustable.class);
+        Aspect aspect = Aspect.allOf(Planar.class, Size.class, Image.class, Thrustable.class);
         for( Entity entity : world.getEntitiesFor(aspect) ){
             drawEntity(gl, entity);
         }
@@ -101,9 +101,9 @@ public class JOGLRenderer implements GLEventListener {
     private void drawEntity (GL2 gl, Entity entity) {
         Vector position = entity.get(Planar.class).position;
         Size size = entity.get(Size.class);
-        TextureName textureName = entity.get(TextureName.class);
+        Image image = entity.get(Image.class);
         double angularDisplacement = entity.has(Angular.class) ? entity.get(Angular.class).position : 0;
-        drawTexture(gl, position, angularDisplacement, size.size, textureName.filename);
+        drawTexture(gl, position, angularDisplacement, size.size, image.filename);
     }
 
     private void drawTexture (GL2 gl, Vector position, double radians, double size, String texture) {

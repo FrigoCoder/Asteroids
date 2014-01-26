@@ -6,13 +6,13 @@ import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
 
-public class TextureNameTest {
+public class ImageTest {
 
     @Test
-    public void texture_file_name_is_stored () {
+    public void image_file_name_is_stored () {
         String filename = "doesnotexist.png";
-        TextureName textureName = new TextureName(filename);
-        assertThat(textureName.filename, is(filename));
+        Image image = new Image(filename);
+        assertThat(image.filename, is(filename));
     }
 
 }

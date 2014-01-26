@@ -19,7 +19,7 @@ import frigo.asteroids.component.Planar;
 import frigo.asteroids.component.Point;
 import frigo.asteroids.component.SelfDestruct;
 import frigo.asteroids.component.Size;
-import frigo.asteroids.component.TextureName;
+import frigo.asteroids.component.Image;
 import frigo.asteroids.component.Thrustable;
 import frigo.asteroids.component.Timer;
 import frigo.asteroids.core.Entity;
@@ -69,7 +69,7 @@ public class AsteroidsWorldFactory {
         entity.add(new Planar(vector(0, 0.5), vector(0.2, 0), NULL));
         entity.add(new Angular(0, 0.5, 0));
         entity.add(new Size(size));
-        entity.add(new TextureName("spaceship.png"));
+        entity.add(new Image("spaceship.png"));
         return entity;
     }
 
@@ -81,7 +81,7 @@ public class AsteroidsWorldFactory {
         entity.add(new Planar(NULL, NULL, NULL));
         entity.add(new Angular(0, 0.01, 0));
         entity.add(new Size(size));
-        entity.add(new TextureName("sun.png"));
+        entity.add(new Image("sun.png"));
         return entity;
     }
 
@@ -94,7 +94,7 @@ public class AsteroidsWorldFactory {
         entity.add(new Planar(position, vector(getRandom(-speed, speed), getRandom(-speed, speed)), NULL));
         entity.add(new Angular(0, getRandom(-PI, PI), 0));
         entity.add(new Size(size));
-        entity.add(new TextureName("vesta.png"));
+        entity.add(new Image("vesta.png"));
         return entity;
     }
 
@@ -143,7 +143,7 @@ public class AsteroidsWorldFactory {
                 + velocity.y), NULL));
             entity.add(new Angular(0, getRandom(-PI, PI), 0));
             entity.add(new Size(size));
-            entity.add(new TextureName("exhaust.png"));
+            entity.add(new Image("exhaust.png"));
             entity.add(new Timer(SelfDestruct.SELF_DESTRUCT, 2.0));
             return entity;
         }
