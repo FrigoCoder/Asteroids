@@ -168,7 +168,16 @@ public class AsteroidsWorldFactory {
 
         @Override
         public void run (double elapsedSeconds) {
-            createAsteroid(ship.get(Planar.class).position);
+            double size = getRandom(0.02, 0.08);
+            double speed = 0.2;
+            Entity entity = world.createEntity();
+            entity.add(Attractable.ATTRACTABLE);
+            entity.add(new Mass(PI * 4 / 3 * pow(size, 3) * DENSITY));
+            entity.add(new Planar(ship.get(Planar.class).position, vector(getRandom(-speed, speed), getRandom(-speed,
+                speed)), NULL));
+            entity.add(new Angular(0, getRandom(-PI, PI), 0));
+            entity.add(new Size(size));
+            entity.add(new Image("missile.png", 0));
         }
 
     };
