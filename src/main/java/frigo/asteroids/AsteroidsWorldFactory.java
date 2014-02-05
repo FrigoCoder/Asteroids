@@ -142,9 +142,7 @@ public class AsteroidsWorldFactory {
 
         @Override
         public void run (double elapsedSeconds) {
-            double angle = ship.get(Angular.class).position;
-            Vector heading = Vector.Y.rotate(angle);
-            Vector thrust = heading.mul(ship.get(Thrustable.class).thrust);
+            Vector thrust = getHeading(ship).mul(ship.get(Thrustable.class).thrust);
 
             Planar planar = ship.get(Planar.class);
             planar.accelerate(thrust);
@@ -156,21 +154,21 @@ public class AsteroidsWorldFactory {
 
         @Override
         public void run (double elapsedSeconds) {
-            Entity entity = spawnAtSource(ship);
+            Entity entity = world.createEntity();
             entity.add(Attractable.ATTRACTABLE);
             entity.add(new Image("exhaust.png"));
             setSize(entity, getRandom(0.02, 0.04));
             entity.add(new Timer(SelfDestruct.SELF_DESTRUCT, 2.0));
 
-            double angle = ship.get(Angular.class).position;
-            Vector heading = Vector.Y.rotate(angle);
-            Vector thrust = heading.mul(ship.get(Thrustable.class).thrust);
+            Vector thrust = getHeading(ship).mul(ship.get(Thrustable.class).thrust);
 
-            Planar planar = entity.get(Planar.class);
-            planar.velocity = planar.velocity.add(thrust.opposite().add(getRandomVector(0.05)));
+            Vector relativeVelocity = thrust.opposite().add(getRandomVector(0.05));
+            Planar planar = ship.get(Planar.class);
+            entity.add(new Planar(planar.position, planar.velocity.add(relativeVelocity), planar.acceleration));
 
-            Angular angular = entity.get(Angular.class);
-            angular.velocity = angular.velocity + getRandom(-PI, PI);
+            double relativeAngularVelocity = getRandom(-PI, PI);
+            Angular angular = ship.get(Angular.class);
+            entity.add(new Angular(angular.position, angular.velocity + relativeAngularVelocity, angular.acceleration));
         }
 
     };
@@ -185,16 +183,9 @@ public class AsteroidsWorldFactory {
             setSize(entity, 0.05);
             entity.add(new Timer(SelfDestruct.SELF_DESTRUCT, 10.0));
 
-            double angle = ship.get(Angular.class).position;
-            Vector heading = Vector.Y.rotate(angle);
-            Vector velocity = heading.mul(0.2);
-
-            Planar planar = entity.get(Planar.class);
-            planar.velocity = planar.velocity.add(velocity);
-
-            Angular angular = entity.get(Angular.class);
-            angular.velocity = angular.velocity + 0.0;
-
+            Vector relativeVelocity = getHeading(ship).mul(0.2);
+            Planar planar = ship.get(Planar.class);
+            entity.add(new Planar(planar.position, planar.velocity.add(relativeVelocity), planar.acceleration));
         }
 
     };
@@ -207,6 +198,11 @@ public class AsteroidsWorldFactory {
         entity.add(planar);
         entity.add(angular);
         return entity;
+    }
+
+    private Vector getHeading (Entity entity) {
+        double angle = entity.get(Angular.class).position;
+        return Vector.Y.rotate(angle);
     }
 
     private double getRandom (double low, double high) {
