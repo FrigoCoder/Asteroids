@@ -2,7 +2,7 @@
 package frigo.asteroids.logic.gravity;
 
 import static frigo.asteroids.component.VectorCloseTo.closeTo;
-import static frigo.asteroids.core.Vector.NULL;
+import static frigo.asteroids.core.Vector.ZERO;
 import static frigo.asteroids.core.Vector.vector;
 import static frigo.asteroids.logic.gravity.FunGravity.G;
 import static java.lang.Math.sqrt;
@@ -18,10 +18,10 @@ import frigo.asteroids.core.World;
 public class FunGravityTest {
 
     private World world = new World();
-    private Entity attractor1 = world.createEntity(new Mass(100), new Planar(vector(-0.1, 0), NULL, NULL));
-    private Entity attracted1 = world.createEntity(new Mass(10), new Planar(vector(0.1, 0), NULL, NULL));
-    private Entity attracted2 = world.createEntity(new Mass(1), new Planar(vector(0, 0.1), NULL, NULL));
-    private Entity attracted3 = world.createEntity(new Mass(1), new Planar(vector(-0.1, 0), NULL, NULL));
+    private Entity attractor1 = world.createEntity(new Mass(100), new Planar(vector(-0.1, 0), ZERO, ZERO));
+    private Entity attracted1 = world.createEntity(new Mass(10), new Planar(vector(0.1, 0), ZERO, ZERO));
+    private Entity attracted2 = world.createEntity(new Mass(1), new Planar(vector(0, 0.1), ZERO, ZERO));
+    private Entity attracted3 = world.createEntity(new Mass(1), new Planar(vector(-0.1, 0), ZERO, ZERO));
     private GravityCalculator gravity = new FunGravity();
 
     @Test
@@ -34,7 +34,7 @@ public class FunGravityTest {
 
     @Test
     public void direction_acceleration_is_zero_for_objects_at_same_place () {
-        assertThat(gravity.getDirectionalAcceleration(attractor1, attracted3), closeTo(NULL));
+        assertThat(gravity.getDirectionalAcceleration(attractor1, attracted3), closeTo(ZERO));
     }
 
 }

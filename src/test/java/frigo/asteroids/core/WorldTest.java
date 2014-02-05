@@ -1,7 +1,7 @@
 
 package frigo.asteroids.core;
 
-import static frigo.asteroids.core.Vector.NULL;
+import static frigo.asteroids.core.Vector.ZERO;
 import static frigo.asteroids.core.Vector.vector;
 import static java.util.Arrays.asList;
 import static org.hamcrest.Matchers.hasItem;
@@ -33,7 +33,7 @@ public class WorldTest {
 
     @Test
     public void entities_matching_aspect_are_returned () {
-        entity.add(new Planar(vector(1, 1), vector(1, 1), NULL));
+        entity.add(new Planar(vector(1, 1), vector(1, 1), ZERO));
 
         world.createEntity();
 

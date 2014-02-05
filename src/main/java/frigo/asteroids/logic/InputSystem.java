@@ -13,10 +13,13 @@ import frigo.asteroids.message.KeyPressed;
 
 public class InputSystem extends Logic {
 
-    private Map<Short, InputAction> actions = new HashMap<>();
+    private Map<Short, List<InputAction>> actions = new HashMap<>();
 
     public void register (Short keyEvent, InputAction action) {
-        actions.put(keyEvent, action);
+        if( !actions.containsKey(keyEvent) ){
+            actions.put(keyEvent, new LinkedList<InputAction>());
+        }
+        actions.get(keyEvent).add(action);
     }
 
     @Override
@@ -27,7 +30,9 @@ public class InputSystem extends Logic {
 
         for( KeyMessage message : messages ){
             if( actions.containsKey(message.key) ){
-                actions.get(message.key).run(elapsedSeconds);
+                for( InputAction action : actions.get(message.key) ){
+                    action.run(elapsedSeconds);
+                }
             }
         }
     }

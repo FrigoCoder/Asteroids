@@ -1,8 +1,7 @@
 
 package frigo.asteroids;
 
-import static frigo.asteroids.core.Vector.NULL;
-import static frigo.asteroids.core.Vector.UNIT_Y;
+import static frigo.asteroids.core.Vector.ZERO;
 import static frigo.asteroids.core.Vector.vector;
 import static java.lang.Math.PI;
 import static java.lang.Math.pow;
@@ -46,10 +45,11 @@ public class AsteroidsWorldFactory {
         for( int i = 0; i < 5_000; i++ ){
             createStar();
         }
-        for( int i = 0; i < 50; i++ ){
+        for( int i = 0; i < 100; i++ ){
             createAsteroid(vector(getRandom(-1, 1), getRandom(-1, 1)));
         }
         createSun();
+        createSun2();
         ship = createShip();
         world.addLogic(createInputSystem());
         world.addLogic(new TimerSystem());
@@ -61,93 +61,67 @@ public class AsteroidsWorldFactory {
     }
 
     private Entity createStar () {
-        double size = getRandom(0.01, 0.1);
-        double speed = 0.005;
         Entity entity = world.createEntity();
-        entity.add(new Planar(vector(getRandom(-2, 2), getRandom(-1, 1)), vector(getRandom(-speed, speed), getRandom(
-            -speed, speed)), NULL));
-        entity.add(new Size(size));
-        entity.add(new Image("star64.png", -1));
         entity.add(Background.BACKGROUND);
+        entity.add(new Image("star64.png", -1));
+        entity.add(new Planar(getRandomVector(2, 1), getRandomVector(0.005), ZERO));
+        setSize(entity, getRandom(0.01, 0.1));
         return entity;
     }
 
     private Entity createAsteroid (Vector position) {
-        double size = getRandom(0.02, 0.08);
-        double speed = 0.2;
         Entity entity = world.createEntity();
-        entity.add(Attractable.ATTRACTABLE);
-        entity.add(new Mass(PI * 4 / 3 * pow(size, 3) * DENSITY));
-        entity.add(new Planar(position, vector(getRandom(-speed, speed), getRandom(-speed, speed)), NULL));
         entity.add(new Angular(0, getRandom(-PI, PI), 0));
-        entity.add(new Size(size));
+        entity.add(Attractable.ATTRACTABLE);
         entity.add(new Image("vesta.png", 0));
+        entity.add(new Planar(position, getRandomVector(0.2), ZERO));
+        setSize(entity, getRandom(0.02, 0.08));
         return entity;
     }
 
     private Entity createSun () {
-        double size = 0.4;
         Entity entity = world.createEntity();
-        entity.add(Attractor.ATTRACTOR);
-        entity.add(new Mass(PI * 4 / 3 * pow(size, 3) * DENSITY));
-        entity.add(new Planar(NULL, NULL, NULL));
         entity.add(new Angular(0, 0.01, 0));
-        entity.add(new Size(size));
+        entity.add(Attractor.ATTRACTOR);
         entity.add(new Image("sun.png", 1));
+        entity.add(new Planar(ZERO, ZERO, ZERO));
+        setSize(entity, 0.4);
+        return entity;
+    }
+
+    private Entity createSun2 () {
+        Entity entity = world.createEntity();
+        entity.add(new Angular(0, 0.01, 0));
+        entity.add(Attractor.ATTRACTOR);
+        entity.add(new Image("sun.png", 1));
+        entity.add(new Planar(vector(1.0, 1.0), ZERO, ZERO));
+        setSize(entity, 0.2);
         return entity;
     }
 
     private Entity createShip () {
-        double size = 0.1;
         Entity entity = world.createEntity();
-        entity.add(new Thrustable(0.1, 1));
-        entity.add(Attractable.ATTRACTABLE);
-        entity.add(new Mass(PI * 4 / 3 * pow(size, 3) * DENSITY));
-        entity.add(new Planar(vector(0, 0.5), vector(0.2, 0), NULL));
         entity.add(new Angular(0, 0.5, 0));
-        entity.add(new Size(size));
+        entity.add(Attractable.ATTRACTABLE);
         entity.add(new Image("spaceship.png", 2));
+        entity.add(new Planar(vector(0, 0.5), vector(0.2, 0), ZERO));
+        setSize(entity, 0.1);
+        entity.add(new Thrustable(0.1, 1));
         return entity;
     }
 
     private InputSystem createInputSystem () {
         InputSystem inputSystem = new InputSystem();
-        inputSystem.register(KeyEvent.VK_UP, handleAcceleration);
-        inputSystem.register(KeyEvent.VK_LEFT, handleLeft);
-        inputSystem.register(KeyEvent.VK_RIGHT, handleRight);
-        inputSystem.register(KeyEvent.VK_SPACE, handleShooting);
+        inputSystem.register(KeyEvent.VK_LEFT, accelerateLeft);
+        inputSystem.register(KeyEvent.VK_RIGHT, accelerateRight);
+        inputSystem.register(KeyEvent.VK_UP, accelerateShip);
+        inputSystem.register(KeyEvent.VK_UP, createFlame);
+
+        inputSystem.register(KeyEvent.VK_SPACE, createBullet);
         return inputSystem;
     }
 
-    private InputAction handleAcceleration = new InputAction() {
-
-        @Override
-        public void run (double elapsedSeconds) {
-            double angle = ship.get(Angular.class).position;
-            Vector heading = UNIT_Y.opposite().rotate(angle).mul(ship.get(Thrustable.class).thrust);
-            Planar planar = ship.get(Planar.class);
-            planar.accelerate(heading);
-            createFlame(planar.position, planar.velocity.sub(heading));
-        }
-
-        private Entity createFlame (Vector position, Vector velocity) {
-            double size = getRandom(0.02, 0.04);
-            double spread = 0.05;
-            Entity entity = world.createEntity();
-            entity.add(Attractable.ATTRACTABLE);
-            entity.add(new Mass(PI * 4 / 3 * pow(size, 3) * DENSITY));
-            entity.add(new Planar(position, vector(getRandom(-spread, spread) + velocity.x, getRandom(-spread, spread)
-                + velocity.y), NULL));
-            entity.add(new Angular(0, getRandom(-PI, PI), 0));
-            entity.add(new Size(size));
-            entity.add(new Image("exhaust.png"));
-            entity.add(new Timer(SelfDestruct.SELF_DESTRUCT, 2.0));
-            return entity;
-        }
-
-    };
-
-    private InputAction handleLeft = new InputAction() {
+    private InputAction accelerateLeft = new InputAction() {
 
         @Override
         public void run (double elapsedSeconds) {
@@ -155,7 +129,7 @@ public class AsteroidsWorldFactory {
         }
     };
 
-    private InputAction handleRight = new InputAction() {
+    private InputAction accelerateRight = new InputAction() {
 
         @Override
         public void run (double elapsedSeconds) {
@@ -164,26 +138,91 @@ public class AsteroidsWorldFactory {
 
     };
 
-    private InputAction handleShooting = new InputAction() {
+    private InputAction accelerateShip = new InputAction() {
 
         @Override
         public void run (double elapsedSeconds) {
-            double size = getRandom(0.02, 0.08);
-            double speed = 0.2;
-            Entity entity = world.createEntity();
-            entity.add(Attractable.ATTRACTABLE);
-            entity.add(new Mass(PI * 4 / 3 * pow(size, 3) * DENSITY));
-            entity.add(new Planar(ship.get(Planar.class).position, vector(getRandom(-speed, speed), getRandom(-speed,
-                speed)), NULL));
-            entity.add(new Angular(0, getRandom(-PI, PI), 0));
-            entity.add(new Size(size));
-            entity.add(new Image("missile.png", 0));
+            double angle = ship.get(Angular.class).position;
+            Vector heading = Vector.Y.rotate(angle);
+            Vector thrust = heading.mul(ship.get(Thrustable.class).thrust);
+
+            Planar planar = ship.get(Planar.class);
+            planar.accelerate(thrust);
         }
 
     };
+
+    private InputAction createFlame = new InputAction() {
+
+        @Override
+        public void run (double elapsedSeconds) {
+            Entity entity = spawnAtSource(ship);
+            entity.add(Attractable.ATTRACTABLE);
+            entity.add(new Image("exhaust.png"));
+            setSize(entity, getRandom(0.02, 0.04));
+            entity.add(new Timer(SelfDestruct.SELF_DESTRUCT, 2.0));
+
+            double angle = ship.get(Angular.class).position;
+            Vector heading = Vector.Y.rotate(angle);
+            Vector thrust = heading.mul(ship.get(Thrustable.class).thrust);
+
+            Planar planar = entity.get(Planar.class);
+            planar.velocity = planar.velocity.add(thrust.opposite().add(getRandomVector(0.05)));
+
+            Angular angular = entity.get(Angular.class);
+            angular.velocity = angular.velocity + getRandom(-PI, PI);
+        }
+
+    };
+
+    private InputAction createBullet = new InputAction() {
+
+        @Override
+        public void run (double elapsedSeconds) {
+            Entity entity = spawnAtSource(ship);
+            entity.add(Attractable.ATTRACTABLE);
+            entity.add(new Image("missile.png"));
+            setSize(entity, 0.05);
+            entity.add(new Timer(SelfDestruct.SELF_DESTRUCT, 10.0));
+
+            double angle = ship.get(Angular.class).position;
+            Vector heading = Vector.Y.rotate(angle);
+            Vector velocity = heading.mul(0.2);
+
+            Planar planar = entity.get(Planar.class);
+            planar.velocity = planar.velocity.add(velocity);
+
+            Angular angular = entity.get(Angular.class);
+            angular.velocity = angular.velocity + 0.0;
+
+        }
+
+    };
+
+    private Entity spawnAtSource (Entity source) {
+        Planar planar = (Planar) source.get(Planar.class).clone();
+        Angular angular = (Angular) source.get(Angular.class).clone();
+
+        Entity entity = world.createEntity();
+        entity.add(planar);
+        entity.add(angular);
+        return entity;
+    }
 
     private double getRandom (double low, double high) {
         return low + random.nextDouble() * (high - low);
     }
 
+    private Vector getRandomVector (double size) {
+        return vector(getRandom(-size, size), getRandom(-size, size));
+    }
+
+    private Vector getRandomVector (double x, double y) {
+        return vector(getRandom(-x, x), getRandom(-y, y));
+    }
+
+    private void setSize (Entity entity, double size) {
+        entity.add(new Size(size));
+        entity.add(new Mass(PI * 4 / 3 * pow(size, 3) * DENSITY));
+    }
 }

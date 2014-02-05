@@ -1,7 +1,7 @@
 
 package frigo.asteroids.component;
 
-import static frigo.asteroids.core.Vector.NULL;
+import static frigo.asteroids.core.Vector.ZERO;
 import frigo.asteroids.core.Component;
 import frigo.asteroids.core.Vector;
 
@@ -25,7 +25,7 @@ public class Planar extends Component {
         Vector newVelocity = velocity.add(acceleration.mul(elapsed));
         position = position.add(velocity.add(newVelocity).mul(0.5 * elapsed));
         velocity = newVelocity;
-        acceleration = NULL;
+        acceleration = ZERO;
     }
 
 }

@@ -1,8 +1,8 @@
 
 package frigo.asteroids.core;
 
-import static frigo.asteroids.core.Vector.UNIT_X;
-import static frigo.asteroids.core.Vector.UNIT_Y;
+import static frigo.asteroids.core.Vector.X;
+import static frigo.asteroids.core.Vector.Y;
 import static frigo.asteroids.core.Vector.vector;
 import static java.lang.Math.PI;
 import static java.lang.Math.cos;
@@ -17,12 +17,12 @@ public class VectorTest {
 
     @Test
     public void length_of_unit_x_is_one () {
-        assertThat(UNIT_X.length(), is(1.0));
+        assertThat(X.length(), is(1.0));
     }
 
     @Test
     public void length_of_unit_y_is_one () {
-        assertThat(UNIT_Y.length(), is(1.0));
+        assertThat(Y.length(), is(1.0));
     }
 
     @Test
@@ -52,24 +52,24 @@ public class VectorTest {
 
     @Test
     public void unit_x_rotated_by_zero () {
-        assertThat(UNIT_X.rotate(0), is(UNIT_X));
+        assertThat(X.rotate(0), is(X));
     }
 
     @Test
     public void unit_x_rotated_by_pi_per_2 () {
-        assertThat(UNIT_X.rotate(PI / 2).x, closeTo(0, 1E-16));
-        assertThat(UNIT_X.rotate(PI / 2).y, is(1.0));
+        assertThat(X.rotate(PI / 2).x, closeTo(0, 1E-16));
+        assertThat(X.rotate(PI / 2).y, is(1.0));
     }
 
     @Test
     public void unit_y_rotated_by_zero () {
-        assertThat(UNIT_Y.rotate(0), is(UNIT_Y));
+        assertThat(Y.rotate(0), is(Y));
     }
 
     @Test
     public void unit_y_rotated_by_pi_per_2 () {
-        assertThat(UNIT_Y.rotate(PI / 2).x, is(-1.0));
-        assertThat(UNIT_Y.rotate(PI / 2).y, closeTo(0, 1E-16));
+        assertThat(Y.rotate(PI / 2).x, is(-1.0));
+        assertThat(Y.rotate(PI / 2).y, closeTo(0, 1E-16));
     }
 
     @Test
@@ -79,7 +79,7 @@ public class VectorTest {
 
     @Test
     public void normalize_returns_null_vector_for_null_vector () {
-        assertThat(Vector.NULL.normalize(), is(Vector.NULL));
+        assertThat(Vector.ZERO.normalize(), is(Vector.ZERO));
     }
 
     @Test

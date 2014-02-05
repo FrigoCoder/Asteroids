@@ -2,7 +2,7 @@
 package frigo.asteroids.logic.gravity;
 
 import static frigo.asteroids.component.VectorCloseTo.closeTo;
-import static frigo.asteroids.core.Vector.NULL;
+import static frigo.asteroids.core.Vector.ZERO;
 import static frigo.asteroids.core.Vector.vector;
 import static frigo.asteroids.logic.gravity.NewtonianGravity.G;
 import static org.hamcrest.Matchers.is;
@@ -26,8 +26,8 @@ public class GravitySystemTest {
 
     @Before
     public void setUp () {
-        attracted1 = world.createEntity(Attractable.ATTRACTABLE, new Mass(10), new Planar(vector(0.1, 0), NULL, NULL));
-        attracted2 = world.createEntity(Attractable.ATTRACTABLE, new Mass(1), new Planar(vector(0, 0.1), NULL, NULL));
+        attracted1 = world.createEntity(Attractable.ATTRACTABLE, new Mass(10), new Planar(vector(0.1, 0), ZERO, ZERO));
+        attracted2 = world.createEntity(Attractable.ATTRACTABLE, new Mass(1), new Planar(vector(0, 0.1), ZERO, ZERO));
         world.addLogic(new GravitySystem(new NewtonianGravity()));
         world.init();
     }
@@ -36,13 +36,13 @@ public class GravitySystemTest {
     public void does_nothing_without_attractors () {
         world.update(1);
 
-        assertThat(attracted1.get(Planar.class).acceleration, is(NULL));
-        assertThat(attracted2.get(Planar.class).acceleration, is(NULL));
+        assertThat(attracted1.get(Planar.class).acceleration, is(ZERO));
+        assertThat(attracted2.get(Planar.class).acceleration, is(ZERO));
     }
 
     @Test
     public void attractor_attracts_two_attractables () {
-        world.createEntity(Attractor.ATTRACTOR, new Mass(100), new Planar(vector(-0.1, 0), NULL, NULL));
+        world.createEntity(Attractor.ATTRACTOR, new Mass(100), new Planar(vector(-0.1, 0), ZERO, ZERO));
 
         world.update(1);
 

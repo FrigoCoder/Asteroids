@@ -5,9 +5,9 @@ import static java.lang.Math.sqrt;
 
 public class Vector extends Value {
 
-    public static final Vector NULL = vector(0, 0);
-    public static final Vector UNIT_X = vector(1, 0);
-    public static final Vector UNIT_Y = vector(0, 1);
+    public static final Vector ZERO = vector(0, 0);
+    public static final Vector X = vector(1, 0);
+    public static final Vector Y = vector(0, 1);
 
     public static Vector vector (double x, double y) {
         return new Vector(x, y);

@@ -4,6 +4,7 @@ package frigo.asteroids.jogl;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,6 +25,10 @@ public class TextureBuffer {
             textures.put(filename, newTexture(filename));
         }
         return textures.get(filename);
+    }
+
+    public Collection<Texture> getTextures () {
+        return textures.values();
     }
 
     @VisibleForTesting

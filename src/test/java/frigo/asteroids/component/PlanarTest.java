@@ -2,7 +2,7 @@
 package frigo.asteroids.component;
 
 import static frigo.asteroids.component.VectorCloseTo.closeTo;
-import static frigo.asteroids.core.Vector.NULL;
+import static frigo.asteroids.core.Vector.ZERO;
 import static frigo.asteroids.core.Vector.vector;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
@@ -19,7 +19,7 @@ public class PlanarTest {
 
     @Test
     public void accelerate_adds_accelerations () {
-        Planar actual = new Planar(position, velocity, NULL);
+        Planar actual = new Planar(position, velocity, ZERO);
         actual.accelerate(acceleration);
 
         Planar expected = new Planar(position, velocity, acceleration);
@@ -28,19 +28,19 @@ public class PlanarTest {
 
     @Test
     public void zero_acceleration_and_one_elapsed_seconds () {
-        Planar actual = new Planar(position, velocity, NULL);
+        Planar actual = new Planar(position, velocity, ZERO);
         actual.update(1);
 
-        Planar expected = new Planar(position.add(velocity), velocity, NULL);
+        Planar expected = new Planar(position.add(velocity), velocity, ZERO);
         assertThat(actual, is(expected));
     }
 
     @Test
     public void zero_acceleration_and_tenth_elapsed_seconds () {
-        Planar actual = new Planar(position, velocity, NULL);
+        Planar actual = new Planar(position, velocity, ZERO);
         actual.update(0.1);
 
-        Planar expected = new Planar(position.add(velocity.mul(0.1)), velocity, NULL);
+        Planar expected = new Planar(position.add(velocity.mul(0.1)), velocity, ZERO);
         assertThat(actual, is(expected));
     }
 
@@ -50,7 +50,7 @@ public class PlanarTest {
         actual.update(1);
 
         Planar expected =
-            new Planar(position.add(velocity).add(acceleration.mul(0.5)), velocity.add(acceleration), NULL);
+            new Planar(position.add(velocity).add(acceleration.mul(0.5)), velocity.add(acceleration), ZERO);
         assertClose(actual, expected, 1E-15);
     }
 
@@ -61,7 +61,7 @@ public class PlanarTest {
 
         Planar expected =
             new Planar(position.add(velocity.mul(0.1)).add(acceleration.mul(0.5 * 0.1 * 0.1)), velocity
-                .add(acceleration.mul(0.1)), NULL);
+                .add(acceleration.mul(0.1)), ZERO);
         assertClose(actual, expected, 1E-15);
     }
 
