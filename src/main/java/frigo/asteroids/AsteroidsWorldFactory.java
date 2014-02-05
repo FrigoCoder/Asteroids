@@ -49,7 +49,7 @@ public class AsteroidsWorldFactory {
             createAsteroid(vector(getRandom(-1, 1), getRandom(-1, 1)));
         }
         createSun();
-        createSun2();
+        createBlueSun();
         ship = createShip();
         world.addLogic(createInputSystem());
         world.addLogic(new TimerSystem());
@@ -89,11 +89,11 @@ public class AsteroidsWorldFactory {
         return entity;
     }
 
-    private Entity createSun2 () {
+    private Entity createBlueSun () {
         Entity entity = world.createEntity();
         entity.add(new Angular(0, 0.01, 0));
         entity.add(Attractor.ATTRACTOR);
-        entity.add(new Image("sun.png", 1));
+        entity.add(new Image("sun_blue.png", 1));
         entity.add(new Planar(vector(1.0, 1.0), ZERO, ZERO));
         setSize(entity, 0.2);
         return entity;
@@ -158,11 +158,11 @@ public class AsteroidsWorldFactory {
             entity.add(Attractable.ATTRACTABLE);
             entity.add(new Image("exhaust.png"));
             setSize(entity, getRandom(0.02, 0.04));
-            entity.add(new Timer(SelfDestruct.SELF_DESTRUCT, 2.0));
+            entity.add(new Timer(SelfDestruct.SELF_DESTRUCT, 3.0));
 
             Vector thrust = getHeading(ship).mul(ship.get(Thrustable.class).thrust);
 
-            Vector relativeVelocity = thrust.opposite().add(getRandomVector(0.05));
+            Vector relativeVelocity = thrust.opposite().rotate(getRandom(-PI / 6, PI / 6)).mul(getRandom(0.9, 1.1));
             Planar planar = ship.get(Planar.class);
             entity.add(new Planar(planar.position, planar.velocity.add(relativeVelocity), planar.acceleration));
 
@@ -183,7 +183,11 @@ public class AsteroidsWorldFactory {
             setSize(entity, 0.05);
             entity.add(new Timer(SelfDestruct.SELF_DESTRUCT, 10.0));
 
-            Vector relativeVelocity = getHeading(ship).mul(0.2);
+            double relativeAngularPosition = getRandom(-PI / 6, PI / 6);
+            Angular angular = ship.get(Angular.class);
+            entity.add(new Angular(angular.position + relativeAngularPosition, angular.velocity, angular.acceleration));
+
+            Vector relativeVelocity = getHeading(ship).mul(0.2).rotate(relativeAngularPosition);
             Planar planar = ship.get(Planar.class);
             entity.add(new Planar(planar.position, planar.velocity.add(relativeVelocity), planar.acceleration));
         }
