@@ -67,7 +67,9 @@ public class JOGLRenderer implements GLEventListener {
     }
 
     private void drawEntities (GL2 gl, List<Entity> entities) {
-        drawEntitiesByImage(gl, separateEntitiesByImage(entities));
+        for( Map.Entry<Image, List<Entity>> entry : separateEntitiesByImage(entities).entrySet() ){
+            drawEntitiesByImage(gl, entry.getKey(), entry.getValue());
+        }
     }
 
     private Map<Image, List<Entity>> separateEntitiesByImage (List<Entity> entities) {
@@ -82,18 +84,16 @@ public class JOGLRenderer implements GLEventListener {
         return entitiesByImageName;
     }
 
-    private void drawEntitiesByImage (GL2 gl, Map<Image, List<Entity>> entitiesByImage) {
-        for( Image image : entitiesByImage.keySet() ){
-            Texture texture = textures.get(image.filename);
-            texture.enable(gl);
-            texture.bind(gl);
-            gl.glBegin(GL2GL3.GL_QUADS);
-            for( Entity entity : entitiesByImage.get(image) ){
-                drawEntity(gl, entity);
-            }
-            gl.glEnd();
-            texture.disable(gl);
+    private void drawEntitiesByImage (GL2 gl, Image Image, List<Entity> entities) {
+        Texture texture = textures.get(Image.filename);
+        texture.enable(gl);
+        texture.bind(gl);
+        gl.glBegin(GL2GL3.GL_QUADS);
+        for( Entity entity : entities ){
+            drawEntity(gl, entity);
         }
+        gl.glEnd();
+        texture.disable(gl);
     }
 
     private void drawEntity (GL2 gl, Entity entity) {
