@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
@@ -67,7 +68,25 @@ public class JOGLRenderer implements GLEventListener {
     }
 
     private void drawEntities (GL2 gl, List<Entity> entities) {
-        drawEntitiesByTexture(gl, separateEntitiesByTexture(entities));
+        drawEntitiesByOrder(gl, separateEntitiesByOrder(entities));
+    }
+
+    private Map<Integer, List<Entity>> separateEntitiesByOrder (List<Entity> entities) {
+        Map<Integer, List<Entity>> entitiesByImageName = new TreeMap<>();
+        for( Entity entity : entities ){
+            Integer order = entity.get(Image.class).order;
+            if( !entitiesByImageName.containsKey(order) ){
+                entitiesByImageName.put(order, new LinkedList<Entity>());
+            }
+            entitiesByImageName.get(order).add(entity);
+        }
+        return entitiesByImageName;
+    }
+
+    private void drawEntitiesByOrder (GL2 gl, Map<Integer, List<Entity>> entitiesByOrder) {
+        for( Integer order : entitiesByOrder.keySet() ){
+            drawEntitiesByTexture(gl, separateEntitiesByTexture(entitiesByOrder.get(order)));
+        }
     }
 
     private Map<String, List<Entity>> separateEntitiesByTexture (List<Entity> entities) {
