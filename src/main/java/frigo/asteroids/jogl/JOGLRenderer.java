@@ -1,7 +1,10 @@
 
 package frigo.asteroids.jogl;
 
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
@@ -57,9 +60,7 @@ public class JOGLRenderer implements GLEventListener {
 
     private void drawBackground (GL2 gl) {
         Aspect aspect = Aspect.allOf(Planar.class, Size.class, Image.class, Background.class);
-        for( Entity entity : world.getEntitiesFor(aspect) ){
-            drawEntity(gl, entity);
-        }
+        drawEntities(gl, world.getEntitiesFor(aspect));
     }
 
     private void focusOnPlayer (GL2 gl) {
@@ -73,8 +74,26 @@ public class JOGLRenderer implements GLEventListener {
 
     private void drawEntities (GL2 gl) {
         Aspect aspect = Aspect.allOf(Planar.class, Size.class, Image.class).andNoneOf(Background.class);
-        for( Entity entity : world.getEntitiesFor(aspect) ){
-            drawEntity(gl, entity);
+        drawEntities(gl, world.getEntitiesFor(aspect));
+    }
+
+    private void drawEntities (GL2 gl, List<Entity> entities) {
+        Map<String, List<Entity>> entitiesByImageName = new HashMap<>();
+        for( Entity entity : entities ){
+            String image = entity.get(Image.class).filename;
+            if( !entitiesByImageName.containsKey(image) ){
+                entitiesByImageName.put(image, new LinkedList<Entity>());
+            }
+            entitiesByImageName.get(image).add(entity);
+        }
+        for( String image : entitiesByImageName.keySet() ){
+            Texture texture = textures.get(image);
+            texture.enable(gl);
+            texture.bind(gl);
+            for( Entity entity : entitiesByImageName.get(image) ){
+                drawEntity(gl, entity);
+            }
+            texture.disable(gl);
         }
     }
 
@@ -82,11 +101,6 @@ public class JOGLRenderer implements GLEventListener {
         Vector position = entity.get(Planar.class).position;
         double angular = entity.has(Angular.class) ? entity.get(Angular.class).position : 0;
         double size = entity.get(Size.class).size;
-        Image image = entity.get(Image.class);
-
-        Texture texture = textures.get(image.filename);
-        texture.enable(gl);
-        texture.bind(gl);
 
         gl.glMatrixMode(GLMatrixFunc.GL_MODELVIEW);
         gl.glPushMatrix();
@@ -102,8 +116,6 @@ public class JOGLRenderer implements GLEventListener {
         gl.glEnd();
 
         gl.glPopMatrix();
-
-        texture.disable(gl);
     }
 
     private void vertex (GL2 gl, double s, double t, double x, double y) {
