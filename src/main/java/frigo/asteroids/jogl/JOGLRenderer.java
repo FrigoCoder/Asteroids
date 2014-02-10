@@ -1,10 +1,7 @@
 
 package frigo.asteroids.jogl;
 
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
 
 import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
@@ -27,8 +24,6 @@ import frigo.asteroids.core.Vector;
 import frigo.asteroids.core.World;
 
 public class JOGLRenderer implements GLEventListener {
-
-    private static final Aspect PLAYER_CONTROLLABLE = Aspect.allOf(Thrustable.class);
 
     private World world;
     private TextureBuffer textures = new TextureBuffer();
@@ -68,7 +63,7 @@ public class JOGLRenderer implements GLEventListener {
     }
 
     private void focusOnPlayer (GL2 gl) {
-        List<Entity> entities = world.getEntitiesFor(PLAYER_CONTROLLABLE);
+        List<Entity> entities = world.getEntitiesFor(Aspect.allOf(Thrustable.class));
         if( entities.size() == 1 ){
             Entity entity = entities.get(0);
             Vector position = entity.get(Planar.class).position;
@@ -78,19 +73,8 @@ public class JOGLRenderer implements GLEventListener {
 
     private void drawEntities (GL2 gl) {
         Aspect aspect = Aspect.allOf(Planar.class, Size.class, Image.class).andNoneOf(Background.class);
-
-        Map<Integer, List<Entity>> map = new TreeMap<>();
         for( Entity entity : world.getEntitiesFor(aspect) ){
-            Image image = entity.get(Image.class);
-            if( !map.containsKey(image.order) ){
-                map.put(image.order, new LinkedList<Entity>());
-            }
-            map.get(image.order).add(entity);
-        }
-        for( List<Entity> list : map.values() ){
-            for( Entity entity : list ){
-                drawEntity(gl, entity);
-            }
+            drawEntity(gl, entity);
         }
     }
 
