@@ -96,35 +96,33 @@ public class JOGLRenderer implements GLEventListener {
     }
 
     private void drawSameTextureEntities (GL2 gl, List<Entity> entities) {
+        gl.glBegin(GL2GL3.GL_QUADS);
         for( Entity entity : entities ){
             drawEntity(gl, entity);
         }
+        gl.glEnd();
+
     }
 
     private void drawEntity (GL2 gl, Entity entity) {
-        Vector position = entity.get(Planar.class).position;
-        double angular = entity.has(Angular.class) ? entity.get(Angular.class).position : 0;
-        double size = entity.get(Size.class).size;
-
-        gl.glMatrixMode(GLMatrixFunc.GL_MODELVIEW);
-        gl.glPushMatrix();
-        gl.glTranslated(position.x, position.y, 0);
-        gl.glScaled(size, size, 1);
-        gl.glRotated(angular * 180 / Math.PI, 0, 0, 1);
-
-        gl.glBegin(GL2GL3.GL_QUADS);
-        vertex(gl, 0, 0, -0.5, +0.5);
-        vertex(gl, 0, 1, -0.5, -0.5);
-        vertex(gl, 1, 1, +0.5, -0.5);
-        vertex(gl, 1, 0, +0.5, +0.5);
-        gl.glEnd();
-
-        gl.glPopMatrix();
+        vertex(gl, entity, 0, 0);
+        vertex(gl, entity, 0, 1);
+        vertex(gl, entity, 1, 1);
+        vertex(gl, entity, 1, 0);
     }
 
-    private void vertex (GL2 gl, double s, double t, double x, double y) {
-        gl.glTexCoord2d(s, t);
-        gl.glVertex2d(x, y);
+    private void vertex (GL2 gl, Entity entity, double u, double v) {
+        gl.glTexCoord2d(u, v);
+        Vector vertexSpace = textureSpaceToVertexSpace(entity, u, v);
+        gl.glVertex2d(vertexSpace.x, vertexSpace.y);
+    }
+
+    private Vector textureSpaceToVertexSpace (Entity entity, double u, double v) {
+        Vector normalized = Vector.vector(u - 0.5, -(v - 0.5));
+        Vector rotated = normalized.rotate(entity.has(Angular.class) ? entity.get(Angular.class).position : 0);
+        Vector scaled = rotated.mul(entity.get(Size.class).size);
+        Vector translated = scaled.add(entity.get(Planar.class).position);
+        return translated;
     }
 
     @Override
