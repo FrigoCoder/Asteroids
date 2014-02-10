@@ -22,6 +22,14 @@ configurations {
         extendsFrom jogl
         extendsFrom joglNatives
     }
+
+    noApplet {
+        extendsFrom gluegen
+        extendsFrom gluegen
+        extendsFrom gluegenNatives
+        extendsFrom jogl
+        extendsFrom joglNatives
+    }
 }
 
 dependencies {
@@ -50,7 +58,7 @@ dependencies {
     joglNatives group: 'org.jogamp.jogl', name: 'jogl-all', version: 'latest.release', classifier: 'natives-windows-i586'
 
     compile group: 'org.jogamp.joal', name: 'joal-main', version: 'latest.release'
-    compile group: 'it.unimi.dsi', name: 'fastutil', version: 'latest.release'
+    compile group: 'com.carrotsearch', name: 'hppc', version: 'latest.release'
 }
 
 task copyGluegenNatives (type: Copy) {
@@ -108,16 +116,7 @@ task modifyAppletIndex {
         configurations.compile.resolve().each {
             libraries.add("lib/" + it.getName());
         }
-        configurations.gluegen.resolve().each {
-            libraries.remove("lib/" + it.getName());
-        }
-        configurations.gluegenNatives.resolve().each {
-            libraries.remove("lib/" + it.getName());
-        }
-        configurations.jogl.resolve().each {
-            libraries.remove("lib/" + it.getName());
-        }
-        configurations.joglNatives.resolve().each {
+        configurations.noApplet.resolve().each {
             libraries.remove("lib/" + it.getName());
         }
         index.text = index.text.replaceAll("[\$][{]libraries[}]", libraries.join(", ")); //" stupid notepad++ syntax higlighting

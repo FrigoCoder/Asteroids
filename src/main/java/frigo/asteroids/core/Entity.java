@@ -1,14 +1,13 @@
 
 package frigo.asteroids.core;
 
-import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
-import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
-
 import java.util.NoSuchElementException;
+
+import com.carrotsearch.hppc.IntObjectOpenHashMap;
 
 public final class Entity extends Identity {
 
-    private Int2ObjectMap<Component> map = new Int2ObjectOpenHashMap<>();
+    private IntObjectOpenHashMap<Component> map = new IntObjectOpenHashMap<>();
 
     public <T extends Component> boolean has (Class<T> type) {
         return map.containsKey(System.identityHashCode(type));
