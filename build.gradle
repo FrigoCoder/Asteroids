@@ -50,6 +50,7 @@ dependencies {
     joglNatives group: 'org.jogamp.jogl', name: 'jogl-all', version: 'latest.release', classifier: 'natives-windows-i586'
 
     compile group: 'org.jogamp.joal', name: 'joal-main', version: 'latest.release'
+    compile group: 'it.unimi.dsi', name: 'fastutil', version: 'latest.release'
 }
 
 task copyGluegenNatives (type: Copy) {
