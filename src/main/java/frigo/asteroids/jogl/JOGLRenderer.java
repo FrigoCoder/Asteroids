@@ -1,6 +1,8 @@
 
 package frigo.asteroids.jogl;
 
+import static com.google.common.base.Preconditions.checkArgument;
+
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -30,9 +32,17 @@ public class JOGLRenderer implements GLEventListener {
 
     private World world;
     private TextureBuffer textures = new TextureBuffer();
+    private Entity player;
 
     public JOGLRenderer (World world) {
         this.world = world;
+        player = getPlayer();
+    }
+
+    private Entity getPlayer () {
+        List<Entity> entities = world.getEntitiesFor(Aspect.allOf(Thrustable.class));
+        checkArgument(entities.size() == 1);
+        return entities.get(0);
     }
 
     @Override
@@ -53,31 +63,14 @@ public class JOGLRenderer implements GLEventListener {
         gl.glMatrixMode(GLMatrixFunc.GL_MODELVIEW);
         gl.glLoadIdentity();
 
-        drawBackground(gl);
-        focusOnPlayer(gl);
-        drawNonBackgroundEntities(gl);
-    }
-
-    private void focusOnPlayer (GL2 gl) {
-        List<Entity> entities = world.getEntitiesFor(Aspect.allOf(Thrustable.class));
-        if( entities.size() == 1 ){
-            Entity entity = entities.get(0);
-            Vector position = entity.get(Planar.class).position;
-            gl.glTranslated(-position.x, -position.y, 0);
-        }
-    }
-
-    private void drawBackground (GL2 gl) {
-        Aspect aspect = Aspect.allOf(Planar.class, Size.class, Image.class, Background.class);
-        drawEntities(gl, world.getEntitiesFor(aspect));
-    }
-
-    private void drawNonBackgroundEntities (GL2 gl) {
-        Aspect aspect = Aspect.allOf(Planar.class, Size.class, Image.class).andNoneOf(Background.class);
-        drawEntities(gl, world.getEntitiesFor(aspect));
+        drawEntities(gl, world.getEntitiesFor(Aspect.allOf(Planar.class, Size.class, Image.class)));
     }
 
     private void drawEntities (GL2 gl, List<Entity> entities) {
+        drawEntitiesByTexture(gl, separateEntitiesByTexture(entities));
+    }
+
+    private Map<String, List<Entity>> separateEntitiesByTexture (List<Entity> entities) {
         Map<String, List<Entity>> entitiesByImageName = new HashMap<>();
         for( Entity entity : entities ){
             String image = entity.get(Image.class).filename;
@@ -86,11 +79,15 @@ public class JOGLRenderer implements GLEventListener {
             }
             entitiesByImageName.get(image).add(entity);
         }
-        for( String image : entitiesByImageName.keySet() ){
+        return entitiesByImageName;
+    }
+
+    private void drawEntitiesByTexture (GL2 gl, Map<String, List<Entity>> entitiesByTexture) {
+        for( String image : entitiesByTexture.keySet() ){
             Texture texture = textures.get(image);
             texture.enable(gl);
             texture.bind(gl);
-            drawSameTextureEntities(gl, entitiesByImageName.get(image));
+            drawSameTextureEntities(gl, entitiesByTexture.get(image));
             texture.disable(gl);
         }
     }
@@ -101,7 +98,6 @@ public class JOGLRenderer implements GLEventListener {
             drawEntity(gl, entity);
         }
         gl.glEnd();
-
     }
 
     private void drawEntity (GL2 gl, Entity entity) {
@@ -122,7 +118,10 @@ public class JOGLRenderer implements GLEventListener {
         Vector rotated = normalized.rotate(entity.has(Angular.class) ? entity.get(Angular.class).position : 0);
         Vector scaled = rotated.mul(entity.get(Size.class).size);
         Vector translated = scaled.add(entity.get(Planar.class).position);
-        return translated;
+        if( entity.has(Background.class) ){
+            return translated;
+        }
+        return translated.sub(player.get(Planar.class).position);
     }
 
     @Override
