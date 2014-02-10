@@ -3,7 +3,6 @@ package frigo.asteroids.jogl;
 
 import static com.google.common.base.Preconditions.checkArgument;
 
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -68,31 +67,13 @@ public class JOGLRenderer implements GLEventListener {
     }
 
     private void drawEntities (GL2 gl, List<Entity> entities) {
-        drawEntitiesByOrder(gl, separateEntitiesByOrder(entities));
+        drawEntitiesByImage(gl, separateEntitiesByImage(entities));
     }
 
-    private Map<Integer, List<Entity>> separateEntitiesByOrder (List<Entity> entities) {
-        Map<Integer, List<Entity>> entitiesByImageName = new TreeMap<>();
+    private Map<Image, List<Entity>> separateEntitiesByImage (List<Entity> entities) {
+        Map<Image, List<Entity>> entitiesByImageName = new TreeMap<>();
         for( Entity entity : entities ){
-            Integer order = entity.get(Image.class).order;
-            if( !entitiesByImageName.containsKey(order) ){
-                entitiesByImageName.put(order, new LinkedList<Entity>());
-            }
-            entitiesByImageName.get(order).add(entity);
-        }
-        return entitiesByImageName;
-    }
-
-    private void drawEntitiesByOrder (GL2 gl, Map<Integer, List<Entity>> entitiesByOrder) {
-        for( Integer order : entitiesByOrder.keySet() ){
-            drawEntitiesByTexture(gl, separateEntitiesByTexture(entitiesByOrder.get(order)));
-        }
-    }
-
-    private Map<String, List<Entity>> separateEntitiesByTexture (List<Entity> entities) {
-        Map<String, List<Entity>> entitiesByImageName = new HashMap<>();
-        for( Entity entity : entities ){
-            String image = entity.get(Image.class).filename;
+            Image image = entity.get(Image.class);
             if( !entitiesByImageName.containsKey(image) ){
                 entitiesByImageName.put(image, new LinkedList<Entity>());
             }
@@ -101,22 +82,18 @@ public class JOGLRenderer implements GLEventListener {
         return entitiesByImageName;
     }
 
-    private void drawEntitiesByTexture (GL2 gl, Map<String, List<Entity>> entitiesByTexture) {
-        for( String image : entitiesByTexture.keySet() ){
-            Texture texture = textures.get(image);
+    private void drawEntitiesByImage (GL2 gl, Map<Image, List<Entity>> entitiesByImage) {
+        for( Image image : entitiesByImage.keySet() ){
+            Texture texture = textures.get(image.filename);
             texture.enable(gl);
             texture.bind(gl);
-            drawSameTextureEntities(gl, entitiesByTexture.get(image));
+            gl.glBegin(GL2GL3.GL_QUADS);
+            for( Entity entity : entitiesByImage.get(image) ){
+                drawEntity(gl, entity);
+            }
+            gl.glEnd();
             texture.disable(gl);
         }
-    }
-
-    private void drawSameTextureEntities (GL2 gl, List<Entity> entities) {
-        gl.glBegin(GL2GL3.GL_QUADS);
-        for( Entity entity : entities ){
-            drawEntity(gl, entity);
-        }
-        gl.glEnd();
     }
 
     private void drawEntity (GL2 gl, Entity entity) {
