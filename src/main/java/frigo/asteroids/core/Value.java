@@ -12,12 +12,11 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
 public class Value implements Serializable, Cloneable {
 
+    private static final int DONALD_KNUTH_RECOMMENDED_PRIME_YOU_NITPICKS = 31;
+
     @Override
     public boolean equals (Object that) {
-        if( that == null ){
-            return false;
-        }
-        if( this.getClass() != that.getClass() ){
+        if( that == null || this.getClass() != that.getClass() ){
             return false;
         }
         Value thatSerializable = (Value) that;
@@ -26,7 +25,7 @@ public class Value implements Serializable, Cloneable {
 
     @Override
     public int hashCode () {
-        return getClass().hashCode() * 31 + ArrayUtils.hashCode(serialize());
+        return getClass().hashCode() * DONALD_KNUTH_RECOMMENDED_PRIME_YOU_NITPICKS + ArrayUtils.hashCode(serialize());
     }
 
     @Override
