@@ -55,12 +55,7 @@ public class JOGLRenderer implements GLEventListener {
 
         drawBackground(gl);
         focusOnPlayer(gl);
-        drawEntities(gl);
-    }
-
-    private void drawBackground (GL2 gl) {
-        Aspect aspect = Aspect.allOf(Planar.class, Size.class, Image.class, Background.class);
-        drawEntities(gl, world.getEntitiesFor(aspect));
+        drawNonBackgroundEntities(gl);
     }
 
     private void focusOnPlayer (GL2 gl) {
@@ -72,7 +67,12 @@ public class JOGLRenderer implements GLEventListener {
         }
     }
 
-    private void drawEntities (GL2 gl) {
+    private void drawBackground (GL2 gl) {
+        Aspect aspect = Aspect.allOf(Planar.class, Size.class, Image.class, Background.class);
+        drawEntities(gl, world.getEntitiesFor(aspect));
+    }
+
+    private void drawNonBackgroundEntities (GL2 gl) {
         Aspect aspect = Aspect.allOf(Planar.class, Size.class, Image.class).andNoneOf(Background.class);
         drawEntities(gl, world.getEntitiesFor(aspect));
     }
@@ -90,10 +90,14 @@ public class JOGLRenderer implements GLEventListener {
             Texture texture = textures.get(image);
             texture.enable(gl);
             texture.bind(gl);
-            for( Entity entity : entitiesByImageName.get(image) ){
-                drawEntity(gl, entity);
-            }
+            drawSameTextureEntities(gl, entitiesByImageName.get(image));
             texture.disable(gl);
+        }
+    }
+
+    private void drawSameTextureEntities (GL2 gl, List<Entity> entities) {
+        for( Entity entity : entities ){
+            drawEntity(gl, entity);
         }
     }
 
