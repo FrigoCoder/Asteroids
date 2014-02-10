@@ -7,11 +7,10 @@ import java.util.List;
 
 public class EntityManager {
 
-    private int entitiesSoFar;
     private List<Entity> entities = new ArrayList<>();
 
     public Entity create (Component... components) {
-        Entity entity = new Entity(entitiesSoFar++);
+        Entity entity = new Entity();
         entities.add(entity);
         for( Component component : components ){
             entity.add(component);

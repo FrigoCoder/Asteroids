@@ -4,7 +4,6 @@ package frigo.asteroids.core;
 import static frigo.asteroids.core.Vector.ZERO;
 import static frigo.asteroids.core.Vector.vector;
 import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.sameInstance;
 import static org.junit.Assert.assertThat;
 
@@ -24,12 +23,6 @@ public class EntityTest {
     private World world = new World();
     private Entity entity = world.createEntity();
     private Planar position = new Planar(vector(1, 1), ZERO, ZERO);
-
-    @Test
-    public void created_entities_have_different_ids () {
-        Entity other = world.createEntity();
-        assertThat(entity.id, not(other.id));
-    }
 
     @Test
     public void added_component_can_be_retrieved () {

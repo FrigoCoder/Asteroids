@@ -7,12 +7,7 @@ import java.util.NoSuchElementException;
 
 public final class Entity extends Identity {
 
-    public final int id;
     private Map<Class<? extends Component>, Component> map = new HashMap<>();
-
-    Entity (int id) {
-        this.id = id;
-    }
 
     public <T extends Component> boolean has (Class<T> type) {
         return map.containsKey(type);
