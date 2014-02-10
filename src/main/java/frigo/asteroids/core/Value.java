@@ -15,12 +15,12 @@ public class Value implements Serializable, Cloneable {
     private static final int DONALD_KNUTH_RECOMMENDED_PRIME_YOU_NITPICKS = 31;
 
     @Override
-    public boolean equals (Object that) {
-        if( that == null || this.getClass() != that.getClass() ){
+    public boolean equals (Object object) {
+        if( object == null || this.getClass() != object.getClass() ){
             return false;
         }
-        Value thatSerializable = (Value) that;
-        return Objects.deepEquals(serialize(), thatSerializable.serialize());
+        Value that = (Value) object;
+        return Objects.deepEquals(serialize(), that.serialize());
     }
 
     @Override
