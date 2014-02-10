@@ -3,6 +3,7 @@ package frigo.asteroids.jogl;
 
 import static com.google.common.base.Preconditions.checkArgument;
 
+import java.nio.DoubleBuffer;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -88,25 +89,33 @@ public class JOGLRenderer implements GLEventListener {
         Texture texture = textures.get(Image.filename);
         texture.enable(gl);
         texture.bind(gl);
-        gl.glBegin(GL2GL3.GL_QUADS);
+
+        DoubleBuffer textureBuffer = DoubleBuffer.allocate(entities.size() * 4 * 2);
+        DoubleBuffer vertexBuffer = DoubleBuffer.allocate(entities.size() * 4 * 2);
+
         for( Entity entity : entities ){
-            drawEntity(gl, entity);
+            addVertex(textureBuffer, vertexBuffer, entity, 0, 0);
+            addVertex(textureBuffer, vertexBuffer, entity, 0, 1);
+            addVertex(textureBuffer, vertexBuffer, entity, 1, 1);
+            addVertex(textureBuffer, vertexBuffer, entity, 1, 0);
+        }
+
+        gl.glBegin(GL2GL3.GL_QUADS);
+        for( int i = 0; i < entities.size() * 4; i++ ){
+            gl.glTexCoord2d(textureBuffer.get(2 * i), textureBuffer.get(2 * i + 1));
+            gl.glVertex2d(vertexBuffer.get(2 * i), vertexBuffer.get(2 * i + 1));
         }
         gl.glEnd();
+
         texture.disable(gl);
     }
 
-    private void drawEntity (GL2 gl, Entity entity) {
-        vertex(gl, entity, 0, 0);
-        vertex(gl, entity, 0, 1);
-        vertex(gl, entity, 1, 1);
-        vertex(gl, entity, 1, 0);
-    }
-
-    private void vertex (GL2 gl, Entity entity, double u, double v) {
-        gl.glTexCoord2d(u, v);
+    private void addVertex (DoubleBuffer textureBuffer, DoubleBuffer vertexBuffer, Entity entity, double u, double v) {
+        textureBuffer.put(u);
+        textureBuffer.put(v);
         Vector vertexSpace = textureSpaceToVertexSpace(entity, u, v);
-        gl.glVertex2d(vertexSpace.x, vertexSpace.y);
+        vertexBuffer.put(vertexSpace.x);
+        vertexBuffer.put(vertexSpace.y);
     }
 
     private Vector textureSpaceToVertexSpace (Entity entity, double u, double v) {
