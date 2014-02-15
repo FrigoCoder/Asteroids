@@ -8,9 +8,10 @@ import java.util.List;
 public class EntityManager {
 
     private List<Entity> entities = new ArrayList<>();
+    private ComponentDatabase database = new ComponentDatabase();
 
     public Entity create (Component... components) {
-        Entity entity = new Entity();
+        Entity entity = new Entity(database);
         entities.add(entity);
         for( Component component : components ){
             entity.add(component);
@@ -31,4 +32,5 @@ public class EntityManager {
         }
         return result;
     }
+
 }
