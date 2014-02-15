@@ -38,9 +38,4 @@ public class Aspect extends Value {
         return this;
     }
 
-    @Deprecated
-    public boolean matches (Entity entity) {
-        return entity.matches(this);
-    }
-
 }

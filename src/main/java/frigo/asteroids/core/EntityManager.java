@@ -26,7 +26,7 @@ public class EntityManager {
     public List<Entity> getEntitiesFor (Aspect aspect) {
         List<Entity> result = new LinkedList<>();
         for( Entity entity : entities ){
-            if( aspect.matches(entity) ){
+            if( entity.matches(aspect) ){
                 result.add(entity);
             }
         }
