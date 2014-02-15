@@ -1,10 +1,16 @@
 
 package frigo.asteroids.core;
 
+import com.carrotsearch.hppc.cursors.IntCursor;
+
 public final class Entity extends Identity {
 
+    private static int hash (Object object) {
+        return System.identityHashCode(object);
+    }
+
     public final int id;
-    private transient ComponentDatabase db;
+    public final transient ComponentDatabase db;
 
     public Entity (ComponentDatabase db) {
         id = hash(this);
@@ -27,8 +33,18 @@ public final class Entity extends Identity {
         db.remove(id, hash(type));
     }
 
-    private static int hash (Object object) {
-        return System.identityHashCode(object);
+    public boolean matches (Aspect aspect) {
+        for( IntCursor type : aspect.all ){
+            if( !db.has(id, type.value) ){
+                return false;
+            }
+        }
+        for( IntCursor type : aspect.none ){
+            if( db.has(id, type.value) ){
+                return false;
+            }
+        }
+        return true;
     }
 
 }
