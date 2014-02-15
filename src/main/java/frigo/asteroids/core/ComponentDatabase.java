@@ -1,8 +1,6 @@
 
 package frigo.asteroids.core;
 
-import java.util.NoSuchElementException;
-
 import com.carrotsearch.hppc.IntObjectOpenHashMap;
 
 public class ComponentDatabase {
@@ -13,21 +11,15 @@ public class ComponentDatabase {
         try{
             return column(type).containsKey(entity);
         }catch( NullPointerException e ){
-            createColumn(type);
             return false;
         }
     }
 
     public <T extends Component> T get (int entity, int type) {
         try{
-            T component = (T) column(type).get(entity);
-            if( component == null ){
-                throw new NoSuchElementException();
-            }
-            return component;
+            return (T) column(type).get(entity);
         }catch( NullPointerException e ){
-            createColumn(type);
-            throw new NoSuchElementException();
+            return null;
         }
     }
 

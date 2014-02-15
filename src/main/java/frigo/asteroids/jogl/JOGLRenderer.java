@@ -120,13 +120,21 @@ public class JOGLRenderer implements GLEventListener {
 
     private Vector textureSpaceToVertexSpace (Entity entity, double u, double v) {
         Vector normalized = Vector.vector(u - 0.5, -(v - 0.5));
-        Vector rotated = normalized.rotate(entity.has(Angular.class) ? entity.get(Angular.class).position : 0);
+        Vector rotated = normalized.rotate(getAngularPosition(entity));
         Vector scaled = rotated.mul(entity.get(Size.class).size);
         Vector translated = scaled.add(entity.get(Planar.class).position);
         if( entity.has(Background.class) ){
             return translated;
         }
         return translated.sub(player.get(Planar.class).position);
+    }
+
+    private double getAngularPosition (Entity entity) {
+        try{
+            return entity.get(Angular.class).position;
+        }catch( NullPointerException e ){
+            return 0;
+        }
     }
 
     @Override

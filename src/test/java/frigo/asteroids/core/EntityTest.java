@@ -4,22 +4,17 @@ package frigo.asteroids.core;
 import static frigo.asteroids.core.Vector.ZERO;
 import static frigo.asteroids.core.Vector.vector;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.Matchers.sameInstance;
 import static org.junit.Assert.assertThat;
 
-import java.util.NoSuchElementException;
-
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 import frigo.asteroids.component.Attractor;
 import frigo.asteroids.component.Planar;
 
 public class EntityTest {
 
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
     private World world = new World();
     private Entity entity = world.createEntity();
     private Planar position = new Planar(vector(1, 1), ZERO, ZERO);
@@ -31,9 +26,8 @@ public class EntityTest {
     }
 
     @Test
-    public void not_added_component_retrieval_throws_exception () {
-        thrown.expect(NoSuchElementException.class);
-        entity.get(Planar.class);
+    public void not_added_component_retrieval_returns_null () {
+        assertThat(entity.get(Planar.class), nullValue());
     }
 
     @Test
