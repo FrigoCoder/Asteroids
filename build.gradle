@@ -27,7 +27,6 @@ configurations {
 
     noApplet {
         extendsFrom gluegen
-        extendsFrom gluegen
         extendsFrom gluegenNatives
         extendsFrom jogl
         extendsFrom joglNatives
