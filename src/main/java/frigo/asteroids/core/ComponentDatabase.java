@@ -7,9 +7,9 @@ public class ComponentDatabase {
 
     private IntObjectOpenHashMap<IntObjectOpenHashMap<Component>> map = new IntObjectOpenHashMap<>();
 
-    public <T extends Component> boolean has (int entity, int type) {
+    public boolean has (int entity, int type) {
         try{
-            return column(type).containsKey(entity);
+            return getColumn(type).containsKey(entity);
         }catch( NullPointerException e ){
             return false;
         }
@@ -17,29 +17,29 @@ public class ComponentDatabase {
 
     public <T extends Component> T get (int entity, int type) {
         try{
-            return (T) column(type).get(entity);
+            return (T) getColumn(type).get(entity);
         }catch( NullPointerException e ){
             return null;
         }
     }
 
-    public <T extends Component> void add (int entity, int type, T component) {
+    public void add (int entity, int type, Component component) {
         try{
-            column(type).put(entity, component);
+            getColumn(type).put(entity, component);
         }catch( NullPointerException e ){
             createColumn(type);
-            column(type).put(entity, component);
+            getColumn(type).put(entity, component);
         }
     }
 
-    public <T extends Component> void remove (int entity, int type) {
+    public void remove (int entity, int type) {
         try{
-            column(type).remove(entity);
+            getColumn(type).remove(entity);
         }catch( NullPointerException e ){
         }
     }
 
-    private IntObjectOpenHashMap<Component> column (int type) {
+    private IntObjectOpenHashMap<Component> getColumn (int type) {
         return map.get(type);
     }
 
