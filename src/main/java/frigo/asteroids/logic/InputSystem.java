@@ -16,10 +16,12 @@ public class InputSystem extends Logic {
     private Map<Short, List<InputAction>> actions = new HashMap<>();
 
     public void register (Short keyEvent, InputAction action) {
-        if( !actions.containsKey(keyEvent) ){
+        try{
+            actions.get(keyEvent).add(action);
+        }catch( NullPointerException e ){
             actions.put(keyEvent, new LinkedList<InputAction>());
+            actions.get(keyEvent).add(action);
         }
-        actions.get(keyEvent).add(action);
     }
 
     @Override

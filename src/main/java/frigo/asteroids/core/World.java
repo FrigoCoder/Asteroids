@@ -17,10 +17,6 @@ public class World {
         entities.remove(entity);
     }
 
-    public List<Entity> getEntities () {
-        return entities.getEntitiesFor(Aspect.allOf());
-    }
-
     public List<Entity> getEntitiesFor (Aspect aspect) {
         return entities.getEntitiesFor(aspect);
     }

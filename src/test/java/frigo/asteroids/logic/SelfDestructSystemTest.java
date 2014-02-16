@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import frigo.asteroids.component.SelfDestruct;
+import frigo.asteroids.core.Aspect;
 import frigo.asteroids.core.Entity;
 import frigo.asteroids.core.World;
 
@@ -26,7 +27,8 @@ public class SelfDestructSystemTest {
     public void unrelated_entity_is_not_removed () {
         Entity entity = world.createEntity();
         world.update(1.0);
-        assertThat(world.getEntities(), hasItem(entity));
+        Aspect aspect = Aspect.allOf();
+        assertThat(world.getEntitiesFor(aspect), hasItem(entity));
     }
 
     @Test
@@ -34,7 +36,8 @@ public class SelfDestructSystemTest {
         Entity entity = world.createEntity();
         entity.add(SelfDestruct.ID, SelfDestruct.SELF_DESTRUCT);
         world.update(1.0);
-        assertThat(world.getEntities(), not(hasItem(entity)));
+        Aspect aspect = Aspect.allOf();
+        assertThat(world.getEntitiesFor(aspect), not(hasItem(entity)));
     }
 
 }
