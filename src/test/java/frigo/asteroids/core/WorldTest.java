@@ -67,7 +67,7 @@ public class WorldTest {
     @Test
     public void added_message_can_be_retrieved () {
         world.addMessage(message);
-        List<Message> list = world.getMessages(message.getClass());
+        List<Message> list = world.getMessages(Message.class);
         assertThat(list, hasSize(1));
         assertThat(list.get(0), sameInstance(message));
     }
@@ -77,7 +77,7 @@ public class WorldTest {
         Message message2 = new Message();
         world.addMessage(message);
         world.addMessage(message2);
-        List<Message> list = world.getMessages(message.getClass());
+        List<Message> list = world.getMessages(Message.class);
         assertThat(list, hasSize(2));
         assertThat(list.get(0), sameInstance(message));
         assertThat(list.get(1), sameInstance(message2));

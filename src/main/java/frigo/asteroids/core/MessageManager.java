@@ -9,24 +9,25 @@ import java.util.Map;
 
 public class MessageManager {
 
-    private Map<Class<?>, List<Object>> messages = new HashMap<>();
+    private Map<Class<? extends Message>, List<Message>> messages = new HashMap<>();
 
-    public void add (Object message) {
-        Class<?> clazz = message.getClass();
-        if( !messages.containsKey(clazz) ){
-            messages.put(clazz, new LinkedList<>());
+    public void add (Message message) {
+        Class<? extends Message> clazz = message.getClass();
+        try{
+            messages.get(clazz).add(message);
+        }catch( NullPointerException e ){
+            messages.put(clazz, new LinkedList<Message>());
+            messages.get(clazz).add(message);
         }
-        messages.get(clazz).add(message);
     }
 
-    public <T> List<T> get (Class<? extends T> clazz) {
-        if( !messages.containsKey(clazz) ){
-            return Collections.EMPTY_LIST;
-        }
-        return (List<T>) messages.get(clazz);
+    public <T extends Message> List<T> get (Class<T> clazz) {
+        List<T> list = (List<T>) messages.get(clazz);
+        return list != null ? list : Collections.EMPTY_LIST;
     }
 
     public void clear () {
         messages.clear();
     }
+
 }

@@ -25,11 +25,11 @@ public class World {
         return entities.getEntitiesFor(aspect);
     }
 
-    public void addMessage (Object message) {
+    public void addMessage (Message message) {
         messages.add(message);
     }
 
-    public <T> List<T> getMessages (Class<? extends T> clazz) {
+    public <T extends Message> List<T> getMessages (Class<T> clazz) {
         return messages.get(clazz);
     }
 
