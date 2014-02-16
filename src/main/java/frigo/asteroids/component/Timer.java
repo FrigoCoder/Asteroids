@@ -8,12 +8,12 @@ public class Timer extends Component {
 
     public static final ComponentId<Timer> ID = new ComponentId<>(Timer.class);
 
-    public ComponentId<? extends Component> id;
+    public ComponentId<?> componentId;
     public Component component;
     public double seconds;
 
-    public Timer (ComponentId<? extends Component> id, Component component, double seconds) {
-        this.id = id;
+    public Timer (ComponentId<?> id, Component component, double seconds) {
+        componentId = id;
         this.component = component;
         this.seconds = seconds;
     }

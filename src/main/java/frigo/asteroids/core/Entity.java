@@ -13,7 +13,7 @@ public final class Entity extends Identity {
         this.db = db;
     }
 
-    public <T extends Component> boolean has (ComponentId<T> type) {
+    public boolean has (ComponentId<?> type) {
         return db.has(id, type.id);
     }
 
@@ -21,11 +21,11 @@ public final class Entity extends Identity {
         return db.get(id, type.id);
     }
 
-    public <T extends Component> void add (ComponentId<? extends Component> type, T component) {
+    public void add (ComponentId<?> type, Component component) {
         db.add(id, type.id, component);
     }
 
-    public <T extends Component> void remove (ComponentId<T> type) {
+    public void remove (ComponentId<?> type) {
         db.remove(id, type.id);
     }
 

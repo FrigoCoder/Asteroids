@@ -16,7 +16,7 @@ public class TimerSystem extends Logic {
             Timer timer = entity.get(Timer.ID);
             timer.countDown(elapsedSeconds);
             if( timer.elapsed() ){
-                entity.add(timer.id, timer.emitted());
+                entity.add(timer.componentId, timer.emitted());
                 entity.remove(Timer.ID);
             }
         }
