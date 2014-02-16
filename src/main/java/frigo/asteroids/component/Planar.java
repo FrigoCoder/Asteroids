@@ -3,9 +3,12 @@ package frigo.asteroids.component;
 
 import static frigo.asteroids.core.Vector.ZERO;
 import frigo.asteroids.core.Component;
+import frigo.asteroids.core.ComponentId;
 import frigo.asteroids.core.Vector;
 
 public class Planar extends Component {
+
+    public static final ComponentId<Planar> ID = new ComponentId<>(Planar.class);
 
     public Vector position;
     public Vector velocity;

@@ -17,20 +17,20 @@ public final class Entity extends Identity {
         this.db = db;
     }
 
-    public <T extends Component> boolean has (Class<T> type) {
-        return db.has(id, hash(type));
+    public <T extends Component> boolean has (ComponentId<T> type) {
+        return db.has(id, type.id);
     }
 
-    public <T extends Component> T get (Class<T> type) {
-        return db.get(id, hash(type));
+    public <T extends Component> T get (ComponentId<T> type) {
+        return db.get(id, type.id);
     }
 
-    public <T extends Component> void add (T component) {
-        db.add(id, hash(component.getClass()), component);
+    public <T extends Component> void add (ComponentId<? extends Component> type, T component) {
+        db.add(id, type.id, component);
     }
 
-    public <T extends Component> void remove (Class<T> type) {
-        db.remove(id, hash(type));
+    public <T extends Component> void remove (ComponentId<T> type) {
+        db.remove(id, type.id);
     }
 
     public boolean matches (Aspect aspect) {

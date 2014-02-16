@@ -10,12 +10,9 @@ public class EntityManager {
     private List<Entity> entities = new ArrayList<>();
     private ComponentDatabase database = new ComponentDatabase();
 
-    public Entity create (Component... components) {
+    public Entity create () {
         Entity entity = new Entity(database);
         entities.add(entity);
-        for( Component component : components ){
-            entity.add(component);
-        }
         return entity;
     }
 

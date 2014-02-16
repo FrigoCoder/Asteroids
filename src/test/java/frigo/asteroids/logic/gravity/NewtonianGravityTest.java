@@ -7,6 +7,7 @@ import static frigo.asteroids.core.Vector.vector;
 import static frigo.asteroids.logic.gravity.NewtonianGravity.G;
 import static org.junit.Assert.assertThat;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import frigo.asteroids.component.Mass;
@@ -17,11 +18,30 @@ import frigo.asteroids.core.World;
 public class NewtonianGravityTest {
 
     private World world = new World();
-    private Entity attractor1 = world.createEntity(new Mass(100), new Planar(vector(-0.1, 0), ZERO, ZERO));
-    private Entity attracted1 = world.createEntity(new Mass(10), new Planar(vector(0.1, 0), ZERO, ZERO));
-    private Entity attracted2 = world.createEntity(new Mass(1), new Planar(vector(0, 0.1), ZERO, ZERO));
-    private Entity attracted3 = world.createEntity(new Mass(1), new Planar(vector(-0.1, 0), ZERO, ZERO));
+    private Entity attractor1;
+    private Entity attracted1;
+    private Entity attracted2;
+    private Entity attracted3;
     private GravityCalculator gravity = new NewtonianGravity();
+
+    @Before
+    public void setUp () {
+        attractor1 = world.createEntity();
+        attractor1.add(Mass.ID, new Mass(100));
+        attractor1.add(Planar.ID, new Planar(vector(-0.1, 0), ZERO, ZERO));
+
+        attracted1 = world.createEntity();
+        attracted1.add(Mass.ID, new Mass(10));
+        attracted1.add(Planar.ID, new Planar(vector(0.1, 0), ZERO, ZERO));
+
+        attracted2 = world.createEntity();
+        attracted2.add(Mass.ID, new Mass(1));
+        attracted2.add(Planar.ID, new Planar(vector(0, 0.1), ZERO, ZERO));
+
+        attracted3 = world.createEntity();
+        attracted3.add(Mass.ID, new Mass(1));
+        attracted3.add(Planar.ID, new Planar(vector(-0.1, 0), ZERO, ZERO));
+    }
 
     @Test
     public void directional_acceleration_is_calculated_properly () {

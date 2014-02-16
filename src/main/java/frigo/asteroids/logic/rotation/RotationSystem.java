@@ -8,12 +8,12 @@ import frigo.asteroids.core.Logic;
 
 public class RotationSystem extends Logic {
 
-    private Aspect all = Aspect.allOf(Angular.class);
+    private Aspect all = Aspect.allOf(Angular.ID);
 
     @Override
     public void update (double elapsedSeconds) {
         for( Entity entity : world.getEntitiesFor(all) ){
-            entity.get(Angular.class).update(elapsedSeconds);
+            entity.get(Angular.ID).update(elapsedSeconds);
         }
     }
 

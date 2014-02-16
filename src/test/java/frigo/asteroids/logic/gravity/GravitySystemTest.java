@@ -26,8 +26,16 @@ public class GravitySystemTest {
 
     @Before
     public void setUp () {
-        attracted1 = world.createEntity(Attractable.ATTRACTABLE, new Mass(10), new Planar(vector(0.1, 0), ZERO, ZERO));
-        attracted2 = world.createEntity(Attractable.ATTRACTABLE, new Mass(1), new Planar(vector(0, 0.1), ZERO, ZERO));
+        attracted1 = world.createEntity();
+        attracted1.add(Attractable.ID, Attractable.ATTRACTABLE);
+        attracted1.add(Mass.ID, new Mass(10));
+        attracted1.add(Planar.ID, new Planar(vector(0.1, 0), ZERO, ZERO));
+
+        attracted2 = world.createEntity();
+        attracted2.add(Attractable.ID, Attractable.ATTRACTABLE);
+        attracted2.add(Mass.ID, new Mass(1));
+        attracted2.add(Planar.ID, new Planar(vector(0, 0.1), ZERO, ZERO));
+
         world.addLogic(new GravitySystem(new NewtonianGravity()));
         world.init();
     }
@@ -36,18 +44,21 @@ public class GravitySystemTest {
     public void does_nothing_without_attractors () {
         world.update(1);
 
-        assertThat(attracted1.get(Planar.class).acceleration, is(ZERO));
-        assertThat(attracted2.get(Planar.class).acceleration, is(ZERO));
+        assertThat(attracted1.get(Planar.ID).acceleration, is(ZERO));
+        assertThat(attracted2.get(Planar.ID).acceleration, is(ZERO));
     }
 
     @Test
     public void attractor_attracts_two_attractables () {
-        world.createEntity(Attractor.ATTRACTOR, new Mass(100), new Planar(vector(-0.1, 0), ZERO, ZERO));
+        Entity entity = world.createEntity();
+        entity.add(Attractor.ID, Attractor.ATTRACTOR);
+        entity.add(Mass.ID, new Mass(100));
+        entity.add(Planar.ID, new Planar(vector(-0.1, 0), ZERO, ZERO));
 
         world.update(1);
 
-        assertThat(attracted1.get(Planar.class).acceleration, closeTo(vector(-0.2, 0).mul(G * 100 / 0.04), 1E-22));
-        assertThat(attracted2.get(Planar.class).acceleration, closeTo(vector(-0.1, -0.1).mul(G * 100 / 0.02), 1E-22));
+        assertThat(attracted1.get(Planar.ID).acceleration, closeTo(vector(-0.2, 0).mul(G * 100 / 0.04), 1E-22));
+        assertThat(attracted2.get(Planar.ID).acceleration, closeTo(vector(-0.1, -0.1).mul(G * 100 / 0.02), 1E-22));
     }
 
 }

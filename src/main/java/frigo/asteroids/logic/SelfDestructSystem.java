@@ -8,7 +8,7 @@ import frigo.asteroids.core.Logic;
 
 public class SelfDestructSystem extends Logic {
 
-    private Aspect aspect = Aspect.allOf(SelfDestruct.class);
+    private Aspect aspect = Aspect.allOf(SelfDestruct.ID);
 
     @Override
     public void update (double elapsedSeconds) {

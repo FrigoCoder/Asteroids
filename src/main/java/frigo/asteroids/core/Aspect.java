@@ -5,35 +5,31 @@ import com.carrotsearch.hppc.IntOpenHashSet;
 
 public class Aspect extends Value {
 
-    private static int hash (Object object) {
-        return System.identityHashCode(object);
-    }
-
     public final IntOpenHashSet all = new IntOpenHashSet();
     public final IntOpenHashSet none = new IntOpenHashSet();
 
     @SafeVarargs
-    public static Aspect allOf (Class<? extends Component>... types) {
+    public static Aspect allOf (ComponentId<? extends Component>... types) {
         return new Aspect().andAllOf(types);
     }
 
     @SafeVarargs
-    public static Aspect noneOf (Class<? extends Component>... types) {
+    public static Aspect noneOf (ComponentId<? extends Component>... types) {
         return new Aspect().andNoneOf(types);
     }
 
     @SafeVarargs
-    public final Aspect andAllOf (Class<? extends Component>... types) {
-        for( Class<? extends Component> type : types ){
-            all.add(hash(type));
+    public final Aspect andAllOf (ComponentId<? extends Component>... types) {
+        for( ComponentId<? extends Component> type : types ){
+            all.add(type.id);
         }
         return this;
     }
 
     @SafeVarargs
-    public final Aspect andNoneOf (Class<? extends Component>... types) {
-        for( Class<? extends Component> type : types ){
-            none.add(hash(type));
+    public final Aspect andNoneOf (ComponentId<? extends Component>... types) {
+        for( ComponentId<? extends Component> type : types ){
+            none.add(type.id);
         }
         return this;
     }

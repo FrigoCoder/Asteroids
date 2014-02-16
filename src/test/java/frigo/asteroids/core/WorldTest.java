@@ -33,11 +33,11 @@ public class WorldTest {
 
     @Test
     public void entities_matching_aspect_are_returned () {
-        entity.add(new Planar(vector(1, 1), vector(1, 1), ZERO));
+        entity.add(Planar.ID, new Planar(vector(1, 1), vector(1, 1), ZERO));
 
         world.createEntity();
 
-        Aspect aspect = Aspect.allOf(Planar.class);
+        Aspect aspect = Aspect.allOf(Planar.ID);
 
         List<Entity> expected = new LinkedList<>(asList(entity));
         assertThat(world.getEntitiesFor(aspect), is(expected));

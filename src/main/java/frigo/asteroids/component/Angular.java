@@ -2,8 +2,11 @@
 package frigo.asteroids.component;
 
 import frigo.asteroids.core.Component;
+import frigo.asteroids.core.ComponentId;
 
 public class Angular extends Component {
+
+    public static final ComponentId<Angular> ID = new ComponentId<>(Angular.class);
 
     public double position;
     public double velocity;

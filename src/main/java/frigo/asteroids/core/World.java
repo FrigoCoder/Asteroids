@@ -9,8 +9,8 @@ public class World {
     private MessageManager messages = new MessageManager();
     private SystemManager systems = new SystemManager();
 
-    public Entity createEntity (Component... components) {
-        return entities.create(components);
+    public Entity createEntity () {
+        return entities.create();
     }
 
     public void removeEntity (Entity entity) {

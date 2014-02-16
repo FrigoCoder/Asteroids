@@ -41,7 +41,7 @@ public class JOGLRenderer implements GLEventListener {
     }
 
     private Entity getPlayer () {
-        List<Entity> entities = world.getEntitiesFor(Aspect.allOf(Thrustable.class));
+        List<Entity> entities = world.getEntitiesFor(Aspect.allOf(Thrustable.ID));
         checkArgument(entities.size() == 1);
         return entities.get(0);
     }
@@ -64,7 +64,7 @@ public class JOGLRenderer implements GLEventListener {
         gl.glMatrixMode(GLMatrixFunc.GL_MODELVIEW);
         gl.glLoadIdentity();
 
-        drawEntities(gl, world.getEntitiesFor(Aspect.allOf(Planar.class, Size.class, Image.class)));
+        drawEntities(gl, world.getEntitiesFor(Aspect.allOf(Planar.ID, Size.ID, Image.ID)));
     }
 
     private void drawEntities (GL2 gl, List<Entity> entities) {
@@ -76,7 +76,7 @@ public class JOGLRenderer implements GLEventListener {
     private Map<Image, List<Entity>> separateEntitiesByImage (List<Entity> entities) {
         Map<Image, List<Entity>> entitiesByImageName = new TreeMap<>();
         for( Entity entity : entities ){
-            Image image = entity.get(Image.class);
+            Image image = entity.get(Image.ID);
             if( !entitiesByImageName.containsKey(image) ){
                 entitiesByImageName.put(image, new LinkedList<Entity>());
             }
@@ -121,17 +121,17 @@ public class JOGLRenderer implements GLEventListener {
     private Vector textureSpaceToVertexSpace (Entity entity, double u, double v) {
         Vector normalized = Vector.vector(u - 0.5, -(v - 0.5));
         Vector rotated = normalized.rotate(getAngularPosition(entity));
-        Vector scaled = rotated.mul(entity.get(Size.class).size);
-        Vector translated = scaled.add(entity.get(Planar.class).position);
-        if( entity.has(Background.class) ){
+        Vector scaled = rotated.mul(entity.get(Size.ID).size);
+        Vector translated = scaled.add(entity.get(Planar.ID).position);
+        if( entity.has(Background.ID) ){
             return translated;
         }
-        return translated.sub(player.get(Planar.class).position);
+        return translated.sub(player.get(Planar.ID).position);
     }
 
     private double getAngularPosition (Entity entity) {
         try{
-            return entity.get(Angular.class).position;
+            return entity.get(Angular.ID).position;
         }catch( NullPointerException e ){
             return 0;
         }

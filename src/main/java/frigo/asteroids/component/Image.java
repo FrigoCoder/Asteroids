@@ -2,8 +2,11 @@
 package frigo.asteroids.component;
 
 import frigo.asteroids.core.Component;
+import frigo.asteroids.core.ComponentId;
 
 public class Image extends Component implements Comparable<Image> {
+
+    public static final ComponentId<Image> ID = new ComponentId<>(Image.class);
 
     public final String filename;
     public final int order;
