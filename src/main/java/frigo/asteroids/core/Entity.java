@@ -5,15 +5,11 @@ import com.carrotsearch.hppc.cursors.IntCursor;
 
 public final class Entity extends Identity {
 
-    private static int hash (Object object) {
-        return System.identityHashCode(object);
-    }
-
     public final int id;
     public final transient ComponentDatabase db;
 
     public Entity (ComponentDatabase db) {
-        id = hash(this);
+        id = System.identityHashCode(this);
         this.db = db;
     }
 
