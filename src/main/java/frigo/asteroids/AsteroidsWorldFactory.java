@@ -40,7 +40,7 @@ import frigo.asteroids.logic.rotation.RotationSystem;
 
 public class AsteroidsWorldFactory {
 
-    public static final double DENSITY = 3_000_000_000.0;
+    public static final double DENSITY = 5_000_000_000.0;
     private Random random = new Random();
     private World world;
     private Entity ship;
