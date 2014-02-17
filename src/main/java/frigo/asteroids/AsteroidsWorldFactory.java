@@ -296,7 +296,7 @@ public class AsteroidsWorldFactory {
             entity.add(Mass.ID, new Mass(mass));
             entity.add(Timer.ID, new Timer(SelfDestruct.ID, SelfDestruct.SELF_DESTRUCT, getRandom(5, 10)));
 
-            Vector relativeVelocity = Vector.vector(getGaussian(0.1), getGaussian(0.1));
+            Vector relativeVelocity = Vector.vector(getGaussian(0.05), getGaussian(0.05));
             Planar sourcePlanar = source.get(Planar.ID);
             entity.add(Planar.ID, new Planar(sourcePlanar.position, sourcePlanar.velocity.add(relativeVelocity),
                 sourcePlanar.acceleration));
