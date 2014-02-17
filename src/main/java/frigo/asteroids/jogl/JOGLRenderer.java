@@ -119,7 +119,7 @@ public class JOGLRenderer implements GLEventListener {
     }
 
     private Vector textureSpaceToVertexSpace (Entity entity, double u, double v) {
-        Vector normalized = Vector.vector(u - 0.5, -(v - 0.5));
+        Vector normalized = Vector.vector(2 * u - 1, -(2 * v - 1));
         Vector rotated = normalized.rotate(getAngularPosition(entity));
         Vector scaled = rotated.mul(entity.get(Size.ID).size);
         Vector translated = scaled.add(entity.get(Planar.ID).position);

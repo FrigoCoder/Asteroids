@@ -4,6 +4,7 @@ package frigo.asteroids.logic;
 import java.util.LinkedList;
 import java.util.List;
 
+import frigo.asteroids.component.Collidable;
 import frigo.asteroids.component.Planar;
 import frigo.asteroids.component.Size;
 import frigo.asteroids.core.Aspect;
@@ -12,7 +13,7 @@ import frigo.asteroids.core.Logic;
 
 public class CollisionDetectionSystem extends Logic {
 
-    private Aspect aspect = Aspect.allOf(Planar.ID, Size.ID);
+    private Aspect aspect = Aspect.allOf(Planar.ID, Size.ID, Collidable.ID);
     private List<CollisionAction> actions = new LinkedList<>();
 
     public void register (CollisionAction action) {

@@ -10,6 +10,7 @@ import static org.mockito.Mockito.verifyZeroInteractions;
 import org.junit.Before;
 import org.junit.Test;
 
+import frigo.asteroids.component.Collidable;
 import frigo.asteroids.component.Planar;
 import frigo.asteroids.component.Size;
 import frigo.asteroids.core.Entity;
@@ -25,7 +26,9 @@ public class CollisionDetectionSystemTest {
     @Before
     public void setUp () {
         entity1.add(Planar.ID, new Planar(vector(0, 0), ZERO, ZERO));
+        entity1.add(Collidable.ID, Collidable.COLLIDABLE);
         entity2.add(Planar.ID, new Planar(vector(1, 0), ZERO, ZERO));
+        entity2.add(Collidable.ID, Collidable.COLLIDABLE);
 
         CollisionDetectionSystem collisionSystem = new CollisionDetectionSystem();
         collisionSystem.register(action);
