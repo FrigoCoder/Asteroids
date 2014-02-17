@@ -274,21 +274,20 @@ public class AsteroidsWorldFactory {
             entity.add(SelfDestruct.ID, SelfDestruct.SELF_DESTRUCT);
             double mass = entity.get(Mass.ID).kg;
             while( mass > 0 ){
-                Entity flame = createFlame(entity);
+                Entity flame = createDebris(entity);
                 mass -= flame.get(Mass.ID).kg;
             }
         }
 
-        private Entity createFlame (Entity source) {
-            double size = getRandom(0.01, 0.02);
+        private Entity createDebris (Entity source) {
+            double size = getRandom(0.008, 0.01);
             double mass = getMass(size);
 
             Entity entity = world.createEntity();
 
             double relativeAngularVelocity = getRandom(-PI, PI);
             Angular sourceAngular = source.get(Angular.ID);
-            entity.add(Angular.ID, new Angular(sourceAngular.position,
-                sourceAngular.velocity + relativeAngularVelocity, sourceAngular.acceleration));
+            entity.add(Angular.ID, new Angular(sourceAngular.position, relativeAngularVelocity, 0));
 
             entity.add(Attractable.ID, Attractable.ATTRACTABLE);
             entity.add(Image.ID, new Image("exhaust.png"));
@@ -298,8 +297,7 @@ public class AsteroidsWorldFactory {
 
             Vector relativeVelocity = Vector.vector(getGaussian(0.05), getGaussian(0.05));
             Planar sourcePlanar = source.get(Planar.ID);
-            entity.add(Planar.ID, new Planar(sourcePlanar.position, sourcePlanar.velocity.add(relativeVelocity),
-                sourcePlanar.acceleration));
+            entity.add(Planar.ID, new Planar(sourcePlanar.position, relativeVelocity, ZERO));
 
             return entity;
         }
