@@ -132,11 +132,7 @@ public class JOGLRenderer implements GLEventListener {
     }
 
     private double getAngularPosition (Entity entity) {
-        try{
-            return entity.get(Angular.ID).position;
-        }catch( NullPointerException e ){
-            return 0;
-        }
+        return entity.has(Angular.ID) ? entity.get(Angular.ID).position : 0;
     }
 
     @Override
@@ -148,15 +144,8 @@ public class JOGLRenderer implements GLEventListener {
         GL2 gl = drawable.getGL().getGL2();
 
         double ratio = (double) width / height;
-        double left = -ratio;
-        double right = +ratio;
-        double bottom = -1;
-        double top = +1;
-        double near = -1;
-        double far = 1;
-
         gl.glMatrixMode(GLMatrixFunc.GL_PROJECTION);
         gl.glLoadIdentity();
-        gl.glOrtho(left, right, bottom, top, near, far);
+        gl.glOrtho(-ratio, +ratio, -1, 1, -1, 1);
     }
 }
