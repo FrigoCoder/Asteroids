@@ -8,13 +8,13 @@ public class Undeclared {
         return null;
     }
 
-    @SuppressWarnings("unused")
-    public static <T extends Throwable> void redeclare (Class<T> clazz) throws T {
-    }
-
     @SuppressWarnings("unchecked")
     private static <T extends Throwable> T throwAny (Throwable e) throws T {
         throw (T) e;
+    }
+
+    @SuppressWarnings("unused")
+    public static <T extends Throwable> void redeclare (Class<T> clazz) throws T {
     }
 
 }
