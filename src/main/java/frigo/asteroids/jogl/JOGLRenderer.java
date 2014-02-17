@@ -77,10 +77,12 @@ public class JOGLRenderer implements GLEventListener {
         Map<Image, List<Entity>> entitiesByImageName = new TreeMap<>();
         for( Entity entity : entities ){
             Image image = entity.get(Image.ID);
-            if( !entitiesByImageName.containsKey(image) ){
+            try{
+                entitiesByImageName.get(image).add(entity);
+            }catch( NullPointerException e ){
                 entitiesByImageName.put(image, new LinkedList<Entity>());
+                entitiesByImageName.get(image).add(entity);
             }
-            entitiesByImageName.get(image).add(entity);
         }
         return entitiesByImageName;
     }
