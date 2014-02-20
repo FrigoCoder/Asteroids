@@ -5,6 +5,6 @@ import frigo.asteroids.core.Entity;
 
 public interface CollisionAction {
 
-    void collision (Entity entity1, Entity entity2);
+    void collision (Entity attacker, Entity attacked);
 
 }

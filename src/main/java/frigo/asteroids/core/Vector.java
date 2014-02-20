@@ -44,7 +44,8 @@ public class Vector extends Value {
     public Vector rotate (double radians) {
         double c = Math.cos(radians);
         double s = Math.sin(radians);
-        return vector(c * x - s * y, s * x + c * y);
+        double t = (x + y) * s;
+        return vector(x * (c + s) - t, y * (c - s) + t);
     }
 
     public Vector normalize () {

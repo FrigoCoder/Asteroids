@@ -14,7 +14,6 @@ import frigo.asteroids.component.Angular;
 import frigo.asteroids.component.Attractable;
 import frigo.asteroids.component.Attractor;
 import frigo.asteroids.component.Background;
-import frigo.asteroids.component.Collidable;
 import frigo.asteroids.component.Damage;
 import frigo.asteroids.component.Health;
 import frigo.asteroids.component.Image;
@@ -82,7 +81,6 @@ public class AsteroidsWorldFactory {
         Entity entity = world.createEntity();
         entity.add(Angular.ID, new Angular(0, getRandom(-PI, PI), 0));
         entity.add(Attractable.ID, Attractable.ATTRACTABLE);
-        entity.add(Collidable.ID, Collidable.COLLIDABLE);
         entity.add(Health.ID, new Health(mass));
         entity.add(Image.ID, new Image("vesta.png", 0));
         entity.add(Mass.ID, new Mass(mass));
@@ -97,7 +95,6 @@ public class AsteroidsWorldFactory {
         Entity entity = world.createEntity();
         entity.add(Angular.ID, new Angular(0, 0.01, 0));
         entity.add(Attractor.ID, Attractor.ATTRACTOR);
-        entity.add(Collidable.ID, Collidable.COLLIDABLE);
         entity.add(Health.ID, new Health(mass));
         entity.add(Image.ID, new Image("sun.png", 1));
         entity.add(Mass.ID, new Mass(mass));
@@ -112,7 +109,6 @@ public class AsteroidsWorldFactory {
         Entity entity = world.createEntity();
         entity.add(Angular.ID, new Angular(0, 0.01, 0));
         entity.add(Attractor.ID, Attractor.ATTRACTOR);
-        entity.add(Collidable.ID, Collidable.COLLIDABLE);
         entity.add(Health.ID, new Health(mass));
         entity.add(Image.ID, new Image("sun_blue.png", 1));
         entity.add(Planar.ID, new Planar(vector(1.0, 1.0), ZERO, ZERO));
@@ -221,7 +217,6 @@ public class AsteroidsWorldFactory {
                 angular.acceleration));
 
             entity.add(Attractable.ID, Attractable.ATTRACTABLE);
-            entity.add(Collidable.ID, Collidable.COLLIDABLE);
             entity.add(Damage.ID, new Damage(damage));
             entity.add(Image.ID, new Image("missile.png"));
             entity.add(Size.ID, new Size(size));
@@ -250,23 +245,14 @@ public class AsteroidsWorldFactory {
     private CollisionAction collisionAction = new CollisionAction() {
 
         @Override
-        public void collision (Entity entity1, Entity entity2) {
-            handleCollision(entity1, entity2);
-            handleCollision(entity2, entity1);
-        }
-
-        private void handleCollision (Entity entity1, Entity entity2) {
-            if( !entity1.has(Damage.ID) || !entity2.has(Health.ID) ){
-                return;
-            }
-
-            Damage damage = entity1.get(Damage.ID);
-            Health health = entity2.get(Health.ID);
+        public void collision (Entity attacker, Entity attacked) {
+            Damage damage = attacker.get(Damage.ID);
+            Health health = attacked.get(Health.ID);
             health.damage(damage);
 
-            explode(entity1);
+            explode(attacker);
             if( health.isDead() ){
-                explode(entity2);
+                explode(attacked);
             }
         }
 
