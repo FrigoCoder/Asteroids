@@ -69,7 +69,7 @@ public class VectorTest {
     @Test
     public void unit_y_rotated_by_pi_per_2 () {
         assertThat(Y.rotate(PI / 2).x, is(-1.0));
-        assertThat(Y.rotate(PI / 2).y, closeTo(0, 1E-16));
+        assertThat(Y.rotate(PI / 2).y, closeTo(0, 1E-15));
     }
 
     @Test

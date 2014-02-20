@@ -21,6 +21,7 @@ public class EntityManager {
     }
 
     public List<Entity> getEntitiesFor (Aspect aspect) {
+        // TODO OPTIMIZE THE SHIT OUT OF THIS
         List<Entity> result = new LinkedList<>();
         for( Entity entity : entities ){
             if( entity.matches(aspect) ){

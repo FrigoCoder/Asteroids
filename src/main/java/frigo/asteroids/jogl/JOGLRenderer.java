@@ -123,26 +123,18 @@ public class JOGLRenderer implements GLEventListener {
     private Vector textureSpaceToVertexSpace (Entity entity, double u, double v) {
         Vector center = entity.has(Background.ID) ? Vector.vector(0, 0) : player.get(Planar.ID).position;
         Vector position = entity.get(Planar.ID).position;
+        double size = entity.get(Size.ID).size;
         double angle = getAngularPosition(entity);
-
-        // Matrix3 m = new Matrix3();
-        // m.translate(position.x - center.x, position.y - center.y);
-        // m.scale(entity.get(Size.ID).size);
-        // m.rotate(angle);
-        // Vector3 vector = Vector3.from(2 * u - 1, -(2 * v - 1));
-        // return m.mul(vector);
 
         Vector vector = Vector.vector(2 * u - 1, -(2 * v - 1));
         vector = vector.rotate(angle);
-        vector = vector.mul(entity.get(Size.ID).size);
-        // vector = vector.add(Vector.vector(position.x - center.x, position.y - center.y));
+        vector = vector.mul(size);
         vector = vector.add(position);
         vector = vector.sub(center);
         return vector;
     }
 
     private double getAngularPosition (Entity entity) {
-        // return entity.has(Angular.ID) ? entity.get(Angular.ID).position : 0;
         try{
             return entity.get(Angular.ID).position;
         }catch( NullPointerException e ){
@@ -163,4 +155,5 @@ public class JOGLRenderer implements GLEventListener {
         gl.glLoadIdentity();
         gl.glOrtho(-ratio, +ratio, -1, 1, -1, 1);
     }
+
 }
