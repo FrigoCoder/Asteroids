@@ -46,9 +46,6 @@ public class AsteroidsWorldFactory {
 
     public World createWorld () {
         world = new World();
-        for( int i = 0; i < 5_000; i++ ){
-            createStar();
-        }
         for( int i = 0; i < 100; i++ ){
             createAsteroid(vector(getRandom(-1, 1), getRandom(-1, 1)));
         }
