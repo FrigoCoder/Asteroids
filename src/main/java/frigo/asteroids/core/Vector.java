@@ -41,6 +41,10 @@ public class Vector extends Value {
         return vector(x / scalar, y / scalar);
     }
 
+    /**
+     * Counter-clockwise rotation
+     */
+
     public Vector rotate (double radians) {
         double c = Math.cos(radians);
         double s = Math.sin(radians);
