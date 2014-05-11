@@ -1,5 +1,5 @@
 
-package frigo.asteroids.logic;
+package frigo.asteroids.logic.collision;
 
 import frigo.asteroids.core.Entity;
 

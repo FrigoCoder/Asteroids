@@ -1,5 +1,5 @@
 
-package frigo.asteroids.logic;
+package frigo.asteroids.logic.collision;
 
 import java.util.LinkedList;
 import java.util.List;

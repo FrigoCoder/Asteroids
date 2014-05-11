@@ -1,5 +1,5 @@
 
-package frigo.asteroids.logic;
+package frigo.asteroids.logic.input;
 
 import java.util.HashMap;
 import java.util.LinkedList;

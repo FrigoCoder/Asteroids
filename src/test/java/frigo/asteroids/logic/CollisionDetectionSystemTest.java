@@ -16,6 +16,8 @@ import frigo.asteroids.component.Planar;
 import frigo.asteroids.component.Size;
 import frigo.asteroids.core.Entity;
 import frigo.asteroids.core.World;
+import frigo.asteroids.logic.collision.CollisionAction;
+import frigo.asteroids.logic.collision.CollisionDetectionSystem;
 
 public class CollisionDetectionSystemTest {
 
