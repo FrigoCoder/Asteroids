@@ -1,5 +1,5 @@
 
-package frigo.asteroids.logic;
+package frigo.asteroids.logic.collision;
 
 import static frigo.asteroids.core.Vector.ZERO;
 import static frigo.asteroids.core.Vector.vector;

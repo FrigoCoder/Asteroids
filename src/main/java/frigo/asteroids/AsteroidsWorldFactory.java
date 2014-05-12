@@ -26,8 +26,6 @@ import frigo.asteroids.component.Timer;
 import frigo.asteroids.core.Entity;
 import frigo.asteroids.core.Vector;
 import frigo.asteroids.core.World;
-import frigo.asteroids.logic.SelfDestructSystem;
-import frigo.asteroids.logic.TimerSystem;
 import frigo.asteroids.logic.collision.CollisionAction;
 import frigo.asteroids.logic.collision.CollisionDetectionSystem;
 import frigo.asteroids.logic.gravity.GravitySystem;
@@ -36,6 +34,8 @@ import frigo.asteroids.logic.input.InputAction;
 import frigo.asteroids.logic.input.InputSystem;
 import frigo.asteroids.logic.movement.MovementSystem;
 import frigo.asteroids.logic.rotation.RotationSystem;
+import frigo.asteroids.logic.selfdestruct.SelfDestructSystem;
+import frigo.asteroids.logic.timer.TimerSystem;
 
 public class AsteroidsWorldFactory {
 

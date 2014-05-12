@@ -1,5 +1,5 @@
 
-package frigo.asteroids.logic;
+package frigo.asteroids.logic.timer;
 
 import frigo.asteroids.component.Timer;
 import frigo.asteroids.core.Aspect;

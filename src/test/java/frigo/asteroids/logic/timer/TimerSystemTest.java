@@ -1,5 +1,5 @@
 
-package frigo.asteroids.logic;
+package frigo.asteroids.logic.timer;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
@@ -11,6 +11,7 @@ import frigo.asteroids.component.SelfDestruct;
 import frigo.asteroids.component.Timer;
 import frigo.asteroids.core.Entity;
 import frigo.asteroids.core.World;
+import frigo.asteroids.logic.timer.TimerSystem;
 
 public class TimerSystemTest {
 

@@ -1,5 +1,5 @@
 
-package frigo.asteroids.logic;
+package frigo.asteroids.logic.selfdestruct;
 
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.not;
@@ -12,6 +12,7 @@ import frigo.asteroids.component.SelfDestruct;
 import frigo.asteroids.core.Aspect;
 import frigo.asteroids.core.Entity;
 import frigo.asteroids.core.World;
+import frigo.asteroids.logic.selfdestruct.SelfDestructSystem;
 
 public class SelfDestructSystemTest {
 

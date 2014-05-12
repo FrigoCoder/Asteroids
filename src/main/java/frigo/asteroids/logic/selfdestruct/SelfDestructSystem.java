@@ -1,5 +1,5 @@
 
-package frigo.asteroids.logic;
+package frigo.asteroids.logic.selfdestruct;
 
 import frigo.asteroids.component.SelfDestruct;
 import frigo.asteroids.core.Aspect;
