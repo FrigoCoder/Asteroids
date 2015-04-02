@@ -1,5 +1,5 @@
+@echo off
 setlocal
-
 cd %~dp0
 
 set JAVA=java.exe
