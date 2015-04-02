@@ -1,8 +1,3 @@
 syntax:glob
 .*
-bin
-build
-log
-reports
 target
-gradle.properties
