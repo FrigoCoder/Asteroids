@@ -6,11 +6,10 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.concurrent.LinkedBlockingQueue;
 
-import javax.media.opengl.GLAutoDrawable;
-import javax.media.opengl.GLEventListener;
-
 import com.jogamp.newt.event.KeyEvent;
 import com.jogamp.newt.event.KeyListener;
+import com.jogamp.opengl.GLAutoDrawable;
+import com.jogamp.opengl.GLEventListener;
 
 import frigo.asteroids.core.World;
 import frigo.asteroids.message.KeyHeld;

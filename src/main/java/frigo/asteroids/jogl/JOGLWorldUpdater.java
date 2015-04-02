@@ -1,10 +1,9 @@
 
 package frigo.asteroids.jogl;
 
-import javax.media.opengl.GLAutoDrawable;
-import javax.media.opengl.GLEventListener;
-
 import com.google.common.annotations.VisibleForTesting;
+import com.jogamp.opengl.GLAutoDrawable;
+import com.jogamp.opengl.GLEventListener;
 
 import frigo.asteroids.core.World;
 

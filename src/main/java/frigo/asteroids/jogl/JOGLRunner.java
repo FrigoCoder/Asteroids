@@ -1,15 +1,14 @@
 
 package frigo.asteroids.jogl;
 
-import javax.media.opengl.GLCapabilities;
-import javax.media.opengl.GLEventListener;
-import javax.media.opengl.GLProfile;
-
 import com.jogamp.newt.event.KeyListener;
 import com.jogamp.newt.event.WindowEvent;
 import com.jogamp.newt.event.WindowListener;
 import com.jogamp.newt.event.WindowUpdateEvent;
 import com.jogamp.newt.opengl.GLWindow;
+import com.jogamp.opengl.GLCapabilities;
+import com.jogamp.opengl.GLEventListener;
+import com.jogamp.opengl.GLProfile;
 import com.jogamp.opengl.util.FPSAnimator;
 
 public class JOGLRunner implements WindowListener {

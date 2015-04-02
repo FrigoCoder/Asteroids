@@ -8,9 +8,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.media.opengl.GLException;
-
 import com.google.common.annotations.VisibleForTesting;
+import com.jogamp.opengl.GLException;
 import com.jogamp.opengl.util.texture.Texture;
 import com.jogamp.opengl.util.texture.TextureIO;
 
