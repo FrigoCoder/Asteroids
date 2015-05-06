@@ -120,7 +120,7 @@ public class JOGLRenderer implements GLEventListener {
     }
 
     private Vector textureSpaceToVertexSpace (Entity entity, double u, double v) {
-        Vector center = entity.has(Background.class) ? Vector.vector(0, 0) : player.get(Planar.class).position;
+        Vector center = entity.has(Background.ID) ? Vector.vector(0, 0) : player.get(Planar.class).position;
         Vector position = entity.get(Planar.class).position;
         double size = entity.get(Size.class).size;
         double angle = getAngularPosition(entity);

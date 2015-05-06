@@ -47,19 +47,19 @@ public class AsteroidsWorldFactory {
     public World createWorld () {
         world = new World();
 
-        world.register(Angular.class);
-        world.register(Attractable.class);
-        world.register(Attractor.class);
-        world.register(Background.class);
-        world.register(Damage.class);
-        world.register(Health.class);
-        world.register(Image.class);
-        world.register(Mass.class);
-        world.register(Planar.class);
-        world.register(SelfDestruct.class);
-        world.register(Size.class);
-        world.register(Thrustable.class);
-        world.register(Timer.class);
+        world.register(Angular.ID);
+        world.register(Attractable.ID);
+        world.register(Attractor.ID);
+        world.register(Background.ID);
+        world.register(Damage.ID);
+        world.register(Health.ID);
+        world.register(Image.ID);
+        world.register(Mass.ID);
+        world.register(Planar.ID);
+        world.register(SelfDestruct.ID);
+        world.register(Size.ID);
+        world.register(Thrustable.ID);
+        world.register(Timer.ID);
 
         for( int i = 0; i < 5_000; i++ ){
             createStar();
@@ -83,10 +83,10 @@ public class AsteroidsWorldFactory {
     private Entity createStar () {
         double size = getRandom(0.005, 0.05);
         Entity entity = world.createEntity();
-        entity.add(Background.class, Background.BACKGROUND);
-        entity.add(Image.class, new Image("star64.png", -1));
-        entity.add(Planar.class, new Planar(getRandomVector(2, 1), getRandomVector(0.005), ZERO));
-        entity.add(Size.class, new Size(size));
+        entity.set(Background.ID, Background.BACKGROUND);
+        entity.set(Image.ID, new Image("star64.png", -1));
+        entity.set(Planar.ID, new Planar(getRandomVector(2, 1), getRandomVector(0.005), ZERO));
+        entity.set(Size.ID, new Size(size));
         return entity;
     }
 
@@ -94,13 +94,13 @@ public class AsteroidsWorldFactory {
         double size = getRandom(0.01, 0.04);
         double mass = getMass(size);
         Entity entity = world.createEntity();
-        entity.add(Angular.class, new Angular(0, getRandom(-PI, PI), 0));
-        entity.add(Attractable.class, Attractable.ATTRACTABLE);
-        entity.add(Health.class, new Health(mass));
-        entity.add(Image.class, new Image("vesta.png", 0));
-        entity.add(Mass.class, new Mass(mass));
-        entity.add(Planar.class, new Planar(position, getRandomVector(0.2), ZERO));
-        entity.add(Size.class, new Size(size));
+        entity.set(Angular.ID, new Angular(0, getRandom(-PI, PI), 0));
+        entity.set(Attractable.ID, Attractable.ATTRACTABLE);
+        entity.set(Health.ID, new Health(mass));
+        entity.set(Image.ID, new Image("vesta.png", 0));
+        entity.set(Mass.ID, new Mass(mass));
+        entity.set(Planar.ID, new Planar(position, getRandomVector(0.2), ZERO));
+        entity.set(Size.ID, new Size(size));
         return entity;
     }
 
@@ -108,13 +108,13 @@ public class AsteroidsWorldFactory {
         double size = 0.2;
         double mass = getMass(size);
         Entity entity = world.createEntity();
-        entity.add(Angular.class, new Angular(0, 0.01, 0));
-        entity.add(Attractor.class, Attractor.ATTRACTOR);
-        entity.add(Health.class, new Health(mass));
-        entity.add(Image.class, new Image("sun.png", 1));
-        entity.add(Mass.class, new Mass(mass));
-        entity.add(Planar.class, new Planar(ZERO, ZERO, ZERO));
-        entity.add(Size.class, new Size(size));
+        entity.set(Angular.ID, new Angular(0, 0.01, 0));
+        entity.set(Attractor.ID, Attractor.ATTRACTOR);
+        entity.set(Health.ID, new Health(mass));
+        entity.set(Image.ID, new Image("sun.png", 1));
+        entity.set(Mass.ID, new Mass(mass));
+        entity.set(Planar.ID, new Planar(ZERO, ZERO, ZERO));
+        entity.set(Size.ID, new Size(size));
         return entity;
     }
 
@@ -122,13 +122,13 @@ public class AsteroidsWorldFactory {
         double size = 0.1;
         double mass = getMass(size);
         Entity entity = world.createEntity();
-        entity.add(Angular.class, new Angular(0, 0.01, 0));
-        entity.add(Attractor.class, Attractor.ATTRACTOR);
-        entity.add(Health.class, new Health(mass));
-        entity.add(Image.class, new Image("sun_blue.png", 1));
-        entity.add(Planar.class, new Planar(vector(1.0, 1.0), ZERO, ZERO));
-        entity.add(Size.class, new Size(size));
-        entity.add(Mass.class, new Mass(mass));
+        entity.set(Angular.ID, new Angular(0, 0.01, 0));
+        entity.set(Attractor.ID, Attractor.ATTRACTOR);
+        entity.set(Health.ID, new Health(mass));
+        entity.set(Image.ID, new Image("sun_blue.png", 1));
+        entity.set(Planar.ID, new Planar(vector(1.0, 1.0), ZERO, ZERO));
+        entity.set(Size.ID, new Size(size));
+        entity.set(Mass.ID, new Mass(mass));
         return entity;
     }
 
@@ -136,13 +136,13 @@ public class AsteroidsWorldFactory {
         double size = 0.05;
         double mass = getMass(size);
         Entity entity = world.createEntity();
-        entity.add(Angular.class, new Angular(0, 0.5, 0));
-        entity.add(Attractable.class, Attractable.ATTRACTABLE);
-        entity.add(Image.class, new Image("spaceship.png", 2));
-        entity.add(Planar.class, new Planar(vector(0, 0.5), vector(0.2, 0), ZERO));
-        entity.add(Size.class, new Size(size));
-        entity.add(Mass.class, new Mass(mass));
-        entity.add(Thrustable.class, new Thrustable(0.1, 1));
+        entity.set(Angular.ID, new Angular(0, 0.5, 0));
+        entity.set(Attractable.ID, Attractable.ATTRACTABLE);
+        entity.set(Image.ID, new Image("spaceship.png", 2));
+        entity.set(Planar.ID, new Planar(vector(0, 0.5), vector(0.2, 0), ZERO));
+        entity.set(Size.ID, new Size(size));
+        entity.set(Mass.ID, new Mass(mass));
+        entity.set(Thrustable.ID, new Thrustable(0.1, 1));
         return entity;
     }
 
@@ -177,20 +177,19 @@ public class AsteroidsWorldFactory {
 
         double relativeAngularVelocity = getRandom(-PI, PI);
         Angular angular = ship.get(Angular.class);
-        entity.add(Angular.class, new Angular(angular.position, angular.velocity + relativeAngularVelocity,
+        entity.set(Angular.ID, new Angular(angular.position, angular.velocity + relativeAngularVelocity,
             angular.acceleration));
 
-        entity.add(Attractable.class, Attractable.ATTRACTABLE);
-        entity.add(Image.class, new Image("exhaust.png"));
-        entity.add(Size.class, new Size(size));
-        entity.add(Mass.class, new Mass(mass));
-        entity.add(Timer.class, new Timer(SelfDestruct.class, SelfDestruct.SELF_DESTRUCT, 3.0));
+        entity.set(Attractable.ID, Attractable.ATTRACTABLE);
+        entity.set(Image.ID, new Image("exhaust.png"));
+        entity.set(Size.ID, new Size(size));
+        entity.set(Mass.ID, new Mass(mass));
+        entity.set(Timer.ID, new Timer(SelfDestruct.ID, SelfDestruct.SELF_DESTRUCT, 3.0));
 
         Vector thrust = getHeading(ship).mul(ship.get(Thrustable.class).thrust);
         Vector relativeVelocity = thrust.opposite().rotate(getRandom(-PI / 6, PI / 6)).mul(getRandom(0.9, 1.1));
         Planar planar = ship.get(Planar.class);
-        entity.add(Planar.class,
-            new Planar(planar.position, planar.velocity.add(relativeVelocity), planar.acceleration));
+        entity.set(Planar.ID, new Planar(planar.position, planar.velocity.add(relativeVelocity), planar.acceleration));
 
     };
 
@@ -204,20 +203,19 @@ public class AsteroidsWorldFactory {
         double relativeAngularPosition = getRandom(-PI / 6, PI / 6);
 
         Angular angular = ship.get(Angular.class);
-        entity.add(Angular.class, new Angular(angular.position + relativeAngularPosition, angular.velocity,
+        entity.set(Angular.ID, new Angular(angular.position + relativeAngularPosition, angular.velocity,
             angular.acceleration));
 
-        entity.add(Attractable.class, Attractable.ATTRACTABLE);
-        entity.add(Damage.class, new Damage(damage));
-        entity.add(Image.class, new Image("missile.png"));
-        entity.add(Size.class, new Size(size));
-        entity.add(Mass.class, new Mass(mass));
-        entity.add(Timer.class, new Timer(SelfDestruct.class, SelfDestruct.SELF_DESTRUCT, 10.0));
+        entity.set(Attractable.ID, Attractable.ATTRACTABLE);
+        entity.set(Damage.ID, new Damage(damage));
+        entity.set(Image.ID, new Image("missile.png"));
+        entity.set(Size.ID, new Size(size));
+        entity.set(Mass.ID, new Mass(mass));
+        entity.set(Timer.ID, new Timer(SelfDestruct.ID, SelfDestruct.SELF_DESTRUCT, 10.0));
 
         Vector relativeVelocity = getHeading(ship).mul(0.2).rotate(relativeAngularPosition);
         Planar planar = ship.get(Planar.class);
-        entity.add(Planar.class,
-            new Planar(planar.position, planar.velocity.add(relativeVelocity), planar.acceleration));
+        entity.set(Planar.ID, new Planar(planar.position, planar.velocity.add(relativeVelocity), planar.acceleration));
     };
 
     private Vector getHeading (Entity entity) {
@@ -246,7 +244,7 @@ public class AsteroidsWorldFactory {
         }
 
         private void explode (Entity entity) {
-            entity.add(SelfDestruct.class, SelfDestruct.SELF_DESTRUCT);
+            entity.set(SelfDestruct.ID, SelfDestruct.SELF_DESTRUCT);
             double mass = entity.get(Mass.class).kg;
             while( mass > 0 ){
                 Entity flame = createDebris(entity);
@@ -262,17 +260,17 @@ public class AsteroidsWorldFactory {
 
             double relativeAngularVelocity = getRandom(-PI, PI);
             Angular sourceAngular = source.get(Angular.class);
-            entity.add(Angular.class, new Angular(sourceAngular.position, relativeAngularVelocity, 0));
+            entity.set(Angular.ID, new Angular(sourceAngular.position, relativeAngularVelocity, 0));
 
-            entity.add(Attractable.class, Attractable.ATTRACTABLE);
-            entity.add(Image.class, new Image("exhaust.png"));
-            entity.add(Size.class, new Size(size));
-            entity.add(Mass.class, new Mass(mass));
-            entity.add(Timer.class, new Timer(SelfDestruct.class, SelfDestruct.SELF_DESTRUCT, getRandom(5, 10)));
+            entity.set(Attractable.ID, Attractable.ATTRACTABLE);
+            entity.set(Image.ID, new Image("exhaust.png"));
+            entity.set(Size.ID, new Size(size));
+            entity.set(Mass.ID, new Mass(mass));
+            entity.set(Timer.ID, new Timer(SelfDestruct.ID, SelfDestruct.SELF_DESTRUCT, getRandom(5, 10)));
 
             Vector relativeVelocity = Vector.vector(getGaussian(0.05), getGaussian(0.05));
             Planar sourcePlanar = source.get(Planar.class);
-            entity.add(Planar.class, new Planar(sourcePlanar.position, relativeVelocity, ZERO));
+            entity.set(Planar.ID, new Planar(sourcePlanar.position, relativeVelocity, ZERO));
 
             return entity;
         }

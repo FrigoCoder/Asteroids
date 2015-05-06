@@ -7,11 +7,11 @@ public class Timer extends Component {
 
     public static final int ID = System.identityHashCode(Timer.class);
 
-    public Class<?> type;
+    public int type;
     public Component component;
     public double seconds;
 
-    public Timer (Class<?> type, Component component, double seconds) {
+    public Timer (int type, Component component, double seconds) {
         this.type = type;
         this.component = component;
         this.seconds = seconds;

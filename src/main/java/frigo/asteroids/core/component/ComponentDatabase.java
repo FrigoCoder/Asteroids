@@ -15,16 +15,8 @@ public class ComponentDatabase {
         map.put(type, store);
     }
 
-    public boolean has (int entity, Class<?> type) {
-        return getStore(type).has(entity);
-    }
-
     public boolean has (int entity, int type) {
         return getStore(type).has(entity);
-    }
-
-    public void remove (int entity, Class<?> type) {
-        getStore(type).remove(entity);
     }
 
     public void remove (int entity, int type) {
@@ -39,10 +31,6 @@ public class ComponentDatabase {
     public <T> T get (int entity, int type) {
         ComponentStore<T> store = getStore(type);
         return store.get(entity);
-    }
-
-    public <T> void set (int entity, Class<?> type, T component) {
-        getStore(type).set(entity, component);
     }
 
     public <T> void set (int entity, int type, T component) {

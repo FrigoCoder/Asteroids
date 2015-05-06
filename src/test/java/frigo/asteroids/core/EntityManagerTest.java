@@ -24,10 +24,10 @@ public class EntityManagerTest {
 
     @Before
     public void setUp () {
-        world.register(Attractable.class);
-        world.register(Planar.class);
+        world.register(Attractable.ID);
+        world.register(Planar.ID);
 
-        entity.add(Attractable.class, Attractable.ATTRACTABLE);
+        entity.set(Attractable.ID, Attractable.ATTRACTABLE);
     }
 
     @Test
@@ -38,7 +38,7 @@ public class EntityManagerTest {
 
     @Test
     public void entities_matching_aspect_are_returned () {
-        entity.add(Planar.class, new Planar(vector(1, 1), vector(1, 1), ZERO));
+        entity.set(Planar.ID, new Planar(vector(1, 1), vector(1, 1), ZERO));
 
         world.createEntity();
 

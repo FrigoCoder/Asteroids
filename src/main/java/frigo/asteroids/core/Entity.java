@@ -15,7 +15,7 @@ public final class Entity extends Identity {
         this.db = db;
     }
 
-    public boolean has (Class<?> type) {
+    public boolean has (int type) {
         return db.has(id, type);
     }
 
@@ -23,11 +23,11 @@ public final class Entity extends Identity {
         return db.get(id, type);
     }
 
-    public void add (Class<?> type, Object component) {
+    public void set (int type, Object component) {
         db.set(id, type, component);
     }
 
-    public void remove (Class<?> type) {
+    public void remove (int type) {
         db.remove(id, type);
     }
 

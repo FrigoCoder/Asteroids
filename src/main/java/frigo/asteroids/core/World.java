@@ -24,8 +24,8 @@ public class World {
         return entities.getEntitiesFor(aspect);
     }
 
-    public <T extends Component> void register (Class<T> type) {
-        register(type, new ObjectStore<>());
+    public void register (int type) {
+        entities.register(type, new ObjectStore<>());
     }
 
     public <T extends Component> void register (Class<T> type, ComponentStore<T> store) {

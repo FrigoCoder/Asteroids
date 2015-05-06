@@ -26,20 +26,20 @@ public class GravitySystemTest {
 
     @Before
     public void setUp () {
-        world.register(Attractable.class);
-        world.register(Attractor.class);
-        world.register(Mass.class);
-        world.register(Planar.class);
+        world.register(Attractable.ID);
+        world.register(Attractor.ID);
+        world.register(Mass.ID);
+        world.register(Planar.ID);
 
         attracted1 = world.createEntity();
-        attracted1.add(Attractable.class, Attractable.ATTRACTABLE);
-        attracted1.add(Mass.class, new Mass(10));
-        attracted1.add(Planar.class, new Planar(vector(0.1, 0), ZERO, ZERO));
+        attracted1.set(Attractable.ID, Attractable.ATTRACTABLE);
+        attracted1.set(Mass.ID, new Mass(10));
+        attracted1.set(Planar.ID, new Planar(vector(0.1, 0), ZERO, ZERO));
 
         attracted2 = world.createEntity();
-        attracted2.add(Attractable.class, Attractable.ATTRACTABLE);
-        attracted2.add(Mass.class, new Mass(1));
-        attracted2.add(Planar.class, new Planar(vector(0, 0.1), ZERO, ZERO));
+        attracted2.set(Attractable.ID, Attractable.ATTRACTABLE);
+        attracted2.set(Mass.ID, new Mass(1));
+        attracted2.set(Planar.ID, new Planar(vector(0, 0.1), ZERO, ZERO));
 
         world.addLogic(new GravitySystem(new NewtonianGravity()));
         world.init();
@@ -56,9 +56,9 @@ public class GravitySystemTest {
     @Test
     public void attractor_attracts_two_attractables () {
         Entity entity = world.createEntity();
-        entity.add(Attractor.class, Attractor.ATTRACTOR);
-        entity.add(Mass.class, new Mass(100));
-        entity.add(Planar.class, new Planar(vector(-0.1, 0), ZERO, ZERO));
+        entity.set(Attractor.ID, Attractor.ATTRACTOR);
+        entity.set(Mass.ID, new Mass(100));
+        entity.set(Planar.ID, new Planar(vector(-0.1, 0), ZERO, ZERO));
 
         world.update(1);
 

@@ -38,4 +38,8 @@ public class EntityManager {
         database.register(type, store);
     }
 
+    public <T> void register (int type, ComponentStore<T> store) {
+        database.register(type, store);
+    }
+
 }

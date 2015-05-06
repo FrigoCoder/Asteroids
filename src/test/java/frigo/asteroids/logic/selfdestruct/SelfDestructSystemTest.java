@@ -19,7 +19,7 @@ public class SelfDestructSystemTest {
 
     @Before
     public void setUp () {
-        world.register(SelfDestruct.class);
+        world.register(SelfDestruct.ID);
         world.addLogic(new SelfDestructSystem());
         world.init();
     }
@@ -35,7 +35,7 @@ public class SelfDestructSystemTest {
     @Test
     public void entity_is_removed () {
         Entity entity = world.createEntity();
-        entity.add(SelfDestruct.class, SelfDestruct.SELF_DESTRUCT);
+        entity.set(SelfDestruct.ID, SelfDestruct.SELF_DESTRUCT);
         world.update(1.0);
         Aspect aspect = Aspect.allOf();
         assertThat(world.getEntitiesFor(aspect), not(hasItem(entity)));
