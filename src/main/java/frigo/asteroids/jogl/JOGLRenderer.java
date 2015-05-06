@@ -40,7 +40,7 @@ public class JOGLRenderer implements GLEventListener {
     }
 
     private Entity getPlayer () {
-        List<Entity> entities = world.getEntitiesFor(Aspect.allOf(Thrustable.ID));
+        List<Entity> entities = world.getEntitiesFor(Aspect.allOf(Thrustable.class));
         checkArgument(entities.size() == 1);
         return entities.get(0);
     }
@@ -63,7 +63,7 @@ public class JOGLRenderer implements GLEventListener {
         gl.glMatrixMode(GLMatrixFunc.GL_MODELVIEW);
         gl.glLoadIdentity();
 
-        drawEntities(gl, world.getEntitiesFor(Aspect.allOf(Planar.ID, Size.ID, Image.ID)));
+        drawEntities(gl, world.getEntitiesFor(Aspect.allOf(Planar.class, Size.class, Image.class)));
     }
 
     private void drawEntities (GL2 gl, List<Entity> entities) {
@@ -75,7 +75,7 @@ public class JOGLRenderer implements GLEventListener {
     private Map<Image, List<Entity>> separateEntitiesByImage (List<Entity> entities) {
         Map<Image, List<Entity>> entitiesByImageName = new TreeMap<>();
         for( Entity entity : entities ){
-            Image image = entity.get(Image.ID);
+            Image image = entity.get(Image.class);
             try{
                 entitiesByImageName.get(image).add(entity);
             }catch( NullPointerException e ){
@@ -120,9 +120,9 @@ public class JOGLRenderer implements GLEventListener {
     }
 
     private Vector textureSpaceToVertexSpace (Entity entity, double u, double v) {
-        Vector center = entity.has(Background.ID) ? Vector.vector(0, 0) : player.get(Planar.ID).position;
-        Vector position = entity.get(Planar.ID).position;
-        double size = entity.get(Size.ID).size;
+        Vector center = entity.has(Background.class) ? Vector.vector(0, 0) : player.get(Planar.class).position;
+        Vector position = entity.get(Planar.class).position;
+        double size = entity.get(Size.class).size;
         double angle = getAngularPosition(entity);
 
         Vector vector = Vector.vector(2 * u - 1, -(2 * v - 1));
@@ -135,7 +135,7 @@ public class JOGLRenderer implements GLEventListener {
 
     private double getAngularPosition (Entity entity) {
         try{
-            return entity.get(Angular.ID).position;
+            return entity.get(Angular.class).position;
         }catch( NullPointerException e ){
             return 0;
         }

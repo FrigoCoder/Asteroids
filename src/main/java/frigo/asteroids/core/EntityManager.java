@@ -34,7 +34,7 @@ public class EntityManager {
         return result;
     }
 
-    public <T> void register (int type, ComponentStore<T> store) {
+    public <T> void register (Class<T> type, ComponentStore<T> store) {
         database.register(type, store);
     }
 

@@ -21,36 +21,36 @@ public class EntityTest {
 
     @Before
     public void setUp () {
-        world.register(Planar.ID);
+        world.register(Planar.class);
     }
 
     @Test
     public void added_component_can_be_retrieved () {
-        entity.add(Planar.ID, position);
-        assertThat(entity.get(Planar.ID), sameInstance(position));
+        entity.add(Planar.class, position);
+        assertThat(entity.get(Planar.class), sameInstance(position));
     }
 
     @Test
     public void not_added_component_retrieval_returns_null () {
-        assertThat(entity.get(Planar.ID), nullValue());
+        assertThat(entity.get(Planar.class), nullValue());
     }
 
     @Test
     public void added_component_can_be_checked_for_presence () {
-        entity.add(Planar.ID, position);
-        assertThat(entity.has(Planar.ID), is(true));
+        entity.add(Planar.class, position);
+        assertThat(entity.has(Planar.class), is(true));
     }
 
     @Test
     public void not_added_component_can_be_checked_for_presence () {
-        assertThat(entity.has(Planar.ID), is(false));
+        assertThat(entity.has(Planar.class), is(false));
     }
 
     @Test
     public void removed_component_is_removed () {
-        entity.add(Planar.ID, position);
-        entity.remove(Planar.ID);
-        assertThat(entity.has(Planar.ID), is(false));
+        entity.add(Planar.class, position);
+        entity.remove(Planar.class);
+        assertThat(entity.has(Planar.class), is(false));
     }
 
 }

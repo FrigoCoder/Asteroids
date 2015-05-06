@@ -5,17 +5,21 @@ import com.carrotsearch.hppc.IntObjectOpenHashMap;
 
 public class ComponentDatabase {
 
+    private static int hash (Class<?> type) {
+        return System.identityHashCode(type);
+    }
+
     private IntObjectOpenHashMap<ComponentStore<?>> map = new IntObjectOpenHashMap<>();
 
-    public <T> void register (ComponentId<T> type, ComponentStore<T> store) {
-        map.put(type.id, store);
+    public <T> void register (Class<T> type, ComponentStore<T> store) {
+        map.put(hash(type), store);
     }
 
     public <T> void register (int type, ComponentStore<T> store) {
         map.put(type, store);
     }
 
-    public boolean has (int entity, ComponentId<?> type) {
+    public boolean has (int entity, Class<?> type) {
         return getStore(type).has(entity);
     }
 
@@ -23,7 +27,7 @@ public class ComponentDatabase {
         return getStore(type).has(entity);
     }
 
-    public void remove (int entity, ComponentId<?> type) {
+    public void remove (int entity, Class<?> type) {
         getStore(type).remove(entity);
     }
 
@@ -31,7 +35,7 @@ public class ComponentDatabase {
         getStore(type).remove(entity);
     }
 
-    public <T> T get (int entity, ComponentId<?> type) {
+    public <T> T get (int entity, Class<?> type) {
         ComponentStore<T> store = getStore(type);
         return store.get(entity);
     }
@@ -41,7 +45,7 @@ public class ComponentDatabase {
         return store.get(entity);
     }
 
-    public <T> void set (int entity, ComponentId<?> type, T component) {
+    public <T> void set (int entity, Class<?> type, T component) {
         getStore(type).set(entity, component);
     }
 
@@ -49,7 +53,7 @@ public class ComponentDatabase {
         getStore(type).set(entity, component);
     }
 
-    public boolean getFlag (int entity, ComponentId<?> type) {
+    public boolean getFlag (int entity, Class<?> type) {
         return getStore(type).getFlag(entity);
     }
 
@@ -57,7 +61,7 @@ public class ComponentDatabase {
         return getStore(type).getFlag(entity);
     }
 
-    public void setFlag (int entity, ComponentId<?> type) {
+    public void setFlag (int entity, Class<?> type) {
         getStore(type).setFlag(entity);
     }
 
@@ -65,10 +69,10 @@ public class ComponentDatabase {
         getStore(type).setFlag(entity);
     }
 
-    private <T> ComponentStore<T> getStore (ComponentId<?> type) {
-        ComponentStore<T> store = (ComponentStore<T>) map.get(type.id);
+    private <T> ComponentStore<T> getStore (Class<?> type) {
+        ComponentStore<T> store = (ComponentStore<T>) map.get(hash(type));
         if( store == null ){
-            throw new UnregisteredComponentException(type.clazz);
+            throw new UnregisteredComponentException(type);
         }
         return store;
     }

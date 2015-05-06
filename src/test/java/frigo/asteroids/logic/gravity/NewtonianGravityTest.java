@@ -26,24 +26,24 @@ public class NewtonianGravityTest {
 
     @Before
     public void setUp () {
-        world.register(Mass.ID);
-        world.register(Planar.ID);
+        world.register(Mass.class);
+        world.register(Planar.class);
 
         attractor1 = world.createEntity();
-        attractor1.add(Mass.ID, new Mass(100));
-        attractor1.add(Planar.ID, new Planar(vector(-0.1, 0), ZERO, ZERO));
+        attractor1.add(Mass.class, new Mass(100));
+        attractor1.add(Planar.class, new Planar(vector(-0.1, 0), ZERO, ZERO));
 
         attracted1 = world.createEntity();
-        attracted1.add(Mass.ID, new Mass(10));
-        attracted1.add(Planar.ID, new Planar(vector(0.1, 0), ZERO, ZERO));
+        attracted1.add(Mass.class, new Mass(10));
+        attracted1.add(Planar.class, new Planar(vector(0.1, 0), ZERO, ZERO));
 
         attracted2 = world.createEntity();
-        attracted2.add(Mass.ID, new Mass(1));
-        attracted2.add(Planar.ID, new Planar(vector(0, 0.1), ZERO, ZERO));
+        attracted2.add(Mass.class, new Mass(1));
+        attracted2.add(Planar.class, new Planar(vector(0, 0.1), ZERO, ZERO));
 
         attracted3 = world.createEntity();
-        attracted3.add(Mass.ID, new Mass(1));
-        attracted3.add(Planar.ID, new Planar(vector(-0.1, 0), ZERO, ZERO));
+        attracted3.add(Mass.class, new Mass(1));
+        attracted3.add(Planar.class, new Planar(vector(-0.1, 0), ZERO, ZERO));
     }
 
     @Test

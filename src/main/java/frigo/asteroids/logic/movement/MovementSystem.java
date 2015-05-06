@@ -8,12 +8,12 @@ import frigo.asteroids.core.Logic;
 
 public class MovementSystem extends Logic {
 
-    private Aspect aspect = Aspect.allOf(Planar.ID);
+    private Aspect aspect = Aspect.allOf(Planar.class);
 
     @Override
     public void update (double elapsedSeconds) {
         for( Entity entity : world.getEntitiesFor(aspect) ){
-            entity.get(Planar.ID).update(elapsedSeconds);
+            entity.get(Planar.class).update(elapsedSeconds);
         }
     }
 

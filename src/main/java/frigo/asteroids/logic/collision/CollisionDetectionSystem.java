@@ -15,8 +15,8 @@ import frigo.asteroids.core.Logic;
 public class CollisionDetectionSystem extends Logic {
 
     private List<CollisionAction> actions = new LinkedList<>();
-    private Aspect damage = Aspect.allOf(Planar.ID, Size.ID, Damage.ID);
-    private Aspect health = Aspect.allOf(Planar.ID, Size.ID, Health.ID);
+    private Aspect damage = Aspect.allOf(Planar.class, Size.class, Damage.class);
+    private Aspect health = Aspect.allOf(Planar.class, Size.class, Health.class);
 
     public void register (CollisionAction action) {
         actions.add(action);
@@ -34,8 +34,8 @@ public class CollisionDetectionSystem extends Logic {
     }
 
     private void checkCollision (Entity attacker, Entity attacked) {
-        double distance = attacker.get(Planar.ID).position.sub(attacked.get(Planar.ID).position).length();
-        double radiusSum = attacker.get(Size.ID).size + attacked.get(Size.ID).size;
+        double distance = attacker.get(Planar.class).position.sub(attacked.get(Planar.class).position).length();
+        double radiusSum = attacker.get(Size.class).size + attacked.get(Size.class).size;
         if( distance <= radiusSum ){
             callActions(attacker, attacked);
         }

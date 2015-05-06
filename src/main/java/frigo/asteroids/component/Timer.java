@@ -2,18 +2,15 @@
 package frigo.asteroids.component;
 
 import frigo.asteroids.core.Component;
-import frigo.asteroids.core.component.ComponentId;
 
 public class Timer extends Component {
 
-    public static final ComponentId<Timer> ID = new ComponentId<>(Timer.class);
-
-    public ComponentId<?> componentId;
+    public Class<?> type;
     public Component component;
     public double seconds;
 
-    public Timer (ComponentId<?> id, Component component, double seconds) {
-        componentId = id;
+    public Timer (Class<?> type, Component component, double seconds) {
+        this.type = type;
         this.component = component;
         this.seconds = seconds;
     }
