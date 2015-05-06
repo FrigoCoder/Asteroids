@@ -5,6 +5,8 @@ import frigo.asteroids.core.Component;
 
 public class Size extends Component {
 
+    public static final int ID = System.identityHashCode(Size.class);
+
     public final double size;
 
     public Size (double size) {

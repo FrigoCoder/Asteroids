@@ -5,6 +5,8 @@ import frigo.asteroids.core.Component;
 
 public class Angular extends Component {
 
+    public static final int ID = System.identityHashCode(Angular.class);
+
     public double position;
     public double velocity;
     public double acceleration;

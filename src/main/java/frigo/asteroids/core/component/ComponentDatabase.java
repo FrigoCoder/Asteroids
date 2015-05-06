@@ -5,14 +5,10 @@ import com.carrotsearch.hppc.IntObjectOpenHashMap;
 
 public class ComponentDatabase {
 
-    private static int hash (Class<?> type) {
-        return System.identityHashCode(type);
-    }
-
     private IntObjectOpenHashMap<ComponentStore<?>> map = new IntObjectOpenHashMap<>();
 
     public <T> void register (Class<T> type, ComponentStore<T> store) {
-        map.put(hash(type), store);
+        map.put(System.identityHashCode(type), store);
     }
 
     public <T> void register (int type, ComponentStore<T> store) {
@@ -70,7 +66,7 @@ public class ComponentDatabase {
     }
 
     private <T> ComponentStore<T> getStore (Class<?> type) {
-        ComponentStore<T> store = (ComponentStore<T>) map.get(hash(type));
+        ComponentStore<T> store = (ComponentStore<T>) map.get(System.identityHashCode(type));
         if( store == null ){
             throw new UnregisteredComponentException(type);
         }

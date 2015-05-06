@@ -5,6 +5,8 @@ import frigo.asteroids.core.Component;
 
 public class Image extends Component implements Comparable<Image> {
 
+    public static final int ID = System.identityHashCode(Image.class);
+
     public final String filename;
     public final int order;
 

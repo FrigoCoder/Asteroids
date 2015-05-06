@@ -5,6 +5,8 @@ import frigo.asteroids.core.Component;
 
 public class Timer extends Component {
 
+    public static final int ID = System.identityHashCode(Timer.class);
+
     public Class<?> type;
     public Component component;
     public double seconds;

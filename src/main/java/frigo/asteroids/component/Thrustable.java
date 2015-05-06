@@ -5,6 +5,8 @@ import frigo.asteroids.core.Component;
 
 public class Thrustable extends Component {
 
+    public static final int ID = System.identityHashCode(Thrustable.class);
+
     public final double thrust;
     public final double angularThrust;
 

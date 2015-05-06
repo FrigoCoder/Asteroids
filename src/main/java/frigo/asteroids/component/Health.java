@@ -5,6 +5,8 @@ import frigo.asteroids.core.Component;
 
 public class Health extends Component {
 
+    public static final int ID = System.identityHashCode(Health.class);
+
     public double health;
 
     public Health (double health) {

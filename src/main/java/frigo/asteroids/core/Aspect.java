@@ -15,17 +15,13 @@ public class Aspect extends Value {
         return new Aspect().andNoneOf(types);
     }
 
-    private static int hash (Class<?> type) {
-        return System.identityHashCode(type);
-    }
-
     public final IntOpenHashSet all = new IntOpenHashSet();
     public final IntOpenHashSet none = new IntOpenHashSet();
 
     @SafeVarargs
     public final Aspect andAllOf (Class<? extends Component>... types) {
         for( Class<? extends Component> type : types ){
-            all.add(hash(type));
+            all.add(System.identityHashCode(type));
         }
         return this;
     }
@@ -33,7 +29,7 @@ public class Aspect extends Value {
     @SafeVarargs
     public final Aspect andNoneOf (Class<? extends Component>... types) {
         for( Class<? extends Component> type : types ){
-            none.add(hash(type));
+            none.add(System.identityHashCode(type));
         }
         return this;
     }

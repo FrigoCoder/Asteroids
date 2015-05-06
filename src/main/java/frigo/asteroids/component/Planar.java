@@ -7,6 +7,8 @@ import frigo.asteroids.core.Vector;
 
 public class Planar extends Component {
 
+    public static final int ID = System.identityHashCode(Planar.class);
+
     public Vector position;
     public Vector velocity;
     public Vector acceleration;
