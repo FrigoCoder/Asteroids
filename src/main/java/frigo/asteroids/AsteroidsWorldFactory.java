@@ -156,16 +156,22 @@ public class AsteroidsWorldFactory {
         return inputSystem;
     }
 
-    private InputAction accelerateLeft = elapsedSeconds -> ship.get(Angular.class).accelerate(
-        ship.get(Thrustable.class).angularThrust);
+    private InputAction accelerateLeft = elapsedSeconds -> {
+        Angular angular = ship.get(Angular.ID);
+        Thrustable thrustable = ship.get(Thrustable.ID);
+        angular.accelerate(thrustable.angularThrust);
+    };
 
-    private InputAction accelerateRight = elapsedSeconds -> ship.get(Angular.class).accelerate(
-        -ship.get(Thrustable.class).angularThrust);
+    private InputAction accelerateRight = elapsedSeconds -> {
+        Angular angular = ship.get(Angular.ID);
+        Thrustable thrustable = ship.get(Thrustable.ID);
+        angular.accelerate(-thrustable.angularThrust);
+    };
 
     private InputAction accelerateShip = elapsedSeconds -> {
-        Vector thrust = getHeading(ship).mul(ship.get(Thrustable.class).thrust);
-
-        Planar planar = ship.get(Planar.class);
+        Thrustable thrustable = ship.get(Thrustable.ID);
+        Vector thrust = getHeading(ship).mul(thrustable.thrust);
+        Planar planar = ship.get(Planar.ID);
         planar.accelerate(thrust);
     };
 
@@ -176,7 +182,7 @@ public class AsteroidsWorldFactory {
         Entity entity = world.createEntity();
 
         double relativeAngularVelocity = getRandom(-PI, PI);
-        Angular angular = ship.get(Angular.class);
+        Angular angular = ship.get(Angular.ID);
         entity.set(Angular.ID, new Angular(angular.position, angular.velocity + relativeAngularVelocity,
             angular.acceleration));
 
@@ -186,9 +192,10 @@ public class AsteroidsWorldFactory {
         entity.set(Mass.ID, new Mass(mass));
         entity.set(Timer.ID, new Timer(SelfDestruct.ID, SelfDestruct.SELF_DESTRUCT, 3.0));
 
-        Vector thrust = getHeading(ship).mul(ship.get(Thrustable.class).thrust);
+        Thrustable thrustable = ship.get(Thrustable.ID);
+        Vector thrust = getHeading(ship).mul(thrustable.thrust);
         Vector relativeVelocity = thrust.opposite().rotate(getRandom(-PI / 6, PI / 6)).mul(getRandom(0.9, 1.1));
-        Planar planar = ship.get(Planar.class);
+        Planar planar = ship.get(Planar.ID);
         entity.set(Planar.ID, new Planar(planar.position, planar.velocity.add(relativeVelocity), planar.acceleration));
 
     };
@@ -202,7 +209,7 @@ public class AsteroidsWorldFactory {
 
         double relativeAngularPosition = getRandom(-PI / 6, PI / 6);
 
-        Angular angular = ship.get(Angular.class);
+        Angular angular = ship.get(Angular.ID);
         entity.set(Angular.ID, new Angular(angular.position + relativeAngularPosition, angular.velocity,
             angular.acceleration));
 
@@ -214,12 +221,13 @@ public class AsteroidsWorldFactory {
         entity.set(Timer.ID, new Timer(SelfDestruct.ID, SelfDestruct.SELF_DESTRUCT, 10.0));
 
         Vector relativeVelocity = getHeading(ship).mul(0.2).rotate(relativeAngularPosition);
-        Planar planar = ship.get(Planar.class);
+        Planar planar = ship.get(Planar.ID);
         entity.set(Planar.ID, new Planar(planar.position, planar.velocity.add(relativeVelocity), planar.acceleration));
     };
 
     private Vector getHeading (Entity entity) {
-        double angle = entity.get(Angular.class).position;
+        Angular angular = entity.get(Angular.ID);
+        double angle = angular.position;
         return Vector.Y.rotate(angle);
     }
 
@@ -233,8 +241,8 @@ public class AsteroidsWorldFactory {
 
         @Override
         public void collision (Entity attacker, Entity attacked) {
-            Damage damage = attacker.get(Damage.class);
-            Health health = attacked.get(Health.class);
+            Damage damage = attacker.get(Damage.ID);
+            Health health = attacked.get(Health.ID);
             health.damage(damage);
 
             explode(attacker);
@@ -245,10 +253,12 @@ public class AsteroidsWorldFactory {
 
         private void explode (Entity entity) {
             entity.set(SelfDestruct.ID, SelfDestruct.SELF_DESTRUCT);
-            double mass = entity.get(Mass.class).kg;
-            while( mass > 0 ){
+            Mass mass = entity.get(Mass.ID);
+            double kg = mass.kg;
+            while( kg > 0 ){
                 Entity flame = createDebris(entity);
-                mass -= flame.get(Mass.class).kg;
+                Mass flameMass = flame.get(Mass.ID);
+                kg -= flameMass.kg;
             }
         }
 
@@ -259,7 +269,7 @@ public class AsteroidsWorldFactory {
             Entity entity = world.createEntity();
 
             double relativeAngularVelocity = getRandom(-PI, PI);
-            Angular sourceAngular = source.get(Angular.class);
+            Angular sourceAngular = source.get(Angular.ID);
             entity.set(Angular.ID, new Angular(sourceAngular.position, relativeAngularVelocity, 0));
 
             entity.set(Attractable.ID, Attractable.ATTRACTABLE);
@@ -269,7 +279,7 @@ public class AsteroidsWorldFactory {
             entity.set(Timer.ID, new Timer(SelfDestruct.ID, SelfDestruct.SELF_DESTRUCT, getRandom(5, 10)));
 
             Vector relativeVelocity = Vector.vector(getGaussian(0.05), getGaussian(0.05));
-            Planar sourcePlanar = source.get(Planar.class);
+            Planar sourcePlanar = source.get(Planar.ID);
             entity.set(Planar.ID, new Planar(sourcePlanar.position, relativeVelocity, ZERO));
 
             return entity;
@@ -296,4 +306,5 @@ public class AsteroidsWorldFactory {
     private double getMass (double size) {
         return PI * 4 / 3 * pow(size, 3) * DENSITY;
     }
+
 }

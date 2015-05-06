@@ -27,14 +27,14 @@ public class RotationSystemTest {
     public void properly_updates_velocity_and_position_with_acceleration_and_velocity () {
         entity.set(Angular.ID, new Angular(0.5, 1, 1));
         world.update(0.1);
-        assertThat(entity.get(Angular.class), is(new Angular(0.605, 1.1, 0.0)));
+        assertThat(entity.get(Angular.ID), is(new Angular(0.605, 1.1, 0.0)));
     }
 
     @Test
     public void updates_AngularDisplacement_of_entities_by_AngularVelocity_and_elapsed_seconds () {
         entity.set(Angular.ID, new Angular(0, 1, 0));
         world.update(0.1);
-        assertThat(entity.get(Angular.class), is(new Angular(0.1, 1, 0)));
+        assertThat(entity.get(Angular.ID), is(new Angular(0.1, 1, 0)));
     }
 
 }

@@ -75,7 +75,7 @@ public class JOGLRenderer implements GLEventListener {
     private Map<Image, List<Entity>> separateEntitiesByImage (List<Entity> entities) {
         Map<Image, List<Entity>> entitiesByImageName = new TreeMap<>();
         for( Entity entity : entities ){
-            Image image = entity.get(Image.class);
+            Image image = entity.get(Image.ID);
             try{
                 entitiesByImageName.get(image).add(entity);
             }catch( NullPointerException e ){
@@ -120,25 +120,39 @@ public class JOGLRenderer implements GLEventListener {
     }
 
     private Vector textureSpaceToVertexSpace (Entity entity, double u, double v) {
-        Vector center = entity.has(Background.ID) ? Vector.vector(0, 0) : player.get(Planar.class).position;
-        Vector position = entity.get(Planar.class).position;
-        double size = entity.get(Size.class).size;
-        double angle = getAngularPosition(entity);
-
         Vector vector = Vector.vector(2 * u - 1, -(2 * v - 1));
-        vector = vector.rotate(angle);
-        vector = vector.mul(size);
-        vector = vector.add(position);
-        vector = vector.sub(center);
+        vector = vector.rotate(getAngularPosition(entity));
+        vector = vector.mul(getSize(entity));
+        vector = vector.add(getPosition(entity));
+        vector = vector.sub(getCenter(entity));
         return vector;
     }
 
     private double getAngularPosition (Entity entity) {
         try{
-            return entity.get(Angular.class).position;
+            Angular angular = entity.get(Angular.ID);
+            return angular.position;
         }catch( NullPointerException e ){
             return 0;
         }
+    }
+
+    private double getSize (Entity entity) {
+        Size size = entity.get(Size.ID);
+        return size.size;
+    }
+
+    private Vector getPosition (Entity entity) {
+        Planar planar = entity.get(Planar.ID);
+        return planar.position;
+    }
+
+    private Vector getCenter (Entity entity) {
+        if( entity.has(Background.ID) ){
+            return Vector.vector(0, 0);
+        }
+        Planar planar = player.get(Planar.ID);
+        return planar.position;
     }
 
     @Override

@@ -19,7 +19,7 @@ public final class Entity extends Identity {
         return db.has(id, type);
     }
 
-    public <T> T get (Class<T> type) {
+    public <T> T get (int type) {
         return db.get(id, type);
     }
 

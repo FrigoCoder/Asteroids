@@ -13,7 +13,7 @@ public class TimerSystem extends Logic {
     @Override
     public void update (double elapsedSeconds) {
         for( Entity entity : world.getEntitiesFor(aspect) ){
-            Timer timer = entity.get(Timer.class);
+            Timer timer = entity.get(Timer.ID);
             timer.countDown(elapsedSeconds);
             if( timer.elapsed() ){
                 entity.set(timer.type, timer.emitted());
@@ -21,4 +21,5 @@ public class TimerSystem extends Logic {
             }
         }
     }
+
 }

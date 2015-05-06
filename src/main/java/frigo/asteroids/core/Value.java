@@ -42,6 +42,7 @@ public class Value implements Serializable, Cloneable {
         return SerializationUtils.serialize(this);
     }
 
+    @SuppressWarnings("unchecked")
     public static <T extends Value> T deserialize (byte[] data) {
         return (T) SerializationUtils.deserialize(data);
     }

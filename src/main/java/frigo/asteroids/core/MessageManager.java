@@ -21,9 +21,10 @@ public class MessageManager {
         }
     }
 
+    @SuppressWarnings("unchecked")
     public <T extends Message> List<T> get (Class<T> clazz) {
         List<T> list = (List<T>) messages.get(clazz);
-        return list != null ? list : Collections.EMPTY_LIST;
+        return list == null ? Collections.EMPTY_LIST : list;
     }
 
     public void clear () {

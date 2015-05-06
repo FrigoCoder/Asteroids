@@ -34,8 +34,13 @@ public class CollisionDetectionSystem extends Logic {
     }
 
     private void checkCollision (Entity attacker, Entity attacked) {
-        double distance = attacker.get(Planar.class).position.sub(attacked.get(Planar.class).position).length();
-        double radiusSum = attacker.get(Size.class).size + attacked.get(Size.class).size;
+        Planar attackerPlanar = attacker.get(Planar.ID);
+        Planar attackedPlanar = attacked.get(Planar.ID);
+        double distance = attackerPlanar.position.sub(attackedPlanar.position).length();
+
+        Size attackerSize = attacker.get(Size.ID);
+        Size attackedSize = attacked.get(Size.ID);
+        double radiusSum = attackerSize.size + attackedSize.size;
         if( distance <= radiusSum ){
             callActions(attacker, attacked);
         }
@@ -46,4 +51,5 @@ public class CollisionDetectionSystem extends Logic {
             action.collision(attacker, attacked);
         }
     }
+
 }

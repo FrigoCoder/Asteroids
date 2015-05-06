@@ -27,12 +27,12 @@ public class EntityTest {
     @Test
     public void added_component_can_be_retrieved () {
         entity.set(Planar.ID, position);
-        assertThat(entity.get(Planar.class), sameInstance(position));
+        assertThat(entity.get(Planar.ID), sameInstance(position));
     }
 
     @Test
     public void not_added_component_retrieval_returns_null () {
-        assertThat(entity.get(Planar.class), nullValue());
+        assertThat(entity.get(Planar.ID), nullValue());
     }
 
     @Test

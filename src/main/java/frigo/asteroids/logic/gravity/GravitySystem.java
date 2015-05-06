@@ -29,7 +29,8 @@ public class GravitySystem extends Logic {
         for( Entity attractor : attractors ){
             for( Entity attracted : attractables ){
                 Vector acceleration = calculator.getDirectionalAcceleration(attractor, attracted);
-                attracted.get(Planar.class).accelerate(acceleration);
+                Planar planar = attracted.get(Planar.ID);
+                planar.accelerate(acceleration);
             }
         }
     }
