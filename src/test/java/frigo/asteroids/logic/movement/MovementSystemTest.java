@@ -12,7 +12,6 @@ import org.junit.Test;
 import frigo.asteroids.component.Planar;
 import frigo.asteroids.core.Entity;
 import frigo.asteroids.core.World;
-import frigo.asteroids.logic.movement.MovementSystem;
 
 public class MovementSystemTest {
 
@@ -21,6 +20,7 @@ public class MovementSystemTest {
 
     @Before
     public void setUp () {
+        world.register(Planar.ID);
         world.addLogic(new MovementSystem());
         world.init();
     }

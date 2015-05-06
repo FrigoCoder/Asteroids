@@ -11,7 +11,6 @@ import frigo.asteroids.component.SelfDestruct;
 import frigo.asteroids.component.Timer;
 import frigo.asteroids.core.Entity;
 import frigo.asteroids.core.World;
-import frigo.asteroids.logic.timer.TimerSystem;
 
 public class TimerSystemTest {
 
@@ -20,6 +19,9 @@ public class TimerSystemTest {
 
     @Before
     public void setUp () {
+        world.register(Timer.ID);
+        world.register(SelfDestruct.ID);
+
         world.addLogic(new TimerSystem());
         world.init();
         entity = world.createEntity();

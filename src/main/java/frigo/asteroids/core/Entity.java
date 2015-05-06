@@ -3,6 +3,9 @@ package frigo.asteroids.core;
 
 import com.carrotsearch.hppc.cursors.IntCursor;
 
+import frigo.asteroids.core.component.ComponentDatabase;
+import frigo.asteroids.core.component.ComponentId;
+
 public final class Entity extends Identity {
 
     public final int id;
@@ -14,19 +17,19 @@ public final class Entity extends Identity {
     }
 
     public boolean has (ComponentId<?> type) {
-        return db.has(id, type.id);
+        return db.has(id, type);
     }
 
-    public <T extends Component> T get (ComponentId<T> type) {
-        return db.get(id, type.id);
+    public <T> T get (ComponentId<T> type) {
+        return db.get(id, type);
     }
 
-    public void add (ComponentId<?> type, Component component) {
-        db.add(id, type.id, component);
+    public void add (ComponentId<?> type, Object component) {
+        db.set(id, type, component);
     }
 
     public void remove (ComponentId<?> type) {
-        db.remove(id, type.id);
+        db.remove(id, type);
     }
 
     public boolean matches (Aspect aspect) {

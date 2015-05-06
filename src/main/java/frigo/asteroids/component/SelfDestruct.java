@@ -2,7 +2,7 @@
 package frigo.asteroids.component;
 
 import frigo.asteroids.core.Component;
-import frigo.asteroids.core.ComponentId;
+import frigo.asteroids.core.component.ComponentId;
 
 public class SelfDestruct extends Component {
 

@@ -12,7 +12,6 @@ import frigo.asteroids.component.SelfDestruct;
 import frigo.asteroids.core.Aspect;
 import frigo.asteroids.core.Entity;
 import frigo.asteroids.core.World;
-import frigo.asteroids.logic.selfdestruct.SelfDestructSystem;
 
 public class SelfDestructSystemTest {
 
@@ -20,6 +19,7 @@ public class SelfDestructSystemTest {
 
     @Before
     public void setUp () {
+        world.register(SelfDestruct.ID);
         world.addLogic(new SelfDestructSystem());
         world.init();
     }

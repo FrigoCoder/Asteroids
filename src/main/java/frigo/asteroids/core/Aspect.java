@@ -3,6 +3,8 @@ package frigo.asteroids.core;
 
 import com.carrotsearch.hppc.IntOpenHashSet;
 
+import frigo.asteroids.core.component.ComponentId;
+
 public class Aspect extends Value {
 
     public final IntOpenHashSet all = new IntOpenHashSet();

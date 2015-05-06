@@ -26,6 +26,11 @@ public class GravitySystemTest {
 
     @Before
     public void setUp () {
+        world.register(Attractable.ID);
+        world.register(Attractor.ID);
+        world.register(Mass.ID);
+        world.register(Planar.ID);
+
         attracted1 = world.createEntity();
         attracted1.add(Attractable.ID, Attractable.ATTRACTABLE);
         attracted1.add(Mass.ID, new Mass(10));

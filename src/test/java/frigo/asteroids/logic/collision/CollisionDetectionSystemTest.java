@@ -16,8 +16,6 @@ import frigo.asteroids.component.Planar;
 import frigo.asteroids.component.Size;
 import frigo.asteroids.core.Entity;
 import frigo.asteroids.core.World;
-import frigo.asteroids.logic.collision.CollisionAction;
-import frigo.asteroids.logic.collision.CollisionDetectionSystem;
 
 public class CollisionDetectionSystemTest {
 
@@ -28,6 +26,11 @@ public class CollisionDetectionSystemTest {
 
     @Before
     public void setUp () {
+        world.register(Planar.ID);
+        world.register(Damage.ID);
+        world.register(Health.ID);
+        world.register(Size.ID);
+
         entity1.add(Planar.ID, new Planar(vector(0, 0), ZERO, ZERO));
         entity1.add(Damage.ID, new Damage(1));
         entity2.add(Planar.ID, new Planar(vector(1, 0), ZERO, ZERO));

@@ -46,6 +46,21 @@ public class AsteroidsWorldFactory {
 
     public World createWorld () {
         world = new World();
+
+        world.register(Angular.ID);
+        world.register(Attractable.ID);
+        world.register(Attractor.ID);
+        world.register(Background.ID);
+        world.register(Damage.ID);
+        world.register(Health.ID);
+        world.register(Image.ID);
+        world.register(Mass.ID);
+        world.register(Planar.ID);
+        world.register(SelfDestruct.ID);
+        world.register(Size.ID);
+        world.register(Thrustable.ID);
+        world.register(Timer.ID);
+
         for( int i = 0; i < 5_000; i++ ){
             createStar();
         }
@@ -141,94 +156,66 @@ public class AsteroidsWorldFactory {
         return inputSystem;
     }
 
-    private InputAction accelerateLeft = new InputAction() {
+    private InputAction accelerateLeft = elapsedSeconds -> ship.get(Angular.ID).accelerate(
+        ship.get(Thrustable.ID).angularThrust);
 
-        @Override
-        public void run (double elapsedSeconds) {
-            ship.get(Angular.ID).accelerate(ship.get(Thrustable.ID).angularThrust);
-        }
+    private InputAction accelerateRight = elapsedSeconds -> ship.get(Angular.ID).accelerate(
+        -ship.get(Thrustable.ID).angularThrust);
+
+    private InputAction accelerateShip = elapsedSeconds -> {
+        Vector thrust = getHeading(ship).mul(ship.get(Thrustable.ID).thrust);
+
+        Planar planar = ship.get(Planar.ID);
+        planar.accelerate(thrust);
     };
 
-    private InputAction accelerateRight = new InputAction() {
+    private InputAction createFlame = elapsedSeconds -> {
+        double size = getRandom(0.01, 0.02);
+        double mass = getMass(size);
 
-        @Override
-        public void run (double elapsedSeconds) {
-            ship.get(Angular.ID).accelerate(-ship.get(Thrustable.ID).angularThrust);
-        }
+        Entity entity = world.createEntity();
 
-    };
+        double relativeAngularVelocity = getRandom(-PI, PI);
+        Angular angular = ship.get(Angular.ID);
+        entity.add(Angular.ID, new Angular(angular.position, angular.velocity + relativeAngularVelocity,
+            angular.acceleration));
 
-    private InputAction accelerateShip = new InputAction() {
+        entity.add(Attractable.ID, Attractable.ATTRACTABLE);
+        entity.add(Image.ID, new Image("exhaust.png"));
+        entity.add(Size.ID, new Size(size));
+        entity.add(Mass.ID, new Mass(mass));
+        entity.add(Timer.ID, new Timer(SelfDestruct.ID, SelfDestruct.SELF_DESTRUCT, 3.0));
 
-        @Override
-        public void run (double elapsedSeconds) {
-            Vector thrust = getHeading(ship).mul(ship.get(Thrustable.ID).thrust);
-
-            Planar planar = ship.get(Planar.ID);
-            planar.accelerate(thrust);
-        }
-
-    };
-
-    private InputAction createFlame = new InputAction() {
-
-        @Override
-        public void run (double elapsedSeconds) {
-            double size = getRandom(0.01, 0.02);
-            double mass = getMass(size);
-
-            Entity entity = world.createEntity();
-
-            double relativeAngularVelocity = getRandom(-PI, PI);
-            Angular angular = ship.get(Angular.ID);
-            entity.add(Angular.ID, new Angular(angular.position, angular.velocity + relativeAngularVelocity,
-                angular.acceleration));
-
-            entity.add(Attractable.ID, Attractable.ATTRACTABLE);
-            entity.add(Image.ID, new Image("exhaust.png"));
-            entity.add(Size.ID, new Size(size));
-            entity.add(Mass.ID, new Mass(mass));
-            entity.add(Timer.ID, new Timer(SelfDestruct.ID, SelfDestruct.SELF_DESTRUCT, 3.0));
-
-            Vector thrust = getHeading(ship).mul(ship.get(Thrustable.ID).thrust);
-            Vector relativeVelocity = thrust.opposite().rotate(getRandom(-PI / 6, PI / 6)).mul(getRandom(0.9, 1.1));
-            Planar planar = ship.get(Planar.ID);
-            entity.add(Planar.ID, new Planar(planar.position, planar.velocity.add(relativeVelocity),
-                planar.acceleration));
-
-        }
+        Vector thrust = getHeading(ship).mul(ship.get(Thrustable.ID).thrust);
+        Vector relativeVelocity = thrust.opposite().rotate(getRandom(-PI / 6, PI / 6)).mul(getRandom(0.9, 1.1));
+        Planar planar = ship.get(Planar.ID);
+        entity.add(Planar.ID, new Planar(planar.position, planar.velocity.add(relativeVelocity), planar.acceleration));
 
     };
 
-    private InputAction createBullet = new InputAction() {
+    private InputAction createBullet = elapsedSeconds -> {
+        double size = 0.02;
+        double mass = getMass(size);
+        double damage = mass;
 
-        @Override
-        public void run (double elapsedSeconds) {
-            double size = 0.02;
-            double mass = getMass(size);
-            double damage = mass;
+        Entity entity = world.createEntity();
 
-            Entity entity = world.createEntity();
+        double relativeAngularPosition = getRandom(-PI / 6, PI / 6);
 
-            double relativeAngularPosition = getRandom(-PI / 6, PI / 6);
+        Angular angular = ship.get(Angular.ID);
+        entity.add(Angular.ID, new Angular(angular.position + relativeAngularPosition, angular.velocity,
+            angular.acceleration));
 
-            Angular angular = ship.get(Angular.ID);
-            entity.add(Angular.ID, new Angular(angular.position + relativeAngularPosition, angular.velocity,
-                angular.acceleration));
+        entity.add(Attractable.ID, Attractable.ATTRACTABLE);
+        entity.add(Damage.ID, new Damage(damage));
+        entity.add(Image.ID, new Image("missile.png"));
+        entity.add(Size.ID, new Size(size));
+        entity.add(Mass.ID, new Mass(mass));
+        entity.add(Timer.ID, new Timer(SelfDestruct.ID, SelfDestruct.SELF_DESTRUCT, 10.0));
 
-            entity.add(Attractable.ID, Attractable.ATTRACTABLE);
-            entity.add(Damage.ID, new Damage(damage));
-            entity.add(Image.ID, new Image("missile.png"));
-            entity.add(Size.ID, new Size(size));
-            entity.add(Mass.ID, new Mass(mass));
-            entity.add(Timer.ID, new Timer(SelfDestruct.ID, SelfDestruct.SELF_DESTRUCT, 10.0));
-
-            Vector relativeVelocity = getHeading(ship).mul(0.2).rotate(relativeAngularPosition);
-            Planar planar = ship.get(Planar.ID);
-            entity.add(Planar.ID, new Planar(planar.position, planar.velocity.add(relativeVelocity),
-                planar.acceleration));
-        }
-
+        Vector relativeVelocity = getHeading(ship).mul(0.2).rotate(relativeAngularPosition);
+        Planar planar = ship.get(Planar.ID);
+        entity.add(Planar.ID, new Planar(planar.position, planar.velocity.add(relativeVelocity), planar.acceleration));
     };
 
     private Vector getHeading (Entity entity) {

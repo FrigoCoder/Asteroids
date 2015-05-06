@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import frigo.asteroids.core.component.ComponentDatabase;
+import frigo.asteroids.core.component.ComponentStore;
+
 public class EntityManager {
 
     private List<Entity> entities = new ArrayList<>();
@@ -29,6 +32,10 @@ public class EntityManager {
             }
         }
         return result;
+    }
+
+    public <T> void register (int type, ComponentStore<T> store) {
+        database.register(type, store);
     }
 
 }

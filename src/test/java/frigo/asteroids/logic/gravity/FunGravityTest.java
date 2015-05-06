@@ -27,6 +27,9 @@ public class FunGravityTest {
 
     @Before
     public void setUp () {
+        world.register(Mass.ID);
+        world.register(Planar.ID);
+
         attractor1 = world.createEntity();
         attractor1.add(Mass.ID, new Mass(100));
         attractor1.add(Planar.ID, new Planar(vector(-0.1, 0), ZERO, ZERO));
@@ -46,10 +49,10 @@ public class FunGravityTest {
 
     @Test
     public void directional_acceleration_is_calculated_properly () {
-        assertThat(gravity.getDirectionalAcceleration(attractor1, attracted1), closeTo(vector(-0.2, 0).mul(
-            G * 100 / 0.2), 1E-22));
-        assertThat(gravity.getDirectionalAcceleration(attractor1, attracted2), closeTo(vector(-0.1, -0.1).mul(
-            G * 100 / sqrt(0.02)), 1E-22));
+        assertThat(gravity.getDirectionalAcceleration(attractor1, attracted1),
+            closeTo(vector(-0.2, 0).mul(G * 100 / 0.2), 1E-22));
+        assertThat(gravity.getDirectionalAcceleration(attractor1, attracted2),
+            closeTo(vector(-0.1, -0.1).mul(G * 100 / sqrt(0.02)), 1E-22));
     }
 
     @Test

@@ -8,7 +8,7 @@ import static org.junit.Assert.assertThat;
 import org.junit.Test;
 
 import frigo.asteroids.core.Component;
-import frigo.asteroids.core.ComponentId;
+import frigo.asteroids.core.component.ComponentId;
 
 public class TimerTest {
 

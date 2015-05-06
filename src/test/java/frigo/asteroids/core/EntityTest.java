@@ -8,6 +8,7 @@ import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.Matchers.sameInstance;
 import static org.junit.Assert.assertThat;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import frigo.asteroids.component.Planar;
@@ -17,6 +18,11 @@ public class EntityTest {
     private World world = new World();
     private Entity entity = world.createEntity();
     private Planar position = new Planar(vector(1, 1), ZERO, ZERO);
+
+    @Before
+    public void setUp () {
+        world.register(Planar.ID);
+    }
 
     @Test
     public void added_component_can_be_retrieved () {

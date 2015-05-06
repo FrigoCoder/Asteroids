@@ -24,6 +24,9 @@ public class EntityManagerTest {
 
     @Before
     public void setUp () {
+        world.register(Attractable.ID);
+        world.register(Planar.ID);
+
         entity.add(Attractable.ID, Attractable.ATTRACTABLE);
     }
 
