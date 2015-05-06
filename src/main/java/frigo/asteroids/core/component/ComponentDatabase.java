@@ -7,10 +7,6 @@ public class ComponentDatabase {
 
     private IntObjectOpenHashMap<ComponentStore<?>> map = new IntObjectOpenHashMap<>();
 
-    public <T> void register (Class<T> type, ComponentStore<T> store) {
-        map.put(System.identityHashCode(type), store);
-    }
-
     public <T> void register (int type, ComponentStore<T> store) {
         map.put(type, store);
     }

@@ -28,7 +28,7 @@ public class World {
         entities.register(type, new ObjectStore<>());
     }
 
-    public <T extends Component> void register (Class<T> type, ComponentStore<T> store) {
+    public <T extends Component> void register (int type, ComponentStore<T> store) {
         entities.register(type, store);
     }
 
