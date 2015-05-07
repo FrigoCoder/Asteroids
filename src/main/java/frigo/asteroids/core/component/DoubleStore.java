@@ -1,11 +1,11 @@
 
 package frigo.asteroids.core.component;
 
-import com.carrotsearch.hppc.IntDoubleOpenHashMap;
+import com.carrotsearch.hppc.IntDoubleHashMap;
 
 public class DoubleStore extends ComponentStore<Double> {
 
-    private IntDoubleOpenHashMap map = new IntDoubleOpenHashMap();
+    private IntDoubleHashMap map = new IntDoubleHashMap();
 
     @Override
     public boolean has (int entity) {

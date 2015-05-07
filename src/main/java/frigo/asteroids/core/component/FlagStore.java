@@ -1,11 +1,11 @@
 
 package frigo.asteroids.core.component;
 
-import com.carrotsearch.hppc.IntOpenHashSet;
+import com.carrotsearch.hppc.IntHashSet;
 
 public class FlagStore extends ComponentStore<Boolean> {
 
-    private IntOpenHashSet set = new IntOpenHashSet();
+    private IntHashSet set = new IntHashSet();
 
     @Override
     public boolean has (int entity) {

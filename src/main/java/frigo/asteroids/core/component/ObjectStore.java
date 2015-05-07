@@ -1,11 +1,11 @@
 
 package frigo.asteroids.core.component;
 
-import com.carrotsearch.hppc.IntObjectOpenHashMap;
+import com.carrotsearch.hppc.IntObjectHashMap;
 
 public class ObjectStore<T> extends ComponentStore<T> {
 
-    private IntObjectOpenHashMap<T> map = new IntObjectOpenHashMap<>();
+    private IntObjectHashMap<T> map = new IntObjectHashMap<>();
 
     @Override
     public boolean has (int entity) {

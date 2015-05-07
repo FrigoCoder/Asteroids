@@ -1,7 +1,7 @@
 
 package frigo.asteroids.core;
 
-import com.carrotsearch.hppc.IntOpenHashSet;
+import com.carrotsearch.hppc.IntHashSet;
 
 public class Aspect extends Value {
 
@@ -15,8 +15,8 @@ public class Aspect extends Value {
         return new Aspect().andNoneOf(types);
     }
 
-    public final IntOpenHashSet all = new IntOpenHashSet();
-    public final IntOpenHashSet none = new IntOpenHashSet();
+    public final IntHashSet all = new IntHashSet();
+    public final IntHashSet none = new IntHashSet();
 
     @SafeVarargs
     public final Aspect andAllOf (Class<? extends Component>... types) {

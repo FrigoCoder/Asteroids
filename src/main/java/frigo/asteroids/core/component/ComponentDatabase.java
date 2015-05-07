@@ -1,11 +1,11 @@
 
 package frigo.asteroids.core.component;
 
-import com.carrotsearch.hppc.IntObjectOpenHashMap;
+import com.carrotsearch.hppc.IntObjectHashMap;
 
 public class ComponentDatabase {
 
-    private IntObjectOpenHashMap<ComponentStore<?>> map = new IntObjectOpenHashMap<>();
+    private IntObjectHashMap<ComponentStore<?>> map = new IntObjectHashMap<>();
 
     public <T> void register (int type, ComponentStore<T> store) {
         map.put(type, store);
