@@ -18,7 +18,7 @@ public class RotationSystemTest {
 
     @Before
     public void setUp () {
-        world.register(Angular.ID);
+        world.register(Angular.class);
         world.addLogic(new RotationSystem());
         world.init();
     }

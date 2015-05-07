@@ -27,6 +27,22 @@ public final class Entity extends Identity {
         db.set(id, type, component);
     }
 
+    public boolean getFlag (int type) {
+        return db.getFlag(id, type);
+    }
+
+    public void setFlag (int type) {
+        db.setFlag(id, type);
+    }
+
+    public double getDouble (int type) {
+        return db.getDouble(id, type);
+    }
+
+    public void setDouble (int type, double component) {
+        db.setDouble(id, type, component);
+    }
+
     public void remove (int type) {
         db.remove(id, type);
     }

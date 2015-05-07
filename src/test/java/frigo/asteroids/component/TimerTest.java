@@ -2,42 +2,31 @@
 package frigo.asteroids.component;
 
 import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.sameInstance;
 import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
-
-import frigo.asteroids.core.Component;
 
 public class TimerTest {
 
     @Test
     public void timer_is_not_elapsed () {
-        Timer timer = new Timer(SelfDestruct.ID, SelfDestruct.SELF_DESTRUCT, 1.1);
+        Timer timer = new Timer(1.1, null);
         timer.countDown(1.0);
         assertThat(timer.elapsed(), is(false));
     }
 
     @Test
     public void timer_is_just_elapsed () {
-        Timer timer = new Timer(SelfDestruct.ID, SelfDestruct.SELF_DESTRUCT, 1.0);
+        Timer timer = new Timer(1.0, null);
         timer.countDown(1.0);
         assertThat(timer.elapsed(), is(true));
     }
 
     @Test
     public void timer_is_elapsed () {
-        Timer timer = new Timer(SelfDestruct.ID, SelfDestruct.SELF_DESTRUCT, 0.9);
+        Timer timer = new Timer(0.9, null);
         timer.countDown(1.0);
         assertThat(timer.elapsed(), is(true));
-    }
-
-    @Test
-    public void returns_component () {
-        int type = Attractable.ID;
-        Component component = Attractable.ATTRACTABLE;
-        Timer timer = new Timer(type, component, 1.0);
-        assertThat(timer.emitted(), sameInstance(component));
     }
 
 }

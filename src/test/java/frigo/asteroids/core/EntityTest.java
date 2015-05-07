@@ -21,7 +21,7 @@ public class EntityTest {
 
     @Before
     public void setUp () {
-        world.register(Planar.ID);
+        world.register(Planar.class);
     }
 
     @Test

@@ -24,10 +24,10 @@ public class EntityManagerTest {
 
     @Before
     public void setUp () {
-        world.register(Attractable.ID);
-        world.register(Planar.ID);
+        world.register(Attractable.class);
+        world.register(Planar.class);
 
-        entity.set(Attractable.ID, Attractable.ATTRACTABLE);
+        entity.setFlag(Attractable.ID);
     }
 
     @Test
@@ -42,7 +42,7 @@ public class EntityManagerTest {
 
         world.createEntity();
 
-        Aspect aspect = Aspect.allOf(Planar.class);
+        Aspect aspect = Aspect.allOf(Planar.ID);
 
         List<Entity> expected = new LinkedList<>(asList(entity));
         assertThat(world.getEntitiesFor(aspect), is(expected));

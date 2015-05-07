@@ -6,12 +6,12 @@ import com.carrotsearch.hppc.IntHashSet;
 public class Aspect extends Value {
 
     @SafeVarargs
-    public static Aspect allOf (Class<? extends Component>... types) {
+    public static Aspect allOf (int... types) {
         return new Aspect().andAllOf(types);
     }
 
     @SafeVarargs
-    public static Aspect noneOf (Class<? extends Component>... types) {
+    public static Aspect noneOf (int... types) {
         return new Aspect().andNoneOf(types);
     }
 
@@ -19,17 +19,17 @@ public class Aspect extends Value {
     public final IntHashSet none = new IntHashSet();
 
     @SafeVarargs
-    public final Aspect andAllOf (Class<? extends Component>... types) {
-        for( Class<? extends Component> type : types ){
-            all.add(System.identityHashCode(type));
+    public final Aspect andAllOf (int... types) {
+        for( int type : types ){
+            all.add(type);
         }
         return this;
     }
 
     @SafeVarargs
-    public final Aspect andNoneOf (Class<? extends Component>... types) {
-        for( Class<? extends Component> type : types ){
-            none.add(System.identityHashCode(type));
+    public final Aspect andNoneOf (int... types) {
+        for( int type : types ){
+            none.add(type);
         }
         return this;
     }

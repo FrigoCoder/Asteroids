@@ -1,16 +1,10 @@
 
 package frigo.asteroids.component;
 
-import frigo.asteroids.core.Component;
+import frigo.asteroids.core.DoubleComponent;
 
-public class Size extends Component {
+public class Size extends DoubleComponent {
 
     public static final int ID = System.identityHashCode(Size.class);
-
-    public final double size;
-
-    public Size (double size) {
-        this.size = size;
-    }
 
 }

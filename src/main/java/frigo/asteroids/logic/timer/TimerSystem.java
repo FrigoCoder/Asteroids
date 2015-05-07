@@ -8,7 +8,7 @@ import frigo.asteroids.core.Logic;
 
 public class TimerSystem extends Logic {
 
-    private Aspect aspect = Aspect.allOf(Timer.class);
+    private Aspect aspect = Aspect.allOf(Timer.ID);
 
     @Override
     public void update (double elapsedSeconds) {
@@ -16,8 +16,8 @@ public class TimerSystem extends Logic {
             Timer timer = entity.get(Timer.ID);
             timer.countDown(elapsedSeconds);
             if( timer.elapsed() ){
-                entity.set(timer.type, timer.emitted());
                 entity.remove(Timer.ID);
+                timer.action.run(world, entity);
             }
         }
     }

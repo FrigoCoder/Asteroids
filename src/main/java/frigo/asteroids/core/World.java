@@ -3,9 +3,6 @@ package frigo.asteroids.core;
 
 import java.util.List;
 
-import frigo.asteroids.core.component.ComponentStore;
-import frigo.asteroids.core.component.ObjectStore;
-
 public class World {
 
     private EntityManager entities = new EntityManager();
@@ -24,12 +21,8 @@ public class World {
         return entities.getEntitiesFor(aspect);
     }
 
-    public void register (int type) {
-        entities.register(type, new ObjectStore<>());
-    }
-
-    public <T extends Component> void register (int type, ComponentStore<T> store) {
-        entities.register(type, store);
+    public void register (Class<?> type) {
+        entities.register(type);
     }
 
     public void addMessage (Message message) {

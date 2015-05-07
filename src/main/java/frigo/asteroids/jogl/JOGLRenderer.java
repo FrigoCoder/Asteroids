@@ -40,7 +40,7 @@ public class JOGLRenderer implements GLEventListener {
     }
 
     private Entity getPlayer () {
-        List<Entity> entities = world.getEntitiesFor(Aspect.allOf(Thrustable.class));
+        List<Entity> entities = world.getEntitiesFor(Aspect.allOf(Thrustable.ID));
         checkArgument(entities.size() == 1);
         return entities.get(0);
     }
@@ -63,7 +63,7 @@ public class JOGLRenderer implements GLEventListener {
         gl.glMatrixMode(GLMatrixFunc.GL_MODELVIEW);
         gl.glLoadIdentity();
 
-        drawEntities(gl, world.getEntitiesFor(Aspect.allOf(Planar.class, Size.class, Image.class)));
+        drawEntities(gl, world.getEntitiesFor(Aspect.allOf(Planar.ID, Size.ID, Image.ID)));
     }
 
     private void drawEntities (GL2 gl, List<Entity> entities) {
@@ -138,8 +138,7 @@ public class JOGLRenderer implements GLEventListener {
     }
 
     private double getSize (Entity entity) {
-        Size size = entity.get(Size.ID);
-        return size.size;
+        return entity.getDouble(Size.ID);
     }
 
     private Vector getPosition (Entity entity) {

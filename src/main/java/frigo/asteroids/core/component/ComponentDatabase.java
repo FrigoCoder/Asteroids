@@ -3,9 +3,22 @@ package frigo.asteroids.core.component;
 
 import com.carrotsearch.hppc.IntObjectHashMap;
 
+import frigo.asteroids.core.DoubleComponent;
+import frigo.asteroids.core.FlagComponent;
+
 public class ComponentDatabase {
 
     private IntObjectHashMap<ComponentStore<?>> map = new IntObjectHashMap<>();
+
+    public void register (Class<?> type) {
+        if( FlagComponent.class.isAssignableFrom(type) ){
+            register(System.identityHashCode(type), new FlagStore());
+        }else if( DoubleComponent.class.isAssignableFrom(type) ){
+            register(System.identityHashCode(type), new DoubleStore());
+        }else{
+            register(System.identityHashCode(type), new ObjectStore<>());
+        }
+    }
 
     public <T> void register (int type, ComponentStore<T> store) {
         map.put(type, store);
@@ -34,6 +47,14 @@ public class ComponentDatabase {
 
     public void setFlag (int entity, int type) {
         getStore(type).setFlag(entity);
+    }
+
+    public double getDouble (int entity, int type) {
+        return getStore(type).getDouble(entity);
+    }
+
+    public void setDouble (int entity, int type, double component) {
+        getStore(type).setDouble(entity, component);
     }
 
     @SuppressWarnings("unchecked")

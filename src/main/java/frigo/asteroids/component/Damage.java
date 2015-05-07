@@ -1,16 +1,10 @@
 
 package frigo.asteroids.component;
 
-import frigo.asteroids.core.Component;
+import frigo.asteroids.core.DoubleComponent;
 
-public class Damage extends Component {
+public class Damage extends DoubleComponent {
 
     public static final int ID = System.identityHashCode(Damage.class);
-
-    public final double damage;
-
-    public Damage (double damage) {
-        this.damage = damage;
-    }
 
 }

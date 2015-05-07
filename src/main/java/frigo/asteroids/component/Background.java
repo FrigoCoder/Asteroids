@@ -1,15 +1,10 @@
 
 package frigo.asteroids.component;
 
-import frigo.asteroids.core.Component;
+import frigo.asteroids.core.FlagComponent;
 
-public class Background extends Component {
+public class Background extends FlagComponent {
 
     public static final int ID = System.identityHashCode(Background.class);
-
-    public static final Background BACKGROUND = new Background();
-
-    private Background () {
-    }
 
 }

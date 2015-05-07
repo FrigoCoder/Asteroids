@@ -19,13 +19,15 @@ public class TimerSystemTest {
 
     @Before
     public void setUp () {
-        world.register(Timer.ID);
-        world.register(SelfDestruct.ID);
+        world.register(Timer.class);
+        world.register(SelfDestruct.class);
 
         world.addLogic(new TimerSystem());
         world.init();
         entity = world.createEntity();
-        entity.set(Timer.ID, new Timer(SelfDestruct.ID, SelfDestruct.SELF_DESTRUCT, 1.0));
+        entity.set(Timer.ID, new Timer(1.0, (x, ent) -> {
+            ent.setFlag(SelfDestruct.ID);
+        }));
     }
 
     @Test

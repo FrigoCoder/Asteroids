@@ -7,14 +7,12 @@ public class Timer extends Component {
 
     public static final int ID = System.identityHashCode(Timer.class);
 
-    public int type;
-    public Component component;
     public double seconds;
+    public TimerAction action;
 
-    public Timer (int type, Component component, double seconds) {
-        this.type = type;
-        this.component = component;
+    public Timer (double seconds, TimerAction action) {
         this.seconds = seconds;
+        this.action = action;
     }
 
     public void countDown (double elapsed) {
@@ -23,10 +21,6 @@ public class Timer extends Component {
 
     public boolean elapsed () {
         return seconds <= 0;
-    }
-
-    public Component emitted () {
-        return component;
     }
 
 }

@@ -15,8 +15,8 @@ import frigo.asteroids.core.Vector;
 public class GravitySystem extends Logic {
 
     private GravityCalculator calculator;
-    private Aspect attractorAspect = Aspect.allOf(Attractor.class, Mass.class, Planar.class);
-    private Aspect attractedAspect = Aspect.allOf(Attractable.class, Mass.class, Planar.class);
+    private Aspect attractorAspect = Aspect.allOf(Attractor.ID, Mass.ID, Planar.ID);
+    private Aspect attractedAspect = Aspect.allOf(Attractable.ID, Mass.ID, Planar.ID);
 
     public GravitySystem (GravityCalculator calculator) {
         this.calculator = calculator;

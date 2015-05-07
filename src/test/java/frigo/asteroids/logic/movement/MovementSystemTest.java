@@ -20,7 +20,7 @@ public class MovementSystemTest {
 
     @Before
     public void setUp () {
-        world.register(Planar.ID);
+        world.register(Planar.class);
         world.addLogic(new MovementSystem());
         world.init();
     }

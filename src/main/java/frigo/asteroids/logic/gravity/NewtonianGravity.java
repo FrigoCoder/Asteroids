@@ -12,8 +12,7 @@ public class NewtonianGravity implements GravityCalculator {
 
     @Override
     public Vector getDirectionalAcceleration (Entity attractor, Entity attracted) {
-        Mass mass1 = attractor.get(Mass.ID);
-        double m1 = mass1.kg;
+        double m1 = attractor.getDouble(Mass.ID);
         Planar planar1 = attractor.get(Planar.ID);
         Planar planar2 = attracted.get(Planar.ID);
         Vector direction = planar1.position.sub(planar2.position);

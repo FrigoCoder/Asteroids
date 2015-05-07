@@ -26,15 +26,15 @@ public class CollisionDetectionSystemTest {
 
     @Before
     public void setUp () {
-        world.register(Planar.ID);
-        world.register(Damage.ID);
-        world.register(Health.ID);
-        world.register(Size.ID);
+        world.register(Planar.class);
+        world.register(Damage.class);
+        world.register(Health.class);
+        world.register(Size.class);
 
         entity1.set(Planar.ID, new Planar(vector(0, 0), ZERO, ZERO));
-        entity1.set(Damage.ID, new Damage(1));
+        entity1.setDouble(Damage.ID, 1);
         entity2.set(Planar.ID, new Planar(vector(1, 0), ZERO, ZERO));
-        entity2.set(Health.ID, new Health(1));
+        entity2.setDouble(Health.ID, 1);
 
         CollisionDetectionSystem collisionSystem = new CollisionDetectionSystem();
         collisionSystem.register(action);
@@ -45,8 +45,8 @@ public class CollisionDetectionSystemTest {
 
     @Test
     public void non_intersecting_entities_do_not_emit_collision_message () {
-        entity1.set(Size.ID, new Size(0.4));
-        entity2.set(Size.ID, new Size(0.4));
+        entity1.setDouble(Size.ID, 0.4);
+        entity2.setDouble(Size.ID, 0.4);
 
         world.update(1.0);
 
@@ -55,8 +55,8 @@ public class CollisionDetectionSystemTest {
 
     @Test
     public void touching_entities_emit_collision_message () {
-        entity1.set(Size.ID, new Size(0.5));
-        entity2.set(Size.ID, new Size(0.5));
+        entity1.setDouble(Size.ID, 0.5);
+        entity2.setDouble(Size.ID, 0.5);
 
         world.update(1.0);
 
@@ -65,8 +65,8 @@ public class CollisionDetectionSystemTest {
 
     @Test
     public void intersecting_entities_emit_collision_message () {
-        entity1.set(Size.ID, new Size(0.6));
-        entity2.set(Size.ID, new Size(0.6));
+        entity1.setDouble(Size.ID, 0.6);
+        entity2.setDouble(Size.ID, 0.6);
 
         world.update(1.0);
 
